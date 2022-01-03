@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
              mc:Ignorable="d" 
-             d:DesignHeight="60" d:DesignWidth="300">
+             d:DesignHeight="95" d:DesignWidth="300">
     <Grid x:Name="mainContrainer">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
     </Grid>
 </UserControl>

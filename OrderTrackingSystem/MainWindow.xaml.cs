@@ -24,5 +24,11 @@ namespace OrderTrackingSystem
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dt = DateTime.Now;
+            tlControl.AddNode("Przyjęto",dt , "Jakis tam opis");
+        }
     }
 }
