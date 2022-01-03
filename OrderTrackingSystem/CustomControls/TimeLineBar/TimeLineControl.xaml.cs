@@ -31,8 +31,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
 
         #region Read-only fields
 
-        
-        private readonly VisualBrush dashedBrush = new VisualBrush()
+        private VisualBrush dashedBrush = new VisualBrush()
         {
             Visual = new Rectangle
             {
@@ -67,7 +66,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 PlaceDescription(3* i + 2, 1);
                 /* Skip drawing connector for leaf */
                 if (i == NodeCount - 1) continue;
-                DrawConnector(3 * i + 1, 0);
+                DrawConnector(3 * i + 1, 0, i == NodeCount - 2) ;
             }
             
         }
@@ -139,14 +138,18 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             InvalidateVisual();
         }
 
-        private void DrawConnector(int row, int column)
+        private void DrawConnector(int row, int column, bool lastNode = false)
         {
-            
+            Brush usedBrush = new SolidColorBrush(Colors.Black);
+            if(lastNode)
+            {
+                usedBrush = dashedBrush;
+            }
             var panel = new Border
             {
-                Height = 5,
+                Height = 2,
                 LayoutTransform = new RotateTransform(-90.0),
-                Background = dashedBrush
+                Background = usedBrush
             };
 
             AddControlToMainContainer(panel, row, column);
@@ -161,6 +164,5 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             Grid.SetRow(element, row);
             Grid.SetColumn(element, column);
         }
-
     }
 }
