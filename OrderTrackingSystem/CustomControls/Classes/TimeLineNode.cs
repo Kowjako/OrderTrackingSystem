@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.CustomControls.Classes
 {
+    internal enum TimeLineNodeState
+    {
+        Undefined = 0,
+        Waiting = 1,
+        Done = 2
+    }
+
     internal class TimeLineNode
     {
         public string Caption { get; set; }

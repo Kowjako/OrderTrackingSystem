@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderTrackingSystem.CustomControls.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,33 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
     /// </summary>
     public partial class TimeLineControl : UserControl
     {
+
+        #region Constants
+
         private const double RADIUSX = 10.0;
         private const double RADIUSY = 10.0;
-        private readonly Point CENTER = new Point(25, 25);
+
+        #endregion
+
+        #region Read-only fields
+
+        
+        private readonly VisualBrush dashedBrush = new VisualBrush()
+        {
+            Visual = new Rectangle
+            {
+                StrokeThickness = 5,
+                Stroke = new SolidColorBrush(Colors.Red),
+                Height = 5,
+                Width = 95.5,
+                StrokeDashArray = new DoubleCollection { 1, 2 }
+            }
+        };
+
+        #endregion
 
         public int NodeCount { get; set; } = 1;
+        internal ICollection<TimeLineNode> TimeLineNodes { get; set; } = new List<TimeLineNode>();
 
         public TimeLineControl()
         {
@@ -35,12 +58,14 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
         {
             base.OnRender(drawingContext);
             mainContrainer.Children.Clear();
-            for(int i=0;i<NodeCount;i++)
+            /* Render all timeline nodes */
+            for (int i = 0; i < NodeCount; i++) 
             {
                 DrawEllipse(3 * i, 0);
                 PlaceTitle(3 * i, 1);
                 PlaceDateTime(3 * i + 1,  1);
                 PlaceDescription(3* i + 2, 1);
+                /* Skip drawing connector for leaf */
                 if (i == NodeCount - 1) continue;
                 DrawConnector(3 * i + 1, 0);
             }
@@ -51,46 +76,54 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
 
         private void PlaceDescription(int row, int column)
         {
-            var textBlock = new TextBlock();
-            textBlock.FontSize = 15;
-            textBlock.TextWrapping = TextWrapping.Wrap;
-            textBlock.Text = "Introducing the all-new Make it Big Podcast — a thought leadership audio series for retailers, entrepreneurs and ecommerce professionals.Tune in for expert insights, strategies and tactics to help grow your business.";
-            textBlock.Margin = new Thickness(10, 0, 15, 0);
+            var textBlock = new TextBlock
+            {
+                FontSize = 15,
+                TextWrapping = TextWrapping.Wrap,
+                Text = "Introducing the all-new Make it Big Podcast — a thought leadership audio series for retailers, entrepreneurs and ecommerce professionals.Tune in for expert insights, strategies and tactics to help grow your business.",
+                Margin = new Thickness(10, 0, 15, 0)
+            };
             AddControlToMainContainer(textBlock, row, column);
             mainContrainer.Children.Add(textBlock);
         }
 
         private void PlaceTitle(int row, int column)
         {
-            var textBlock = new TextBlock();
-            textBlock.FontSize = 15;
-            textBlock.VerticalAlignment = VerticalAlignment.Center;
-            textBlock.Text = "Złożenie zamówienia";
-            textBlock.Margin = new Thickness(10, 0, 15, 0);
+            var textBlock = new TextBlock
+            {
+                FontSize = 15,
+                VerticalAlignment = VerticalAlignment.Center,
+                Text = "Złożenie zamówienia",
+                Margin = new Thickness(10, 0, 15, 0)
+            };
             AddControlToMainContainer(textBlock, row, column);
             mainContrainer.Children.Add(textBlock);
         }
 
         private void DrawEllipse(int row, int column)
         {
-            var ellipse = new Ellipse();
-            ellipse.Fill = new SolidColorBrush(Colors.White);
-            ellipse.Stroke = new SolidColorBrush(Colors.Black);
-            ellipse.StrokeThickness = 2;
-            ellipse.Height = RADIUSY * 2;
-            ellipse.Width = RADIUSX * 2;
+            var ellipse = new Ellipse
+            {
+                Fill = new SolidColorBrush(Colors.White),
+                Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 2,
+                Height = RADIUSY * 2,
+                Width = RADIUSX * 2
+            };
             AddControlToMainContainer(ellipse, row, column);
             mainContrainer.Children.Add(ellipse);
         }
 
         private void PlaceDateTime(int row, int column)
         {
-            var textBlock = new TextBlock();
-            textBlock.FontSize = 12;
-            textBlock.Foreground = new SolidColorBrush(Colors.Gray);
-            textBlock.VerticalAlignment = VerticalAlignment.Center;
-            textBlock.Text = "2021-15-10 18:56";
-            textBlock.Margin = new Thickness(10, 0, 15, 0);
+            var textBlock = new TextBlock
+            {
+                FontSize = 12,
+                Foreground = new SolidColorBrush(Colors.Gray),
+                VerticalAlignment = VerticalAlignment.Center,
+                Text = "2021-15-10 18:56",
+                Margin = new Thickness(10, 0, 15, 0)
+            };
             AddControlToMainContainer(textBlock, row, column);
             mainContrainer.Children.Add(textBlock);
         }
@@ -108,10 +141,14 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
 
         private void DrawConnector(int row, int column)
         {
-            var panel = new StackPanel();
-            panel.Height = 1;
-            panel.LayoutTransform = new RotateTransform(-90.0);
-            panel.Background = new SolidColorBrush(Colors.Black);
+            
+            var panel = new Border
+            {
+                Height = 5,
+                LayoutTransform = new RotateTransform(-90.0),
+                Background = dashedBrush
+            };
+
             AddControlToMainContainer(panel, row, column);
             Grid.SetRowSpan(panel, 2);
             mainContrainer.Children.Add(panel);

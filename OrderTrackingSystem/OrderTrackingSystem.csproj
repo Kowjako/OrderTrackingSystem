@@ -67,6 +67,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomControls\Classes\TimeLineNode.cs" />
     <Compile Include="CustomControls\TimeLineBar\TimeLineControl.xaml.cs">
       <DependentUpon>TimeLineControl.xaml</DependentUpon>
     </Compile>
