@@ -41,10 +41,13 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 PlaceTitle(3 * i, 1);
                 PlaceDateTime(3 * i + 1,  1);
                 PlaceDescription(3* i + 2, 1);
+                if (i == NodeCount - 1) continue;
                 DrawConnector(3 * i + 1, 0);
             }
             
         }
+
+        #region Generate components
 
         private void PlaceDescription(int row, int column)
         {
@@ -113,6 +116,8 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             Grid.SetRowSpan(panel, 2);
             mainContrainer.Children.Add(panel);
         }
+
+        #endregion
 
         private void AddControlToMainContainer(UIElement element, int row, int column)
         {
