@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CustomControls\PurchaseElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\TimeLineBar\TimeLineControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -67,7 +71,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomControls\Classes\Boxes.cs" />
     <Compile Include="CustomControls\Classes\TimeLineNode.cs" />
+    <Compile Include="CustomControls\PurchaseElement.xaml.cs">
+      <DependentUpon>PurchaseElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\TimeLineBar\TimeLineControl.xaml.cs">
       <DependentUpon>TimeLineControl.xaml</DependentUpon>
     </Compile>
@@ -107,6 +115,15 @@
     <Folder Include="Images\" />
     <Folder Include="Interfaces\" />
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CustomControls\PurchaseSizes\boxbig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CustomControls\PurchaseSizes\boxMid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CustomControls\PurchaseSizes\boxSmall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

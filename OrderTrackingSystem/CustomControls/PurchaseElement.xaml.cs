@@ -67,6 +67,7 @@ namespace OrderTrackingSystem.CustomControls
         public string BoxSize => BoxSizes[BoxSizeSelector];
         public float BoxPrice => BoxPrices[BoxSizeSelector];
         public string BoxName => BoxNames[BoxSizeSelector];
+        public Color FillingColor { get; set; } =  Colors.Orange;
 
     }
 }

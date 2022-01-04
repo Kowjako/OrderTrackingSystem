@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="250">
-    <Border BorderBrush="Gray" BorderThickness="2">
+             d:DesignHeight="350" d:DesignWidth="200">
+    <Border BorderBrush="Gray" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -32,14 +32,14 @@
                        HorizontalAlignment="Center"
                        TextWrapping="NoWrap"
                        Grid.Row="2"
-                       Text="{Binding BoxSize, Mode=OneWay}"
+                       Text="{Binding BoxSize, Mode=OneWay, StringFormat={}{0} cm}"
                        FontSize="15"/>
             <TextBlock x:Name="priceBox"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontWeight="ExtraBold"
                        Grid.Row="3"
-                       Text="{Binding BoxPrice, Mode=OneWay}"
+                       Text="{Binding BoxPrice, Mode=OneWay, StringFormat={}{0} zł}"
                        FontSize="25"/>
             <CheckBox x:Name="selectedBox"
                       Width="30"
@@ -59,7 +59,7 @@
                                 BorderThickness="0.6">
                             <Rectangle Width="10" 
                                        Height="10"
-                                       Fill="{TemplateBinding Background}"/>
+                                       Fill="Orange"/>
                         </Border>
                     </ControlTemplate>
                 </CheckBox.Template>
