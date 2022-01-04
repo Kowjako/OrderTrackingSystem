@@ -22,6 +22,11 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
     public partial class TimeLineControl : UserControl
     {
 
+        public TimeLineControl()
+        {
+            InitializeComponent();
+        }
+
         #region Constants
 
         private const double RADIUSX = 10.0;
@@ -46,32 +51,12 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
 
         #endregion
 
+        #region Properties
+
         public int NodeCount { get; set; } = 0;
         internal ICollection<TimeLineNode> TimeLineNodes { get; set; } = new List<TimeLineNode>();
 
-        public TimeLineControl()
-        {
-            InitializeComponent();
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            base.OnRender(drawingContext);
-            mainContrainer.Children.Clear();
-            /* Render all timeline nodes */
-            for (int i = 0; i < NodeCount; i++) 
-            {
-                var actualNode = TimeLineNodes.ElementAt(i);
-                DrawEllipse(3 * i, 0);
-                PlaceTitle(3 * i, 1, actualNode.Caption);
-                PlaceDateTime(3 * i + 1,  1, actualNode.Date);
-                PlaceDescription(3* i + 2, 1, actualNode.Description);
-                /* Skip drawing connector for leaf */
-                if (i == NodeCount - 1) continue;
-                DrawConnector(3 * i + 1, 0, i == NodeCount - 2) ;
-            }
-            
-        }
+        #endregion
 
         #region Generate components
 
@@ -85,7 +70,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 Margin = new Thickness(10, 0, 15, 0)
             };
             AddControlToMainContainer(textBlock, row, column);
-            mainContrainer.Children.Add(textBlock);
+            
         }
 
         private void PlaceTitle(int row, int column, string title)
@@ -98,7 +83,6 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 Margin = new Thickness(10, 0, 15, 0)
             };
             AddControlToMainContainer(textBlock, row, column);
-            mainContrainer.Children.Add(textBlock);
         }
 
         private void DrawEllipse(int row, int column)
@@ -112,7 +96,6 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 Width = RADIUSX * 2
             };
             AddControlToMainContainer(ellipse, row, column);
-            mainContrainer.Children.Add(ellipse);
         }
 
         private void PlaceDateTime(int row, int column, DateTime time)
@@ -126,7 +109,6 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 Margin = new Thickness(10, 0, 15, 0)
             };
             AddControlToMainContainer(textBlock, row, column);
-            mainContrainer.Children.Add(textBlock);
         }
 
         public void AddNode(string title, DateTime date, string description)
@@ -136,6 +118,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(15) });
             mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
 
+            /* Create new node */
             var timeLineNode = new TimeLineNode(title, date, description);
             TimeLineNodes.Add(timeLineNode);
 
@@ -160,15 +143,43 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
 
             AddControlToMainContainer(panel, row, column);
             Grid.SetRowSpan(panel, 2);
-            mainContrainer.Children.Add(panel);
         }
 
         #endregion
+
+        #region Overrided methods
+
+        /* Fires when control created or InvalidateVisual was invoked */
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            base.OnRender(drawingContext);
+            mainContrainer.Children.Clear();
+            /* Render all timeline nodes */
+            for (int i = 0; i < NodeCount; i++)
+            {
+                var actualNode = TimeLineNodes.ElementAt(i);
+                DrawEllipse(3 * i, 0);
+                PlaceTitle(3 * i, 1, actualNode.Caption);
+                PlaceDateTime(3 * i + 1, 1, actualNode.Date);
+                PlaceDescription(3 * i + 2, 1, actualNode.Description);
+                /* Skip drawing connector for leaf */
+                if (i == NodeCount - 1)
+                    continue;
+                DrawConnector(3 * i + 1, 0, i == NodeCount - 2);
+            }
+        }
+
+        #endregion
+
+        #region Private methods
 
         private void AddControlToMainContainer(UIElement element, int row, int column)
         {
             Grid.SetRow(element, row);
             Grid.SetColumn(element, column);
+            mainContrainer.Children.Add(element);
         }
+
+        #endregion
     }
 }
