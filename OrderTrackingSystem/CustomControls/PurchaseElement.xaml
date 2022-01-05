@@ -6,7 +6,19 @@
              xmlns:local="clr-namespace:OrderTrackingSystem.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="200">
-    <Border BorderBrush="Gray" BorderThickness="1">
+    <Border x:Name="border">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsChecked, ElementName=selectedBox}" Value="True">
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="1.5"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -46,13 +58,16 @@
                       Height="30"
                       Grid.Row="4">
                 <CheckBox.Style>
-                    <Style TargetType="ToggleButton">
+                    <Style TargetType="CheckBox">
                         <Setter Property="Background" Value="White"/>
                         <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="1"/>
                         <Style.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Background" Value="Orange"/>
                                 <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="1.5"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -62,7 +77,7 @@
                         <Border Width="30"
                                 Height="30"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0.6">
+                                BorderThickness="{TemplateBinding BorderThickness}">
                             <Rectangle Width="10" 
                                        Height="10"
                                        Fill="{TemplateBinding Background}"/>
