@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="200">
+             d:DesignHeight="300" d:DesignWidth="200">
     <Border BorderBrush="Gray" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -46,20 +46,26 @@
                       Height="30"
                       Grid.Row="4">
                 <CheckBox.Style>
-                    <Style TargetType="CheckBox">
+                    <Style TargetType="ToggleButton">
                         <Setter Property="Background" Value="White"/>
                         <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="Orange"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </CheckBox.Style>
                 <CheckBox.Template>
                     <ControlTemplate>
                         <Border Width="30"
                                 Height="30"
-                                BorderBrush="Gray"
+                                BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="0.6">
                             <Rectangle Width="10" 
                                        Height="10"
-                                       Fill="Orange"/>
+                                       Fill="{TemplateBinding Background}"/>
                         </Border>
                     </ControlTemplate>
                 </CheckBox.Template>
