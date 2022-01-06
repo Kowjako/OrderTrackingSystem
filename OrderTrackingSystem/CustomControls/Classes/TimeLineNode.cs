@@ -13,7 +13,7 @@ namespace OrderTrackingSystem.CustomControls.Classes
         Done = 2
     }
 
-    internal class TimeLineNode
+    internal sealed class TimeLineNode
     {
         public string Caption { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;

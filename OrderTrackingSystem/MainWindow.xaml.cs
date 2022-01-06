@@ -27,8 +27,8 @@ namespace OrderTrackingSystem
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var dt = DateTime.Now;
-            //tlControl.AddNode("Przyjęto",dt , "Jakis tam opis");
+            var dt = DateTime.Now;
+            tlControl.AddNode("Przyjęto",dt , "Jakis tam opis");
 
             //elem.SetBoxSize(CustomControls.Classes.BoxSize.Large);
         }

@@ -91,7 +91,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             {
                 Fill = new SolidColorBrush(Colors.White),
                 Stroke = new SolidColorBrush(Colors.Black),
-                StrokeThickness = 2,
+                StrokeThickness = 1.5,
                 Height = RADIUSY * 2,
                 Width = RADIUSX * 2
             };
