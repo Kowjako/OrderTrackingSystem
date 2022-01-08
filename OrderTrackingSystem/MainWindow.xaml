@@ -4,49 +4,96 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:contols="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
-        xmlns:controlsX="clr-namespace:OrderTrackingSystem.CustomControls"
-        xmlns:local="clr-namespace:OrderTrackingSystem"
+        xmlns:viewmodels="clr-namespace:OrderTrackingSystem.ViewModels"
+        xmlns:views="clr-namespace:OrderTrackingSystem.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1600" WindowStyle="None" ResizeMode="NoResize">
     <Border BorderBrush="Black" BorderThickness="1.3">
-        <DockPanel>
-        <materialDesign:ColorZone
+        <DockPanel LastChildFill="True">
+            <materialDesign:ColorZone
             Mode="Inverted"
-            Padding="16" MouseDown="ColorZone_MouseDown" DockPanel.Dock="Top">
-            <DockPanel>
-                <materialDesign:PopupBox
+            Padding="16" MouseDown="ColorZone_MouseDown" 
+            DockPanel.Dock="Top">
+                <DockPanel>
+                    <materialDesign:PopupBox
                     DockPanel.Dock="Right"
                     PlacementMode="BottomAndAlignRightEdges">
-                    <ListBox>
-                        <ListBoxItem
-                            Content="Wyjdz" />
-                    </ListBox>
-                </materialDesign:PopupBox>
-                <StackPanel
+                        <ListBox>
+                            <ListBoxItem
+                            Content="Wyjdz" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
+                        </ListBox>
+                    </materialDesign:PopupBox>
+                    <StackPanel
                     Orientation="Horizontal">
-                    <ToggleButton
+                        <ToggleButton
                         Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                    <TextBlock
+                        <TextBlock
                         VerticalAlignment="Center"
                         Margin="16 0 0 0"
                         Text="OrderTracking System " 
-                        FontSize="15"
+                        FontSize="18"
                         />
-                </StackPanel>
-            </DockPanel>
-        </materialDesign:ColorZone>
-            
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <TabControl
+                Width="70" HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                materialDesign:ColorZoneAssist.Mode="Standard"
+                Background="HotPink">
+                <TabItem
+                Header="{materialDesign:PackIcon Kind=Account, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Konto"
+                PreviewMouseLeftButtonDown="TabItem_MouseLeftButtonDown">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
+                <TabItem
+                Header="{materialDesign:PackIcon Kind=TransitConnectionHorizontal, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Tracking zamowien">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
+                <TabItem
+                Header="{materialDesign:PackIcon Kind=Wallet, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Zamowienia">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
+                <TabItem
+                Header="{materialDesign:PackIcon Kind=Gift, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Produkty wyslane">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
+                <TabItem
+                Header="{materialDesign:PackIcon Kind=Email, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Skrzynka odbiorcza">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
+                <TabItem
+                Header="{materialDesign:PackIcon Kind=Bug, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Moje reklamacje">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
+            </TabControl>
+
+            <ContentControl Content="{Binding}"/>
         </DockPanel>
-        <!--<Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="0.1*"/>
-            </Grid.RowDefinitions>
-            <contols:TimeLineControl x:Name="tlControl" VerticalAlignment="Top" Margin="0,5,0,0" Height="100"/>
-        
-        
-            <Button Grid.Row="1" Content="Add state" Click="Button_Click"/>
-        </Grid> -->
+
     </Border>
 </Window>

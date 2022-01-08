@@ -1,9 +1,8 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -14,37 +13,56 @@ namespace OrderTrackingSystem.Logic.Services
             using(var context = new OrderTrackingSystemEntities())
             {
                 context.Customers.Add(obj);
+                context.Entry(obj).State = EntityState.Added;
+                context.SaveChanges();
             }
         }
 
         public Customers CreateNewInstance()
         {
-            throw new NotImplementedException();
+            return new Customers() { Number = Guid.NewGuid().ToString(), Balance = 500 };
         }
 
         public bool Exists(int id)
         {
-            throw new NotImplementedException();
+            using(var context = new OrderTrackingSystemEntities())
+            {
+                return context.Customers.Find(id) != null;
+            }
         }
 
         public ICollection<Customers> GetAll()
         {
-            throw new NotImplementedException();
+            using(var context = new OrderTrackingSystemEntities())
+            {
+                return context.Customers.ToList();
+            }
         }
 
-        public ICollection<Customers> GetByPrimary(int id)
+        public Customers GetByPrimary(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderTrackingSystemEntities())
+            {
+                return context.Customers.Find(id);
+            }
         }
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderTrackingSystemEntities())
+            {
+                context.Customers.Remove(context.Customers.Find(id));
+                context.SaveChanges();
+            }
         }
 
         public void Update(Customers obj)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderTrackingSystemEntities())
+            {
+                context.Entry(obj).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }

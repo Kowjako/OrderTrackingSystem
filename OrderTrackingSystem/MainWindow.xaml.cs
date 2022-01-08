@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderTrackingSystem.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -24,7 +25,6 @@ namespace OrderTrackingSystem
         public MainWindow()
         {
             InitializeComponent();
-            MessageBox.Show(ConfigurationManager.ConnectionStrings["MainConnectionString"].ConnectionString);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,6 +38,16 @@ namespace OrderTrackingSystem
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void ListBoxItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DataContext = new CustomerViewModel();
         }
     }
 }

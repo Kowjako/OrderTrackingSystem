@@ -8,7 +8,7 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public interface IBusinessService<T>
     {
-        ICollection<T> GetByPrimary(int id);
+        T GetByPrimary(int id);
         ICollection<T> GetAll();
 
         void Add(T obj);

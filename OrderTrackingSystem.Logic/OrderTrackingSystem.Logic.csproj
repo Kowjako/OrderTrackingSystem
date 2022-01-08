@@ -47,6 +47,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,16 +57,78 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccessLayer\Carts.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Customers.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Localizations.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Orders.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\OrderStates.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\OrderSystemModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderSystemModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\OrderSystemModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\OrderSystemModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Pickups.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Products.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Sellers.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessLayer\Sells.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IBusinessService.cs" />
+    <Compile Include="Validators\CustomerValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="DataAccessLayer\OrderSystemModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrderSystemModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataAccessLayer\OrderSystemModel.edmx.diagram">
+      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataAccessLayer\" />
-    <Folder Include="Models\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataAccessLayer\OrderSystemModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
+      <LastGenOutput>OrderSystemModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataAccessLayer\OrderSystemModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
+      <LastGenOutput>OrderSystemModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
