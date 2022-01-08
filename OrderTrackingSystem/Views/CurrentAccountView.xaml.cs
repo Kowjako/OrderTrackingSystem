@@ -18,9 +18,9 @@ namespace OrderTrackingSystem.Views
     /// <summary>
     /// Interaction logic for CustomerView.xaml
     /// </summary>
-    public partial class CustomerView : UserControl
+    public partial class CurrentAccountView : UserControl
     {
-        public CustomerView()
+        public CurrentAccountView()
         {
             InitializeComponent();
         }

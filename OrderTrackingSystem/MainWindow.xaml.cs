@@ -47,7 +47,7 @@ namespace OrderTrackingSystem
 
         private void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new CustomerViewModel();
+            DataContext = new CurrentAccountViewModel();
         }
     }
 }

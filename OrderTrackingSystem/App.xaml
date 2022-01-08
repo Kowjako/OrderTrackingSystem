@@ -12,8 +12,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type viewmodels:CustomerViewModel}">
-                <views:CustomerView DataContext="{Binding}"/>
+            <DataTemplate DataType="{x:Type viewmodels:CurrentAccountViewModel}">
+                <views:CurrentAccountView DataContext="{Binding}"/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

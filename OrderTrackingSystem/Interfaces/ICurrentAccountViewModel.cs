@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Interfaces
 {
-    public interface ICustomerViewModel
+    public interface ICurrentAccountViewModel
     {
     }
 }

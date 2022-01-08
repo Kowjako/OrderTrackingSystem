@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{539A1032-DD88-435B-BCB6-5F2C3178FF14}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>OrderTrackingSystem</RootNamespace>
+    <RootNamespace>OrderTrackingSystem.Presentation</RootNamespace>
     <AssemblyName>OrderTrackingSystem.Presentation</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -76,10 +76,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interfaces\ICustomerViewModel.cs" />
-    <Compile Include="ViewModels\CustomerViewModel.cs" />
-    <Compile Include="Views\CustomerView.xaml.cs">
-      <DependentUpon>CustomerView.xaml</DependentUpon>
+    <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
+    <Compile Include="Interfaces\RelayCommand.cs" />
+    <Compile Include="ViewModels\CurrentAccountViewModel.cs" />
+    <Compile Include="Views\CurrentAccountView.xaml.cs">
+      <DependentUpon>CurrentAccountView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\PurchaseElement.xaml">
       <SubType>Designer</SubType>
@@ -109,7 +110,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\CustomerView.xaml">
+    <Page Include="Views\CurrentAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
