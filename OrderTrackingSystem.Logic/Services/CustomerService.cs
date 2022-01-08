@@ -20,7 +20,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public Customers CreateNewInstance()
         {
-            return new Customers() { Number = Guid.NewGuid().ToString(), Balance = 500 };
+            return new Customers() { Balance = 500 };
         }
 
         public bool Exists(int id)

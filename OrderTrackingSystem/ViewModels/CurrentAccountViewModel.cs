@@ -12,14 +12,20 @@ namespace OrderTrackingSystem.ViewModels
     public class CurrentAccountViewModel
     {
         private readonly IBusinessService<Customers> CustomerService;
+        private readonly LocalizationService LocalizationService;
 
         public CurrentAccountViewModel()
         {
             CustomerService = new CustomerService();
+            LocalizationService = new LocalizationService();
             CurrentCustomer = CustomerService.GetByPrimary(2);
+            Localization = new List<LocalizationRow>();
+
+            Localization.Add(LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId));
         }
 
         public Customers CurrentCustomer { get; set; }
+        public List<LocalizationRow> Localization { get; set; }
 
         private RelayCommand _saveCommand;
         public RelayCommand SaveCommand =>

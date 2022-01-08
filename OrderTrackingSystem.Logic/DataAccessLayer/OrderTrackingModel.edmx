@@ -109,6 +109,26 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Carts' does not have a pri
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Amount" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OrderTrackingSystem.dbo.LocalizationRow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LocalizationRow">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Kraj" />
+            <PropertyRef Name="Miasto" />
+            <PropertyRef Name="Ulica" />
+            <PropertyRef Name="Budynek" />
+            <PropertyRef Name="Mieszkane" />
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kraj" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Miasto" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ulica" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Budynek" Type="tinyint" Nullable="false" />
+          <Property Name="Mieszkane" Type="tinyint" Nullable="false" />
+          <Property Name="Kod" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Carts_OrderId">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -256,6 +276,17 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Carts' does not have a pri
     [Carts].[ProductId] AS [ProductId], 
     [Carts].[OrderId] AS [OrderId]
     FROM [dbo].[Carts] AS [Carts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LocalizationRow" EntityType="Self.LocalizationRow" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LocalizationRow].[Id] AS [Id], 
+    [LocalizationRow].[Kraj] AS [Kraj], 
+    [LocalizationRow].[Miasto] AS [Miasto], 
+    [LocalizationRow].[Ulica] AS [Ulica], 
+    [LocalizationRow].[Budynek] AS [Budynek], 
+    [LocalizationRow].[Mieszkane] AS [Mieszkane], 
+    [LocalizationRow].[Kod] AS [Kod]
+    FROM [dbo].[LocalizationRow] AS [LocalizationRow]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Carts_OrderId" Association="Self.FK__Carts_OrderId">
             <End Role="Orders" EntitySet="Orders" />
@@ -425,6 +456,24 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Carts' does not have a pri
           <NavigationProperty Name="Orders" Relationship="Self.FK__Carts_OrderId" FromRole="Carts" ToRole="Orders" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Carts_ProductId" FromRole="Carts" ToRole="Products" />
         </EntityType>
+        <EntityType Name="LocalizationRow">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Kraj" />
+            <PropertyRef Name="Miasto" />
+            <PropertyRef Name="Ulica" />
+            <PropertyRef Name="Budynek" />
+            <PropertyRef Name="Mieszkane" />
+            <PropertyRef Name="Kod" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kraj" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Miasto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ulica" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Budynek" Type="Byte" Nullable="false" />
+          <Property Name="Mieszkane" Type="Byte" Nullable="false" />
+          <Property Name="Kod" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Customers_LocalizationId">
           <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -567,6 +616,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Carts' does not have a pri
           <EntitySet Name="Sellers" EntityType="Self.Sellers" />
           <EntitySet Name="Sells" EntityType="Self.Sells" />
           <EntitySet Name="Carts" EntityType="Self.Carts" />
+          <EntitySet Name="LocalizationRow" EntityType="Self.LocalizationRow" />
           <AssociationSet Name="FK__Customers_LocalizationId" Association="Self.FK__Customers_LocalizationId">
             <End Role="Localizations" EntitySet="Localizations" />
             <End Role="Customers" EntitySet="Customers" />
@@ -720,6 +770,19 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Carts' does not have a pri
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocalizationRow">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.LocalizationRow">
+              <MappingFragment StoreEntitySet="LocalizationRow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kraj" ColumnName="Kraj" />
+                <ScalarProperty Name="Miasto" ColumnName="Miasto" />
+                <ScalarProperty Name="Ulica" ColumnName="Ulica" />
+                <ScalarProperty Name="Budynek" ColumnName="Budynek" />
+                <ScalarProperty Name="Mieszkane" ColumnName="Mieszkane" />
+                <ScalarProperty Name="Kod" ColumnName="Kod" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
