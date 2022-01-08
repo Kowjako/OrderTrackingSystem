@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingSystem", "OrderTrackingSystem\OrderTrackingSystem.csproj", "{539A1032-DD88-435B-BCB6-5F2C3178FF14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingSystemю.Presentation", "OrderTrackingSystem\OrderTrackingSystemю.Presentation.csproj", "{539A1032-DD88-435B-BCB6-5F2C3178FF14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingSystem.Tests", "OrderTrackingSystem.Tests\OrderTrackingSystem.Tests.csproj", "{3088835A-0A1E-475C-B6B3-C6733B0150AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderTrackingSystem.Logic", "OrderTrackingSystem.Logic\OrderTrackingSystem.Logic.csproj", "{8ADBC9D2-C0EC-4233-BD7E-2891FFE93983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3088835A-0A1E-475C-B6B3-C6733B0150AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3088835A-0A1E-475C-B6B3-C6733B0150AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3088835A-0A1E-475C-B6B3-C6733B0150AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ADBC9D2-C0EC-4233-BD7E-2891FFE93983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ADBC9D2-C0EC-4233-BD7E-2891FFE93983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ADBC9D2-C0EC-4233-BD7E-2891FFE93983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADBC9D2-C0EC-4233-BD7E-2891FFE93983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

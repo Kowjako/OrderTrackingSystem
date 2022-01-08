@@ -15,6 +15,8 @@ namespace OrderTrackingSystem.Logic.Services
         void Remove(int id);
         void Update(T obj);
 
+        bool Exists(int id);
+
         T CreateNewInstance();
     }
 }

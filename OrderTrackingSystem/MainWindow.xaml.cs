@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace OrderTrackingSystem
         public MainWindow()
         {
             InitializeComponent();
+            MessageBox.Show(ConfigurationManager.ConnectionStrings["MainConnectionString"].ConnectionString);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

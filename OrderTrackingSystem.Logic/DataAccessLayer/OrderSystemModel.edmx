@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OrderTrackingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OrderTrackingSystem.dbo.Carts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="Amount" Type="smallint" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Age" Type="tinyint" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Balance" Type="smallmoney" Nullable="false" />
+          <Property Name="LocalizationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Localizations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Flat" Type="tinyint" Nullable="false" />
+          <Property Name="House" Type="tinyint" Nullable="false" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="PayType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeliveryType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PickupId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderStates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pickups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Capacity" Type="smallint" Nullable="false" />
+          <Property Name="OpenDate" Type="datetime" Nullable="false" />
+          <Property Name="CloseDate" Type="datetime" Nullable="false" />
+          <Property Name="LocalizationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PriceNetto" Type="smallmoney" Nullable="false" />
+          <Property Name="VAT" Type="tinyint" Nullable="false" />
+          <Property Name="PriceBrutto" Type="smallmoney" Nullable="false" />
+          <Property Name="Weight" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="Discount" Type="tinyint" Nullable="false" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="OpenDate" Type="datetime" Nullable="false" />
+          <Property Name="TIN" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="LocalizationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sells">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellingDate" Type="datetime" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Carts_OrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Carts_ProductId">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Customers_LocalizationId">
+          <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="LocalizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders_CustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders_PickupId">
+          <End Role="Pickups" Type="Self.Pickups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pickups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PickupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pickups_LocalizationId">
+          <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
+          <End Role="Pickups" Type="Self.Pickups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pickups">
+              <PropertyRef Name="LocalizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products_SellerId">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sellers_LocalizationId">
+          <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sellers">
+              <PropertyRef Name="LocalizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sells_CustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sells" Type="Self.Sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sells">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sells_SellerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Sells" Type="Self.Sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sells">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OrderTrackingSystemModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localizations" EntityType="Self.Localizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStates" EntityType="Self.OrderStates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pickups" EntityType="Self.Pickups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sells" EntityType="Self.Sells" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carts" EntityType="Self.Carts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Carts].[Amount] AS [Amount], 
+    [Carts].[ProductId] AS [ProductId], 
+    [Carts].[OrderId] AS [OrderId]
+    FROM [dbo].[Carts] AS [Carts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Carts_OrderId" Association="Self.FK__Carts_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Carts_ProductId" Association="Self.FK__Carts_ProductId">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Customers_LocalizationId" Association="Self.FK__Customers_LocalizationId">
+            <End Role="Localizations" EntitySet="Localizations" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders_CustomerId" Association="Self.FK__Orders_CustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders_PickupId" Association="Self.FK__Orders_PickupId">
+            <End Role="Pickups" EntitySet="Pickups" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pickups_LocalizationId" Association="Self.FK__Pickups_LocalizationId">
+            <End Role="Localizations" EntitySet="Localizations" />
+            <End Role="Pickups" EntitySet="Pickups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products_SellerId" Association="Self.FK__Products_SellerId">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sellers_LocalizationId" Association="Self.FK__Sellers_LocalizationId">
+            <End Role="Localizations" EntitySet="Localizations" />
+            <End Role="Sellers" EntitySet="Sellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sells_CustomerId" Association="Self.FK__Sells_CustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Sells" EntitySet="Sells" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sells_SellerId" Association="Self.FK__Sells_SellerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Sells" EntitySet="Sells" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OrderTrackingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Byte" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Balance" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="LocalizationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Localizations" Relationship="Self.FK__Customers_LocalizationId" FromRole="Customers" ToRole="Localizations" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders_CustomerId" FromRole="Customers" ToRole="Orders" />
+          <NavigationProperty Name="Sells" Relationship="Self.FK__Sells_CustomerId" FromRole="Customers" ToRole="Sells" />
+          <NavigationProperty Name="Sells1" Relationship="Self.FK__Sells_SellerId" FromRole="Customers" ToRole="Sells" />
+        </EntityType>
+        <EntityType Name="Localizations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Flat" Type="Byte" Nullable="false" />
+          <Property Name="House" Type="Byte" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Customers_LocalizationId" FromRole="Localizations" ToRole="Customers" />
+          <NavigationProperty Name="Pickups" Relationship="Self.FK__Pickups_LocalizationId" FromRole="Localizations" ToRole="Pickups" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Sellers_LocalizationId" FromRole="Localizations" ToRole="Sellers" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="PayType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeliveryType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PickupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Orders_CustomerId" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Carts_OrderId" FromRole="Orders" ToRole="Carts" />
+          <NavigationProperty Name="Pickups" Relationship="Self.FK__Orders_PickupId" FromRole="Orders" ToRole="Pickups" />
+        </EntityType>
+        <EntityType Name="OrderStates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pickups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Capacity" Type="Int16" Nullable="false" />
+          <Property Name="OpenDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CloseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LocalizationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Localizations" Relationship="Self.FK__Pickups_LocalizationId" FromRole="Pickups" ToRole="Localizations" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders_PickupId" FromRole="Pickups" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PriceNetto" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="VAT" Type="Byte" Nullable="false" />
+          <Property Name="PriceBrutto" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="Weight" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="Discount" Type="Byte" Nullable="false" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Carts_ProductId" FromRole="Products" ToRole="Carts" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Products_SellerId" FromRole="Products" ToRole="Sellers" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OpenDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TIN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LocalizationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Localizations" Relationship="Self.FK__Sellers_LocalizationId" FromRole="Sellers" ToRole="Localizations" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products_SellerId" FromRole="Sellers" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Sells">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Sells_CustomerId" FromRole="Sells" ToRole="Customers" />
+          <NavigationProperty Name="Customers1" Relationship="Self.FK__Sells_SellerId" FromRole="Sells" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="Amount" Type="Int16" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Carts_OrderId" FromRole="Carts" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Carts_ProductId" FromRole="Carts" ToRole="Products" />
+        </EntityType>
+        <Association Name="FK__Customers_LocalizationId">
+          <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="LocalizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders_CustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sells_CustomerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sells" Type="Self.Sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sells">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sells_SellerId">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Sells" Type="Self.Sells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sells">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pickups_LocalizationId">
+          <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
+          <End Role="Pickups" Type="Self.Pickups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pickups">
+              <PropertyRef Name="LocalizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sellers_LocalizationId">
+          <End Role="Localizations" Type="Self.Localizations" Multiplicity="1" />
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sellers">
+              <PropertyRef Name="LocalizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Carts_OrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders_PickupId">
+          <End Role="Pickups" Type="Self.Pickups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pickups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PickupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Carts_ProductId">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products_SellerId">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OrderTrackingSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="Localizations" EntityType="Self.Localizations" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="OrderStates" EntityType="Self.OrderStates" />
+          <EntitySet Name="Pickups" EntityType="Self.Pickups" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" />
+          <EntitySet Name="Sells" EntityType="Self.Sells" />
+          <EntitySet Name="Carts" EntityType="Self.Carts" />
+          <AssociationSet Name="FK__Customers_LocalizationId" Association="Self.FK__Customers_LocalizationId">
+            <End Role="Localizations" EntitySet="Localizations" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders_CustomerId" Association="Self.FK__Orders_CustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sells_CustomerId" Association="Self.FK__Sells_CustomerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Sells" EntitySet="Sells" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sells_SellerId" Association="Self.FK__Sells_SellerId">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Sells" EntitySet="Sells" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pickups_LocalizationId" Association="Self.FK__Pickups_LocalizationId">
+            <End Role="Localizations" EntitySet="Localizations" />
+            <End Role="Pickups" EntitySet="Pickups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sellers_LocalizationId" Association="Self.FK__Sellers_LocalizationId">
+            <End Role="Localizations" EntitySet="Localizations" />
+            <End Role="Sellers" EntitySet="Sellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Carts_OrderId" Association="Self.FK__Carts_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders_PickupId" Association="Self.FK__Orders_PickupId">
+            <End Role="Pickups" EntitySet="Pickups" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Carts_ProductId" Association="Self.FK__Carts_ProductId">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products_SellerId" Association="Self.FK__Products_SellerId">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OrderTrackingSystemModelStoreContainer" CdmEntityContainer="OrderTrackingSystemEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="LocalizationId" ColumnName="LocalizationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localizations">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Localizations">
+              <MappingFragment StoreEntitySet="Localizations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Flat" ColumnName="Flat" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="DeliveryType" ColumnName="DeliveryType" />
+                <ScalarProperty Name="PickupId" ColumnName="PickupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStates">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.OrderStates">
+              <MappingFragment StoreEntitySet="OrderStates">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pickups">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Pickups">
+              <MappingFragment StoreEntitySet="Pickups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
+                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+                <ScalarProperty Name="LocalizationId" ColumnName="LocalizationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PriceNetto" ColumnName="PriceNetto" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="PriceBrutto" ColumnName="PriceBrutto" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Sellers">
+              <MappingFragment StoreEntitySet="Sellers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
+                <ScalarProperty Name="TIN" ColumnName="TIN" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="LocalizationId" ColumnName="LocalizationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sells">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Sells">
+              <MappingFragment StoreEntitySet="Sells">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SellingDate" ColumnName="SellingDate" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Carts">
+              <MappingFragment StoreEntitySet="Carts">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
