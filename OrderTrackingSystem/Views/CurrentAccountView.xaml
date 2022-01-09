@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:OrderTrackingSystem.Views"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="800"
-             Background="Purple">
+             Background="White">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,69 +19,65 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <StackPanel DataContext="{Binding CurrentCustomer}" Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
-            <TextBlock Text="Imię" 
-                       FontSize="17" 
-                       Margin="10,5,10,5"
-                       FontFamily="Arial"/>
-            <TextBox Height="26" 
-                     Text ="{Binding Name, 
+        <DockPanel DataContext="{Binding CurrentCustomer}" Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
+            <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Imię"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="10 5 10 5"
+                    FontSize="15"
+                    Text="{Binding Name, 
                                      Mode=TwoWay, 
-                                     UpdateSourceTrigger=PropertyChanged}"
-                     FontFamily="Arial"
-                     FontSize="15"
-                     Margin="10,0,10,5"
-                     Foreground="Purple"/>
-            <TextBlock Text="Nazwisko" 
-                       FontSize="17" 
-                       Margin="10,0,10,5"
-                       FontFamily="Arial"/>
-            <TextBox Height="26" 
-                     Text ="{Binding Surname, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Nazwisko"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="10 5 10 5"
+                    FontSize="15"
+                    Text="{Binding Surname, 
                                      Mode=TwoWay, 
-                                     UpdateSourceTrigger=PropertyChanged}"
-                     FontFamily="Arial"
-                     FontSize="15"
-                     Margin="10,0,10,5"
-                     Foreground="Purple"/>
-            <TextBlock Text="Wiek" 
-                       FontSize="17" 
-                       Margin="10,0,10,5"
-                       FontFamily="Arial"/>
-            <TextBox Height="26" 
-                     Text ="{Binding Age, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Wiek"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="10 5 10 5"
+                    FontSize="15"
+                    Text="{Binding Age, 
                                      Mode=TwoWay, 
-                                     UpdateSourceTrigger=PropertyChanged}"
-                     FontFamily="Arial"
-                     FontSize="15"
-                     Margin="10,0,10,5"
-                     Foreground="Purple"/>
-            <TextBlock Text="Numer" 
-                       FontSize="17" 
-                       Margin="10,0,10,5"
-                       FontFamily="Arial"/>
-            <TextBox Height="26" 
-                     Text ="{Binding Number, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Numer"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="10 5 10 5"
+                    FontSize="15"
+                    Text="{Binding Number, 
                                      Mode=TwoWay, 
-                                     UpdateSourceTrigger=PropertyChanged}"
-                     FontFamily="Arial"
-                     FontSize="15"
-                     Margin="10,0,10,5"
-                     Foreground="Purple"/>
-            <TextBlock Text="Email" 
-                       FontSize="17" 
-                       Margin="10,0,10,5"
-                       FontFamily="Arial"/>
-            <TextBox Height="26" 
-                     Text ="{Binding Email, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Email"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="10 5 10 5"
+                    FontSize="15"
+                    Text="{Binding Email, 
                                      Mode=TwoWay, 
-                                     UpdateSourceTrigger=PropertyChanged}"
-                     FontFamily="Arial"
-                     FontSize="15"
-                     Margin="10,0,10,5"
-                     Foreground="Purple"/>
-
-        </StackPanel>
+                                     UpdateSourceTrigger=PropertyChanged}" />
+            <DockPanel>
+                <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="DarkOrange"
+                    BorderBrush="DarkOrange"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Zapisz" />
+            </DockPanel>
+        </DockPanel>
         <Border Grid.Row="0" Background="DeepPink">
             <TextBlock Text="Szczegóły konta"
                        VerticalAlignment="Center"
@@ -91,50 +87,52 @@
         </Border>
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <TextBlock Text="Adres zamieszkania"
-                       Foreground="White"
+                       Foreground="Black"
                        FontSize="17"
-                       Margin="10,5,10,5"
+                       Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid Background="Purple" 
-                      Foreground="White"
+            <DataGrid Background="White" 
+                      Foreground="Black"
                       Height="80"
-                      materialDesign:ColorZoneAssist.Mode="Dark"
+                      IsReadOnly="True"
+                      ColumnWidth="*"
                       ScrollViewer.CanContentScroll="False"
                       VerticalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Localization}"
-                      Margin="5"/>
+                      Margin="5">
+            </DataGrid>
 
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
             <TextBlock Text="Moje zamówienia"
-                       Foreground="White"
+                       Foreground="Black"
                        FontSize="17"
                        Margin="10,5,10,5"
                        FontFamily="Arial"/>
             <TextBlock Text="Tylko do odczytu"
-                       Foreground="White"
+                       Foreground="Black"
                        FontSize="10"
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
-            <DataGrid Background="Purple" 
-                      Foreground="White"
+            <DataGrid Background="White" 
+                      Foreground="Black"
                       ItemsSource="{Binding Orders}"
                       Margin="5"/>
 
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
             <TextBlock Text="Wysłane elementy"
-                       Foreground="White"
+                       Foreground="Black"
                        FontSize="17"
                        Margin="10,5,10,5"
                        FontFamily="Arial"/>
             <TextBlock Text="Tylko do odczytu"
-                       Foreground="White"
+                       Foreground="Black"
                        FontSize="10"
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
-            <DataGrid Background="Purple" 
-                      Foreground="White"
+            <DataGrid Background="White" 
+                      Foreground="Black"
                       ItemsSource="{Binding Sells}"
                       Margin="5"/>
 
