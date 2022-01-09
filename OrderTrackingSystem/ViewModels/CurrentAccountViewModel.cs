@@ -21,7 +21,7 @@ namespace OrderTrackingSystem.ViewModels
             CurrentCustomer = CustomerService.GetByPrimary(2);
             Localization = new List<LocalizationRow>();
 
-            Localization.Add(LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId));
+            Localization.Add(LocalizationService.GetLocalizationRowById(CurrentCustomer.LocalizationId));
         }
 
         public Customers CurrentCustomer { get; set; }
@@ -32,6 +32,10 @@ namespace OrderTrackingSystem.ViewModels
             _saveCommand ?? (_saveCommand = new RelayCommand(obj =>
             {
                 CustomerService.Update(CurrentCustomer);
+                if(Localization != null && Localization.Any())
+                {
+                    LocalizationService.Update(Localization.First());
+                }
             }));
     }
 }
