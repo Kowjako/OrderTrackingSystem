@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewmodels="clr-namespace:OrderTrackingSystem.ViewModels"
              xmlns:views="clr-namespace:OrderTrackingSystem.Views"
+             xmlns:viewmodelsP="clr-namespace:OrderTrackingSystem.Presentation.ViewModels"
+             xmlns:viewsP="clr-namespace:OrderTrackingSystem.Presentation.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,6 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewmodels:CurrentAccountViewModel}">
                 <views:CurrentAccountView DataContext="{Binding}"/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodelsP:TrackingViewModel}">
+                <viewsP:TrackingView DataContext="{Binding}"/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

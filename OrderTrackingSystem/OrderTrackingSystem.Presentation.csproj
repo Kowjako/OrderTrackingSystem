@@ -79,8 +79,12 @@
     <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
     <Compile Include="Interfaces\RelayCommand.cs" />
     <Compile Include="ViewModels\CurrentAccountViewModel.cs" />
+    <Compile Include="ViewModels\TrackingViewModel.cs" />
     <Compile Include="Views\CurrentAccountView.xaml.cs">
       <DependentUpon>CurrentAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrackingView.xaml.cs">
+      <DependentUpon>TrackingView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\PurchaseElement.xaml">
       <SubType>Designer</SubType>
@@ -111,6 +115,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CurrentAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TrackingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

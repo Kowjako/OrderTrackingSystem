@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.ViewModels;
+﻿using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -48,6 +49,11 @@ namespace OrderTrackingSystem
         private void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new CurrentAccountViewModel();
+        }
+
+        private void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DataContext = new TrackingViewModel();
         }
     }
 }
