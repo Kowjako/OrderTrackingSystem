@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -35,6 +36,16 @@ namespace OrderTrackingSystem.Presentation.Views
             timeLine.AddNode("Wydana do doręczenia", DateTime.Now, "Przesyłka jest przekazana kurierowi");
             timeLine.AddNode("Gotowa do odbioru", DateTime.Now, "Przesyłka czeka na odbiór");
             timeLine.AddNode("Odebrana", DateTime.Now, "Towar został odebrany przez klienta");
+        }
+
+        private void btnShowProgress_Click(object sender, RoutedEventArgs e)
+        {
+            var trackerAnimation = new DoubleAnimation();
+            trackerAnimation.From = 0;
+            trackerAnimation.To = 340;
+            trackerAnimation.Duration = TimeSpan.FromSeconds(0.6);
+
+            tracker.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
         }
     }
 }

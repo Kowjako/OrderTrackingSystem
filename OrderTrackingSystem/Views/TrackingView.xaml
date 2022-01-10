@@ -80,28 +80,35 @@
                 </StackPanel>
             </GroupBox>
             <Button
+                    x:Name="btnShowProgress"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Command="{Binding SaveCommand}"
+                    Click="btnShowProgress_Click"
                     Margin="7"
                     VerticalAlignment="Bottom"
                     Content="Pokaż progres" />
         </DockPanel>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="4"
-                    Grid.Row="0">
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2">
             <TextBlock Text="Elementy zamówione i wysłane"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid />
+            <DataGrid Margin="0,0,10,0"/>
         </StackPanel>
-        <DockPanel Background="Yellow" Grid.Column="2" Grid.RowSpan="4">
+        <DockPanel x:Name="tracker" 
+                   Background="Yellow" 
+                   HorizontalAlignment="Right"
+                   Width="0"
+                   Grid.Column="2" 
+                   Grid.RowSpan="4">
             <controls:TimeLineControl x:Name="timeLine" Margin="0,10,0,0" />
         </DockPanel>
         
