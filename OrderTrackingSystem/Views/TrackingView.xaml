@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
+               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -27,8 +28,68 @@
                        Foreground="Black"/>
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                   Background="LightPink">
-            
+                   Background="LightPink" LastChildFill="False">
+            <GroupBox
+                Header="Pokaż elementy"
+                Margin="5"
+                Height="130"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+                    <RadioButton
+                        GroupName="Elements"
+                        IsChecked="True"
+                        Content="Wszystkie" 
+                        Margin="0,0,0,5"/>
+                    <RadioButton
+                        GroupName="Elements"
+                        IsChecked="False"
+                        Content="Tylko zamówione" 
+                        Margin="0,5,0,5"/>
+                    <RadioButton
+                        GroupName="Elements"
+                        IsChecked="False"
+                        Content="Tylko wysłane" 
+                        Margin="0,5,0,5"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Header="Nadawca"
+                Margin="5"
+                Height="160"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+                    
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Header="Odbiorca"
+                Margin="5"
+                Height="160"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel >
+                    
+                </StackPanel>
+            </GroupBox>
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Command="{Binding SaveCommand}"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Pokaż progres" />
         </DockPanel>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="4"
