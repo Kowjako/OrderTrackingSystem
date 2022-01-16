@@ -16,8 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-
+            <RowDefinition Height="2.8*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
@@ -37,7 +36,7 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Dodaj do koszyka" />
             <Button
@@ -47,9 +46,19 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Wyczyść koszyk" />
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Zatwierdź" />
         </DockPanel>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
@@ -71,15 +80,15 @@
             <StackPanel Orientation="Horizontal">
                 <purchaseElement:PurchaseElement BoxSizeSelector="Small"
                                                  Width="200"
-                                                 Height="310"
+                                                 Height="280"
                                                  Margin="10,10,0,0"/>
                 <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
                                                  Width="200"
-                                                 Height="310"
+                                                 Height="280"
                                                  Margin="10,10,0,0"/>
                 <purchaseElement:PurchaseElement BoxSizeSelector="Large"
                                                  Width="200"
-                                                 Height="310"
+                                                 Height="280"
                                                  Margin="10,10,0,0"/>
             </StackPanel>
 

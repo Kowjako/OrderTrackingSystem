@@ -15,8 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
@@ -28,6 +27,30 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
+            <GroupBox
+                Header="Odbiorca"
+                Margin="5"
+                Height="150"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Header="Punkt odbioru"
+                Margin="5"
+                Height="150"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+
+                </StackPanel>
+            </GroupBox>
             <Button
                     x:Name="btnAddToCart"
                     DockPanel.Dock="Bottom"
@@ -36,7 +59,7 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Dodaj do koszyka" />
             <Button
@@ -46,9 +69,19 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Wyczyść koszyk" />
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Zatwierdź" />
             <StackPanel DockPanel.Dock="Bottom"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
