@@ -61,5 +61,10 @@ namespace OrderTrackingSystem
         {
             DataContext = new SendsViewModel();
         }
+
+        private void MailboxMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DataContext = new MailboxViewModel();
+        }
     }
 }

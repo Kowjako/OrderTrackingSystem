@@ -77,13 +77,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
+    <Compile Include="Interfaces\IMailboxViewModel.cs" />
+    <Compile Include="Interfaces\IOrdersViewModel.cs" />
+    <Compile Include="Interfaces\ISendsViewModel.cs" />
+    <Compile Include="Interfaces\ITrackingViewModel.cs" />
     <Compile Include="Interfaces\RelayCommand.cs" />
     <Compile Include="ViewModels\CurrentAccountViewModel.cs" />
+    <Compile Include="ViewModels\MailboxViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\SendsViewModel.cs" />
     <Compile Include="ViewModels\TrackingViewModel.cs" />
     <Compile Include="Views\CurrentAccountView.xaml.cs">
       <DependentUpon>CurrentAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MailBoxView.xaml.cs">
+      <DependentUpon>MailBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
@@ -123,6 +131,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CurrentAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MailBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
