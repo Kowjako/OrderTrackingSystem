@@ -43,9 +43,16 @@ namespace OrderTrackingSystem.Presentation.Views
             var trackerAnimation = new DoubleAnimation();
             trackerAnimation.From = 0;
             trackerAnimation.To = 340;
-            trackerAnimation.Duration = TimeSpan.FromSeconds(0.6);
-
+            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
+            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
             tracker.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
+
+            var gridAnimation = new ThicknessAnimation();
+            gridAnimation.From = new Thickness(0, 0, 0, 0);
+            gridAnimation.To = new Thickness(0, 0, 340, 0);
+            gridAnimation.Duration = TimeSpan.FromSeconds(2);
+            gridAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            elementGrid.BeginAnimation(MarginProperty, gridAnimation);
         }
     }
 }

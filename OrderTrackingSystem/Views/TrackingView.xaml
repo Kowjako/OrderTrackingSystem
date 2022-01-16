@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
-               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls1="clr-namespace:OrderTrackingSystem.CustomControls"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -101,7 +102,7 @@
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid Margin="0,0,10,0"/>
+            <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
         </StackPanel>
         <DockPanel x:Name="tracker" 
                    Background="Yellow" 
