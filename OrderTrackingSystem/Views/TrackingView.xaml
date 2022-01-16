@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
              xmlns:controls1="clr-namespace:OrderTrackingSystem.CustomControls"
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -59,7 +59,7 @@
             <GroupBox
                 Header="Nadawca"
                 Margin="5"
-                Height="160"
+                Height="130"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
@@ -71,7 +71,7 @@
             <GroupBox
                 Header="Odbiorca"
                 Margin="5"
-                Height="160"
+                Height="130"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
@@ -80,6 +80,33 @@
                     
                 </StackPanel>
             </GroupBox>
+            
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <DatePicker
+                    SelectedDate="{x:Static sys:DateTime.Now}"
+                    Focusable="False"
+                    Width="130"
+                    Margin="5"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                </DatePicker>
+                <Rectangle Width="25" Height="2" Stroke="Black"/>
+                <DatePicker
+                    SelectedDate="{x:Static sys:DateTime.Now}"
+                    Focusable="False"
+                    Margin="5"
+                    Width="130"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+            </StackPanel>
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Potwierdź odbiór" />
             <Button
                     x:Name="btnUndoOrder"
                     DockPanel.Dock="Bottom"
@@ -88,10 +115,20 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Click="btnShowProgress_Click"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Złóz rezygnację" />
+            <Button
+                    x:Name="btnDateFilter"
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Odfiltruj" />
             <Button
                     x:Name="btnShowProgress"
                     DockPanel.Dock="Bottom"
@@ -101,7 +138,7 @@
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Click="btnShowProgress_Click"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Pokaż progres" />
         </DockPanel>

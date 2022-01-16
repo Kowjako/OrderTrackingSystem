@@ -71,8 +71,8 @@
                 <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="DarkOrange"
-                    BorderBrush="DarkOrange"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Command="{Binding SaveCommand}"

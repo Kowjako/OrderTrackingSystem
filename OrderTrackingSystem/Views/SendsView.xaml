@@ -28,6 +28,18 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
+            <GroupBox
+                Header="Odbiorca"
+                Margin="5"
+                Height="150"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+
+                </StackPanel>
+            </GroupBox>
             <Button
                     x:Name="btnAddToCart"
                     DockPanel.Dock="Bottom"
