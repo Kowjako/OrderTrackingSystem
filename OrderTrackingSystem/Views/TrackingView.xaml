@@ -22,7 +22,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Tracking zamówień"
+            <TextBlock Text="Tracking przesyłek"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -80,6 +80,18 @@
                     
                 </StackPanel>
             </GroupBox>
+            <Button
+                    x:Name="btnUndoOrder"
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Click="btnShowProgress_Click"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Złóz rezygnację" />
             <Button
                     x:Name="btnShowProgress"
                     DockPanel.Dock="Bottom"

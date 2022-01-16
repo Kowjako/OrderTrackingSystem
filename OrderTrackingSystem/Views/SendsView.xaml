@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="OrderTrackingSystem.Presentation.Views.SendsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="DeepPink">
+            <TextBlock Text="Nadawanie przesyłki"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="17"
+                       Foreground="Black"/>
+        </Border>
+        <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                   Background="LightPink" LastChildFill="False">
+            <Button
+                    x:Name="btnAddToCart"
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Dodaj do koszyka" />
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Wyczyść koszyk" />
+        </DockPanel>
+        <StackPanel Grid.Column="1"
+                    Grid.RowSpan="3"
+                    Grid.Row="0">
+            <TextBlock Text="Produkty dostępne"
+                       Foreground="Black"
+                       FontSize="17"
+                       Margin="10,10,10,5"
+                       FontFamily="Arial"/>
+            <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1"
+                    Grid.Row="3">
+            <TextBlock Text="Rozmiar przesyłki"
+                       Foreground="Black"
+                       FontSize="17"
+                       Margin="10,10,10,5"
+                       FontFamily="Arial"/>
+            <StackPanel Orientation="Horizontal">
+                <purchaseElement:PurchaseElement BoxSizeSelector="Small"
+                                                 Width="200"
+                                                 Height="310"
+                                                 Margin="10,10,0,0"/>
+                <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
+                                                 Width="200"
+                                                 Height="310"
+                                                 Margin="10,10,0,0"/>
+                <purchaseElement:PurchaseElement BoxSizeSelector="Large"
+                                                 Width="200"
+                                                 Height="310"
+                                                 Margin="10,10,0,0"/>
+            </StackPanel>
+
+        </StackPanel>
+        <DockPanel
+                   LastChildFill="False"
+                   Grid.Column="2"
+                   Grid.Row="0"
+                   Grid.RowSpan="4" Margin="1,0,0,0">
+            <TextBlock
+                DockPanel.Dock="Top"
+                HorizontalAlignment="Left"
+                Text="Odbiorca"
+                TextAlignment="Left"
+                Foreground="Black"
+                FontSize="17"
+                Margin="10,10,10,5"
+                FontFamily="Arial"/>
+            <DataGrid DockPanel.Dock="Top"/>
+            <Grid DockPanel.Dock="Bottom" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Text="Kwota netto"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Text="VAT"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Text="Kwota brutto"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Text="Dostawa"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Text="Suma"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Right"
+                    Text="150 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Right"
+                    Text="23%"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Right"
+                    Text="181,30 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Right"
+                    Text="8,99 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Right"
+                    Text="280,73 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                </StackPanel>
+            </Grid>
+
+        </DockPanel>
+    </Grid>
+</UserControl>
