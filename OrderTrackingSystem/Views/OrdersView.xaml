@@ -155,6 +155,18 @@
                 </StackPanel>
             </GroupBox>
         </DockPanel>
+        <GridSplitter Grid.Row="2"
+                      Grid.Column="1" Height="4"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Background="Black"/>
+        <GridSplitter Grid.Row="0"
+                      Grid.Column="1"
+                      Grid.RowSpan="4"
+                      Width="3"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch"
+                      Background="Black"/>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
@@ -163,7 +175,7 @@
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
+            <DataGrid x:Name="elementGrid" Margin="0,0,5,0"/>
         </StackPanel>
         <StackPanel Grid.Column="1"
                     Grid.Row="3">
@@ -188,7 +200,7 @@
                 FontSize="17"
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
-            <DataGrid DockPanel.Dock="Top"/>
+            <DataGrid Margin="5,0,5,0" DockPanel.Dock="Top"/>
             <Grid DockPanel.Dock="Bottom" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
