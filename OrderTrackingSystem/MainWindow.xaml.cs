@@ -28,9 +28,7 @@ namespace OrderTrackingSystem
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
+        #region Common behaviour
 
         private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -41,6 +39,17 @@ namespace OrderTrackingSystem
         {
             this.Close();
         }
+
+        private void fullScreenBtn_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+            MaxHeight = SystemParameters.WorkArea.Height;
+            fullScreenBtn.Content = WindowState == WindowState.Maximized ? "Wyjdz z Full Screen" : "Włącz Full Screen";
+        }
+
+        #endregion
+
+        #region DataContext
 
         private void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -66,5 +75,9 @@ namespace OrderTrackingSystem
         {
             DataContext = new MailboxViewModel();
         }
+
+
+        #endregion
+        
     }
 }

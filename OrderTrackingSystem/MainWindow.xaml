@@ -20,6 +20,9 @@
                         <ListBox>
                             <ListBoxItem
                             Content="Wyjdz" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
+                            <ListBoxItem x:Name="fullScreenBtn"
+                            Content="Włącz Full Screen" PreviewMouseLeftButtonDown="fullScreenBtn_PreviewMouseLeftButtonDown">
+                            </ListBoxItem>
                         </ListBox>
                     </materialDesign:PopupBox>
                     <StackPanel
