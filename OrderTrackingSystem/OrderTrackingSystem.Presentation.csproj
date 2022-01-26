@@ -178,7 +178,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\mail.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="CustomControls\PurchaseSizes\boxbig.png" />
   </ItemGroup>
@@ -196,6 +198,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\balance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\purchase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\order.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
