@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -73,46 +74,84 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Powiązane zamówienie"
+                Header="Filtrowanie wiadomości"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Image Height="50"
-                           Width="50"
-                           Grid.Column="0"
-                           Source="../Images/mail.png"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <Rectangle Grid.Column="1" Margin="0,2,2,2" Height="2" Fill="Black"/>
-                    <Button
-                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Height="30"
+                <StackPanel>
+                    <StackPanel>
+                        <RadioButton
+                        GroupName="Elements"
+                        IsChecked="True"
+                        Content="Wszystkie" 
+                        Margin="0,0,0,5"/>
+                        <RadioButton
+                        GroupName="Elements"
+                        IsChecked="False"
+                        Content="Tylko odebrane" 
+                        Margin="0,5,0,5"/>
+                        <RadioButton
+                        GroupName="Elements"
+                        IsChecked="False"
+                        Content="Tylko wysłane" 
+                        Margin="0,5,0,5"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </GroupBox>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker
+                    Grid.Column="0"
+                    SelectedDate="{x:Static sys:DateTime.Now}"
+                    Focusable="False"
+                    Margin="5"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                </DatePicker>
+                <Rectangle Grid.Column="1"
+                           Margin="4,0,4,0"
+                           Height="2" 
+                           Stroke="Black"/>
+                <DatePicker
                     Grid.Column="2"
-                    Margin="0,0,0,0"
-                    Background="Green"
-                    BorderBrush="Green"
-                    Width="30">
-                        <materialDesign:PackIcon
-                        Kind="Plus"
-                        Height="25"
-                        Width="25" />
-                    </Button>
-                    <Rectangle Grid.Column="3" Margin="2,2,0,2" Height="2" Fill="Black"/>
-                    <Image Height="50"
-                           Width="50"
-                           Grid.Column="4"
-                           Source="../Images/order.png"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Grid>
+                    SelectedDate="{x:Static sys:DateTime.Now}"
+                    Focusable="False"
+                    Margin="5"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+            </Grid>
+            <GroupBox
+                Header="Powiąż zamówienie"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+                    <StackPanel>
+                        <RadioButton
+                        GroupName="Elements"
+                        IsChecked="True"
+                        Content="Wszystkie" 
+                        Margin="0,0,0,5"/>
+                        <RadioButton
+                        GroupName="Elements"
+                        IsChecked="False"
+                        Content="Tylko odebrane" 
+                        Margin="0,5,0,5"/>
+                        <RadioButton
+                        GroupName="Elements"
+                        IsChecked="False"
+                        Content="Tylko wysłane" 
+                        Margin="0,5,0,5"/>
+                    </StackPanel>
+
+                </StackPanel>
             </GroupBox>
             <Button
                     DockPanel.Dock="Bottom"
@@ -124,6 +163,16 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Wyślij wiadomość" />
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Odpowiedz" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"

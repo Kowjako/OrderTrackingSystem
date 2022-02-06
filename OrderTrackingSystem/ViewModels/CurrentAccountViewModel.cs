@@ -21,7 +21,7 @@ namespace OrderTrackingSystem.ViewModels
             CurrentCustomer = CustomerService.GetByPrimary(2);
             Localization = new List<LocalizationRow>();
 
-            Localization.Add(LocalizationService.GetLocalizationRowById(CurrentCustomer.LocalizationId));
+            Localization.Add(LocalizationService.GetRowByPrimary(CurrentCustomer.LocalizationId));
         }
 
         public Customers CurrentCustomer { get; set; }
