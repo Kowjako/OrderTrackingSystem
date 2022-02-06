@@ -81,22 +81,30 @@
                 </StackPanel>
             </GroupBox>
             
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
                 <DatePicker
+                    Grid.Column="0"
                     SelectedDate="{x:Static sys:DateTime.Now}"
                     Focusable="False"
-                    Width="130"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}">
                 </DatePicker>
-                <Rectangle Width="25" Height="2" Stroke="Black"/>
+                <Rectangle Grid.Column="1"
+                           Margin="4,0,4,0"
+                           Height="2" 
+                           Stroke="Black"/>
                 <DatePicker
+                    Grid.Column="2"
                     SelectedDate="{x:Static sys:DateTime.Now}"
                     Focusable="False"
                     Margin="5"
-                    Width="130"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
-            </StackPanel>
+            </Grid>
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"

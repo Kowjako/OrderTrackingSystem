@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -128,30 +129,25 @@
             <GroupBox
                 Header="Powiąż zamówienie"
                 Margin="5"
+                Height="200"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <StackPanel>
-                        <RadioButton
-                        GroupName="Elements"
-                        IsChecked="True"
-                        Content="Wszystkie" 
-                        Margin="0,0,0,5"/>
-                        <RadioButton
-                        GroupName="Elements"
-                        IsChecked="False"
-                        Content="Tylko odebrane" 
-                        Margin="0,5,0,5"/>
-                        <RadioButton
-                        GroupName="Elements"
-                        IsChecked="False"
-                        Content="Tylko wysłane" 
-                        Margin="0,5,0,5"/>
-                    </StackPanel>
-
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <controls:MindMapControl Grid.Row="0"/>
+                    <ComboBox
+                        Grid.Row="1"
+                        x:Name="ordersComboBox"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        materialDesign:HintAssist.Hint="Wybierz zamówienie"
+                        ItemsSource="{Binding ShortStringList}"
+                    />
+                </Grid>
             </GroupBox>
             <Button
                     DockPanel.Dock="Bottom"
@@ -173,6 +169,16 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Odpowiedz" />
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Powiąż" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"

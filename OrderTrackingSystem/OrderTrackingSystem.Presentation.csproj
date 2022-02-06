@@ -76,6 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControls\MindMapControl.xaml.cs">
+      <DependentUpon>MindMapControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
     <Compile Include="Interfaces\IMailboxViewModel.cs" />
     <Compile Include="Interfaces\IOrdersViewModel.cs" />
@@ -102,6 +105,10 @@
     <Compile Include="Views\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControls\MindMapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\PurchaseElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
