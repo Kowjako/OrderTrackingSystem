@@ -9,26 +9,36 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class LocalizationService : IBusinessService<Localizations>
+    public class LocalizationService : IService<Localizations>
     {
         public void Add(Localizations obj)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderTrackingSystemEntities())
+            {
+                context.Localizations.Add(obj);
+                context.SaveChanges();
+            }
         }
 
         public Localizations CreateNewInstance()
         {
-            throw new NotImplementedException();
+            return new Localizations();
         }
 
         public bool Exists(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderTrackingSystemEntities())
+            {
+                return context.Localizations.Find(id) == null;
+            }
         }
 
         public ICollection<Localizations> GetAll()
         {
-            throw new NotImplementedException();
+            using(var context = new OrderTrackingSystemEntities())
+            {
+                return context.Localizations.ToList();
+            }
         }
 
         public Localizations GetByPrimary(int id)
@@ -39,17 +49,21 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public LocalizationRow GetLocalizationRowById(int id)
+        public LocalizationRow GetRowByPrimary(int id)
         {
-            using(var context = new OrderTrackingSystemEntities())
+            using (var context = new OrderTrackingSystemEntities())
             {
-                return context.LocalizationRow.First(p => p.Id == id);
+                return context.LocalizationRow.First(e => e.Id == id);
             }
         }
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderTrackingSystemEntities())
+            {
+                context.Localizations.Remove(new Localizations { Id = id });
+                context.SaveChanges();
+            }
         }
 
         public void Update(Localizations obj)
@@ -63,12 +77,13 @@ namespace OrderTrackingSystem.Logic.Services
 
         public void Update(LocalizationRow obj)
         {
+            var sourceLocalization = GlobalMapper.MapLocalizationRowToLocalization(obj);
             using (var context = new OrderTrackingSystemEntities())
             {
-                var originalLocalization = Mapper.ConvertToLocalizations(obj);
-                context.Entry(originalLocalization).State = EntityState.Modified;
+                context.Entry(sourceLocalization).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }
+
     }
 }

@@ -102,10 +102,11 @@
     <Compile Include="DataAccessLayer\Sells.cs">
       <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Mappers\GlobalMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IBusinessService.cs" />
+    <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Validators\CustomerValidator.cs" />
   </ItemGroup>

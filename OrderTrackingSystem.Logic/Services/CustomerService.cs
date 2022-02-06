@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class CustomerService : IBusinessService<Customers>
+    public class CustomerService : IService<Customers>
     {
         public void Add(Customers obj)
         {
