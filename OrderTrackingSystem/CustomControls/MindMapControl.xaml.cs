@@ -1,16 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace OrderTrackingSystem.Presentation.CustomControls
@@ -20,6 +12,8 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     /// </summary>
     public partial class MindMapControl : UserControl
     {
+        ICollection<string> LinkedItems = new List<string>();
+
         public MindMapControl()
         {
             InitializeComponent();
@@ -27,11 +21,39 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
         private void expandBtn_Click(object sender, RoutedEventArgs e)
         {
-            var btn = sender as Button;
-            if(btn != null)
+            AddNode("XY123412412412");
+        }
+
+        public void AddNode(string refNumber)
+        {
+            if(LinkedItems.Count == 0)
             {
-                btn.Content = btn.Content.Equals("+") ? "-" : "+";
+                DrawMainConnector();
+                LinkedItems.Add(refNumber);
             }
+        }
+
+        private void DrawMainConnector()
+        {
+            var rectangle = new Rectangle()
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                Height = 2,
+                Fill = new SolidColorBrush { Color = Colors.Black}
+            };
+
+            var secondaryRectangle = new Rectangle
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                Height = 2,
+                Fill = new SolidColorBrush { Color = Colors.Black }
+            };
+
+            Grid.SetColumn(rectangle, 2);
+            helpGrid.Children.Add(rectangle);
+
+            Grid.SetColumn(secondaryRectangle, 2);
+            secondaryGrid.Children.Add(secondaryRectangle);
         }
     }
 }
