@@ -85,13 +85,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="9*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1">
+                <Grid x:Name="ordersGrid" Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        
                     </Grid.RowDefinitions>
-                    <Border CornerRadius="15"
+                    <!--<Border CornerRadius="15"
                             BorderBrush="Maroon"
                             BorderThickness="3"
                             Margin="0,5,5,5"
@@ -100,8 +98,8 @@
                         <TextBlock Text="NZ#191238512"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"/>
-                    </Border>
+                                   HorizontalAlignment="Center"/> 
+                    </Border> 
                     <Border CornerRadius="15"
                             BorderBrush="Maroon"
                             BorderThickness="3"
@@ -123,11 +121,11 @@
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"/>
-                    </Border>
+                    </Border> -->
                 </Grid>
-                <Rectangle VerticalAlignment="Center" Height="2"
+                <!--<Rectangle VerticalAlignment="Center" Height="2"
                       Fill="Black"
-                      Grid.Column="0"/>
+                      Grid.Column="0"/> -->
             </Grid>
         </Grid>
     </Border>
