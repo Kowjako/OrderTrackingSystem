@@ -1,20 +1,10 @@
 ﻿using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace OrderTrackingSystem
 {
@@ -23,6 +13,7 @@ namespace OrderTrackingSystem
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool isMenuExpanded;
         public MainWindow()
         {
             InitializeComponent();
@@ -78,6 +69,16 @@ namespace OrderTrackingSystem
 
 
         #endregion
-        
+
+        private void menuExpander_Click(object sender, RoutedEventArgs e)
+        {
+            var trackerAnimation = new DoubleAnimation();
+            trackerAnimation.From = isMenuExpanded ? 0 : 70;
+            trackerAnimation.To = isMenuExpanded ? 70 : 0;
+            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
+            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            tabControl.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
+            isMenuExpanded = !isMenuExpanded;
+        }
     }
 }

@@ -133,6 +133,7 @@
                       ColumnWidth="*"
                       ScrollViewer.CanContentScroll="False"
                       VerticalScrollBarVisibility="Hidden"
+                      HorizontalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Localization}"
                       Margin="5">
             </DataGrid>

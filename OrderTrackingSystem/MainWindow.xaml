@@ -27,7 +27,8 @@
                     </materialDesign:PopupBox>
                     <StackPanel
                     Orientation="Horizontal">
-                        <ToggleButton
+                        <ToggleButton x:Name="menuExpander"
+                        Click="menuExpander_Click"
                         Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
                         <TextBlock
                         VerticalAlignment="Center"
@@ -39,6 +40,7 @@
                 </DockPanel>
             </materialDesign:ColorZone>
             <TabControl
+                x:Name="tabControl"
                 Width="70" HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
                 materialDesign:ColorZoneAssist.Mode="Standard"
