@@ -62,11 +62,14 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 var border = new Border()
                 {
                     CornerRadius = new CornerRadius(15),
-                    BorderBrush = new SolidColorBrush { Color = i == 0 ? Colors.Red : 
-                                                                i == 1 ? Colors.Green :
-                                                                Colors.Blue},
+                    BorderBrush = new SolidColorBrush
+                    {
+                        Color = i == 0 ? Colors.Red :
+                        i == 1 ? Colors.Green :
+                        Colors.Blue
+                    },
                     BorderThickness = new Thickness(3),
-                    Margin = new Thickness(0, 5, 5, 5),
+                    Margin = new Thickness(0, 2, 5, 2),
                 };
 
                 var header = new TextBlock()

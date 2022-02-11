@@ -141,6 +141,7 @@
                     <controls:MindMapControl Grid.Row="0"
                                              Margin="0,0,0,10"/>
                     <ComboBox
+                        materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,5,10,5"
@@ -172,16 +173,6 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Odpowiedz" />
-            <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
-                    Content="Powiąż" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
