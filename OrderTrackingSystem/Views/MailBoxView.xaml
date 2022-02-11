@@ -22,9 +22,16 @@
         </Grid.RowDefinitions>
         <GridSplitter Grid.Column="1"
                       Grid.Row="0"
-                      Grid.RowSpan="4"
+                      Grid.RowSpan="3"
                       Width="3"
                       Background="Black"/>
+        <GridSplitter Grid.Row="2"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Background="Black"
+                      Height="4"/>
         <Border Grid.Row="0" Background="DeepPink">
             <TextBlock Text="Skrzynka E-MAIL"
                        VerticalAlignment="Center"
@@ -185,7 +192,7 @@
                     Content="Filtruj" />
         </DockPanel>
         <StackPanel Grid.Column="1"
-                    Grid.RowSpan="4"
+                    Grid.RowSpan="3"
                     Grid.Row="0">
             <TextBlock Text="Wiadomości wysłane"
                        Foreground="Black"
@@ -198,7 +205,7 @@
                    LastChildFill="False"
                    Grid.Column="2"
                    Grid.Row="0"
-                   Grid.RowSpan="4" Margin="1,0,0,0">
+                   Grid.RowSpan="3" Margin="1,0,0,0">
             <TextBlock
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Left"
@@ -209,6 +216,9 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <DataGrid DockPanel.Dock="Top"/>
-        </DockPanel>       
+        </DockPanel>
+        <DockPanel Grid.Column="1"
+                   Grid.Row="3"
+                   Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>
