@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="950" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -108,22 +108,26 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DockPanel.Dock="Bottom"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                    <Button
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
-                    Margin="5,0,5,5"
+                                Width="30"
+                    Margin="0,0,0,5"
                     Background="RoyalBlue"
                     BorderBrush="RoyalBlue"
-                    Width="30">
+                    >
                         <materialDesign:PackIcon
                         Kind="Minus"
                         Height="25"
                         Width="25" />
                     </Button>
-                    <TextBox Width="190"
+                    <TextBox Grid.Column="1"
                          Margin="5,0,5,5"
                          Text="0"
                          HorizontalContentAlignment="Center"
@@ -142,17 +146,18 @@
                     <Button
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
-                    Margin="5,0,5,5"
+                    Width="30"
+                    Margin="0,0,0,5"
                     Background="Red"
                     BorderBrush="Red"
                     BorderThickness="0"
-                    Width="30">
+                    Grid.Column="2">
                         <materialDesign:PackIcon
                         Kind="Plus"
                         Height="25"
                         Width="25" />
                     </Button>
-                </StackPanel>
+                </Grid>
             </GroupBox>
         </DockPanel>
         <GridSplitter Grid.Row="2"

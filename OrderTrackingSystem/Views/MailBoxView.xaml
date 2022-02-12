@@ -219,6 +219,78 @@
         </DockPanel>
         <DockPanel Grid.Column="1"
                    Grid.Row="3"
-                   Grid.ColumnSpan="2"/>
+                   LastChildFill="True"
+                   Grid.ColumnSpan="2">
+            <TextBlock Text="Pogląd wiadomości"
+                       Foreground="Black"
+                       DockPanel.Dock="Top"
+                       FontSize="17"
+                       Margin="10,10,10,10"
+                       FontFamily="Arial"/>
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Od: Wlodzimierz Kowjako (wkowjako@uktracker.com)"
+                       Margin="10,0,10,5"
+                       FontSize="13"
+                       Foreground="Black"/>
+            <TextBlock DockPanel.Dock="Top"
+                       Text="Do: Krystian Sliwinski (ksliwinski@uktracker.com)"
+                       Margin="10,0,10,5"
+                       FontSize="13"
+                       Foreground="Black"/>
+            <TextBlock DockPanel.Dock="Top"
+                       Foreground="Black"
+                       FontSize="17"
+                       Text="Powiązane zamówienia"
+                       Margin="10,10,10,10"
+                       FontFamily="Arial"/>
+            <StackPanel DockPanel.Dock="Top"
+                        Orientation="Horizontal">
+                <materialDesign:Chip
+                    Margin="10,0,10,10"
+                    Content="#XYZ19234652"
+                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                    <materialDesign:Chip.Icon>
+                        <materialDesign:PackIcon
+                            Kind="Link" />
+                    </materialDesign:Chip.Icon>
+                </materialDesign:Chip>
+                <materialDesign:Chip
+                    Margin="10,0,10,10"
+                    Content="#RZA619847218"
+                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                    <materialDesign:Chip.Icon>
+                        <materialDesign:PackIcon
+                            Kind="Link" />
+                    </materialDesign:Chip.Icon>
+                </materialDesign:Chip>
+                <materialDesign:Chip
+                    Margin="10,0,10,10"
+                    Content="#QPA51261265"
+                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                    <materialDesign:Chip.Icon>
+                        <materialDesign:PackIcon
+                            Kind="Link" />
+                    </materialDesign:Chip.Icon>
+                </materialDesign:Chip>
+            </StackPanel>
+            <TextBlock DockPanel.Dock="Top"
+                       Foreground="Black"
+                       FontSize="17"
+                       Text="Treść wiadomości"
+                       Margin="10,10,10,0"
+                       FontFamily="Arial"/>
+            <TextBox
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                VerticalAlignment="Top"
+                AcceptsReturn="True"
+                DockPanel.Dock="Bottom"
+                Margin="10"
+                FontSize="15"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto"/>
+        </DockPanel>
     </Grid>
 </UserControl>
