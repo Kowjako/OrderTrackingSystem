@@ -30,6 +30,35 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
+            <Border Grid.Column="2"
+                DockPanel.Dock="Top"
+                Grid.Row="0"
+                Margin="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="35" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Style="{DynamicResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Kind="Search"
+                            Opacity="1" />
+                    </Button>
+                    <TextBox
+                        FontSize="15"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"
+                        Margin="0 0 15 0"
+                        materialDesign:HintAssist.Hint="Wyszukaj zamówienie/wysyłkę"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"/>
+                </Grid>
+            </Border>
             <GroupBox
                 Header="Pokaż elementy"
                 Margin="5"
@@ -156,8 +185,9 @@
                     Grid.ColumnSpan="2">
             <TextBlock Text="Elementy zamówione i wysłane"
                        Foreground="Black"
+                       VerticalAlignment="Center"
                        FontSize="17"
-                       Margin="10,10,10,5"
+                       Margin="10,10,240,5"
                        FontFamily="Arial"/>
             <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
         </StackPanel>
