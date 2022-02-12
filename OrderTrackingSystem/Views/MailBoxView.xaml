@@ -225,6 +225,13 @@
                        Foreground="Black"
                        DockPanel.Dock="Top"
                        FontSize="17"
+                       Margin="10,10,10,0"
+                       FontFamily="Arial"/>
+            <TextBlock DockPanel.Dock="Top"
+                       Foreground="Black"
+                       FontSize="17"
+                       FontWeight="Bold"
+                       Text="Zawiadomienie o rezygnacji zamówienia"
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
             <TextBlock DockPanel.Dock="Top"
