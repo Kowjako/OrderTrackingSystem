@@ -8,7 +8,7 @@
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="950" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -134,6 +134,30 @@
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
             </Grid>
+            <GroupBox
+                Header="Rezygnacja"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel >
+                    <ComboBox
+                        materialDesign:HintAssist.Background="LightPink"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        Grid.Row="1"
+                        Padding="5,10,10,10"
+                        materialDesign:HintAssist.Hint="Wybierz szablon reklamacyjny"
+                        IsEditable="False">
+                        <ComboBoxItem
+                        Content="Apple" />
+                    </ComboBox>
+                    <CheckBox
+                        Margin="0,5,0,0"
+                        IsChecked="True"
+                        Content="Wygeneruj automatyczną wiadomość" />
+                </StackPanel>
+            </GroupBox>
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"

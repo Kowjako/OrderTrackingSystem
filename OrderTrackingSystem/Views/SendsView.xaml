@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="950" d:DesignWidth="1500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -16,8 +16,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2.8*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="360"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
             <TextBlock Text="Nadawanie przesyłki"
@@ -72,6 +72,17 @@
                     VerticalAlignment="Bottom"
                     Content="Zatwierdź" />
         </DockPanel>
+        <GridSplitter Grid.Column="1"
+                      Grid.Row="0"
+                      Grid.RowSpan="4"
+                      Width="4"
+                      Background="Black"/>
+        <GridSplitter Grid.Column="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Grid.Row="2"
+                      Height="4"
+                      Background="Black"/>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
@@ -82,29 +93,56 @@
                        FontFamily="Arial"/>
             <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
         </StackPanel>
-        <StackPanel Grid.Column="1"
+        <Grid Grid.Column="1"
                     Grid.Row="3">
-            <TextBlock Text="Rozmiar przesyłki"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0"
+                       LastChildFill="False">
+                <TextBlock Text="Rozmiar przesyłki"
+                       DockPanel.Dock="Top"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <StackPanel Orientation="Horizontal">
-                <purchaseElement:PurchaseElement BoxSizeSelector="Small"
+                <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+                    <purchaseElement:PurchaseElement BoxSizeSelector="Small"
                                                  Width="200"
-                                                 Height="280"
-                                                 Margin="10,10,0,0"/>
-                <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
+                                                 DockPanel.Dock="Left"
+                                                 Height="300"
+                                                 Margin="10,10,0,10"/>
+                    <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
                                                  Width="200"
-                                                 Height="280"
-                                                 Margin="10,10,0,0"/>
-                <purchaseElement:PurchaseElement BoxSizeSelector="Large"
+                                                 DockPanel.Dock="Left"
+                                                 Height="300"
+                                                 Margin="10,10,0,10"/>
+                    <purchaseElement:PurchaseElement BoxSizeSelector="Large"
                                                  Width="200"
-                                                 Height="280"
-                                                 Margin="10,10,0,0"/>
-            </StackPanel>
-
-        </StackPanel>
+                                                 DockPanel.Dock="Left"
+                                                 Height="300"
+                                                 Margin="10,10,0,10"/>
+                </DockPanel>
+            </DockPanel>
+            <DockPanel Margin="15,0,0,0" LastChildFill="True"
+                       Grid.Column="1">
+                <TextBlock Text="Kategorie produktów"
+                           FontFamily="Arial"
+                           FontSize="17"
+                           DockPanel.Dock="Top"
+                           Margin="10"/>
+                <TreeView Grid.Column="1">
+                    <TreeViewItem IsExpanded="True" Header="Wszystkie">
+                        <TreeViewItem Header="AGD"/>
+                        <TreeViewItem Header="Książki"/>
+                        <TreeViewItem Header="Odzież"/>
+                        <TreeViewItem Header="Jedzenie"/>
+                        <TreeViewItem Header="Nardzędzia"/>
+                    </TreeViewItem>
+                </TreeView>
+            </DockPanel>
+        </Grid>
         <DockPanel
                    LastChildFill="False"
                    Grid.Column="2"
