@@ -28,6 +28,35 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
+            <Border Grid.Column="2"
+                DockPanel.Dock="Top"
+                Grid.Row="0"
+                Margin="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="35" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Style="{DynamicResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Kind="Search"
+                            Opacity="1" />
+                    </Button>
+                    <TextBox
+                        FontSize="15"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"
+                        Margin="0 0 15 0"
+                        materialDesign:HintAssist.Hint="Wyszukaj odbiorcę"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"/>
+                </Grid>
+            </Border>
             <GroupBox
                 Header="Odbiorca"
                 Margin="5"
@@ -38,6 +67,90 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
 
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Header="Ilość produktu"
+                Margin="5"
+                Height="90"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Height="30"
+                                Width="30"
+                    Margin="0,0,0,5"
+                    Background="RoyalBlue"
+                    BorderBrush="RoyalBlue"
+                    >
+                        <materialDesign:PackIcon
+                        Kind="Minus"
+                        Height="25"
+                        Width="25" />
+                    </Button>
+                    <TextBox Grid.Column="1"
+                         Margin="5,0,5,5"
+                         Text="0"
+                         HorizontalContentAlignment="Center"
+                         IsEnabled="False"
+                         VerticalContentAlignment="Center">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Button
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Height="30"
+                    Width="30"
+                    Margin="0,0,0,5"
+                    Background="Red"
+                    BorderBrush="Red"
+                    BorderThickness="0"
+                    Grid.Column="2">
+                        <materialDesign:PackIcon
+                        Kind="Plus"
+                        Height="25"
+                        Width="25" />
+                    </Button>
+                </Grid>
+            </GroupBox>
+            <GroupBox
+                Header="Sortowanie"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+                    <RadioButton
+                        Style="{StaticResource MaterialDesignRadioButton}"
+                        Content="Najpierw najtańsze"
+                        Margin="0,5,0,5">
+                    </RadioButton>
+                    <RadioButton
+                        Style="{StaticResource MaterialDesignRadioButton}"
+                        Content="Najpierw najdroższe"
+                        Margin="0,5,0,5">
+                    </RadioButton>
+                    <RadioButton
+                        Style="{StaticResource MaterialDesignRadioButton}"
+                        Content="Najpierw popularne"
+                        Margin="0,5,0,5">
+                    </RadioButton>
                 </StackPanel>
             </GroupBox>
             <Button
@@ -61,6 +174,16 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Wyczyść koszyk" />
+            <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Filtruj" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -97,51 +220,72 @@
                     Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <DockPanel Grid.Column="0"
-                       LastChildFill="False">
-                <TextBlock Text="Rozmiar przesyłki"
-                       DockPanel.Dock="Top"
-                       Foreground="Black"
-                       FontSize="17"
-                       Margin="10,10,10,5"
-                       FontFamily="Arial"/>
+            <GroupBox
+                Grid.Column="0"
+                Header="Rozmiar przesyłki"
+                Margin="5"            
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="#FF883C57"
+                materialDesign:ColorZoneAssist.Foreground="White">
                 <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
-                    <purchaseElement:PurchaseElement BoxSizeSelector="Small"
-                                                 Width="200"
+                        <purchaseElement:PurchaseElement BoxSizeSelector="Small"
+                                                 Width="150"
                                                  DockPanel.Dock="Left"
-                                                 Height="300"
-                                                 Margin="10,10,0,10"/>
-                    <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
-                                                 Width="200"
+                                                 Height="290"
+                                                 Margin="0,0,0,0"/>
+                        <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
+                                                 Width="150"
                                                  DockPanel.Dock="Left"
-                                                 Height="300"
-                                                 Margin="10,10,0,10"/>
-                    <purchaseElement:PurchaseElement BoxSizeSelector="Large"
-                                                 Width="200"
+                                                 Height="290"
+                                                 Margin="10,0,0,0"/>
+                        <purchaseElement:PurchaseElement BoxSizeSelector="Large"
+                                                 Width="150"
                                                  DockPanel.Dock="Left"
-                                                 Height="300"
-                                                 Margin="10,10,0,10"/>
-                </DockPanel>
-            </DockPanel>
-            <DockPanel Margin="15,0,0,0" LastChildFill="True"
-                       Grid.Column="1">
-                <TextBlock Text="Kategorie produktów"
-                           FontFamily="Arial"
-                           FontSize="17"
-                           DockPanel.Dock="Top"
-                           Margin="10"/>
-                <TreeView Grid.Column="1">
-                    <TreeViewItem IsExpanded="True" Header="Wszystkie">
-                        <TreeViewItem Header="AGD"/>
-                        <TreeViewItem Header="Książki"/>
-                        <TreeViewItem Header="Odzież"/>
-                        <TreeViewItem Header="Jedzenie"/>
-                        <TreeViewItem Header="Nardzędzia"/>
-                    </TreeViewItem>
-                </TreeView>
-            </DockPanel>
+                                                 Height="290"
+                                                 Margin="10,0,0,0"/>
+                    </DockPanel>
+            </GroupBox>
+            <GroupBox
+                Grid.Column="1"
+                Header="Kategorie produktów"
+                Margin="5,5,10,5"
+                HorizontalAlignment="Stretch"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="#FF883C57"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+                    <TreeView Grid.Column="1">
+                        <TreeViewItem IsExpanded="False" Header="AGD">
+                            <TreeViewItem Header="Kuchnia"/>
+                            <TreeViewItem Header="Sprzątanie"/>
+                        </TreeViewItem>
+                        <TreeViewItem IsExpanded="False" Header="Elektronika">
+                            <TreeViewItem Header="Laptopy"/>
+                            <TreeViewItem Header="Konsole"/>
+                            <TreeViewItem Header="Telefony"/>
+                        </TreeViewItem>
+                        <TreeViewItem IsExpanded="False" Header="Gadżety">
+                            <TreeViewItem Header="Smartwatche"/>
+                            <TreeViewItem Header="Aparaty fotograficzny"/>
+                            <TreeViewItem Header="Akcesoria GPS"/>
+                        </TreeViewItem>
+                        <TreeViewItem IsExpanded="False" Header="TV - Audio">
+                            <TreeViewItem Header="Telewizory"/>
+                            <TreeViewItem Header="Hi-Fi Audio"/>
+                            <TreeViewItem Header="Odtwarzacze"/>
+                        </TreeViewItem>
+                        <TreeViewItem IsExpanded="False" Header="Odzież">
+                            <TreeViewItem Header="Spodnie"/>
+                            <TreeViewItem Header="T-Shirty"/>
+                            <TreeViewItem Header="Koszulki"/>
+                            <TreeViewItem Header="Kurtki"/>
+                        </TreeViewItem>
+                    </TreeView>
+                </StackPanel>
+            </GroupBox>
         </Grid>
         <DockPanel
                    LastChildFill="False"
@@ -151,7 +295,7 @@
             <TextBlock
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Left"
-                Text="Odbiorca"
+                Text="Koszyk"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
