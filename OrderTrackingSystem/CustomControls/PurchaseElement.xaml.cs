@@ -26,7 +26,7 @@ namespace OrderTrackingSystem.CustomControls
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static readonly DependencyProperty boxSize =
-            DependencyProperty.Register("BoxSizeSelector", typeof(BoxSize),
+            DependencyProperty.Register(nameof(BoxSizeSelector), typeof(BoxSize),
             typeof(PurchaseElement), new PropertyMetadata());
 
 
@@ -36,11 +36,11 @@ namespace OrderTrackingSystem.CustomControls
             set
             {
                 SetValue(boxSize, value);
-                OnPropertyChanged("ImageSize");
-                OnPropertyChanged("ImagePath");
-                OnPropertyChanged("BoxName");
-                OnPropertyChanged("BoxSize");
-                OnPropertyChanged("BoxPrice");
+                OnPropertyChanged(nameof(ImageSize));
+                OnPropertyChanged(nameof(ImagePath));
+                OnPropertyChanged(nameof(BoxName));
+                OnPropertyChanged(nameof(BoxSize));
+                OnPropertyChanged(nameof(BoxPrice));
             }
 
         }

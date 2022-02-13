@@ -28,7 +28,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Border CornerRadius="15"
+                    <Border CornerRadius="1"
                             BorderBrush="Maroon"
                             BorderThickness="3"
                             Grid.Column="0"

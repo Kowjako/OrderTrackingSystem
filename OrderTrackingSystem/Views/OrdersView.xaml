@@ -101,6 +101,77 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox
+                Header="Bony"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <DockPanel>
+                    <ComboBox DockPanel.Dock="Top"
+                        materialDesign:HintAssist.Background="LightPink"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        Grid.Row="1"
+                        Padding="5,10,10,10"
+                        materialDesign:HintAssist.Hint="Wybierz bon"
+                        IsEditable="False">
+                        <ComboBoxItem
+                        Content="Apple" />
+                    </ComboBox>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock  
+                               FontWeight="DemiBold"
+                               Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Numer bonu: "
+                               FontFamily="Arial"
+                               Margin="0,10,0,0"/>
+                        <TextBlock DockPanel.Dock="Top" 
+                               FontWeight="DemiBold"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Text="Kwota bonu: "
+                               FontFamily="Arial"
+                               Margin="0,10,0,0"/>
+                        <TextBlock DockPanel.Dock="Top"
+                               FontWeight="DemiBold"
+                               Grid.Column="0"
+                               Grid.Row="2"
+                               Text="Ważny do: "
+                               FontFamily="Arial"
+                               Margin="0,10,0,0"/>
+                        <TextBlock  
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               Text="567123712"
+                               FontFamily="Arial"
+                               Margin="10,10,0,0"/>
+                        <TextBlock DockPanel.Dock="Top" 
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               Text="250 zł"
+                               FontFamily="Arial"
+                               Margin="10,10,0,0"/>
+                        <TextBlock DockPanel.Dock="Top"
+                               Grid.Column="1"
+                               Grid.Row="2"
+                               Text="10-11-2000"
+                               FontFamily="Arial"
+                               Margin="10,10,0,0"/>
+                    </Grid>
+                    
+                </DockPanel>
+            </GroupBox>
+            <GroupBox
                 Header="Ilość produktu"
                 Margin="5"
                 Height="90"
@@ -114,7 +185,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="30"/>
                     </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0"
+                    <Button Grid.Column="0"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
                                 Width="30"
