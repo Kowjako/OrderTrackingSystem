@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderTrackingSystem.Logic.Services
+namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public interface IService<T> : IBusinessService<T> { }
+    class ComplaintsViewModel
+    {
+    }
 }

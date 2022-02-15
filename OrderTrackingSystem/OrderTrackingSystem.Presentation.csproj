@@ -86,11 +86,15 @@
     <Compile Include="Interfaces\ISendsViewModel.cs" />
     <Compile Include="Interfaces\ITrackingViewModel.cs" />
     <Compile Include="Interfaces\RelayCommand.cs" />
+    <Compile Include="ViewModels\ComplaintsViewModel.cs" />
     <Compile Include="ViewModels\CurrentAccountViewModel.cs" />
     <Compile Include="ViewModels\MailboxViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\SendsViewModel.cs" />
     <Compile Include="ViewModels\TrackingViewModel.cs" />
+    <Compile Include="Views\ComplaintView.xaml.cs">
+      <DependentUpon>ComplaintView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CurrentAccountView.xaml.cs">
       <DependentUpon>CurrentAccountView.xaml</DependentUpon>
     </Compile>
@@ -138,6 +142,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ComplaintView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CurrentAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

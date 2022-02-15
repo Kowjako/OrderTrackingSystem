@@ -7,6 +7,7 @@
              xmlns:viewsP="clr-namespace:OrderTrackingSystem.Presentation.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
@@ -28,6 +29,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodelsP:MailboxViewModel}">
                 <viewsP:MailBoxView DataContext="{Binding}"/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodelsP:ComplaintsViewModel}">
+                <viewsP:ComplaintView DataContext="{Binding}"/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
