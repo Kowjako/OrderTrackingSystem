@@ -90,7 +90,8 @@
                     <TextBlock>
                     </TextBlock>
                 </TabItem>
-                <TabItem
+                <TabItem x:Name="ComplaintsMenu"
+                PreviewMouseLeftButtonDown="ComplaintsMenu_PreviewMouseLeftButtonDown"
                 Header="{materialDesign:PackIcon Kind=Bug, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"

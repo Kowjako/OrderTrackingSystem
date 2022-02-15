@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
+
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1500">
     <Grid>
@@ -15,9 +16,9 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="360"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
             <TextBlock Text="Nadawanie przesyłki"
@@ -153,6 +154,51 @@
                     </RadioButton>
                 </StackPanel>
             </GroupBox>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Grid.Column="0"
+                    materialDesign:HintAssist.Background="LightPink"
+                    materialDesign:HintAssist.Hint="Cena od:"
+                    Focusable="True"
+                    Margin="5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                </TextBox>
+                <Rectangle Grid.Column="1"
+                           Margin="4,0,4,0"
+                           Height="2" 
+                           Stroke="Black"/>
+                <TextBox
+                    Grid.Column="2"
+                    materialDesign:HintAssist.Background="LightPink"
+                    materialDesign:HintAssist.Hint="Cena do:"
+                    Focusable="True"
+                    Margin="5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                </TextBox>
+            </Grid>
+            <GroupBox
+                Header="Konfiguracja"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel>
+                    <CheckBox Content="Wyślij automatyczną wiadomość" Margin="0,0,0,0"/>
+                    <CheckBox x:Name="dayConstraint" Content="Ustaw ilość dni do odbioru" Margin="0,5,0,0"/>
+                    <Slider Margin="0,5,0,0" Maximum="5"
+                            Minimum="1" TickFrequency="1"
+                            AutoToolTipPlacement="BottomRight"
+                            SmallChange="1"
+                            IsSnapToTickEnabled="False"
+                            IsHitTestVisible="{Binding ElementName=dayConstraint, Path=IsChecked}"/>
+                </StackPanel>
+            </GroupBox>
             <Button
                     x:Name="btnAddToCart"
                     DockPanel.Dock="Bottom"
@@ -233,17 +279,17 @@
                         <purchaseElement:PurchaseElement BoxSizeSelector="Small"
                                                  Width="150"
                                                  DockPanel.Dock="Left"
-                                                 Height="290"
+                                                 Height="310"
                                                  Margin="0,0,0,0"/>
                         <purchaseElement:PurchaseElement BoxSizeSelector="Medium"
                                                  Width="150"
                                                  DockPanel.Dock="Left"
-                                                 Height="290"
+                                                 Height="310"
                                                  Margin="10,0,0,0"/>
                         <purchaseElement:PurchaseElement BoxSizeSelector="Large"
                                                  Width="150"
                                                  DockPanel.Dock="Left"
-                                                 Height="290"
+                                                 Height="310"
                                                  Margin="10,0,0,0"/>
                     </DockPanel>
             </GroupBox>

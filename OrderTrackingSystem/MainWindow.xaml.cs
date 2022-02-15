@@ -38,6 +38,17 @@ namespace OrderTrackingSystem
             fullScreenBtn.Content = WindowState == WindowState.Maximized ? "Wyjdz z Full Screen" : "Włącz Full Screen";
         }
 
+        private void menuExpander_Click(object sender, RoutedEventArgs e)
+        {
+            var trackerAnimation = new DoubleAnimation();
+            trackerAnimation.From = isMenuExpanded ? 0 : 70;
+            trackerAnimation.To = isMenuExpanded ? 70 : 0;
+            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
+            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            tabControl.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
+            isMenuExpanded = !isMenuExpanded;
+        }
+
         #endregion
 
         #region DataContext
@@ -67,18 +78,11 @@ namespace OrderTrackingSystem
             DataContext = new MailboxViewModel();
         }
 
-
+        private void ComplaintsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DataContext = new ComplaintsViewModel();
+        }
         #endregion
 
-        private void menuExpander_Click(object sender, RoutedEventArgs e)
-        {
-            var trackerAnimation = new DoubleAnimation();
-            trackerAnimation.From = isMenuExpanded ? 0 : 70;
-            trackerAnimation.To = isMenuExpanded ? 70 : 0;
-            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
-            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
-            tabControl.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
-            isMenuExpanded = !isMenuExpanded;
-        }
     }
 }
