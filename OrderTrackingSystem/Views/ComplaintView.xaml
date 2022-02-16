@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:customControls1="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="800">
     <Grid>
@@ -169,7 +170,7 @@
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
-                    
+                    <customControls1:ComplaintProgress ActualComplaintState="1"/>
                 </StackPanel>
             </GroupBox>
 

@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControls\ComplaintProgress.xaml.cs">
+      <DependentUpon>ComplaintProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\MindMapControl.xaml.cs">
       <DependentUpon>MindMapControl.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
     <Compile Include="Views\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControls\ComplaintProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\MindMapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -221,6 +228,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\order.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\done.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
