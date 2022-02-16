@@ -23,6 +23,7 @@ namespace OrderTrackingSystem.Presentation.Views
         public ComplaintView()
         {
             InitializeComponent();
+
         }
     }
 }

@@ -153,19 +153,25 @@
                                Grid.Column="1"
                                Grid.Row="0"
                                Text="567123712"
-                               FontFamily="Arial"
+                               Foreground="DarkGreen"
+                               FontWeight="DemiBold"
+                               FontFamily="Lucida Consolas"
                                Margin="10,10,0,0"/>
                         <TextBlock DockPanel.Dock="Top" 
                                Grid.Column="1"
                                Grid.Row="1"
                                Text="250 zł"
-                               FontFamily="Arial"
+                               Foreground="DarkGreen"
+                               FontWeight="DemiBold"
+                               FontFamily="Lucida Consolas"
                                Margin="10,10,0,0"/>
                         <TextBlock DockPanel.Dock="Top"
                                Grid.Column="1"
                                Grid.Row="2"
+                               Foreground="DarkGreen"
+                               FontWeight="DemiBold"
                                Text="10-11-2000"
-                               FontFamily="Arial"
+                               FontFamily="Lucida Consolas"
                                Margin="10,10,0,0"/>
                     </Grid>
                     
@@ -174,7 +180,6 @@
             <GroupBox
                 Header="Ilość produktu"
                 Margin="5"
-                Height="90"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"

@@ -65,7 +65,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             {
                 var border = new Border()
                 {
-                    CornerRadius = new CornerRadius(15),
+                    CornerRadius = new CornerRadius(0),
                     BorderBrush = new LinearGradientBrush
                     {
                         GradientStops = GradientStops,
