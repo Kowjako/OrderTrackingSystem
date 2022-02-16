@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="OrderTrackingSystem.Presentation.CustomControls.ComplaintProgress"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="10 0 0 0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    VerticalAlignment="Center">
+            <TextBlock 
+                   FontSize="15"
+                   Text="Założenie reklamacji"/>
+            <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Text="10-11-2022 15:56"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Margin="0,10,0,0"
+                    Grid.Column="1"
+                    VerticalAlignment="Center">
+            <TextBlock 
+                   FontSize="15"
+                   Text="Decyzja sprzedawcy"/>
+            <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Text="10-11-2022 18:56"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2"
+                    Margin="0,10,0,0"
+                    Grid.Column="1"
+                    VerticalAlignment="Center">
+            <TextBlock 
+                   FontSize="15"
+                   Text="Rozwiązanie reklamacji"/>
+            <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Text="10-11-2022 19:56"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
