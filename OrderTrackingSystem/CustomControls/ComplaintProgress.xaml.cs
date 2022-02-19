@@ -50,19 +50,37 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         {
             for (int i = 0; i < 3; i++)
             {
-                var ellipse = new Ellipse
+                var ellipse = new Border
                 {
-                    Fill = i < ActualComplaintState ? new SolidColorBrush(Colors.DarkGreen) : new SolidColorBrush(Colors.White),
-                    Stroke = new SolidColorBrush(Colors.Black),
-                    StrokeThickness = 1.5,
+                    BorderBrush = new SolidColorBrush(Colors.Black),
+                    BorderThickness = new Thickness(1.5),
                     Height = RADIUS_Y * 2,
                     Margin = i != 0 ? new Thickness(0,10,0,0) : new Thickness(0),
                     Width = RADIUS_X * 2
                 };
+
+
+                if (i < ActualComplaintState)
+                {
+                    ellipse.Child = GenerateChildRectangle();
+                }
+
                 Grid.SetColumn(ellipse, 0);
                 Grid.SetRow(ellipse, i);
                 mainContainer.Children.Add(ellipse);
             }
+        }
+
+        private UIElement GenerateChildRectangle()
+        {
+            return new Rectangle
+            {
+                Height = RADIUS_Y,
+                Width = RADIUS_X,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Fill = new SolidColorBrush(Colors.DodgerBlue)
+            };
         }
     }
 }
