@@ -91,7 +91,6 @@
     <Compile Include="Interfaces\RelayCommand.cs" />
     <Compile Include="ViewModels\ComplaintsViewModel.cs" />
     <Compile Include="ViewModels\CurrentAccountViewModel.cs" />
-    <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MailboxViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\SendsViewModel.cs" />

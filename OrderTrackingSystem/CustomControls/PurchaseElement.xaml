@@ -55,6 +55,8 @@
                        FontSize="25"/>
             <CheckBox x:Name="selectedBox"
                       Width="30"
+                      Checked="selectedBox_Checked"
+                      IsThreeState="False"
                       Height="30"
                       Grid.Row="4">
                 <CheckBox.Style>

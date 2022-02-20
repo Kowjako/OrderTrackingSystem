@@ -23,5 +23,10 @@ namespace OrderTrackingSystem.Presentation.Views
         {
             InitializeComponent();
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

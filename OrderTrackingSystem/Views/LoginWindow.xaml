@@ -7,12 +7,9 @@
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStyle="None"
         Title="LoginWindow" Height="450" Width="800">
-    <Window.Effect>
-        <DropShadowEffect BlurRadius="50"/>
-    </Window.Effect>
-    <Border>
+    <Border MouseDown="Border_MouseDown">
         <Grid>
-        <Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -35,7 +32,7 @@
                 <Rectangle Margin="-50,10,100,0" Fill="White" Height="6"/>
             </DockPanel>
             </Border>
-            <Border Grid.Column="1">
+            <Border Background="White" Grid.Column="1">
                 <DockPanel Margin="100,100,0,0"
                            LastChildFill="False">
                     <TextBlock Text="Login"

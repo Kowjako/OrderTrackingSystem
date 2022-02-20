@@ -23,6 +23,10 @@ namespace OrderTrackingSystem.CustomControls
     /// </summary>
     public partial class PurchaseElement : UserControl, INotifyPropertyChanged
     {
+        static List<PurchaseElement> AllElements = new List<PurchaseElement>();
+
+        public PurchaseElement CheckedElement => AllElements.FirstOrDefault(e => e.selectedBox.IsChecked == true);
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static readonly DependencyProperty boxSize =
@@ -59,6 +63,7 @@ namespace OrderTrackingSystem.CustomControls
         public PurchaseElement()
         {
             InitializeComponent();
+            AllElements.Add(this);
             DataContext = this;
         }
 
@@ -69,5 +74,9 @@ namespace OrderTrackingSystem.CustomControls
         public string BoxName => BoxNames[BoxSizeSelector];
         public Color FillingColor { get; set; } =  Colors.Orange;
 
+        private void selectedBox_Checked(object sender, RoutedEventArgs e)
+        {
+            AllElements.ForEach(x => x.selectedBox.IsChecked = x.selectedBox.Equals(sender));
+        }
     }
 }

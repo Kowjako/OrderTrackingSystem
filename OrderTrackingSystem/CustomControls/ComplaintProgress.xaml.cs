@@ -28,12 +28,11 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         {
             get { return (int)GetValue(ActualComplaintStateProperty); }
             set { SetValue(ActualComplaintStateProperty, value); }
+            
         }
 
         public static readonly DependencyProperty ActualComplaintStateProperty =
             DependencyProperty.Register("ActualComplaintState", typeof(int), typeof(ComplaintProgress), new PropertyMetadata(0));
-
-
 
         public ComplaintProgress()
         {
