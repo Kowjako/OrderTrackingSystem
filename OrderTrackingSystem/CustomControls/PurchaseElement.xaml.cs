@@ -76,6 +76,7 @@ namespace OrderTrackingSystem.CustomControls
 
         private void selectedBox_Checked(object sender, RoutedEventArgs e)
         {
+            /* Implementation of "GroupName" from RadioButton control */
             AllElements.ForEach(x => x.selectedBox.IsChecked = x.selectedBox.Equals(sender));
         }
     }

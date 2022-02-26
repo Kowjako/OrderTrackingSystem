@@ -83,6 +83,9 @@
     <Compile Include="CustomControls\MindMapControl.xaml.cs">
       <DependentUpon>MindMapControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\Notifyer.xaml.cs">
+      <DependentUpon>Notifyer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
     <Compile Include="Interfaces\IMailboxViewModel.cs" />
     <Compile Include="Interfaces\IOrdersViewModel.cs" />
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControls\MindMapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\Notifyer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

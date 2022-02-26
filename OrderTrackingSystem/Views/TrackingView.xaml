@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
-             xmlns:controls1="clr-namespace:OrderTrackingSystem.CustomControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:controls1="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="800">
     <Grid>
@@ -208,6 +207,7 @@
                     Grid.RowSpan="4"
                     Grid.Row="0"
                     Grid.ColumnSpan="2">
+            <controls1:Notifyer Width="400" Height="70"/>
             <TextBlock Text="Elementy zamówione i wysłane"
                        Foreground="Black"
                        VerticalAlignment="Center"

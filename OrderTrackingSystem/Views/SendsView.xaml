@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
-
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1500">
     <Grid>
