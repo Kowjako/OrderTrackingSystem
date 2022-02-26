@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -29,6 +30,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
     public partial class Notifyer : UserControl
     {
+
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
@@ -58,6 +60,16 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         public static readonly DependencyProperty NotifyTypeProperty =
             DependencyProperty.Register("NotifyType", typeof(NotifyType), typeof(Notifyer), new PropertyMetadata(NotifyType.None));
 
+
+        public void Go()
+        {
+            var trackerAnimation = new DoubleAnimation();
+            trackerAnimation.From = 0;
+            trackerAnimation.To = 340;
+            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
+            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            BeginAnimation(HeightProperty, trackerAnimation);
+        }
 
         public Notifyer()
         {

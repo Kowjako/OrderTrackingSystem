@@ -206,8 +206,8 @@
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="4"
                     Grid.Row="0"
+                    x:Name="mainPanel"
                     Grid.ColumnSpan="2">
-            <controls1:Notifyer Width="400" Height="70"/>
             <TextBlock Text="Elementy zamówione i wysłane"
                        Foreground="Black"
                        VerticalAlignment="Center"

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using OrderTrackingSystem.Presentation.CustomControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -40,6 +42,7 @@ namespace OrderTrackingSystem.Presentation.Views
 
         private void btnShowProgress_Click(object sender, RoutedEventArgs e)
         {
+
             var trackerAnimation = new DoubleAnimation();
             trackerAnimation.From = 0;
             trackerAnimation.To = 340;

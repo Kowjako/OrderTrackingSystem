@@ -1,11 +1,14 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Presentation.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace OrderTrackingSystem.ViewModels
 {
@@ -32,7 +35,7 @@ namespace OrderTrackingSystem.ViewModels
             _saveCommand ?? (_saveCommand = new RelayCommand(obj =>
             {
                 CustomerService.Update(CurrentCustomer);
-                if(Localization != null && Localization.Any())
+                if (Localization != null && Localization.Any())
                 {
                     LocalizationService.Update(Localization.First());
                 }

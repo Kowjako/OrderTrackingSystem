@@ -5,18 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="400">
-    <UserControl.Resources>
-        <Storyboard x:Key="Success">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Success">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-40"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-64"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="-88"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-109"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </UserControl.Resources>
+             d:DesignHeight="70" d:DesignWidth="400" MinHeight="70" MinWidth="400">
     <Border BorderBrush="Purple"
             CornerRadius="15"
             Background="Chartreuse"
@@ -24,7 +13,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Border VerticalAlignment="Center"
                      Height="55"
