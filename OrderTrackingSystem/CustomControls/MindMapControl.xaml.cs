@@ -12,7 +12,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     /// </summary>
     public partial class MindMapControl : UserControl
     {
-        IList<string> LinkedItems = new List<string>();
+        readonly IList<string> LinkedItems = new List<string>();
         GradientStopCollection GradientStops = new GradientStopCollection();
 
         public MindMapControl()

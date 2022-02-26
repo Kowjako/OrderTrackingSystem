@@ -30,19 +30,21 @@ namespace OrderTrackingSystem.Presentation.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var popup = new Popup();
-            popup.Width = 400;
-            popup.Child = new Notifyer();
-            popup.AllowsTransparency = true;
-            popup.PopupAnimation = PopupAnimation.Slide;
-            popup.PlacementTarget = mainGrid;
-            popup.Placement = PlacementMode.Right;
+            var popup = new Popup
+            {
+                Width = 400,
+                Child = new Notifyer(),
+                AllowsTransparency = true,
+                PopupAnimation = PopupAnimation.Slide,
+                PlacementTarget = mainGrid,
+                Placement = PlacementMode.Custom,
+                StaysOpen = false
+            };
+            popup.CustomPopupPlacementCallback = (ppSize, tgSize, pointX) =>
+            {
+                return new[] { new CustomPopupPlacement(new Point(mainGrid.ActualWidth - (popup.Child as Notifyer).ActualWidth - 15,15), PopupPrimaryAxis.Horizontal) };
+            };
             popup.IsOpen = true;
-            popup.StaysOpen = false;
-            popup.HorizontalOffset = -(popup.Child as Notifyer).ActualWidth - 15;
-            popup.VerticalOffset = 10;
-            popups.Add(popup);
-
         }
     }
 }
