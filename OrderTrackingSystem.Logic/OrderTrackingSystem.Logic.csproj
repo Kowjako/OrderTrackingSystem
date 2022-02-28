@@ -135,10 +135,11 @@
       <DependentUpon>OrderTrackingModel.edmx</DependentUpon>
       <LastGenOutput>OrderTrackingModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL\BaseDefinitionScript.sql" />
+    <Content Include="SQL\TriggerDefinitionScript.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EFToBindable\" />
-    <Folder Include="SQL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
