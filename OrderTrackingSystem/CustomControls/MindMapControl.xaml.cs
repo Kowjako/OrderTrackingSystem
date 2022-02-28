@@ -13,14 +13,10 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     public partial class MindMapControl : UserControl
     {
         readonly IList<string> LinkedItems = new List<string>();
-        GradientStopCollection GradientStops = new GradientStopCollection();
 
         public MindMapControl()
         {
             InitializeComponent();
-            GradientStops.Add(new GradientStop { Color = Colors.Red, Offset = 0.1});
-            GradientStops.Add(new GradientStop { Color = Colors.Blue, Offset = 0.5 });
-            GradientStops.Add(new GradientStop { Color = Colors.Green, Offset = 0.75});
         }
 
         private void expandBtn_Click(object sender, RoutedEventArgs e)
@@ -66,12 +62,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 var border = new Border()
                 {
                     CornerRadius = new CornerRadius(0),
-                    BorderBrush = new LinearGradientBrush
-                    {
-                        GradientStops = GradientStops,
-                        StartPoint = new Point(0,0),
-                        EndPoint = new Point(2,1)
-                    },
+                    BorderBrush = new SolidColorBrush(Colors.DarkMagenta),
                     BorderThickness = new Thickness(3),
                     Margin = new Thickness(0, 2, 5, 2),
                 };

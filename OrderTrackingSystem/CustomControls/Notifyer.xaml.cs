@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -30,52 +33,78 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
     public partial class Notifyer : UserControl
     {
-
-        public string Title
-        {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
-        }
-
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(Notifyer), new PropertyMetadata(string.Empty));
-
-
-        public string Message
-        {
-            get { return (string)GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
-        }
-
-        public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register("Message", typeof(string), typeof(Notifyer), new PropertyMetadata(string.Empty));
-
+        public string Title { get; set; }
+        public string Caption { get; set; }
+        public SolidColorBrush BackgroundColor { get; set; } = new SolidColorBrush(Colors.Gray);
+        public string ImagePath { get; set; }
 
         public NotifyType NotifyType
         {
             get { return (NotifyType)GetValue(NotifyTypeProperty); }
-            set { SetValue(NotifyTypeProperty, value); }
+            set
+            {
+                SetValue(NotifyTypeProperty, value);
+                OnNotifyTypeUpdated();
+            }
         }
 
         public static readonly DependencyProperty NotifyTypeProperty =
-            DependencyProperty.Register("NotifyType", typeof(NotifyType), typeof(Notifyer), new PropertyMetadata(NotifyType.None));
+            DependencyProperty.Register("NotifyType", typeof(NotifyType), typeof(Notifyer), new FrameworkPropertyMetadata(NotifyType.None));
 
-
-        public void Go()
+       
+        private void OnNotifyTypeUpdated()
         {
-            var trackerAnimation = new DoubleAnimation();
-            trackerAnimation.From = 0;
-            trackerAnimation.To = 340;
-            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
-            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
-            BeginAnimation(HeightProperty, trackerAnimation);
+            switch(NotifyType)
+            {
+                case NotifyType.Warning:
+                    Title = "Ostrzeżenie!";
+                    Caption = "Dane mogą być nieprawidłowe";
+                    BackgroundColor.Color = Colors.Orange;
+                    ImagePath = "../Images/warning.png";
+                    break;
+                case NotifyType.Success:
+                    Title = "Sukces!";
+                    Caption = "Wykonanie operacji zakończono poprawnie!";
+                    BackgroundColor.Color = Colors.Chartreuse;
+                    ImagePath = "../Images/ok.png";
+                    break;
+                case NotifyType.Error:
+                    Title = "Błąd!";
+                    Caption = "Operacja nie została prawidłowo wykonana";
+                    BackgroundColor.Color = Colors.Crimson;
+                    ImagePath = "../Images/close.png";
+                    break;
+                default:
+                    break;
+            }
         }
 
+        public void ShowNotifyer(NotifyType type, FrameworkElement mainContainer)
+        {
+            NotifyType = type;
+            var popup = new Popup
+            {
+                Width = 400,
+                /* Ustawiamy Child na obecny Notifyer */
+                Child = this,
+                AllowsTransparency = true,
+                PopupAnimation = PopupAnimation.Slide,
+                PlacementTarget = mainContainer,
+                Placement = PlacementMode.Custom,
+                StaysOpen = false
+            };
+            popup.CustomPopupPlacementCallback = (ppSize, tgSize, pointX) =>
+            {
+                return new[] { new CustomPopupPlacement(new Point(mainContainer.ActualWidth - (popup.Child as Notifyer).ActualWidth - 15, 15), PopupPrimaryAxis.Horizontal) };
+            };
+            popup.IsOpen = true;
+        }
         public Notifyer()
         {
             InitializeComponent();
             DataContext = this;
         }
+
     }
 
 }

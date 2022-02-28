@@ -8,7 +8,7 @@
              d:DesignHeight="70" d:DesignWidth="400" MinHeight="70" MinWidth="400">
     <Border BorderBrush="Purple"
             CornerRadius="15"
-            Background="Chartreuse"
+            Background="{Binding BackgroundColor}"
             BorderThickness="2">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -22,16 +22,16 @@
                      BorderThickness="1.5"
                      Background="White"
                      Width="55">
-                <Image Margin="5,5,5,10" Source="../Images/ok.png"/>
+                <Image Margin="5,10,5,10" Source="{Binding Path=ImagePath}"/>
             </Border>
             <StackPanel Grid.Column="1"
                         Margin="15,0,0,0"
                         VerticalAlignment="Center">
-                <TextBlock Text="Sukces!"
+                <TextBlock Text="{Binding Title}"
                            FontSize="15"
                            FontWeight="DemiBold"
                            />
-                <TextBlock Text="Wykonanie operacji zakończono poprawnie!"
+                <TextBlock Text="{Binding Caption}"
                            FontSize="15"
                            />
             </StackPanel>
