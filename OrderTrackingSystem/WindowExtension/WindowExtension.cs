@@ -8,9 +8,9 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
     {
         /* Extension-method dla klasy Window dla uzycia Notifyer'a */
         public static Notifyer Notifyer = new Notifyer();
-        public static void WithNotifying<T>(T window, NotifyType type, FrameworkElement mainContentControl) where T:UserControl
+        public static void WithNotifying<T>(this T window, NotifyType type, FrameworkElement mainContentControl, string msg) where T:UserControl
         {
-            Notifyer.ShowNotifyer(type, mainContentControl);
+            Notifyer.ShowNotifyer(type, mainContentControl, msg);
         }
     }
 }

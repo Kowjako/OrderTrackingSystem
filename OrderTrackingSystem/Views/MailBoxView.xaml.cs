@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OrderTrackingSystem.Presentation.WindowExtension;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,7 +20,7 @@ namespace OrderTrackingSystem.Presentation.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            WindowExtension.WindowExtension.WithNotifying(this, CustomControls.NotifyType.Success, mainGrid);
+            (this as UserControl).WithNotifying(CustomControls.NotifyType.Warning, mainGrid, "Sledzenie mozliwe tylko dla zamowien");
         }
     }
 }

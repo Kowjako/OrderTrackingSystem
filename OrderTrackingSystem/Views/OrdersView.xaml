@@ -27,6 +27,35 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
+            <Border Grid.Column="2"
+                DockPanel.Dock="Top"
+                Grid.Row="0"
+                Margin="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="35" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Style="{DynamicResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Kind="Search"
+                            Opacity="1" />
+                    </Button>
+                    <TextBox
+                        FontSize="15"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"
+                        Margin="0 0 15 0"
+                        materialDesign:HintAssist.Hint="Wyszukaj sklep"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"/>
+                </Grid>
+            </Border>
             <GroupBox
                 Header="Odbiorca"
                 Margin="5"
@@ -82,25 +111,6 @@
                     VerticalAlignment="Bottom"
                     Content="Zatwierdź" />
             <GroupBox
-                Header="Typ dostawy"
-                Margin="5"
-                Height="90"
-                DockPanel.Dock="Top"
-                materialDesign:ColorZoneAssist.Mode="Custom"
-                materialDesign:ColorZoneAssist.Background="Black"
-                materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <ListBox Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
-                        <TextBlock
-                            Text="Kurier DPD" />
-                        <TextBlock
-                            Text="Poczta" />
-                        <TextBlock
-                            Text="Odbiór osobisty" />
-                    </ListBox>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
                 Header="Bony"
                 Margin="5"
                 DockPanel.Dock="Top"
@@ -153,7 +163,7 @@
                                Grid.Column="1"
                                Grid.Row="0"
                                Text="567123712"
-                               Foreground="DarkGreen"
+                               Foreground="DarkMagenta"
                                FontWeight="DemiBold"
                                FontFamily="Lucida Consolas"
                                Margin="10,10,0,0"/>

@@ -58,19 +58,16 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             {
                 case NotifyType.Warning:
                     Title = "Ostrzeżenie!";
-                    Caption = "Dane mogą być nieprawidłowe";
                     BackgroundColor.Color = Colors.Orange;
                     ImagePath = "../Images/warning.png";
                     break;
                 case NotifyType.Success:
                     Title = "Sukces!";
-                    Caption = "Wykonanie operacji zakończono poprawnie!";
                     BackgroundColor.Color = Colors.Chartreuse;
                     ImagePath = "../Images/ok.png";
                     break;
                 case NotifyType.Error:
                     Title = "Błąd!";
-                    Caption = "Operacja nie została prawidłowo wykonana";
                     BackgroundColor.Color = Colors.Crimson;
                     ImagePath = "../Images/close.png";
                     break;
@@ -79,9 +76,10 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             }
         }
 
-        public void ShowNotifyer(NotifyType type, FrameworkElement mainContainer)
+        public void ShowNotifyer(NotifyType type, FrameworkElement mainContainer, string msg)
         {
             NotifyType = type;
+            Caption = msg;
             var popup = new Popup
             {
                 Width = 400,
