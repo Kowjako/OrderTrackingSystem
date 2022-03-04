@@ -1,3 +1,4 @@
+BEGIN TRAN
 /* Trigger sprawdzający czy przy dodaniu użytkownika 
 klucz obcy AccountId wskazuje na kontrahenta albo 
 producenta, gdy tak nie jest usuwa wstawiony rekord */
@@ -54,3 +55,4 @@ IF (SELECT COUNT(Id) FROM
 	SELECT Id FROM Sellers WHERE Id = @SenderId) AS TBL) < 2
 DELETE FROM Mails WHERE Id = (SELECT Id FROM INSERTED)
 GO
+COMMIT TRAN

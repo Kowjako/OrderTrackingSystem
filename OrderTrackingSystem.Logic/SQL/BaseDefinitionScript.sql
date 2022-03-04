@@ -237,5 +237,11 @@ CREATE TABLE MailOrderRelations (
 );
 GO
 
+IF OBJECT_ID ('Session', 'U') IS NULL
+CREATE TABLE Session (
+	AccountId INT NOT NULL,
+	IsClient BIT NOT NULL,
+);
+GO
 
 COMMIT TRAN
