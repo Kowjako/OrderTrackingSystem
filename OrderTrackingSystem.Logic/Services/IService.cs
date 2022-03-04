@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public interface IService<T> : IBusinessService<T> { }
+    public interface IService<T>  { }
 }
