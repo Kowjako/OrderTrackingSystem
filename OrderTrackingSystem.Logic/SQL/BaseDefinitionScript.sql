@@ -121,7 +121,7 @@ CREATE TABLE ComplaintFolders (
 	Name NVARCHAR(100) NOT NULL,
 	ParentComplaintFolderId INT,
 	CONSTRAINT PK__ComplaintFolders_Id PRIMARY KEY CLUSTERED (Id),
-	CONSTRAINT FK__ComplaintFolders_ParentComplaintFolderId FOREIGN KEY (ParentComplaintFolderId) REFERENCES ComplaintFolders(Id) ON DELETE CASCADE
+	CONSTRAINT FK__ComplaintFolders_ParentComplaintFolderId FOREIGN KEY (ParentComplaintFolderId) REFERENCES ComplaintFolders(Id) ON DELETE NO ACTION
 );
 GO
 
@@ -142,7 +142,7 @@ CREATE TABLE OrderStates (
 	Date DATETIME NOT NULL,
 	Description NVARCHAR(500) NOT NULL,
 	CONSTRAINT PK__OrderStates_Id PRIMARY KEY CLUSTERED (Id),
-	CONSTRAINT FK__OrderStates_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE SET NULL
+	CONSTRAINT FK__OrderStates_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE CASCADE
 );
 GO
 
@@ -180,49 +180,16 @@ CREATE TABLE Sells (
 );
 GO
 
-/* wiele-do-wielu tabela przejściowa */
-IF OBJECT_ID ('SellCarts', 'U') IS NULL
-CREATE TABLE SellCarts (
-	ProductId INT NOT NULL,
-	Amount TINYINT NOT NULL,
-	SellId INT NOT NULL,
-	CONSTRAINT CK__SellCarts_Amount CHECK (Amount > 0),
-	CONSTRAINT FK__SellCarts_ProductId FOREIGN KEY (ProductId) REFERENCES Products(Id) ON DELETE CASCADE,
-	CONSTRAINT FK__SellCarts_SellId FOREIGN KEY (SellId) REFERENCES Sells(Id) ON DELETE NO ACTION
-);
-GO
-
-/* wiele-do-wielu tabela przejściowa */
-IF OBJECT_ID ('OrderCarts', 'U') IS NULL
-CREATE TABLE OrderCarts (
-	Amount SMALLINT NOT NULL,
-	ProductId INT NOT NULL,
-	OrderId INT NOT NULL,
-	CONSTRAINT CK__OrderCarts_Amount CHECK (Amount > 0),
-	CONSTRAINT FK__OrderCarts_ProductId FOREIGN KEY (ProductId) REFERENCES Products (Id) ON DELETE CASCADE,
-	CONSTRAINT FK__OrderCarts_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE CASCADE
-);
-GO
-
 IF OBJECT_ID ('Mails', 'U') IS NULL
 CREATE TABLE Mails (
 	Id INT IDENTITY(1,1) NOT NULL,
 	Caption NVARCHAR(255) NOT NULL,
 	Content NVARCHAR(MAX) NOT NULL,
 	Date DATETIME NOT NULL,
-	Sender INT NOT NULL,
-	Receiver INT NOT NULL,
+	SenderId INT NOT NULL,
+	ReceiverId INT NOT NULL,
+	IsFromCustomer BIT NOT NULL,
 	CONSTRAINT PK__Mails_Id PRIMARY KEY CLUSTERED (Id)
-);
-GO
-
-/* wiele-do-wielu tabela przejściowa */
-IF OBJECT_ID ('MailOrderRelations', 'U') IS NULL
-CREATE TABLE MailOrderRelations (
-	MailId INT NOT NULL,
-	OrderId INT NOT NULL,
-	CONSTRAINT FK__MailOrderRelations_MailId FOREIGN KEY (MailId) REFERENCES Mails (Id) ON DELETE CASCADE,
-	CONSTRAINT FK__MailOrderRelations_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE CASCADE
 );
 GO
 
@@ -234,5 +201,41 @@ CREATE TABLE Users (
 	AccountType BIT NOT NULL,
 );
 GO
+
+/* Implementacja tabel do redukowania relacji M-N */
+/* Wiele produktow - do wielu zamowien */
+IF OBJECT_ID ('SellCarts', 'U') IS NULL
+CREATE TABLE SellCarts (
+	ProductId INT NOT NULL,
+	Amount TINYINT NOT NULL,
+	SellId INT NOT NULL,
+	CONSTRAINT CK__SellCarts_Amount CHECK (Amount > 0),
+	CONSTRAINT FK__SellCarts_ProductId FOREIGN KEY (ProductId) REFERENCES Products(Id) ON DELETE CASCADE,
+	CONSTRAINT FK__SellCarts_SellId FOREIGN KEY (SellId) REFERENCES Sells(Id) ON DELETE NO ACTION
+);
+GO
+
+/* Wiele produktow - do wielu wysylek */
+IF OBJECT_ID ('OrderCarts', 'U') IS NULL
+CREATE TABLE OrderCarts (
+	Amount SMALLINT NOT NULL,
+	ProductId INT NOT NULL,
+	OrderId INT NOT NULL,
+	CONSTRAINT CK__OrderCarts_Amount CHECK (Amount > 0),
+	CONSTRAINT FK__OrderCarts_ProductId FOREIGN KEY (ProductId) REFERENCES Products (Id) ON DELETE CASCADE,
+	CONSTRAINT FK__OrderCarts_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE CASCADE
+);
+GO
+
+/* Wiele wiadomosci - do wielu zamowien */
+IF OBJECT_ID ('MailOrderRelations', 'U') IS NULL
+CREATE TABLE MailOrderRelations (
+	MailId INT NOT NULL,
+	OrderId INT NOT NULL,
+	CONSTRAINT FK__MailOrderRelations_MailId FOREIGN KEY (MailId) REFERENCES Mails (Id) ON DELETE CASCADE,
+	CONSTRAINT FK__MailOrderRelations_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE CASCADE
+);
+GO
+
 
 COMMIT TRAN
