@@ -12,14 +12,13 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class LocalizationRow
+    public partial class SellCarts
     {
-        public int Id { get; set; }
-        public string Kraj { get; set; }
-        public string Miasto { get; set; }
-        public string Ulica { get; set; }
-        public byte Budynek { get; set; }
-        public byte Mieszkane { get; set; }
-        public string Kod { get; set; }
+        public int ProductId { get; set; }
+        public byte Amount { get; set; }
+        public int SellId { get; set; }
+    
+        public virtual Products Products { get; set; }
+        public virtual Sells Sells { get; set; }
     }
 }

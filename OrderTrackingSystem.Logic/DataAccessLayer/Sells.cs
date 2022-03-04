@@ -14,14 +14,22 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     
     public partial class Sells
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sells()
+        {
+            this.SellCarts = new HashSet<SellCarts>();
+        }
+    
         public int Id { get; set; }
+        public string Number { get; set; }
         public System.DateTime SellingDate { get; set; }
         public int CustomerId { get; set; }
         public int SellerId { get; set; }
-        public int ProductId { get; set; }
-        public int Amount { get; set; }
+        public Nullable<int> PickupDays { get; set; }
     
         public virtual Customers Customers { get; set; }
         public virtual Customers Customers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SellCarts> SellCarts { get; set; }
     }
 }

@@ -12,14 +12,13 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderStates
+    public partial class OrderCarts
     {
-        public int Id { get; set; }
+        public short Amount { get; set; }
+        public int ProductId { get; set; }
         public int OrderId { get; set; }
-        public string State { get; set; }
-        public System.DateTime Date { get; set; }
-        public string Description { get; set; }
     
         public virtual Orders Orders { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

@@ -35,51 +35,61 @@
                       />
         <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
             <StackPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
-                <TextBox DockPanel.Dock="Top"
+                <GroupBox Header="Dane"
+                Padding="10"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                    <StackPanel>
+                        <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="Imię"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
-                    Margin="10 5 10 5"
+                    Margin="0 0 0 5"
                     FontSize="15"
                     Text="{Binding Name, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox DockPanel.Dock="Top"
+                        <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="Nazwisko"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
-                    Margin="10 5 10 5"
+                    Margin="0 0 0 5"
                     FontSize="15"
                     Text="{Binding Surname, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox DockPanel.Dock="Top"
+                        <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="Wiek"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
-                    Margin="10 5 10 5"
+                    Margin="0 0 0 5"
                     FontSize="15"
                     Text="{Binding Age, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox DockPanel.Dock="Top"
+                        <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="Numer"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
-                    Margin="10 5 10 5"
+                    Margin="0 0 0 5"
                     FontSize="15"
                     Text="{Binding Number, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox DockPanel.Dock="Top"
+                        <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="Email"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
-                    Margin="10 5 10 5"
+                    Margin="0 0 0 5"
                     FontSize="15"
                     Text="{Binding Email, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
             <GroupBox Header="Dane logowania"
                 Margin="5"

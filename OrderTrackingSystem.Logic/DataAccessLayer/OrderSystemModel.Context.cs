@@ -25,15 +25,20 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ComplaintDefinitions> ComplaintDefinitions { get; set; }
+        public virtual DbSet<ComplaintFolders> ComplaintFolders { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Localizations> Localizations { get; set; }
+        public virtual DbSet<Mails> Mails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<OrderStates> OrderStates { get; set; }
         public virtual DbSet<Pickups> Pickups { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Sellers> Sellers { get; set; }
         public virtual DbSet<Sells> Sells { get; set; }
-        public virtual DbSet<Carts> Carts { get; set; }
-        public virtual DbSet<LocalizationRow> LocalizationRow { get; set; }
+        public virtual DbSet<ComplaintStates> ComplaintStates { get; set; }
+        public virtual DbSet<OrderCarts> OrderCarts { get; set; }
+        public virtual DbSet<SellCarts> SellCarts { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

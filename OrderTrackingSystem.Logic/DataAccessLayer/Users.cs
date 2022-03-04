@@ -12,13 +12,11 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Carts
+    public partial class Users
     {
-        public short Amount { get; set; }
-        public int ProductId { get; set; }
-        public int OrderId { get; set; }
-    
-        public virtual Orders Orders { get; set; }
-        public virtual Products Products { get; set; }
+        public int AccountId { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public bool AccountType { get; set; }
     }
 }

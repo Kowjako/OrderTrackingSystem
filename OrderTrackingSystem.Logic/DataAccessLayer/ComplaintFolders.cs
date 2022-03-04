@@ -12,24 +12,23 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Sellers
+    public partial class ComplaintFolders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sellers()
+        public ComplaintFolders()
         {
-            this.Products = new HashSet<Products>();
+            this.ComplaintFolders1 = new HashSet<ComplaintFolders>();
+            this.ComplaintDefinitions = new HashSet<ComplaintDefinitions>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public System.DateTime OpenDate { get; set; }
-        public string TIN { get; set; }
-        public string Number { get; set; }
-        public string Email { get; set; }
-        public int LocalizationId { get; set; }
+        public Nullable<int> ParentComplaintFolderId { get; set; }
     
-        public virtual Localizations Localizations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<ComplaintFolders> ComplaintFolders1 { get; set; }
+        public virtual ComplaintFolders ComplaintFolders2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ComplaintDefinitions> ComplaintDefinitions { get; set; }
     }
 }

@@ -12,24 +12,23 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Sellers
+    public partial class Mails
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sellers()
+        public Mails()
         {
-            this.Products = new HashSet<Products>();
+            this.Orders = new HashSet<Orders>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public System.DateTime OpenDate { get; set; }
-        public string TIN { get; set; }
-        public string Number { get; set; }
-        public string Email { get; set; }
-        public int LocalizationId { get; set; }
+        public string Caption { get; set; }
+        public string Content { get; set; }
+        public System.DateTime Date { get; set; }
+        public int SenderId { get; set; }
+        public int ReceiverId { get; set; }
+        public bool IsFromCustomer { get; set; }
     
-        public virtual Localizations Localizations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

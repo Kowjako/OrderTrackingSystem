@@ -17,7 +17,8 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Products()
         {
-            this.Carts = new HashSet<Carts>();
+            this.OrderCarts = new HashSet<OrderCarts>();
+            this.SellCarts = new HashSet<SellCarts>();
         }
     
         public int Id { get; set; }
@@ -25,12 +26,15 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public decimal PriceNetto { get; set; }
         public byte VAT { get; set; }
         public decimal PriceBrutto { get; set; }
+        public byte Category { get; set; }
         public decimal Weight { get; set; }
         public byte Discount { get; set; }
         public int SellerId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carts> Carts { get; set; }
+        public virtual ICollection<OrderCarts> OrderCarts { get; set; }
         public virtual Sellers Sellers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SellCarts> SellCarts { get; set; }
     }
 }
