@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.ViewModels;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -55,9 +56,11 @@ namespace OrderTrackingSystem
 
         #region DataContext
 
-        private void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new CurrentAccountViewModel();
+            var viewModel = new CurrentAccountViewModel();
+            await viewModel.SetInitializeProperties();
+            DataContext = viewModel;
         }
 
         private void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

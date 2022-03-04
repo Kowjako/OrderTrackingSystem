@@ -24,40 +24,6 @@ namespace OrderTrackingSystem.Views
         public CurrentAccountView()
         {
             InitializeComponent();
-            Loaded += CurrentAccountView_Loaded;
-            dgLocalization.SourceUpdated += DgLocalization_SourceUpdated;
-            DataContextChanged += CurrentAccountView_DataContextChanged;
-            dgLocalization.Columns.CollectionChanged += Columns_CollectionChanged;
-        }
-
-        private void Columns_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (dgLocalization.Columns.Count != 0)
-                dgLocalization.Columns[0].Visibility = Visibility.Collapsed;
-        }
-
-        private void DgLocalization_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-            if (dgLocalization.Columns.Count != 0)
-                dgLocalization.Columns[0].Visibility = Visibility.Collapsed;
-        }
-
-        private void CurrentAccountView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (dgLocalization.Columns.Count != 0)
-                dgLocalization.Columns[0].IsReadOnly = true;
-            dgLocalization.InvalidateVisual();
-        }
-
-        private void CurrentAccountView_Initialized(object sender, EventArgs e)
-        {
-            dgLocalization.Columns[0].Visibility = Visibility.Collapsed;
-        }
-
-        private void CurrentAccountView_Loaded(object sender, RoutedEventArgs e)
-        {
-            /* Hide id column */
-            dgLocalization.Columns[0].Visibility = Visibility.Collapsed;
         }
     }
 }

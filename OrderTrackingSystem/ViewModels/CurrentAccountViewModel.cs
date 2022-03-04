@@ -1,44 +1,63 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DataAccessLayer;
+using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
-using OrderTrackingSystem.Presentation.CustomControls;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls.Primitives;
 
 namespace OrderTrackingSystem.ViewModels
 {
     public class CurrentAccountViewModel
     {
-        private readonly IBusinessService<Customers> CustomerService;
+        #region Services
+
+        private readonly CustomerService CustomerService;
         private readonly LocalizationService LocalizationService;
+
+        #endregion
+
+        #region Bindable objects
+
+        public Customers CurrentCustomer { get; set; }
+        public LocalizationDTO[] Localization { get; set; }
+
+        #endregion
+
+        #region Ctor
 
         public CurrentAccountViewModel()
         {
             CustomerService = new CustomerService();
             LocalizationService = new LocalizationService();
-            CurrentCustomer = CustomerService.GetByPrimary(2);
-            Localization = new List<LocalizationRow>();
-
-            Localization.Add(LocalizationService.GetRowByPrimary(CurrentCustomer.LocalizationId));
+            Localization = new LocalizationDTO[1];
         }
 
-        public Customers CurrentCustomer { get; set; }
-        public List<LocalizationRow> Localization { get; set; }
+        #endregion
+
+        #region Commands
 
         private RelayCommand _saveCommand;
         public RelayCommand SaveCommand =>
             _saveCommand ?? (_saveCommand = new RelayCommand(obj =>
             {
-                CustomerService.Update(CurrentCustomer);
-                if (Localization != null && Localization.Any())
-                {
-                    LocalizationService.Update(Localization.First());
-                }
+                //CustomerService.Update(CurrentCustomer);
+                //if (Localization != null && Localization.Any())
+                //{
+                //    LocalizationService.Update(Localization.First());
+                //}
             }));
+
+        #endregion
+
+        #region Public methods
+
+        public async Task SetInitializeProperties()
+        {
+            CurrentCustomer = await CustomerService.GetCurrentCustomer();
+            Localization[0] = await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId);
+        }
+
+        #endregion
     }
 }
