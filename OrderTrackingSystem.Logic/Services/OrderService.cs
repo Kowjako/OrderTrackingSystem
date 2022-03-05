@@ -34,7 +34,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Oplata = PayTypeEnumConverter.GetNameById(order.Id),
                                 Sklep = sellerQuery.FirstAsync().Result,
                                 Dostawa = order.DeliveryType,
-                                Rezygnacja = order.ComplaintDefinitionId != null,
+                                Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
                                 Kwota = string.Format("{0:0.00 zł}", valueQuery)
                             };
 

@@ -247,6 +247,7 @@
             </GroupBox>
         </DockPanel>
         <GridSplitter Grid.Row="2"
+                      Grid.ColumnSpan="2"
                       Grid.Column="1" Height="4"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
@@ -281,7 +282,7 @@
                    LastChildFill="False"
                    Grid.Column="2"
                    Grid.Row="0"
-                   Grid.RowSpan="4" Margin="1,0,0,0">
+                   Grid.RowSpan="3" Margin="1,0,0,0">
             <TextBlock
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Left"
@@ -292,111 +293,23 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <DataGrid Margin="5,0,5,0" DockPanel.Dock="Top"/>
-            <Grid DockPanel.Dock="Bottom" Margin="0,0,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Left"
-                    Text="Kwota netto"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Left"
-                    Text="VAT"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Left"
-                    Text="Kwota brutto"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Left"
-                    Text="Dostawa"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Left"
-                    Text="Suma"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Right"
-                    Text="150 zł"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Right"
-                    Text="23%"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Right"
-                    Text="181,30 zł"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Right"
-                    Text="8,99 zł"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                    <TextBlock
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Right"
-                    Text="280,73 zł"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
-                </StackPanel>
-            </Grid>
+        </DockPanel>
+        <StackPanel Grid.Column="2"
+                   Grid.Row="3">
+            <TextBlock
+                HorizontalAlignment="Left"
+                FontWeight="DemiBold"
+                Text="Metody płatności"
+                TextAlignment="Left"
+                Foreground="Black"
+                FontSize="17"
+                Margin="10,10,10,5"
+                FontFamily="Arial"/>
             <ListBox
-                Margin="0,0,0,10"
                 DockPanel.Dock="Bottom"
-                Style="{StaticResource MaterialDesignChoiceChipListBox}"
-                x:Name="RadioButtonGroupChoiceChip">
+                Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
+                x:Name="PayTypeGroup">
+
                 <ListBoxItem
                     Content="Gotówka" />
                 <ListBoxItem
@@ -407,14 +320,122 @@
                     Content="BLIK" />
             </ListBox>
             <TextBlock
-                DockPanel.Dock="Bottom"
                 HorizontalAlignment="Left"
-                Text="Metody płatności"
+                Text="Metody dostawy"
+                TextAlignment="Left"
+                FontWeight="DemiBold"
+                Foreground="Black"
+                FontSize="17"
+                Margin="10,10,10,5"
+                FontFamily="Arial"/>
+            <ListBox DockPanel.Dock="Bottom"
+                     Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
+                     x:Name="DeliveryTypeGroup">
+                <ListBoxItem Content="Kurier DPD"/>
+                <ListBoxItem Content="Poczta"/>
+                <ListBoxItem Content="Paczkomat"/>
+                <ListBoxItem Content="Odbiór osobisty"/>
+            </ListBox>
+            <TextBlock
+                HorizontalAlignment="Left"
+                FontWeight="DemiBold"
+                Text="Podsumowanie"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
-        </DockPanel>
+            <Grid DockPanel.Dock="Bottom" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="Kwota netto"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="VAT"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="Kwota brutto"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="Dostawa"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Left"
+                    Text="Suma"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock
+                    HorizontalAlignment="Right"
+                    Text="150 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Right"
+                    Text="23%"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Right"
+                    Text="181,30 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Right"
+                    Text="8,99 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                    <TextBlock
+                    HorizontalAlignment="Right"
+                    Text="280,73 zł"
+                    TextAlignment="Left"
+                    Foreground="Black"
+                    FontSize="17"
+                    Margin="10,10,10,5"
+                    FontFamily="Arial"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

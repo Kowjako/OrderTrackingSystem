@@ -11,7 +11,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Numer { get; set; }
         public string Oplata { get; set; }
         public string Dostawa { get; set; }
-        public bool Rezygnacja { get; set; }
+        public string Rezygnacja { get; set; }
         public string Kwota { get; set; }
         public string Sklep { get; set; }
     }
