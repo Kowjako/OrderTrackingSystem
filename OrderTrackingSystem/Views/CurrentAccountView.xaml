@@ -192,6 +192,11 @@
                        FontFamily="Arial"/>
             <DataGrid Background="White" 
                       Foreground="Black"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      ScrollViewer.CanContentScroll="False"
+                      HorizontalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Orders}"
                       Margin="5"/>
 

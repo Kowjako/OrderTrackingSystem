@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.ViewModels
 {
-    public class CurrentAccountViewModel
+    public class CurrentAccountViewModel : ICurrentAccountViewModel
     {
         #region Services
 
         private readonly CustomerService CustomerService;
         private readonly LocalizationService LocalizationService;
+        private readonly OrderService OrderSerivce;
 
         #endregion
 
         #region Bindable objects
 
         public Customers CurrentCustomer { get; set; }
-        public LocalizationDTO[] Localization { get; set; }
+        public List<LocalizationDTO> Localization { get; set; } = new List<LocalizationDTO>();
+        public List<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
 
         #endregion
 
@@ -30,7 +32,7 @@ namespace OrderTrackingSystem.ViewModels
         {
             CustomerService = new CustomerService();
             LocalizationService = new LocalizationService();
-            Localization = new LocalizationDTO[1];
+            OrderSerivce = new OrderService();
         }
 
         #endregion
@@ -55,7 +57,8 @@ namespace OrderTrackingSystem.ViewModels
         public async Task SetInitializeProperties()
         {
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
-            Localization[0] = await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId);
+            Localization.Add(await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId));
+            Orders = await OrderSerivce.GetOrdersForCustomer(CurrentCustomer.Id);
         }
 
         #endregion

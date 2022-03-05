@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
-    public class LocalizationDTO
+    public sealed class LocalizationDTO
     {
         public string Kraj { get; set; }
         public string Miasto { get; set; }
