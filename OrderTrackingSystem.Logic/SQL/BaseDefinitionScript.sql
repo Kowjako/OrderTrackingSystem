@@ -93,15 +93,17 @@ CREATE TABLE Orders (
 	Number NVARCHAR(255) NOT NULL,
 	CustomerId INT NOT NULL,
 	PayType TINYINT NOT NULL,
-	DeliveryType NVARCHAR(50) NOT NULL,
+	DeliveryType TINYINT NOT NULL,
 	PickupId INT NOT NULL,
+	SellerId INT NOT NULL,
 	ComplaintDefinitionId INT,
 	CONSTRAINT PK__Orders_Id PRIMARY KEY CLUSTERED (Id),
 	CONSTRAINT UQ__Orders_Number UNIQUE(Number),
 	CONSTRAINT CK__Orders_PayType CHECK (PayType IN (1,2,3,4)),
 	CONSTRAINT FK__Orders_CustomerId FOREIGN KEY (CustomerId) REFERENCES Customers (Id) ON DELETE CASCADE,
 	CONSTRAINT FK__Orders_PickupId FOREIGN KEY (PickupId) REFERENCES Pickups (Id) ON DELETE CASCADE,
-	CONSTRAINT FK__Orders_ComplaintDefinitionId FOREIGN KEY (ComplaintDefinitionId) REFERENCES ComplaintDefinitions(Id) ON DELETE SET NULL
+	CONSTRAINT FK__Orders_ComplaintDefinitionId FOREIGN KEY (ComplaintDefinitionId) REFERENCES ComplaintDefinitions(Id) ON DELETE SET NULL,
+	CONSTRAINT FK__Orders_SellerId FOREIGN KEY (SellerId) REFERENCES Sellers (Id) ON DELETE SET NULL
 );
 GO
 
