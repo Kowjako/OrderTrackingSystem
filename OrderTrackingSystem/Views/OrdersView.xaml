@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="950" d:DesignWidth="800">
+             d:DesignHeight="950" d:DesignWidth="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -119,6 +119,7 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <DockPanel>
                     <ComboBox DockPanel.Dock="Top"
+                        x:Name="voucherBox"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
@@ -128,62 +129,76 @@
                         <ComboBoxItem
                         Content="Apple" />
                     </ComboBox>
-                    <Grid DockPanel.Dock="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="3.5*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <TextBlock  
-                               FontWeight="DemiBold"
-                               Grid.Column="0"
-                               Grid.Row="0"
-                               Text="Numer bonu: "
-                               FontFamily="Arial"
-                               Margin="0,10,0,0"/>
-                        <TextBlock DockPanel.Dock="Top" 
-                               FontWeight="DemiBold"
-                               Grid.Column="0"
-                               Grid.Row="1"
-                               Text="Kwota bonu: "
-                               FontFamily="Arial"
-                               Margin="0,10,0,0"/>
-                        <TextBlock DockPanel.Dock="Top"
-                               FontWeight="DemiBold"
-                               Grid.Column="0"
-                               Grid.Row="2"
-                               Text="Ważny do: "
-                               FontFamily="Arial"
-                               Margin="0,10,0,0"/>
-                        <TextBlock  
-                               Grid.Column="1"
-                               Grid.Row="0"
-                               Text="567123712"
-                               Foreground="DarkMagenta"
-                               FontWeight="DemiBold"
-                               FontFamily="Lucida Consolas"
-                               Margin="10,10,0,0"/>
-                        <TextBlock DockPanel.Dock="Top" 
-                               Grid.Column="1"
-                               Grid.Row="1"
-                               Text="250 zł"
-                               Foreground="DarkGreen"
-                               FontWeight="DemiBold"
-                               FontFamily="Lucida Consolas"
-                               Margin="10,10,0,0"/>
-                        <TextBlock DockPanel.Dock="Top"
-                               Grid.Column="1"
-                               Grid.Row="2"
-                               Foreground="DarkGreen"
-                               FontWeight="DemiBold"
-                               Text="10-11-2000"
-                               FontFamily="Lucida Consolas"
-                               Margin="10,10,0,0"/>
-                    </Grid>
+                    <Border   CornerRadius="10"
+                               Margin="0,10,0,0"
+                               Height="120"
+                               Background="Violet"
+                               BorderThickness="1"
+                               BorderBrush="Firebrick">
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=SelectedIndex, ElementName=voucherBox}" Value="-1">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Width="45" Height="70"
+                              Grid.Column="2"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Right"
+                              Background="Yellow"
+                              Margin="0,0,15,0">
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="25" RenderingBias="Quality" 
+                                                  ShadowDepth="1"
+                                                  Color="Chocolate"/>
+                                </Grid.Effect>
+                                <materialDesign:PackIcon Kind="TicketPercentOutline"
+                                                     Foreground="Black"
+                                                     Width="35"
+                                                     Height="40"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Bottom"
+                                                     Margin="0,0,0,5"/>
+                            </Grid>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Bon: UK5712315" FontSize="20" 
+                                           FontFamily="Times New Roman" 
+                                           Margin="10,10,5,5"
+                                           Foreground="Maroon"/>
+                                <TextBlock Grid.Column="0" Text="256,48/500 zł"
+                                       FontSize="40" 
+                                       Foreground="Indigo" 
+                                       FontFamily="Times New Roman" 
+                                       Margin="10,0,5,0"
+                                       VerticalAlignment="Center"/>
+                                <Grid Margin="10,5,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="CalendarRange"
+                                                             Grid.Column="0"
+                                                             VerticalAlignment="Center"
+                                                             Width="20"
+                                                             Height="20"/>
+                                    <TextBlock Text="Data ważności: 10-11-2000" 
+                                               Grid.Column="1"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"
+                                               FontFamily="Times New Roman"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                     
                 </DockPanel>
             </GroupBox>
