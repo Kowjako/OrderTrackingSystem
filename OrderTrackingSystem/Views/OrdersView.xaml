@@ -172,7 +172,7 @@
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="Bon: UK5712315" FontSize="20" 
                                            FontFamily="Times New Roman" 
-                                           Margin="10,10,5,5"
+                                           Margin="10,10,5,0"
                                            Foreground="Maroon"/>
                                 <TextBlock Grid.Column="0" Text="256,48/500 zł"
                                        FontSize="40" 

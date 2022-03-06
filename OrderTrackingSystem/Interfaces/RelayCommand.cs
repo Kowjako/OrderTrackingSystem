@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace OrderTrackingSystem.Interfaces
 {
+    /* Klasa do bindowania przyciskow z View do ViewModel */
     public class RelayCommand : ICommand
     {
         private Action<object> execute;

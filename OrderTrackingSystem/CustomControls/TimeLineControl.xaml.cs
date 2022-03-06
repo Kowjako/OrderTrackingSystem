@@ -85,16 +85,27 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             AddControlToMainContainer(textBlock, row, column);
         }
 
-        private void DrawEllipse(int row, int column)
+        private void DrawEllipseWithNumber(int row, int column)
         {
-            var ellipse = new Ellipse
+            var ellipse = new Border
             {
-                Fill = new SolidColorBrush(Colors.White),
-                Stroke = new SolidColorBrush(Colors.Black),
-                StrokeThickness = 1.5,
-                Height = RADIUSY * 2,
-                Width = RADIUSX * 2
+                Background = new SolidColorBrush(Colors.White),
+                BorderBrush = new SolidColorBrush(Colors.Black),
+                BorderThickness = new Thickness(1.5),
+                CornerRadius = new CornerRadius(10),
+                Height = RADIUSY * 2.5,
+                Width = RADIUSX * 2.5,
             };
+            var number = new TextBlock
+            {
+                FontSize = 15,
+                FontWeight = FontWeights.DemiBold,
+                Text = (row / 3 + 1).ToString(),
+                Foreground = new SolidColorBrush(Colors.Blue),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            ellipse.Child = number;
             AddControlToMainContainer(ellipse, row, column);
         }
 
@@ -114,7 +125,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
         public void AddNode(string title, DateTime date, string description)
         {
             /* Add new container for next state */
-            mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20) });
+            mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(25) });
             mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(15) });
             mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
 
@@ -158,7 +169,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             for (int i = 0; i < NodeCount; i++)
             {
                 var actualNode = TimeLineNodes.ElementAt(i);
-                DrawEllipse(3 * i, 0);
+                DrawEllipseWithNumber(3 * i, 0);
                 PlaceTitle(3 * i, 1, actualNode.Caption);
                 PlaceDateTime(3 * i + 1, 1, actualNode.Date);
                 PlaceDescription(3 * i + 2, 1, actualNode.Description);
