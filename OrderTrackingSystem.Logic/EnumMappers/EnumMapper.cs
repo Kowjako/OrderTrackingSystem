@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EnumsNET;
+using System.ComponentModel;
 
 namespace OrderTrackingSystem.Logic.EnumMappers
 {
     public enum PayType
     {
-        Gotowka = 0,
+        [Description("Gotówka")]
+        Cash = 0,
+        [Description("Apple Pay")]
         ApplePay = 1,
-        Karta = 2,
+        [Description("Karta")]
+        Card = 2,
+        [Description("BLIK")]
         BLIK = 3
+    }
+
+    public enum DeliveryType
+    {
+        [Description("Kurier DPD")]
+        Courier = 0,
+        [Description("Poczta")]
+        Post = 1,
+        [Description("Odbiór osobisty")]
+        Takeself = 2,
+        [Description("Paczkomat")]
+        Paczkomat = 3
     }
 
     public static class PayTypeEnumConverter
     {
-        public static string GetNameById(int id)
-        {
-            switch(id)
-            {
-                case 0:
-                    return "Gotowka";
-                case 1:
-                    return "ApplePay";
-                case 2:
-                    return "Karta";
-                case 3:
-                    return "BLIK";
-                default:
-                    return string.Empty;
-            }
-        }
+        public static string GetNameById(int id) => ((PayType)id).AsString(EnumFormat.Description);
+    }
+
+    public static class DeliveryTypeEnumConverter
+    {
+        public static string GetNameById(int id) => ((DeliveryType)id).AsString(EnumFormat.Description);
     }
 
 }
