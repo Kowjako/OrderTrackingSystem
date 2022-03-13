@@ -170,6 +170,7 @@
                       Foreground="Black"
                       CanUserAddRows="False"
                       Height="80"
+                      AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       ColumnWidth="*"
                       ScrollViewer.CanContentScroll="False"
                       VerticalScrollBarVisibility="Hidden"
@@ -191,11 +192,12 @@
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
             <DataGrid Background="White" 
+                      x:Name="ordersGrid"
+                      AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       Foreground="Black"
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
-                      ScrollViewer.CanContentScroll="False"
                       HorizontalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Orders}"
                       Margin="5"/>
@@ -212,9 +214,15 @@
                        FontSize="10"
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
-            <DataGrid Background="White" 
+            <DataGrid Background="White"
+                      x:Name="sellsGrid"
                       Foreground="Black"
                       ItemsSource="{Binding Sells}"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Hidden"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       Margin="5"/>
 
         </StackPanel>

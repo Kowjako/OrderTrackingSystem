@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
+    <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="EnumMappers\EnumMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\SellService.cs" />
     <Compile Include="Validators\CustomerValidator.cs" />
   </ItemGroup>
   <ItemGroup>
