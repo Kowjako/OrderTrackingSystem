@@ -101,7 +101,7 @@
                 </TabItem>
             </TabControl>
 
-            <ContentControl Content="{Binding}"/>
+            <ContentControl x:Name="mainControl" Content="{Binding}"/>
         </DockPanel>
 
     </Border>

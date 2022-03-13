@@ -15,7 +15,6 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var customer = await dbContext.Customers.Where(c => c.Id == customerId).FirstAsync();
-                /* ladujemy kolekcje zamowien dla danego kleinta */
                 await dbContext.Entry(customer).Collection(nameof(customer.Orders)).LoadAsync();
 
                 var query = from order in customer.Orders
@@ -23,17 +22,15 @@ namespace OrderTrackingSystem.Logic.Services
                                               from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                               where cart.OrderId == order.Id
                                               select cart.Amount * prodcut.PriceBrutto).Sum()
-                            let sellerQuery = from cart in dbContext.OrderCarts
-                                              from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
-                                              from seller in dbContext.Sellers.Where(p => p.Id == prodcut.SellerId).DefaultIfEmpty()
-                                              where cart.OrderId == order.Id
+                            let sellerQuery = from seller in dbContext.Sellers
+                                              where seller.Id == order.SellerId
                                               select seller.Name
                             select new OrderDTO
                             {
                                 Numer = order.Number,
                                 Oplata = PayTypeEnumConverter.GetNameById(order.Id),
                                 Sklep = sellerQuery.FirstAsync().Result,
-                                Dostawa = order.DeliveryType,
+                                Dostawa = DeliveryTypeEnumConverter.GetNameById(order.DeliveryType),
                                 Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
                                 Kwota = string.Format("{0:0.00 zł}", valueQuery)
                             };

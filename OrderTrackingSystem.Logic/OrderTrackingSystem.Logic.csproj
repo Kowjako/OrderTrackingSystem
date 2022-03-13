@@ -129,6 +129,9 @@
     <Compile Include="DataAccessLayer\Users.cs">
       <DependentUpon>OrderSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccessLayer\Vouchers.cs">
+      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="EnumMappers\EnumMapper.cs" />

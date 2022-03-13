@@ -1,4 +1,6 @@
-﻿using OrderTrackingSystem.Presentation.ViewModels;
+﻿using OrderTrackingSystem.Presentation.CustomControls;
+using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.Presentation.WindowExtension;
 using OrderTrackingSystem.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -58,9 +60,16 @@ namespace OrderTrackingSystem
 
         private async void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var viewModel = new CurrentAccountViewModel();
-            await viewModel.SetInitializeProperties();
-            DataContext = viewModel;
+            try
+            {
+                var viewModel = new CurrentAccountViewModel();
+                await viewModel.SetInitializeProperties();
+                DataContext = viewModel;
+            }
+            catch
+            {
+                (this as ContentControl).WithNotifying(NotifyType.Error, mainControl, "Wystąpił błąd podczas pobierania danych");
+            }
         }
 
         private void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
