@@ -15,6 +15,7 @@ namespace OrderTrackingSystem.ViewModels
         private readonly CustomerService CustomerService;
         private readonly LocalizationService LocalizationService;
         private readonly OrderService OrderSerivce;
+        private readonly SellService SellService;
 
         #endregion
 
@@ -23,6 +24,7 @@ namespace OrderTrackingSystem.ViewModels
         public Customers CurrentCustomer { get; set; }
         public List<LocalizationDTO> Localization { get; set; } = new List<LocalizationDTO>();
         public List<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
+        public List<SellDTO> Sells { get; set; } = new List<SellDTO>();
 
         #endregion
 
@@ -33,6 +35,7 @@ namespace OrderTrackingSystem.ViewModels
             CustomerService = new CustomerService();
             LocalizationService = new LocalizationService();
             OrderSerivce = new OrderService();
+            SellService = new SellService();
         }
 
         #endregion
@@ -59,6 +62,7 @@ namespace OrderTrackingSystem.ViewModels
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             Localization.Add(await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId));
             Orders = await OrderSerivce.GetOrdersForCustomer(CurrentCustomer.Id);
+            Sells = await SellService.GetSellsForCustomer(CurrentCustomer.Id);
         }
 
         #endregion
