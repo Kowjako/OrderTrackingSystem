@@ -31,7 +31,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         Success = 3
     }
 
-    public partial class Notifyer : UserControl
+    public partial class Notifyer : UserControl, INotifyPropertyChanged
     {
         public string Title { get; set; }
         public string Caption { get; set; }
@@ -51,7 +51,13 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         public static readonly DependencyProperty NotifyTypeProperty =
             DependencyProperty.Register("NotifyType", typeof(NotifyType), typeof(Notifyer), new FrameworkPropertyMetadata(NotifyType.None));
 
-       
+        /* Implementing INotifyPropertyChanged to refresh UI bindings */
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+
         private void OnNotifyTypeUpdated()
         {
             switch(NotifyType)
@@ -74,12 +80,15 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 default:
                     break;
             }
+            OnPropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(ImagePath));
         }
 
         public void ShowNotifyer(NotifyType type, FrameworkElement mainContainer, string msg)
         {
             NotifyType = type;
             Caption = msg;
+            OnPropertyChanged(nameof(Caption));
             var popup = new Popup
             {
                 Width = 400,

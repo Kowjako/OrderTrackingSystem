@@ -301,8 +301,7 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="#FF883C57"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <TreeView Grid.Column="1">
+                <TreeView>
                         <TreeViewItem IsExpanded="False" Header="AGD">
                             <TreeViewItem Header="Kuchnia"/>
                             <TreeViewItem Header="Sprzątanie"/>
@@ -329,7 +328,6 @@
                             <TreeViewItem Header="Kurtki"/>
                         </TreeViewItem>
                     </TreeView>
-                </StackPanel>
             </GroupBox>
         </Grid>
         <DockPanel

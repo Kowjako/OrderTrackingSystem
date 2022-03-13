@@ -90,8 +90,8 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             var ellipse = new Border
             {
                 Background = new SolidColorBrush(Colors.White),
-                BorderBrush = new SolidColorBrush(Colors.Black),
-                BorderThickness = new Thickness(1.5),
+                BorderBrush = new SolidColorBrush(Colors.DarkSlateGray),
+                BorderThickness = new Thickness(2),
                 CornerRadius = new CornerRadius(10),
                 Height = RADIUSY * 2.5,
                 Width = RADIUSX * 2.5,
@@ -101,7 +101,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 FontSize = 15,
                 FontWeight = FontWeights.DemiBold,
                 Text = (row / 3 + 1).ToString(),
-                Foreground = new SolidColorBrush(Colors.Blue),
+                Foreground = new SolidColorBrush(Colors.RoyalBlue),
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
