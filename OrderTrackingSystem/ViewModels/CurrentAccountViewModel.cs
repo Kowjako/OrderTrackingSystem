@@ -2,8 +2,8 @@
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.ViewModels
@@ -46,11 +46,30 @@ namespace OrderTrackingSystem.ViewModels
         public RelayCommand SaveCommand =>
             _saveCommand ?? (_saveCommand = new RelayCommand(obj =>
             {
-                //CustomerService.Update(CurrentCustomer);
-                //if (Localization != null && Localization.Any())
-                //{
-                //    LocalizationService.Update(Localization.First());
-                //}
+                try
+                {
+                    /* Update customer */
+                    CustomerService.UpdateCustomer(CurrentCustomer);
+
+                    /* Update localization */
+                    var currentLocalization = Localization[0];
+                    var localization = new Localizations
+                    {
+                        Id = currentLocalization.Id,
+                        City = currentLocalization.Miasto,
+                        Country = currentLocalization.Kraj,
+                        Street = currentLocalization.Ulica,
+                        Flat = (byte)currentLocalization.Mieszkanie,
+                        House = (byte)currentLocalization.Budynek,
+                        ZipCode = currentLocalization.Kod
+                    };
+
+                    LocalizationService.UpdateLocalization(localization);
+                }
+                catch (Exception)
+                {
+
+                }
             }));
 
         #endregion

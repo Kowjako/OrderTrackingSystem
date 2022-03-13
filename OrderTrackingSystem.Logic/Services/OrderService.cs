@@ -21,7 +21,7 @@ namespace OrderTrackingSystem.Logic.Services
                             let valueQuery = (from cart in dbContext.OrderCarts
                                               from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                               where cart.OrderId == order.Id
-                                              select cart.Amount * prodcut.PriceBrutto).Sum()
+                                              select cart.Amount * prodcut.PriceBrutto).SumAsync()
                             let sellerQuery = from seller in dbContext.Sellers
                                               where seller.Id == order.SellerId
                                               select seller.Name
@@ -32,7 +32,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Sklep = sellerQuery.FirstAsync().Result,
                                 Dostawa = DeliveryTypeEnumConverter.GetNameById(order.DeliveryType),
                                 Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                                Kwota = string.Format("{0:0.00 zł}", valueQuery)
+                                Kwota = string.Format("{0:0.00 zł}", valueQuery.Result)
                             };
 
                 return query.ToList();

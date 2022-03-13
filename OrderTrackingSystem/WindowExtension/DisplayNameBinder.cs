@@ -10,6 +10,12 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
         public static void SetDisplayNameIfExists(DataGridAutoGeneratingColumnEventArgs e)
         {
             var displayName = GetPropertyDisplayName(e.PropertyDescriptor);
+
+            /* Hide non-browsable columns */
+            if (((PropertyDescriptor)e.PropertyDescriptor).IsBrowsable == false)
+                e.Cancel = true;
+
+            /* Set display name attribute value to column */
             if (!string.IsNullOrEmpty(displayName))
             {
                 e.Column.Header = displayName;

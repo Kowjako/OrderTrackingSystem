@@ -62,17 +62,18 @@ namespace OrderTrackingSystem
         {
             try
             {
-                var viewModel = new CurrentAccountViewModel();
-                await viewModel.SetInitializeProperties();
-                DataContext = viewModel;
+                throw new Exception();
+                //var viewModel = new CurrentAccountViewModel();
+                //await viewModel.SetInitializeProperties();
+                //DataContext = viewModel;
             }
-            catch
+            catch (Exception ex)
             {
                 (this as ContentControl).WithNotifying(NotifyType.Error, mainControl, "Wystąpił błąd podczas pobierania danych");
             }
         }
 
-        private void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new TrackingViewModel();
         }

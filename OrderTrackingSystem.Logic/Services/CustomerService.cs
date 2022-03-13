@@ -14,5 +14,14 @@ namespace OrderTrackingSystem.Logic.Services
                 return await dbContext.Customers.FindAsync(sessionId);
             }
         }
+
+        public async void UpdateCustomer(Customers customer)
+        {
+            using(var dbContext = new OrderTrackingSystemEntities())
+            {
+                dbContext.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

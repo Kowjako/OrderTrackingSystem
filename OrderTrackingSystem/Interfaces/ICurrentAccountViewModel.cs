@@ -13,6 +13,7 @@ namespace OrderTrackingSystem.Interfaces
         Customers CurrentCustomer { get; set; }
         List<LocalizationDTO> Localization { get; set; }
         List<OrderDTO> Orders { get; set; }
+        List<SellDTO> Sells { get; set; }
 
         Task SetInitializeProperties();
 

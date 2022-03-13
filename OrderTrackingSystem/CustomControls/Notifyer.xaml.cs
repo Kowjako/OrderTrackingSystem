@@ -104,8 +104,12 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             {
                 return new[] { new CustomPopupPlacement(new Point(mainContainer.ActualWidth - (popup.Child as Notifyer).ActualWidth - 15, 15), PopupPrimaryAxis.Horizontal) };
             };
+            /* Zwalniamy Child od MainWindow */
+            popup.Closed += (sender, e) => (sender as Popup).Child = null;
             popup.IsOpen = true;
+            
         }
+
         public Notifyer()
         {
             InitializeComponent();

@@ -16,6 +16,7 @@ namespace OrderTrackingSystem.Logic.Services
                             where localization.Id == id
                             select new LocalizationDTO()
                             {
+                                Id = localization.Id,
                                 Kraj = localization.Country,
                                 Miasto = localization.City,
                                 Ulica = localization.Street,
@@ -24,6 +25,15 @@ namespace OrderTrackingSystem.Logic.Services
                                 Kod = localization.ZipCode
                             };
                 return await query.FirstAsync();
+            }
+        }
+
+        public async void UpdateLocalization(Localizations localization)
+        {
+            using(var dbContext = new OrderTrackingSystemEntities())
+            {
+                dbContext.Entry(localization).State = EntityState.Modified;
+                await dbContext.SaveChangesAsync();
             }
         }
     }

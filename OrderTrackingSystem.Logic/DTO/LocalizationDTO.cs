@@ -4,6 +4,8 @@ namespace OrderTrackingSystem.Logic.DTO
 {
     public sealed class LocalizationDTO
     {
+        [Browsable(false)]
+        public int Id { get; set; }
         public string Kraj { get; set; }
         public string Miasto { get; set; }
         public string Ulica { get; set; }

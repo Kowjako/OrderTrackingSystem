@@ -20,7 +20,7 @@ namespace OrderTrackingSystem.Logic.Services
                             let valueQuery = (from cart in dbContext.SellCarts
                                               from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                               where cart.SellId == sells.Id
-                                              select cart.Amount * prodcut.PriceBrutto).Sum()
+                                              select cart.Amount * prodcut.PriceBrutto).SumAsync()
                             let receiverQuery = from receiver in dbContext.Customers
                                                 where receiver.Id == sells.CustomerId
                                                 select receiver.Name + " " + receiver.Surname
@@ -30,7 +30,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Data = sells.SellingDate.ToShortDateString(),
                                 Dni = sells.PickupDays.ToString(),
                                 Odbiorca = receiverQuery.FirstAsync().Result,
-                                Kwota = string.Format("{0:0.00 zł}", valueQuery)
+                                Kwota = string.Format("{0:0.00 zł}", valueQuery.Result)
                             };
 
                 return query.ToList();
