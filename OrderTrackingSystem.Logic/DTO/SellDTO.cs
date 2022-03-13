@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
     public sealed class SellDTO
     {
-        public string Number { get; set; }
+        public string Numer { get; set; }
         [DisplayName("Data wysyłki")]
         public string Data { get; set; }
         [DisplayName("Dni do odbioru")]

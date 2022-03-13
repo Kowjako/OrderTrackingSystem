@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
@@ -13,6 +9,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Ulica { get; set; }
         public int Mieszkanie { get; set; }
         public int Budynek { get; set; }
+        [DisplayName("Kod pocztowy")]
         public string Kod { get; set; }
     }
 }
