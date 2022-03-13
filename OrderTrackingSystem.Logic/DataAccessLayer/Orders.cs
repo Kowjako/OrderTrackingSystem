@@ -27,8 +27,9 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public string Number { get; set; }
         public int CustomerId { get; set; }
         public byte PayType { get; set; }
-        public string DeliveryType { get; set; }
+        public byte DeliveryType { get; set; }
         public int PickupId { get; set; }
+        public int SellerId { get; set; }
         public Nullable<int> ComplaintDefinitionId { get; set; }
     
         public virtual ComplaintDefinitions ComplaintDefinitions { get; set; }
@@ -38,6 +39,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderCarts> OrderCarts { get; set; }
         public virtual Pickups Pickups { get; set; }
+        public virtual Sellers Sellers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderStates> OrderStates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

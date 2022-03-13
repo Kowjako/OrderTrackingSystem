@@ -36,6 +36,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Sellers> Sellers { get; set; }
         public virtual DbSet<Sells> Sells { get; set; }
+        public virtual DbSet<Vouchers> Vouchers { get; set; }
         public virtual DbSet<ComplaintStates> ComplaintStates { get; set; }
         public virtual DbSet<OrderCarts> OrderCarts { get; set; }
         public virtual DbSet<SellCarts> SellCarts { get; set; }

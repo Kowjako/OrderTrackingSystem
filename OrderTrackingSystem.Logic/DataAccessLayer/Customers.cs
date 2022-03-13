@@ -20,6 +20,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
             this.Orders = new HashSet<Orders>();
             this.Sells = new HashSet<Sells>();
             this.Sells1 = new HashSet<Sells>();
+            this.Vouchers = new HashSet<Vouchers>();
         }
     
         public int Id { get; set; }
@@ -38,5 +39,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual ICollection<Sells> Sells { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sells> Sells1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vouchers> Vouchers { get; set; }
     }
 }
