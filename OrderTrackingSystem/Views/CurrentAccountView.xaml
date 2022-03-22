@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:OrderTrackingSystem.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="800"
+             d:DesignHeight="950" d:DesignWidth="800"
              Background="White">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,11 +14,18 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition MinHeight="100" MaxHeight="100"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="DeepPink">
+            <TextBlock Text="Szczegóły konta"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="17"
+                       Foreground="Black"/>
+        </Border>
         <GridSplitter Grid.Row="1"
                       Grid.Column="1"
                       HorizontalAlignment="Stretch"
@@ -148,13 +155,7 @@
             </DockPanel>
             
         </DockPanel>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Szczegóły konta"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
+        
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <TextBlock Text="Adres zamieszkania"
                        Foreground="Black"

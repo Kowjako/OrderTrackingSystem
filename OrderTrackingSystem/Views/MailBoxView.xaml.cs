@@ -11,16 +11,10 @@ namespace OrderTrackingSystem.Presentation.Views
     /// </summary>
     public partial class MailBoxView : UserControl
     {
-        static List<Popup> popups = new List<Popup>();
         public MailBoxView()
         {
             InitializeComponent();
-
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            (this as UserControl).WithNotifying(CustomControls.NotifyType.Warning, mainGrid, "Sledzenie mozliwe tylko dla zamowien");
-        }
     }
 }

@@ -100,8 +100,10 @@
                     </TextBlock>
                 </TabItem>
             </TabControl>
-
-            <ContentControl x:Name="mainControl" Content="{Binding}"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ContentControl x:Name="mainControl" Content="{Binding}"/>
+            </ScrollViewer>
+            
         </DockPanel>
 
     </Border>

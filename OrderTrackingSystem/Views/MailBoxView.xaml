@@ -15,7 +15,7 @@
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
@@ -186,7 +186,6 @@
                     Background="Maroon"
                     BorderBrush="Maroon"
                     Foreground="White"
-                    Click ="Button_Click"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"

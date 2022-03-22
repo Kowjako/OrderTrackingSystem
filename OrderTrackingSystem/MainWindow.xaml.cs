@@ -3,13 +3,10 @@ using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using OrderTrackingSystem.ViewModels;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace OrderTrackingSystem
 {
@@ -62,10 +59,9 @@ namespace OrderTrackingSystem
         {
             try
             {
-                throw new Exception();
-                //var viewModel = new CurrentAccountViewModel();
-                //await viewModel.SetInitializeProperties();
-                //DataContext = viewModel;
+                var viewModel = new CurrentAccountViewModel();
+                await viewModel.SetInitializeProperties();
+                DataContext = viewModel;
             }
             catch (Exception ex)
             {
@@ -78,22 +74,22 @@ namespace OrderTrackingSystem
             DataContext = new TrackingViewModel();
         }
 
-        private void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new OrdersViewModel();
         }
 
-        private void SendsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void SendsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new SendsViewModel();
         }
 
-        private void MailboxMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void MailboxMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new MailboxViewModel();
         }
 
-        private void ComplaintsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void ComplaintsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new ComplaintsViewModel();
         }

@@ -107,7 +107,6 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             /* Zwalniamy Child od MainWindow */
             popup.Closed += (sender, e) => (sender as Popup).Child = null;
             popup.IsOpen = true;
-            
         }
 
         public Notifyer()
