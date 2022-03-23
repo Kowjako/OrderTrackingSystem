@@ -259,4 +259,7 @@ CREATE TABLE Session (
 );
 GO
 
+ALTER TABLE Orders
+ADD OrderDate DATETIME  
+
 COMMIT TRAN

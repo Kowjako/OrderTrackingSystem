@@ -115,6 +115,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.OrderCarts' does not have 
           <Property Name="PickupId" Type="int" Nullable="false" />
           <Property Name="SellerId" Type="int" Nullable="false" />
           <Property Name="ComplaintDefinitionId" Type="int" />
+          <Property Name="OrderDate" Type="datetime" />
         </EntityType>
         <EntityType Name="OrderStates">
           <Key>
@@ -746,6 +747,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <Property Name="PickupId" Type="Int32" Nullable="false" />
           <Property Name="SellerId" Type="Int32" Nullable="false" />
           <Property Name="ComplaintDefinitionId" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ComplaintDefinitions" Relationship="Self.FK__Orders_ComplaintDefinitionId" FromRole="Orders" ToRole="ComplaintDefinitions" />
           <NavigationProperty Name="Customers" Relationship="Self.FK__Orders_CustomerId" FromRole="Orders" ToRole="Customers" />
           <NavigationProperty Name="ComplaintStates" Relationship="Self.FK__ComplaintStates_OrderId" FromRole="Orders" ToRole="ComplaintStates" />
@@ -1310,6 +1312,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
                 <ScalarProperty Name="PickupId" ColumnName="PickupId" />
                 <ScalarProperty Name="SellerId" ColumnName="SellerId" />
                 <ScalarProperty Name="ComplaintDefinitionId" ColumnName="ComplaintDefinitionId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

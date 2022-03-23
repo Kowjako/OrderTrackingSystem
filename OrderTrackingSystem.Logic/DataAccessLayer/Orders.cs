@@ -31,6 +31,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public int PickupId { get; set; }
         public int SellerId { get; set; }
         public Nullable<int> ComplaintDefinitionId { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
     
         public virtual ComplaintDefinitions ComplaintDefinitions { get; set; }
         public virtual Customers Customers { get; set; }

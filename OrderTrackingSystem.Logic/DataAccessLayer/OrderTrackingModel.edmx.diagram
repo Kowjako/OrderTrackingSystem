@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="76e84f3753de4ae78c0b43dc304ea00a" Name="Diagram1">
+      <Diagram DiagramId="e5b506879d664802885ab284a6d85505" Name="Diagram1">
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintDefinitions" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintFolders" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Customers" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Localizations" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Mails" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Orders" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Orders" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.OrderStates" Width="1.5" PointX="10.5" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Pickups" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Products" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
