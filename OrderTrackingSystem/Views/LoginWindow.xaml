@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStyle="None"
         Title="LoginWindow" Height="450" Width="800">
-    <Border MouseDown="Border_MouseDown">
+    <Border BorderBrush="Black" BorderThickness="1"
+            Opacity="50"
+            MouseDown="Border_MouseDown">
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
