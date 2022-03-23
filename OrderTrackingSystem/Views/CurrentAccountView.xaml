@@ -170,13 +170,10 @@
             <DataGrid x:Name="dgLocalization" Background="White" 
                       Foreground="Black"
                       CanUserAddRows="False"
-                      Height="80"
+                      SelectionUnit="Cell"
                       AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       ColumnWidth="*"
-                      ScrollViewer.CanContentScroll="False"
-                      VerticalScrollBarVisibility="Hidden"
-                      HorizontalScrollBarVisibility="Hidden"
-                      ItemsSource="{Binding Localization}"
+                      ItemsSource="{Binding Localization, UpdateSourceTrigger=PropertyChanged}"
                       Margin="5">
             </DataGrid>
 

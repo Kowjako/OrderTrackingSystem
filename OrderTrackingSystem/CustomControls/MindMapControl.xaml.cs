@@ -32,7 +32,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 DrawMainConnector();
             }
             LinkedItems.Add(refNumber);
-            OnNodeAdded(refNumber);
+            OnNodeAdded();
         }
 
         private void DrawMainConnector()
@@ -85,7 +85,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             DrawHelperConnector();
         }
 
-        private void OnNodeAdded(string refNumber)
+        private void OnNodeAdded()
         {
             BuildDefaultGrid();
             ordersGrid.Children.Clear();

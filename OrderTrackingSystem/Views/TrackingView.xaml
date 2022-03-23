@@ -210,7 +210,16 @@
                        FontSize="17"
                        Margin="10,10,240,5"
                        FontFamily="Arial"/>
-            <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
+            <DataGrid x:Name="elementGrid" 
+                      Margin="5"
+                      AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
+                      Foreground="Black"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      SelectionUnit="FullRow"
+                      HorizontalScrollBarVisibility="Hidden"
+                      ItemsSource="{Binding Items}"/>
         </StackPanel>
         <DockPanel x:Name="tracker" 
                    Background="Yellow" 

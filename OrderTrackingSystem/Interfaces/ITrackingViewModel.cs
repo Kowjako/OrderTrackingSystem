@@ -1,12 +1,13 @@
-﻿using System;
+﻿using OrderTrackingSystem.Logic.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    interface ITrackingViewModel
+    public interface ITrackingViewModel
     {
+        List<TrackableItemDTO> Items { get; set; }
+
+        Task SetInitializeProperties();
     }
 }

@@ -71,7 +71,16 @@ namespace OrderTrackingSystem
 
         private async void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new TrackingViewModel();
+            try
+            {
+                var viewModel = new TrackingViewModel();
+                await viewModel.SetInitializeProperties();
+                DataContext = viewModel;
+            }
+            catch (Exception ex)
+            {
+                (this as ContentControl).WithNotifying(NotifyType.Error, mainControl, "Wystąpił błąd podczas pobierania danych");
+            }
         }
 
         private async void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
