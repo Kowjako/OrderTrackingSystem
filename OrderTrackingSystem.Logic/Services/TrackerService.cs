@@ -15,11 +15,11 @@ namespace OrderTrackingSystem.Logic.Services
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
-                var customer = await dbContext.Customers.Where(c => c.Id == customerId).FirstAsync();
-                /* Ładujemy kolekcje zamówień i wysyłek */
-                await dbContext.Entry(customer).Collection(nameof(customer.Sells)).LoadAsync();
-                await dbContext.Entry(customer).Collection(nameof(customer.Orders)).LoadAsync();
-
+                /* Ładujemy customer'a wraz z zamówieniami i wysyłkami */
+                var customer = await dbContext.Customers.Where(c => c.Id == customerId).Include(p => p.Sells)
+                                                                                       .Include(p => p.Orders)
+                                                                                       .AsNoTracking()
+                                                                                       .FirstAsync();
                 /* Selekcja DTO dla zamówień */
                 var orderQuery = from order in customer.Orders
                                  let sellerQuery = from sellers in dbContext.Sellers
