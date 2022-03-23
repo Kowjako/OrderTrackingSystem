@@ -67,74 +67,75 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessLayer\ComplaintDefinitions.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\ComplaintFolders.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\ComplaintStates.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Customers.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Localizations.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Mails.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\OrderCarts.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Orders.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\OrderStates.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\OrderSystemModel.Context.cs">
+    <Compile Include="DataAccessLayer\OrderTrackingModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderSystemModel.Context.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\OrderSystemModel.cs">
+    <Compile Include="DataAccessLayer\OrderTrackingModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccessLayer\OrderSystemModel.Designer.cs">
+    <Compile Include="DataAccessLayer\OrderTrackingModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
+      <DependentUpon>OrderTrackingModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Pickups.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Products.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\SellCarts.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Sellers.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Sells.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Session.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Users.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessLayer\Vouchers.cs">
-      <DependentUpon>OrderSystemModel.tt</DependentUpon>
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\SellDTO.cs" />
+    <Compile Include="DTO\TrackableItemDTO.cs" />
     <Compile Include="EnumMappers\EnumMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
@@ -143,16 +144,17 @@
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\SellService.cs" />
+    <Compile Include="Services\TrackerService.cs" />
     <Compile Include="Validators\CustomerValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="DataAccessLayer\OrderSystemModel.edmx">
+    <EntityDeploy Include="DataAccessLayer\OrderTrackingModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrderSystemModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>OrderTrackingModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DataAccessLayer\OrderSystemModel.edmx.diagram">
-      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
+    <None Include="DataAccessLayer\OrderTrackingModel.edmx.diagram">
+      <DependentUpon>OrderTrackingModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -160,15 +162,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataAccessLayer\OrderSystemModel.Context.tt">
+    <Content Include="DataAccessLayer\OrderTrackingModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
-      <LastGenOutput>OrderSystemModel.Context.cs</LastGenOutput>
+      <DependentUpon>OrderTrackingModel.edmx</DependentUpon>
+      <LastGenOutput>OrderTrackingModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataAccessLayer\OrderSystemModel.tt">
+    <Content Include="DataAccessLayer\OrderTrackingModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrderSystemModel.edmx</DependentUpon>
-      <LastGenOutput>OrderSystemModel.cs</LastGenOutput>
+      <DependentUpon>OrderTrackingModel.edmx</DependentUpon>
+      <LastGenOutput>OrderTrackingModel.cs</LastGenOutput>
     </Content>
     <Content Include="SQL\BaseDefinitionScript.sql" />
     <Content Include="SQL\TriggerDefinitionScript.sql" />
