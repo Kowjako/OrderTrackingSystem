@@ -43,12 +43,15 @@
                             Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button
-                        Style="{DynamicResource MaterialDesignToolButton}">
+                        Style="{DynamicResource MaterialDesignToolButton}"
+                        Command="{Binding FindParcel}"
+                        CommandParameter="{Binding ElementName=parcelBox, Path=Text}">
                         <materialDesign:PackIcon
                             Kind="Search"
                             Opacity="1" />
                     </Button>
                     <TextBox
+                        x:Name="parcelBox"
                         FontSize="15"
                         VerticalAlignment="Center"
                         Grid.Column="1"

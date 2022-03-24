@@ -108,25 +108,43 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
             }));
 
+        private RelayCommand _findParcel;
+        public RelayCommand FindParcel =>
+            _findParcel ?? (_findParcel = new RelayCommand(obj =>
+            {
+                try
+                {
+                    Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Numer.Equals(obj as string)) };
+                    OnPropertyChanged(nameof(Items));
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+
         #endregion
 
         #region Private methods
 
         private async void OnSelectedItemChanged()
         {
-            Customer = await CustomerService.GetCustomer(_selectedItem.CustomerId);
-            if (_selectedItem.IsOrder)
+            if (_selectedItem != null)
             {
-                Seller = await CustomerService.GetSeller(_selectedItem.SellerId);
-            }
-            else
-            {
-                Seller = await CustomerService.GetCustomer(_selectedItem.SellerId);
-            }
+                Customer = await CustomerService.GetCustomer(_selectedItem.CustomerId);
+                if (_selectedItem.IsOrder)
+                {
+                    Seller = await CustomerService.GetSeller(_selectedItem.SellerId);
+                }
+                else
+                {
+                    Seller = await CustomerService.GetCustomer(_selectedItem.SellerId);
+                }
 
-            /* Update UI bindings */
-            OnPropertyChanged(nameof(Customer));
-            OnPropertyChanged(nameof(Seller));
+                /* Update UI bindings */
+                OnPropertyChanged(nameof(Customer));
+                OnPropertyChanged(nameof(Seller));
+            }
         }
 
         #endregion

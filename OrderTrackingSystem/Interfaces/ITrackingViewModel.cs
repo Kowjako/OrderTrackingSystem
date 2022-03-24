@@ -21,5 +21,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
         Task SetInitializeProperties();
 
         RelayCommand FilterCommand { get; }
+        RelayCommand FindParcel { get; }
     }
 }
