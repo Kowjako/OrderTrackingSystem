@@ -56,7 +56,7 @@ namespace OrderTrackingSystem.Logic.Services
                                      Id = sells.Id,
                                      Numer = sells.Number,
                                      Data = sells.SellingDate.ToShortDateString(),
-                                     Nabywca = receiverQuery.First().Name + " "+ receiverQuery.First().Surname,
+                                     Nabywca = receiverQuery.First().Name + " " + receiverQuery.First().Surname,
                                      Sprzedawca = customer.Name + " " + customer.Surname,
                                      Kwota = string.Format("{0:0.00 zł}", valueQuery),
                                      IsOrder = false,
@@ -66,6 +66,28 @@ namespace OrderTrackingSystem.Logic.Services
 
                 /* Union dwóch kolekcji */
                 return orderQuery.Union(sendsQuery).ToList();
+            }
+        }
+
+        public async Task<List<ParcelStateDTO>> GetParcelState(int orderId)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var order = await dbContext.Orders.FindAsync(orderId);
+                List<OrderStates> OrderStates = null;
+                if (order != null)
+                {
+                    OrderStates = await dbContext.OrderStates.Where(p => p.OrderId == order.Id)
+                                                                 .OrderBy(p => p.Date)
+                                                                 .ToListAsync();
+                }
+                List<ParcelStateDTO> ParcelStates = OrderStates.Select(p => new ParcelStateDTO
+                {
+                    Name = p.State,
+                    Data = p.Date,
+                    Description = p.Description
+                }).ToList();
+                return ParcelStates;
             }
         }
     }
