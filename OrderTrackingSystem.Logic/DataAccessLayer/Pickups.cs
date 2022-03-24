@@ -22,9 +22,8 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     
         public int Id { get; set; }
         public short Capacity { get; set; }
-        public System.DateTime OpenDate { get; set; }
-        public System.DateTime CloseDate { get; set; }
         public int LocalizationId { get; set; }
+        public string WorkHours { get; set; }
     
         public virtual Localizations Localizations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

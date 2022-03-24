@@ -133,9 +133,8 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.OrderCarts' does not have 
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Capacity" Type="smallint" Nullable="false" />
-          <Property Name="OpenDate" Type="datetime" Nullable="false" />
-          <Property Name="CloseDate" Type="datetime" Nullable="false" />
           <Property Name="LocalizationId" Type="int" Nullable="false" />
+          <Property Name="WorkHours" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -774,9 +773,8 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Capacity" Type="Int16" Nullable="false" />
-          <Property Name="OpenDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CloseDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LocalizationId" Type="Int32" Nullable="false" />
+          <Property Name="WorkHours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Localizations" Relationship="Self.FK__Pickups_LocalizationId" FromRole="Pickups" ToRole="Localizations" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders_PickupId" FromRole="Pickups" ToRole="Orders" />
         </EntityType>
@@ -1332,9 +1330,8 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
               <MappingFragment StoreEntitySet="Pickups">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Capacity" ColumnName="Capacity" />
-                <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
-                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
                 <ScalarProperty Name="LocalizationId" ColumnName="LocalizationId" />
+                <ScalarProperty Name="WorkHours" ColumnName="WorkHours" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

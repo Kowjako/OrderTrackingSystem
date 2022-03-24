@@ -261,5 +261,15 @@ GO
 
 ALTER TABLE Orders
 ADD OrderDate DATETIME  
+GO
+
+ALTER TABLE Pickups
+DROP COLUMN OpenDate,
+			CloseDate
+GO
+
+ALTER TABLE Pickups
+ADD WorkHours NVARCHAR(50)
+GO
 
 COMMIT TRAN

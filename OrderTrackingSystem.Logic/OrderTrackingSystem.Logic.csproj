@@ -136,6 +136,7 @@
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\ParcelStateDTO.cs" />
+    <Compile Include="DTO\PickupDTO.cs" />
     <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="DTO\TrackableItemDTO.cs" />
     <Compile Include="EnumMappers\EnumMapper.cs" />
