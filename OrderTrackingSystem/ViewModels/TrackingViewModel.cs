@@ -1,15 +1,14 @@
 ﻿using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class TrackingViewModel : ITrackingViewModel
+    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged
     {
         #region Services
 
@@ -21,6 +20,21 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Bindable objects
 
         public List<TrackableItemDTO> Items { get; set; } = new List<TrackableItemDTO>();
+
+        private TrackableItemDTO _selectedItem;
+
+        public TrackableItemDTO SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+                OnSelectedItemChanged();
+            }
+        }
+
+        public CustomerDTO Customer { get; set; }
+        public CustomerDTO Seller { get; set; }
 
         #endregion
 
@@ -39,6 +53,29 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             var currentCustomer = await CustomerService.GetCurrentCustomer();
             Items = await TrackerService.GetItemsForCustomer(currentCustomer.Id);
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private async void OnSelectedItemChanged()
+        {
+            Customer = await CustomerService.GetCustomer(_selectedItem.CustomerId, _selectedItem.IsOrder);
+            Seller = await CustomerService.GetCustomer(_selectedItem.SellerId, _selectedItem.IsOrder);
+            /* Update UI bindings */
+            OnPropertyChanged(nameof(Customer));
+            OnPropertyChanged(nameof(Seller));
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         #endregion
