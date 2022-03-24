@@ -68,10 +68,10 @@ namespace OrderTrackingSystem.Logic.Services
                         {
                             Nazwa = seller.Name,
                             Adres = localizationQuery.Street + " " +
-                                    localizationQuery.House + " " +
+                                    localizationQuery.House + ", " +
                                     localizationQuery.Flat,
                             Email = seller.Email,
-                            MiastoKod = localizationQuery.City + " " +
+                            MiastoKod = localizationQuery.City + ", " +
                                         localizationQuery.ZipCode,
                             Numer = seller.Number
                         };

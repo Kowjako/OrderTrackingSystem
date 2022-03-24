@@ -118,6 +118,7 @@
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel DataContext="{Binding Customer}">
+                    <!-- Use this style inside this control -->
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="FontSize" Value="13"/>

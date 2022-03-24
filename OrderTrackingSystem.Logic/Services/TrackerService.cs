@@ -16,8 +16,7 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 /* Ładujemy customer'a wraz z zamówieniami i wysyłkami */
-                var customer = await dbContext.Customers.Where(c => c.Id == customerId).Include(p => p.Sells)
-                                                                                       .Include(p => p.Orders)
+                var customer = await dbContext.Customers.Where(c => c.Id == customerId).Include(p => p.Orders)
                                                                                        .AsNoTracking()
                                                                                        .FirstAsync();
                 /* Selekcja DTO dla zamówień */
@@ -43,7 +42,8 @@ namespace OrderTrackingSystem.Logic.Services
                                  };
 
                 /* Selekcja DTO dla wysyłek*/
-                var sendsQuery = from sells in customer.Sells
+                IEnumerable<Sells> Sells = await dbContext.Sells.Where(p => p.SellerId == customer.Id).ToListAsync();
+                var sendsQuery = from sells in Sells
                                  let receiverQuery = from receiver in dbContext.Customers
                                                      where receiver.Id == sells.CustomerId
                                                      select receiver
