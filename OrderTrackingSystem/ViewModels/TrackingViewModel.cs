@@ -116,8 +116,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Numer.Equals(obj as string)) };
-                    OnPropertyChanged(nameof(Items));
+                    if (!string.IsNullOrEmpty(obj as string))
+                    {
+                        Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Numer.Equals(obj as string)) };
+                        OnPropertyChanged(nameof(Items));
+                    }
                 }
                 catch (Exception)
                 {
