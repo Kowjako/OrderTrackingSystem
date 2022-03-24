@@ -1,6 +1,8 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Data.Entity;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -25,9 +27,56 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task<CustomerDTO> GetCustomer(int customerId, bool isOrder)
+        public async Task<CustomerDTO> GetCustomer(int customerId)
         {
-            return new CustomerDTO();
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                IQueryable<CustomerDTO> query = null;
+                query = from customer in dbContext.Customers
+                        let localizationQuery = (from localization in dbContext.Localizations
+                                                where localization.Id == customer.LocalizationId
+                                                select localization).FirstOrDefault()
+                        where customer.Id == customerId
+
+                        select new CustomerDTO
+                        {
+                            Nazwa = customer.Name + " " + customer.Surname,
+                            Adres = localizationQuery.Street + " " +
+                                    localizationQuery.House + ", " +
+                                    localizationQuery.Flat,
+                            Email = customer.Email,
+                            MiastoKod = localizationQuery.City + ", " +
+                                        localizationQuery.ZipCode,
+                            Numer = customer.Number
+                        };
+                return await query.FirstAsync();
+            }
+        }
+
+        public async Task<CustomerDTO> GetSeller(int sellerId)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                IQueryable<CustomerDTO> query = null;
+                query = from seller in dbContext.Sellers
+                        let localizationQuery = (from localization in dbContext.Localizations
+                                                where localization.Id == seller.LocalizationId
+                                                select localization).FirstOrDefault()
+                        where seller.Id == sellerId
+
+                        select new CustomerDTO
+                        {
+                            Nazwa = seller.Name,
+                            Adres = localizationQuery.Street + " " +
+                                    localizationQuery.House + " " +
+                                    localizationQuery.Flat,
+                            Email = seller.Email,
+                            MiastoKod = localizationQuery.City + " " +
+                                        localizationQuery.ZipCode,
+                            Numer = seller.Number
+                        };
+                return await query.FirstAsync();
+            }
         }
     }
 }

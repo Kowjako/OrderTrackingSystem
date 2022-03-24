@@ -91,8 +91,23 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    
+                <StackPanel DataContext="{Binding Seller}">
+                    <!-- Use this style inside this control -->
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="0,0,0,3"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontWeight="DemiBold"
+                               Text="{Binding Nazwa}"/>
+                    <TextBlock Foreground="DarkGreen"
+                               Text="{Binding Adres}"/>
+                    <TextBlock Text="{Binding MiastoKod}"/>
+                    <TextBlock Text="{Binding Email}"/>
+                    <TextBlock Foreground="Maroon"
+                               Text="{Binding Numer}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
@@ -102,8 +117,22 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel >
-                    
+                <StackPanel DataContext="{Binding Customer}">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="0,0,0,3"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontWeight="DemiBold"
+                               Text="{Binding Nazwa}"/>
+                    <TextBlock Foreground="DarkGreen"
+                               Text="{Binding Adres}"/>
+                    <TextBlock Text="{Binding MiastoKod}"/>
+                    <TextBlock Text="{Binding Email}"/>
+                    <TextBlock Foreground="Maroon"
+                               Text="{Binding Numer}"/>
                 </StackPanel>
             </GroupBox>
             
