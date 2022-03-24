@@ -1,17 +1,11 @@
-﻿using OrderTrackingSystem.CustomControls.Classes;
+﻿using OrderTrackingSystem.Logic.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace OrderTrackingSystem.CustomControls.TimeLineBar
@@ -21,12 +15,6 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
     /// </summary>
     public partial class TimeLineControl : UserControl
     {
-
-        public TimeLineControl()
-        {
-            InitializeComponent();
-        }
-
         #region Constants
 
         private const double RADIUSX = 10.0;
@@ -35,26 +23,40 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
 
         #endregion
 
-        #region Read-only fields
+        public static event Action OnNodeSetted;
 
-        private VisualBrush dashedBrush = new VisualBrush()
+        public TimeLineControl()
         {
-            Visual = new Rectangle
-            {
-                StrokeThickness = 5,
-                Stroke = new SolidColorBrush(Colors.Red),
-                Height = 5,
-                Width = 95.5,
-                StrokeDashArray = new DoubleCollection { 1, 2 }
-            }
-        };
-
-        #endregion
+            InitializeComponent();
+            TimeLineNodes = new ObservableCollection<ParcelStateDTO>();
+            /* Podpinamy co się dzieje gdy zmieniana kolekcja node'ów */
+            OnNodeSetted += AddNode;
+        }
 
         #region Properties
 
-        public int NodeCount { get; set; } = 0;
-        internal ICollection<TimeLineNode> TimeLineNodes { get; set; } = new List<TimeLineNode>();
+        /* Dependency property żeby zrobić binding do ParcelStates z naszego
+         * TrackingViewModel do tej kontrolki */
+        public readonly static DependencyProperty StatesSourceProperty =
+        DependencyProperty.Register(nameof(TimeLineNodes),
+        typeof(IEnumerable<ParcelStateDTO>),
+        typeof(TimeLineControl),
+        new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true, PropertyChangedCallback = CollectionChangedCallback });
+
+        public int NodeCount => TimeLineNodes == null ? 0 : TimeLineNodes.Count();
+        /* Jeżeli DependencyProperty ustawiamy na XAMLu a nie w code-behind to set i get wywoływane tak
+         * że debugger nam tego nie pokaże, więc dodawać logikę do get/set nie ma sensu bo i tak się 
+         * nie uruchomi gdy bindings ustawiany z poziomu XAML */
+        public IEnumerable<ParcelStateDTO> TimeLineNodes
+        {
+            get => GetValue(StatesSourceProperty) as IEnumerable<ParcelStateDTO>;
+            set => SetValue(StatesSourceProperty, value);
+        }
+
+        public static void CollectionChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnNodeSetted?.Invoke();
+        }
 
         #endregion
 
@@ -122,29 +124,23 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             AddControlToMainContainer(textBlock, row, column);
         }
 
-        public void AddNode(string title, DateTime date, string description)
+        public void AddNode()
         {
-            /* Add new container for next state */
-            mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(25) });
-            mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(15) });
-            mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
+            for (int i = 0; i < NodeCount; i++)
+            {
+                /* Add new container for next state */
+                mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(25) });
+                mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(15) });
+                mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
 
-            /* Create new node */
-            var timeLineNode = new TimeLineNode(title, date, description);
-            TimeLineNodes.Add(timeLineNode);
-
-            Height += COMPONENT_HEIGHT;
-            NodeCount++;
-            InvalidateVisual();
+                Height += COMPONENT_HEIGHT;
+                InvalidateVisual();
+            }
         }
 
         private void DrawConnector(int row, int column, bool lastNode = false)
         {
             Brush usedBrush = new SolidColorBrush(Colors.Black);
-            if(lastNode)
-            {
-                usedBrush = dashedBrush;
-            }
             var panel = new Border
             {
                 Height = 2,
@@ -170,8 +166,8 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
             {
                 var actualNode = TimeLineNodes.ElementAt(i);
                 DrawEllipseWithNumber(3 * i, 0);
-                PlaceTitle(3 * i, 1, actualNode.Caption);
-                PlaceDateTime(3 * i + 1, 1, actualNode.Date);
+                PlaceTitle(3 * i, 1, actualNode.Name);
+                PlaceDateTime(3 * i + 1, 1, actualNode.Data);
                 PlaceDescription(3 * i + 2, 1, actualNode.Description);
                 /* Skip drawing connector for leaf */
                 if (i == NodeCount - 1)
