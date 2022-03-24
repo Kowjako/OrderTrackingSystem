@@ -20,6 +20,8 @@ namespace OrderTrackingSystem.Presentation.Views
 
         private void btnShowProgress_Click(object sender, RoutedEventArgs e)
         {
+            if ((DataContext as TrackingViewModel).SelectedItem !=null &&
+                !(DataContext as TrackingViewModel).SelectedItem.IsOrder) return;
 
             var trackerAnimation = new DoubleAnimation();
             trackerAnimation.From = 0;
