@@ -15,7 +15,7 @@ namespace OrderTrackingSystem.Logic.Services
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
-                /* Ładujemy customer'a wraz z zamówieniami i wysyłkami */
+                /* Ładujemy customer'a wraz z zamówieniami */
                 var customer = await dbContext.Customers.Where(c => c.Id == customerId).Include(p => p.Orders)
                                                                                        .AsNoTracking()
                                                                                        .FirstAsync();

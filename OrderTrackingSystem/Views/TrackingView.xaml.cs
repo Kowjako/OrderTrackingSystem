@@ -56,7 +56,18 @@ namespace OrderTrackingSystem.Presentation.Views
         private void filterChecked(object sender, RoutedEventArgs e)
         {
             var selectedToggle = e.OriginalSource as ToggleButton;
-            var x = (DataContext as TrackingViewModel);
+            switch(selectedToggle.Name)
+            {
+                case "All":
+                    (DataContext as TrackingViewModel).ItemsSelection = 0;
+                    break;
+                case "OnlyOrders":
+                    (DataContext as TrackingViewModel).ItemsSelection = 1;
+                    break;
+                case "OnlySends":
+                    (DataContext as TrackingViewModel).ItemsSelection = 2;
+                    break;
+            }
         }
     }
 }

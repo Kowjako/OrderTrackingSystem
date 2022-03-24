@@ -1,8 +1,12 @@
-﻿using OrderTrackingSystem.Logic.DTO;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DataAccessLayer;
+using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -14,6 +18,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private readonly TrackerService TrackerService;
         private readonly CustomerService CustomerService;
+
+        #endregion
+
+        #region Private propeties
+
+        public Customers CurrentCustomer { get; private set; }
+        private List<TrackableItemDTO> CurrentItems { get; set; }
 
         #endregion
 
@@ -36,6 +47,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public CustomerDTO Customer { get; set; }
         public CustomerDTO Seller { get; set; }
 
+        /* Filtering bindings */
+        public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime EndDate { get; set; } = DateTime.Now;
+        public int ItemsSelection { get; set; }
+
         #endregion
 
         #region Ctor
@@ -51,9 +67,46 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public async Task SetInitializeProperties()
         {
-            var currentCustomer = await CustomerService.GetCurrentCustomer();
-            Items = await TrackerService.GetItemsForCustomer(currentCustomer.Id);
+            CurrentCustomer = await CustomerService.GetCurrentCustomer();
+            Items = await TrackerService.GetItemsForCustomer(CurrentCustomer.Id);
+            CurrentItems = Items;
         }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _filterCommand;
+        public RelayCommand FilterCommand =>
+            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
+            {
+                try
+                {
+                    Items = CurrentItems;
+                    switch(ItemsSelection)
+                    {
+                        case 1:
+                            Items = Items.Where(p => p.CustomerId == CurrentCustomer.Id).ToList();
+                            break;
+                        case 2:
+                            Items = Items.Where(p => p.SellerId == CurrentCustomer.Id).ToList();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if(StartDate != EndDate)
+                    {
+                        Items = Items.Where(p => DateTime.Parse(p.Data) < EndDate && 
+                                                 DateTime.Parse(p.Data) > StartDate).ToList();
+                    }
+                    OnPropertyChanged(nameof(Items));
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
 
         #endregion
 
