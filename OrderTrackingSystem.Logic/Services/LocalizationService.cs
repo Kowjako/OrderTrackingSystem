@@ -24,7 +24,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Mieszkanie = localization.Flat,
                                 Kod = localization.ZipCode
                             };
-                return await query.FirstAsync();
+                return await query.AsNoTracking().FirstAsync();
             }
         }
 

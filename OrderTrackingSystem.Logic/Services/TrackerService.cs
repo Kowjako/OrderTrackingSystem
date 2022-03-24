@@ -36,7 +36,10 @@ namespace OrderTrackingSystem.Logic.Services
                                      Data = order.OrderDate.Value.ToShortDateString(),
                                      Nabywca = customer.Name + " " + customer.Surname,
                                      Sprzedawca = sellerQuery.First().Name,
-                                     Kwota = string.Format("{0:0.00 zł}", valueQuery)
+                                     Kwota = string.Format("{0:0.00 zł}", valueQuery),
+                                     IsOrder = true,
+                                     CustomerId = customer.Id,
+                                     SellerId = sellerQuery.First().Id
                                  };
 
                 /* Selekcja DTO dla wysyłek*/
@@ -55,7 +58,10 @@ namespace OrderTrackingSystem.Logic.Services
                                      Data = sells.SellingDate.ToShortDateString(),
                                      Nabywca = receiverQuery.First().Name + " "+ receiverQuery.First().Surname,
                                      Sprzedawca = customer.Name + " " + customer.Surname,
-                                     Kwota = string.Format("{0:0.00 zł}", valueQuery)
+                                     Kwota = string.Format("{0:0.00 zł}", valueQuery),
+                                     IsOrder = false,
+                                     CustomerId = receiverQuery.First().Id,
+                                     SellerId = customer.Id
                                  };
 
                 /* Union dwóch kolekcji */

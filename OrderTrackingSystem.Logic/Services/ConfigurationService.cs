@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services

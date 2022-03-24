@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+using OrderTrackingSystem.Logic.DTO;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
@@ -22,6 +23,11 @@ namespace OrderTrackingSystem.Logic.Services
                 dbContext.Entry(customer).State = System.Data.Entity.EntityState.Modified;
                 await dbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<CustomerDTO> GetCustomer(int customerId, bool isOrder)
+        {
+            return new CustomerDTO();
         }
     }
 }
