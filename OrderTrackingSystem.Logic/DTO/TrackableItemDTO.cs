@@ -17,5 +17,11 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Nabywca { get; set; }
         public string Sprzedawca { get; set; }
         public string Kwota { get; set; }
+        [Browsable(false)]
+        public bool IsOrder { get; set; }
+        [Browsable(false)]
+        public int SellerId { get; set; }
+        [Browsable(false)]
+        public int CustomerId { get; set; }
     }
 }

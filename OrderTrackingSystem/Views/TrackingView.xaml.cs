@@ -1,7 +1,9 @@
-﻿using OrderTrackingSystem.Presentation.WindowExtension;
+﻿using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.Presentation.WindowExtension;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
 
 namespace OrderTrackingSystem.Presentation.Views
@@ -49,6 +51,12 @@ namespace OrderTrackingSystem.Presentation.Views
         private void elementGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
+
+        private void filterChecked(object sender, RoutedEventArgs e)
+        {
+            var selectedToggle = e.OriginalSource as ToggleButton;
+            var x = (DataContext as TrackingViewModel);
         }
     }
 }
