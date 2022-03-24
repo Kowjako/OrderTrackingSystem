@@ -230,6 +230,7 @@
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
                     BorderBrush="Maroon"
+                    Command="{Binding ShowProgress}"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Click="btnShowProgress_Click"
@@ -266,7 +267,9 @@
                    Width="0"
                    Grid.Column="2" 
                    Grid.RowSpan="4">
-            <controls:TimeLineControl x:Name="timeLine" Margin="0,10,0,0" />
+            <controls:TimeLineControl x:Name="timeLine" 
+                                      TimeLineNodes="{Binding ParcelStates, Mode=TwoWay}"
+                                      Margin="0,10,0,0" />
         </DockPanel>
     </Grid>
 </UserControl>

@@ -16,18 +16,6 @@ namespace OrderTrackingSystem.Presentation.Views
         public TrackingView()
         {
             InitializeComponent();
-            Loaded += TrackingView_Loaded;
-        }
-
-        private void TrackingView_Loaded(object sender, RoutedEventArgs e)
-        {
-            timeLine.AddNode("W trakcie przygotowania", DateTime.Now, "Przesyłka jest przygotowywana przez producenta");
-            timeLine.AddNode("Odebrana od nadawcy", DateTime.Now, "Przesyłka jest odebrana od nadawcy");
-            timeLine.AddNode("Przyjęta w oddziale", DateTime.Now, "Przesyłka jest procesowana przez lokalny oddział");
-            timeLine.AddNode("Wysłana z oddziału", DateTime.Now, "Przesyłka opusciła lokalny oddział");
-            timeLine.AddNode("Wydana do doręczenia", DateTime.Now, "Przesyłka jest przekazana kurierowi");
-            timeLine.AddNode("Gotowa do odbioru", DateTime.Now, "Przesyłka czeka na odbiór");
-            timeLine.AddNode("Odebrana", DateTime.Now, "Towar został odebrany przez klienta");
         }
 
         private void btnShowProgress_Click(object sender, RoutedEventArgs e)

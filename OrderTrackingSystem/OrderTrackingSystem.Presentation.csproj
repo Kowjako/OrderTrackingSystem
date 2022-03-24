@@ -150,7 +150,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CustomControls\Classes\Boxes.cs" />
-    <Compile Include="CustomControls\Classes\TimeLineNode.cs" />
     <Compile Include="CustomControls\PurchaseElement.xaml.cs">
       <DependentUpon>PurchaseElement.xaml</DependentUpon>
     </Compile>

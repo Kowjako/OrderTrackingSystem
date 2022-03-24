@@ -5,6 +5,7 @@ using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -31,6 +32,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Bindable objects
 
         public List<TrackableItemDTO> Items { get; set; } = new List<TrackableItemDTO>();
+        public ObservableCollection<ParcelStateDTO> ParcelStates { get; set; } = new ObservableCollection<ParcelStateDTO>();
 
         private TrackableItemDTO _selectedItem;
 
@@ -116,6 +118,23 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Numer.Equals(obj as string)) };
                     OnPropertyChanged(nameof(Items));
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+
+        private RelayCommand _showProgress;
+        public RelayCommand ShowProgress =>
+            _showProgress ?? (_showProgress = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    var parcelId = SelectedItem.Id;
+                    /* Load current selected parcel states */
+                    ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
+                    OnPropertyChanged(nameof(ParcelStates));
                 }
                 catch (Exception)
                 {

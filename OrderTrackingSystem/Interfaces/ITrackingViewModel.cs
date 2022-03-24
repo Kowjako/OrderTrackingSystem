@@ -2,6 +2,7 @@
 using OrderTrackingSystem.Logic.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
@@ -9,6 +10,7 @@ namespace OrderTrackingSystem.Presentation.Interfaces
     public interface ITrackingViewModel
     {
         List<TrackableItemDTO> Items { get; set; }
+        ObservableCollection<ParcelStateDTO> ParcelStates { get; set; }
         TrackableItemDTO SelectedItem { get; set; }
 
         CustomerDTO Customer { get; set; }
@@ -22,5 +24,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
 
         RelayCommand FilterCommand { get; }
         RelayCommand FindParcel { get; }
+        RelayCommand ShowProgress { get; }
     }
 }
