@@ -13,8 +13,16 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged
+    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged, INotifyableViewModel
     {
+        #region INotifyableViewModel implementation
+
+        public event Action<string> OnSuccess;
+        public event Action<string> OnFailure;
+        public event Action<string> OnWarning;
+
+        #endregion
+
         #region Services
 
         private readonly TrackerService TrackerService;
@@ -174,6 +182,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

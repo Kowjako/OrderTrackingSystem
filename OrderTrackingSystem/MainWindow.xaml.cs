@@ -57,30 +57,23 @@ namespace OrderTrackingSystem
 
         private async void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
-                var viewModel = new CurrentAccountViewModel();
-                await viewModel.SetInitializeProperties();
-                DataContext = viewModel;
-            }
-            catch (Exception ex)
-            {
-                (this as ContentControl).WithNotifying(NotifyType.Error, mainControl, "Wystąpił błąd podczas pobierania danych");
-            }
+            var viewModel = new CurrentAccountViewModel();
+            viewModel.OnFailure += NotifyError;
+            viewModel.OnSuccess += NotifySuccess;
+            viewModel.OnWarning += NotifyWarning;
+            await viewModel.SetInitializeProperties();
+            DataContext = viewModel;
         }
 
         private async void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
-                var viewModel = new TrackingViewModel();
-                await viewModel.SetInitializeProperties();
-                DataContext = viewModel;
-            }
-            catch (Exception ex)
-            {
-                (this as ContentControl).WithNotifying(NotifyType.Error, mainControl, "Wystąpił błąd podczas pobierania danych");
-            }
+
+            var viewModel = new TrackingViewModel();
+            viewModel.OnFailure += NotifyError;
+            viewModel.OnSuccess += NotifySuccess;
+            viewModel.OnWarning += NotifyWarning;
+            await viewModel.SetInitializeProperties();
+            DataContext = viewModel;
         }
 
         private async void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -102,6 +95,25 @@ namespace OrderTrackingSystem
         {
             DataContext = new ComplaintsViewModel();
         }
+        #endregion
+
+        #region Notifyable methods
+
+        private void NotifyError(string message)
+        {
+            (this as ContentControl).WithNotifying(NotifyType.Error, mainControl, message);
+        }
+
+        private void NotifyWarning(string message)
+        {
+            (this as ContentControl).WithNotifying(NotifyType.Warning, mainControl, message);
+        }
+
+        private void NotifySuccess(string message)
+        {
+            (this as ContentControl).WithNotifying(NotifyType.Success, mainControl, message);
+        }
+
         #endregion
 
     }

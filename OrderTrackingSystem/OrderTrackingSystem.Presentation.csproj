@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
     <Compile Include="Interfaces\IMailboxViewModel.cs" />
+    <Compile Include="Interfaces\INotifyableViewModel.cs" />
     <Compile Include="Interfaces\IOrdersViewModel.cs" />
     <Compile Include="Interfaces\ISendsViewModel.cs" />
     <Compile Include="Interfaces\ITrackingViewModel.cs" />

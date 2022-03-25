@@ -3,6 +3,7 @@ using OrderTrackingSystem.Logic.DTO;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -28,12 +29,19 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async void UpdateLocalization(Localizations localization)
+        public async Task UpdateLocalization(Localizations localization)
         {
             using(var dbContext = new OrderTrackingSystemEntities())
             {
-                dbContext.Entry(localization).State = EntityState.Modified;
-                await dbContext.SaveChangesAsync();
+                try
+                {
+                    dbContext.Entry(localization).State = EntityState.Modified;
+                    await dbContext.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
     }

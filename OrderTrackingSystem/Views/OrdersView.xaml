@@ -282,7 +282,9 @@
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid x:Name="elementGrid" Margin="0,0,5,0"/>
+            <DataGrid x:Name="elementGrid" 
+                      AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
+                      Margin="0,0,5,0"/>
         </StackPanel>
         <StackPanel Grid.Column="1"
                     Grid.Row="3">
@@ -291,7 +293,9 @@
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid x:Name="elementGrid1" Margin="0,0,10,0"/>
+            <DataGrid x:Name="pickupsGrid"
+                      AutoGeneratingColumn="pickupsGrid_AutoGeneratingColumn"
+                      Margin="0,0,10,0"/>
         </StackPanel>
         <DockPanel
                    LastChildFill="False"
@@ -307,7 +311,10 @@
                 FontSize="17"
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
-            <DataGrid Margin="5,0,5,0" DockPanel.Dock="Top"/>
+            <DataGrid x:Name="cartGrid"  
+                      Margin="5,0,5,0"
+                      AutoGeneratingColumn="cartGrid_AutoGeneratingColumn"
+                      DockPanel.Dock="Top"/>
         </DockPanel>
         <StackPanel Grid.Column="2"
                    Grid.Row="3">

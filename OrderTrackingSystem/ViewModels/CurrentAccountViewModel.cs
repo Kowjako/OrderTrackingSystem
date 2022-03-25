@@ -2,16 +2,23 @@
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
-using OrderTrackingSystem.Presentation.CustomControls;
+using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace OrderTrackingSystem.ViewModels
 {
-    public class CurrentAccountViewModel : ICurrentAccountViewModel
+    public class CurrentAccountViewModel : ICurrentAccountViewModel, INotifyableViewModel
     {
+        #region INotifyableViewModel implementation
+
+        public event Action<string> OnSuccess;
+        public event Action<string> OnFailure;
+        public event Action<string> OnWarning;
+
+        #endregion
+
         #region Services
 
         private readonly CustomerService CustomerService;
@@ -45,8 +52,9 @@ namespace OrderTrackingSystem.ViewModels
         #region Commands
 
         private RelayCommand _saveCommand;
+
         public RelayCommand SaveCommand =>
-            _saveCommand ?? (_saveCommand = new RelayCommand(obj =>
+            _saveCommand ?? (_saveCommand = new RelayCommand(async obj =>
             {
                 try
                 {
@@ -66,11 +74,12 @@ namespace OrderTrackingSystem.ViewModels
                         ZipCode = currentLocalization.Kod
                     };
 
-                    LocalizationService.UpdateLocalization(localization);
+                    await LocalizationService.UpdateLocalization(localization);
+                    OnSuccess?.Invoke("Zmiany zostały zapisane");
                 }
                 catch (Exception)
                 {
-
+                    OnFailure?.Invoke("Wystąpił błąd podczas zapisywania danych");
                 }
             }));
 
