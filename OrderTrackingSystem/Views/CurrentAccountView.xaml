@@ -171,6 +171,7 @@
                       Foreground="Black"
                       CanUserAddRows="False"
                       SelectionUnit="Cell"
+                      HorizontalScrollBarVisibility="Disabled"
                       AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       ColumnWidth="*"
                       ItemsSource="{Binding Localization, UpdateSourceTrigger=PropertyChanged}"

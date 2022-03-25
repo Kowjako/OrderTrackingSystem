@@ -14,9 +14,10 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var customer = await dbContext.Customers.Where(c => c.Id == customerId).FirstAsync();
-                await dbContext.Entry(customer).Collection(nameof(customer.Sells)).LoadAsync();
 
-                var query = from sells in customer.Sells
+                IList<Sells> Sells = await dbContext.Sells.Where(p => p.SellerId == customer.Id).ToListAsync();
+
+                var query = from sells in Sells
                             let valueQuery =  (from cart in dbContext.SellCarts
                                               from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                               where cart.SellId == sells.Id
