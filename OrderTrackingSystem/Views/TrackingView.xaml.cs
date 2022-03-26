@@ -59,5 +59,22 @@ namespace OrderTrackingSystem.Presentation.Views
                     break;
             }
         }
+
+        private void hideProgress_Click(object sender, RoutedEventArgs e)
+        {
+            var trackerAnimation = new DoubleAnimation();
+            trackerAnimation.From = 340;
+            trackerAnimation.To = 0;
+            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
+            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            tracker.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
+
+            var gridAnimation = new ThicknessAnimation();
+            gridAnimation.From = new Thickness(0, 0, 340, 0);
+            gridAnimation.To = new Thickness(0, 0, 0, 0);
+            gridAnimation.Duration = TimeSpan.FromSeconds(2);
+            gridAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            elementGrid.BeginAnimation(MarginProperty, gridAnimation);
+        }
     }
 }

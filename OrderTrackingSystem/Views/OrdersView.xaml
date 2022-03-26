@@ -59,24 +59,53 @@
             <GroupBox
                 Header="Odbiorca"
                 Margin="5"
-                Height="150"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-
+                <StackPanel DataContext="{Binding CurrentCustomer}">
+                    <!-- Use this style inside this control -->
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="0,0,0,3"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontWeight="DemiBold"
+                               Text="{Binding Nazwa}"/>
+                    <TextBlock Foreground="DarkGreen"
+                               Text="{Binding Adres}"/>
+                    <TextBlock Text="{Binding MiastoKod}"/>
+                    <TextBlock Text="{Binding Email}"/>
+                    <TextBlock Foreground="Maroon"
+                               Text="{Binding Numer}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
                 Header="Punkt odbioru"
                 Margin="5"
-                Height="150"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
+                <StackPanel DataContext="{Binding SelectedPickup}">
+                    <!-- Use this style inside this control -->
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="0,0,0,3"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontWeight="DemiBold"
+                               Text="{Binding Adres}"/>
+                    <TextBlock Foreground="DarkGreen"
+                               Text="{Binding MiastoKod}"/>
+                    <TextBlock Text="{Binding Capacity, StringFormat=Pojemność: {0:d}}"/>
+                    <TextBlock Foreground="Maroon"
+                               Text="{Binding WorkTime, StringFormat=Czas pracy: {0:d}}"/>
+
                 </StackPanel>
             </GroupBox>
             <Button
@@ -294,7 +323,12 @@
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
             <DataGrid x:Name="pickupsGrid"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      SelectedItem="{Binding SelectedPickup, UpdateSourceTrigger=PropertyChanged}"
                       AutoGeneratingColumn="pickupsGrid_AutoGeneratingColumn"
+                      ItemsSource="{Binding PickupsList}"
                       Margin="0,0,10,0"/>
         </StackPanel>
         <DockPanel
