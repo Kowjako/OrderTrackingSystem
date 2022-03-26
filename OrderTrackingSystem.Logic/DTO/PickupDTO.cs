@@ -6,7 +6,9 @@ namespace OrderTrackingSystem.Logic.DTO
     {
         [DisplayName("Pojemność")]
         public string Capacity { get; set; }
+        [DisplayName("Adres")]
         public string Adres { get; set; }
+        [DisplayName("Miasto")]
         public string MiastoKod { get; set; }
         [DisplayName("Czas pracy")]
         public string WorkTime { get; set; }
