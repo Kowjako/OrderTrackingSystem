@@ -1,4 +1,5 @@
 ﻿using EnumsNET;
+using System;
 using System.ComponentModel;
 
 namespace OrderTrackingSystem.Logic.EnumMappers
@@ -27,14 +28,24 @@ namespace OrderTrackingSystem.Logic.EnumMappers
         Paczkomat = 3
     }
 
-    public static class PayTypeEnumConverter
+    public enum ProductType
     {
-        public static string GetNameById(int id) => ((PayType)id).AsString(EnumFormat.Description);
+        [Description("Tabletki")]
+        Pill = 0,
+        [Description("Krem")]
+        Cream = 1,
+        [Description("Syrop")]
+        Syrup = 2
     }
 
-    public static class DeliveryTypeEnumConverter
+
+    public static class EnumConverter
     {
-        public static string GetNameById(int id) => ((DeliveryType)id).AsString(EnumFormat.Description);
+        /* Generyczna metoda do konwersji z Id na Description */
+        public static string GetNameById<T>(int id) where T : struct, Enum
+        {
+            return ((T)(object)id).AsString(EnumFormat.Description);
+        }
     }
 
 }
