@@ -79,7 +79,7 @@ namespace OrderTrackingSystem.ViewModels
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać");
+                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
                 }
             }));
 

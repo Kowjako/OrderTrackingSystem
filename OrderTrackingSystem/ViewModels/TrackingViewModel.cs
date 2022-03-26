@@ -126,8 +126,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (!string.IsNullOrEmpty(obj as string))
                     {
+                        if(!Items.Any(p => p.Numer.Equals(obj as string)))
+                        {
+                            OnWarning("Nie ma elementu o takim numerze");
+                            return;
+                        }
                         Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Numer.Equals(obj as string)) };
                         OnPropertyChanged(nameof(Items));
+                    }
+                    else
+                    {
+                        OnWarning("Numer nie może być pusty");
                     }
                 }
                 catch (Exception)
@@ -142,10 +151,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    var parcelId = SelectedItem.Id;
-                    /* Load current selected parcel states */
-                    ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
-                    OnPropertyChanged(nameof(ParcelStates));
+                    if (SelectedItem.IsOrder)
+                    {
+                        var parcelId = SelectedItem.Id;
+                        /* Load current selected parcel states */
+                        ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
+                        OnPropertyChanged(nameof(ParcelStates));
+                    }
+                    else
+                    {
+                        OnWarning("Progres można zobaczyć tylko dla zamówień");
+                    }
                 }
                 catch (Exception)
                 {
