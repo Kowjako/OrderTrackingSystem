@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Presentation.CustomControls;
+using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using OrderTrackingSystem.ViewModels;
@@ -58,9 +59,7 @@ namespace OrderTrackingSystem
         private async void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new CurrentAccountViewModel();
-            viewModel.OnFailure += NotifyError;
-            viewModel.OnSuccess += NotifySuccess;
-            viewModel.OnWarning += NotifyWarning;
+            AttachEventsToViewModel(viewModel);
             await viewModel.SetInitializeProperties();
             DataContext = viewModel;
         }
@@ -69,16 +68,17 @@ namespace OrderTrackingSystem
         {
 
             var viewModel = new TrackingViewModel();
-            viewModel.OnFailure += NotifyError;
-            viewModel.OnSuccess += NotifySuccess;
-            viewModel.OnWarning += NotifyWarning;
+            AttachEventsToViewModel(viewModel);
             await viewModel.SetInitializeProperties();
             DataContext = viewModel;
         }
 
         private async void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new OrdersViewModel();
+            var viewModel = new OrdersViewModel();
+            AttachEventsToViewModel(viewModel);
+            await viewModel.SetInitializeProperties();
+            DataContext = viewModel;
         }
 
         private async void SendsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -95,6 +95,17 @@ namespace OrderTrackingSystem
         {
             DataContext = new ComplaintsViewModel();
         }
+        #endregion
+
+        #region Generic viewmodel methods
+
+        private void AttachEventsToViewModel<T>(T viewModel) where T : INotifyableViewModel
+        {
+            viewModel.OnFailure += NotifyError;
+            viewModel.OnSuccess += NotifySuccess;
+            viewModel.OnWarning += NotifyWarning;
+        }
+
         #endregion
 
         #region Notifyable methods
