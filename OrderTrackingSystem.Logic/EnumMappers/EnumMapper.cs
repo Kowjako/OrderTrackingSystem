@@ -35,7 +35,11 @@ namespace OrderTrackingSystem.Logic.EnumMappers
         [Description("Krem")]
         Cream = 1,
         [Description("Syrop")]
-        Syrup = 2
+        Syrup = 2,
+        [Description("Aerozol")]
+        Spray = 3,
+        [Description("Proszek")]
+        Powder = 4
     }
 
 

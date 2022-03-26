@@ -147,6 +147,7 @@
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SellService.cs" />
     <Compile Include="Services\TrackerService.cs" />
     <Compile Include="Validators\CustomerValidator.cs" />

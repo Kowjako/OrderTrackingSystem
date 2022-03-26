@@ -24,6 +24,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private readonly ConfigurationService ConfigService;
         private readonly CustomerService CustomerService;
+        private readonly ProductService ProductService;
 
         #endregion
 
@@ -44,8 +45,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             }
         }
 
+        public ProductDTO SelectedProduct { get; set; }
+
         public CustomerDTO CurrentCustomer { get; private set; }
         public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
+        public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
 
         /* Tworzenie zamówienia */
         public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
@@ -58,6 +62,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             ConfigService = new ConfigurationService();
             CustomerService = new CustomerService();
+            ProductService = new ProductService();
         }
 
         #endregion
@@ -68,6 +73,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         { 
             CurrentCustomer = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             PickupsList = await ConfigService.GetPickupPoints();
+            ProductsList = await ProductService.GetAllProducts();
         }
 
         #endregion
