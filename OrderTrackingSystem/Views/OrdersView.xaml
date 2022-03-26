@@ -135,6 +135,7 @@
                     Background="Maroon"
                     BorderBrush="Maroon"
                     Foreground="White"
+                    Command="{Binding AddToCart}"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
@@ -351,7 +352,8 @@
                       DockPanel.Dock="Top"/>
         </DockPanel>
         <StackPanel Grid.Column="2"
-                   Grid.Row="3">
+                    DataContext="{Binding CurrentOrder}"
+                    Grid.Row="3">
             <TextBlock
                 HorizontalAlignment="Left"
                 FontWeight="DemiBold"
@@ -363,9 +365,9 @@
                 FontFamily="Arial"/>
             <ListBox
                 DockPanel.Dock="Bottom"
+                SelectedIndex="{Binding Oplata, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
                 x:Name="PayTypeGroup">
-
                 <ListBoxItem
                     Content="Gotówka" />
                 <ListBoxItem
@@ -385,12 +387,13 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <ListBox DockPanel.Dock="Bottom"
+                     SelectedIndex="{Binding Dostawa, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
                      x:Name="DeliveryTypeGroup">
                 <ListBoxItem Content="Kurier DPD"/>
                 <ListBoxItem Content="Poczta"/>
-                <ListBoxItem Content="Paczkomat"/>
                 <ListBoxItem Content="Odbiór osobisty"/>
+                <ListBoxItem Content="Paczkomat"/>
             </ListBox>
             <TextBlock
                 HorizontalAlignment="Left"

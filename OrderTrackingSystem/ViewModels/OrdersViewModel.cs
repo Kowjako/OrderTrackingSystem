@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.DTO;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
@@ -46,6 +47,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public CustomerDTO CurrentCustomer { get; private set; }
         public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
 
+        /* Tworzenie zamówienia */
+        public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
+
         #endregion
 
         #region Ctor
@@ -65,6 +69,27 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             CurrentCustomer = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             PickupsList = await ConfigService.GetPickupPoints();
         }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _addToCart;
+
+        public RelayCommand AddToCart =>
+            _addToCart ?? (_addToCart = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    var x = CurrentOrder;
+
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
+                }
+            }));
+
 
         #endregion
 

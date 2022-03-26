@@ -27,10 +27,11 @@ namespace OrderTrackingSystem.Logic.Services
                                               select seller.Name).ToList()
                             select new OrderDTO
                             {
+                                /*PayTypeEnumConverter.GetNameById(order.Id)*/
                                 Numer = order.Number,
-                                Oplata = PayTypeEnumConverter.GetNameById(order.Id),
+                                Oplata = EnumConverter.GetNameById<PayType>(order.Id),
                                 Sklep = sellerQuery.First(),
-                                Dostawa = DeliveryTypeEnumConverter.GetNameById(order.DeliveryType),
+                                Dostawa = EnumConverter.GetNameById<DeliveryType>(order.DeliveryType),
                                 Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
                                 Kwota = string.Format("{0:0.00 zł}", valueQuery)
                             };
