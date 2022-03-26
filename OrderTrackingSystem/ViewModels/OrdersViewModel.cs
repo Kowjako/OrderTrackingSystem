@@ -5,6 +5,7 @@ using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -96,6 +97,34 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
             }));
 
+
+        private RelayCommand _findSeller;
+
+        public RelayCommand FindSeller =>
+            _findSeller ?? (_findSeller = new RelayCommand(obj =>
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(obj as string))
+                    {
+                        if (!ProductsList.Any(p => p.Sprzedawca.Equals(obj as string)))
+                        {
+                            OnWarning("Nie ma sprzedawcy o takiej nazwie");
+                            return;
+                        }
+                        ProductsList = new List<ProductDTO>() { ProductsList.FirstOrDefault(p => p.Sprzedawca.Equals(obj as string)) };
+                        OnPropertyChanged(nameof(ProductsList));
+                    }
+                    else
+                    {
+                        OnWarning("Nazwa nie może być pusta");
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
 
         #endregion
 

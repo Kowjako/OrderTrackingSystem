@@ -41,12 +41,15 @@
                             Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button
+                        Command="{Binding FindSeller}"
+                        CommandParameter="{Binding ElementName=sellerBox, Path=Text}"
                         Style="{DynamicResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
                             Kind="Search"
                             Opacity="1" />
                     </Button>
                     <TextBox
+                        x:Name="sellerBox"
                         FontSize="15"
                         VerticalAlignment="Center"
                         Grid.Column="1"
@@ -316,6 +319,7 @@
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Disabled"
                       SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding ProductsList}"
