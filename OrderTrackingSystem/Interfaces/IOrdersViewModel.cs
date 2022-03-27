@@ -1,12 +1,36 @@
-﻿using System;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    interface IOrdersViewModel
+    public interface IOrdersViewModel
     {
+        PickupDTO SelectedPickup { get; set; }
+        VoucherDTO SelectedVoucher { get; set; }
+        ProductDTO SelectedProduct { get; set; }
+        CustomerDTO CurrentCustomer { get; }
+        List<PickupDTO> PickupsList { get; set; }
+        List<ProductDTO> AllProductsList { get; set; }
+        List<ProductDTO> ProductsList { get; set; }
+        List<VoucherDTO> VouchersList { get; set; }
+        BindingList<CartProductDTO> ProductsInCart { get; set; }
+
+        Visibility VouchersVisibility { get; }
+        decimal TotalPriceNetto { get; set; }
+        decimal VAT { get; }
+        decimal TotalPriceBrutto { get; }
+        decimal DeliveryCost { get; }
+
+        Task SetInitializeProperties();
+
+        RelayCommand AddToCart { get; }
+        RelayCommand FindSeller { get; }
+        RelayCommand MinusAmount { get; }
+        RelayCommand PlusAmount { get; }
+        RelayCommand AcceptOrder { get; }
     }
 }

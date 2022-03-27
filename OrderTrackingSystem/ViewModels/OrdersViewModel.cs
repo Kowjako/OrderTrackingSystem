@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
@@ -64,6 +65,20 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         }
 
         public ProductDTO SelectedProduct { get; set; }
+        private VoucherDTO _selectedVoucher;
+        public VoucherDTO SelectedVoucher
+        {
+            get => _selectedVoucher;
+            set
+            {
+                _selectedVoucher = value;
+                OnPropertyChanged(nameof(SelectedVoucher));
+                OnPropertyChanged(nameof(VouchersVisibility));
+            }
+        }
+
+        public Visibility VouchersVisibility => SelectedVoucher != null ? Visibility.Visible : Visibility.Collapsed;
+
         public int CurrentProductAmount { get; set; } = 0;
 
         public CustomerDTO CurrentCustomer { get; private set; }
@@ -71,6 +86,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
+        public List<VoucherDTO> VouchersList { get; set; } = new List<VoucherDTO>();
         /* Używamy BindingList do śledzenia zmian obiektów z listy */
         public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
 
@@ -89,7 +105,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
 
         public decimal TotalPriceNetto { get; set; } = 0;
-        public decimal VAT { get; set; } = 23;
+        public decimal VAT { get; } = 23;
         public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
         public decimal DeliveryCost
         {
@@ -135,6 +151,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             PickupsList = await ConfigService.GetPickupPoints();
             AllProductsList = await ProductService.GetAllProducts();
             ProductsList = AllProductsList;
+            VouchersList = await ProductService.GetVouchersForCurrentCustomer();
         }
 
         #endregion
@@ -252,10 +269,15 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     if (SelectedDeliveryType == -1)
                     {
+                        OnWarning?.Invoke("Należy wybrać typ dostawy");
+                        return;
+                    }
+                    if (int.Parse(CurrentOrder.Oplata) == -1)
+                    {
                         OnWarning?.Invoke("Należy wybrać typ opłaty");
                         return;
                     }
-                    if(ProductsInCart.Count == 0)
+                    if (ProductsInCart.Count == 0)
                     {
                         OnWarning?.Invoke("Należy dodać produkt do koszyka");
                         return;
