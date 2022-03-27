@@ -253,11 +253,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     OnWarning?.Invoke("Należy wybrać typ opłaty");
                     return;
                 }
+                var x = ConfigurationService.GenerateElementNumber();
                 CurrentOrder.PickupId = SelectedPickup.Id;
                 CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
                 CurrentOrder.SellerId = SelectedSellerId;
                 CurrentOrder.CustomerId = CurrentCustomer.Id;
-                var orderId = await OrderService.SaveOrder(CurrentOrder);
+                await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList());
             }));
         #endregion
 
