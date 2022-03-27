@@ -11,6 +11,8 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class ProductService : IService<ProductService>
     {
+        private CustomerService CustomerService => new CustomerService();
+
         public async Task<List<ProductDTO>> GetAllProducts()
         {
             using (var dbContext = new OrderTrackingSystemEntities())
@@ -75,6 +77,25 @@ namespace OrderTrackingSystem.Logic.Services
                     });
                 }
                 await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<VoucherDTO>> GetVouchersForCurrentCustomer()
+        {
+            var customer = await CustomerService.GetCurrentCustomer();
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var query = from voucher in dbContext.Vouchers
+                            where voucher.CustomerId == customer.Id
+                            select new VoucherDTO
+                            {
+                                Id = voucher.Id,
+                                Number = voucher.Number,
+                                Value = voucher.Value,
+                                RemainValue = voucher.RemainValue,
+                                ExpireDate = voucher.ExpireDate
+                            };
+                return await query.ToListAsync();
             }
         }
     }

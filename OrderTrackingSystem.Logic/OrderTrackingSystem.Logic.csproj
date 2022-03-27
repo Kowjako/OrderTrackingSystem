@@ -141,6 +141,7 @@
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="DTO\TrackableItemDTO.cs" />
+    <Compile Include="DTO\VoucherDTO.cs" />
     <Compile Include="EnumMappers\EnumMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
