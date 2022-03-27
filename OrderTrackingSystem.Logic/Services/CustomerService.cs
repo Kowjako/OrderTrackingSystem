@@ -40,6 +40,7 @@ namespace OrderTrackingSystem.Logic.Services
 
                         select new CustomerDTO
                         {
+                            Id = customer.Id,
                             Nazwa = customer.Name + " " + customer.Surname,
                             Adres = localizationQuery.Street + " " +
                                     localizationQuery.House + ", " +

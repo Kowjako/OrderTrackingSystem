@@ -20,6 +20,7 @@ namespace OrderTrackingSystem.Logic.Services
                                                select seller).FirstOrDefault()
                             select new ProductDTO
                             {
+                                Id = product.Id,
                                 Nazwa = product.Name,
                                 Netto = product.PriceNetto.ToString(),
                                 Rabat = product.Discount.ToString(),
@@ -39,8 +40,41 @@ namespace OrderTrackingSystem.Logic.Services
                     p.VAT = string.Format("{0} %", p.VAT);
                     p.Kategoria = EnumConverter.GetNameById<ProductType>(byte.Parse(p.Kategoria));
                 });
-
                 return productsList;
+            }
+        }
+
+        public async Task SaveOrderProductsForCart(List<CartProductDTO> products, int orderId)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                foreach (var product in products)
+                {
+                    dbContext.OrderCarts.Add(new OrderCarts
+                    {
+                        Amount = short.Parse(product.Amount),
+                        ProductId = product.Id,
+                        OrderId = orderId
+                    });
+                }
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task SaveSellProductsForCart(List<CartProductDTO> products, int sellId)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                foreach (var product in products)
+                {
+                    dbContext.SellCarts.Add(new SellCarts
+                    {
+                        Amount = byte.Parse(product.Amount),
+                        ProductId = product.Id,
+                        SellId = sellId
+                    });
+                }
+                await dbContext.SaveChangesAsync();
             }
         }
     }

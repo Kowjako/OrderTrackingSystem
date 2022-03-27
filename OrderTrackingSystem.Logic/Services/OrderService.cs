@@ -10,6 +10,8 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class OrderService : IService<OrderService>
     {
+        private CustomerService CustomerService => new CustomerService();
+
         public async Task<List<OrderDTO>> GetOrdersForCustomer(int customerId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
@@ -37,6 +39,24 @@ namespace OrderTrackingSystem.Logic.Services
                             };
 
                 return query.ToList();
+            }
+        }
+
+        public async Task<int> SaveOrder(OrderDTO order)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                dbContext.Orders.Add(new Orders
+                {
+                    Number = ConfigurationService.GenerateElementNumber(),
+                    CustomerId = order.CustomerId,
+                    PayType = byte.Parse(order.Oplata),
+                    DeliveryType = byte.Parse(order.Dostawa),
+                    PickupId = order.PickupId,
+                    SellerId = order.SellerId,
+                    ComplaintDefinitionId = null
+                });
+                return await dbContext.SaveChangesAsync();
             }
         }
     }

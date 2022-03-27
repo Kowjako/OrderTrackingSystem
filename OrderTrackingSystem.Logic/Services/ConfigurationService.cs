@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -10,6 +11,11 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class ConfigurationService : IService<ConfigurationService>
     {
+        private static readonly char[] CharArray = 
+        {
+            'A', 'B', 'C', 'D','E','F','G','H','I','G','K','L'
+        };
+
         public async Task<int?> GetCurrentSessionId()
         {
             var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
@@ -40,6 +46,7 @@ namespace OrderTrackingSystem.Logic.Services
                                                      select localization).FirstOrDefault()
                             select new PickupDTO
                             {
+                                Id = pickup.Id,
                                 Capacity = pickup.Capacity.ToString(),
                                 Adres = localizationQuery.Street + " " +
                                         localizationQuery.House,
@@ -51,5 +58,12 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public static string GenerateElementNumber()
+        {
+            var randomizer = new Random();
+            return (char)CharArray[randomizer.Next(0, 12)] +
+                   (char)CharArray[randomizer.Next(0, 12)] +
+                   randomizer.Next(100000000, 999999999).ToString();
+        }
     }
 }
