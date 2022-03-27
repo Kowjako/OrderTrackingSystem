@@ -132,6 +132,7 @@
     <Compile Include="DataAccessLayer\Vouchers.cs">
       <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DTO\CartProductDTO.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />

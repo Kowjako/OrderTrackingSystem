@@ -17,7 +17,7 @@ namespace OrderTrackingSystem.Logic.Services
                 var query = from product in dbContext.Products
                             let sellerQuery = (from seller in dbContext.Sellers
                                                where seller.Id == product.SellerId
-                                               select seller.Name).FirstOrDefault()
+                                               select seller).FirstOrDefault()
                             select new ProductDTO
                             {
                                 Nazwa = product.Name,
@@ -25,7 +25,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Rabat = product.Discount.ToString(),
                                 VAT = product.VAT.ToString(),
                                 Kategoria = product.Category.ToString(),
-                                Sprzedawca = sellerQuery
+                                Sprzedawca = sellerQuery.Name,
+                                SellerId = sellerQuery.Id
                             };
 
                 var productsList = await query.ToListAsync();

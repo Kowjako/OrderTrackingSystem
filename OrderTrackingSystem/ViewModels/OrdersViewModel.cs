@@ -26,6 +26,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         private readonly ConfigurationService ConfigService;
         private readonly CustomerService CustomerService;
         private readonly ProductService ProductService;
+        private readonly OrderService OrderService;
 
         #endregion
 
@@ -47,13 +48,22 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         }
 
         public ProductDTO SelectedProduct { get; set; }
+        public int CurrentProductAmount { get; set; } = 0;
 
         public CustomerDTO CurrentCustomer { get; private set; }
         public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
+        /* Używamy BindingList do śledzenia zmian obiektów z listy */
+        public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
 
         /* Tworzenie zamówienia */
         public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
+
+        public int TotalPriceNetto { get; set; } = 0;
+        //public decimal VAT { get; set; } = 23;
+        //public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
+        //public decimal DeliveryCost => int.Parse(CurrentOrder.Dostawa);
+        //public decimal FullPrice => TotalPriceBrutto + DeliveryCost;
 
         #endregion
 
@@ -64,7 +74,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             ConfigService = new ConfigurationService();
             CustomerService = new CustomerService();
             ProductService = new ProductService();
+            OrderService = new OrderService();
         }
+
 
         #endregion
 
@@ -82,24 +94,38 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Commands
 
         private RelayCommand _addToCart;
-
         public RelayCommand AddToCart =>
-            _addToCart ?? (_addToCart = new RelayCommand(async obj =>
+            _addToCart ?? (_addToCart = new RelayCommand(obj =>
             {
                 try
                 {
-                    var x = CurrentOrder;
-
+                    if (ProductsInCart.Any(x => x.Nazwa.Equals(SelectedProduct.Nazwa)))
+                    {
+                        var existingProduct = ProductsInCart.First(x => x.Nazwa.Equals(SelectedProduct.Nazwa));
+                        var elementIndex = ProductsInCart.IndexOf(existingProduct);
+                        existingProduct.Amount = (int.Parse(existingProduct.Amount) + CurrentProductAmount).ToString();
+                        ProductsInCart[elementIndex] = existingProduct;
+                    }
+                    else
+                    {
+                        ProductsInCart.Add(new CartProductDTO()
+                        {
+                            Nazwa = SelectedProduct.Nazwa,
+                            Cena = SelectedProduct.Netto,
+                            Amount = CurrentProductAmount.ToString()
+                        });
+                    }
+                    CurrentProductAmount = 0;
+                    OnPropertyChanged(nameof(CurrentProductAmount));
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
+                    OnFailure?.Invoke("Nie udało się dodać do koszyka");
                 }
             }));
 
 
         private RelayCommand _findSeller;
-
         public RelayCommand FindSeller =>
             _findSeller ?? (_findSeller = new RelayCommand(obj =>
             {
@@ -126,6 +152,30 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
             }));
 
+        private RelayCommand minusAmount;
+        public RelayCommand MinusAmount =>
+            minusAmount ?? (minusAmount = new RelayCommand(obj =>
+            {
+                if(CurrentProductAmount == 0)
+                {
+                    return;
+                }
+                else
+                {
+                    CurrentProductAmount--;
+                    OnPropertyChanged(nameof(CurrentProductAmount));
+                }
+            }));
+
+        private RelayCommand plusAmount;
+        public RelayCommand PlusAmount =>
+            plusAmount ?? (plusAmount = new RelayCommand(obj =>
+            {
+                CurrentProductAmount++;
+                OnPropertyChanged(nameof(CurrentProductAmount));
+            }));
+
+
         #endregion
 
         #region INotifyPropertyChanged implementation
@@ -137,5 +187,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         }
 
         #endregion
+
     }
 }
