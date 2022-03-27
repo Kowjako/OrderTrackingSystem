@@ -30,6 +30,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Localizations> Localizations { get; set; }
         public virtual DbSet<Mails> Mails { get; set; }
+        public virtual DbSet<OrderCarts> OrderCarts { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<OrderStates> OrderStates { get; set; }
         public virtual DbSet<Pickups> Pickups { get; set; }
@@ -38,7 +39,6 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual DbSet<Sells> Sells { get; set; }
         public virtual DbSet<Vouchers> Vouchers { get; set; }
         public virtual DbSet<ComplaintStates> ComplaintStates { get; set; }
-        public virtual DbSet<OrderCarts> OrderCarts { get; set; }
         public virtual DbSet<SellCarts> SellCarts { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<Users> Users { get; set; }

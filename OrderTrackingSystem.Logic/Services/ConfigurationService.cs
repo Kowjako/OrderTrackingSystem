@@ -61,8 +61,8 @@ namespace OrderTrackingSystem.Logic.Services
         public static string GenerateElementNumber()
         {
             var randomizer = new Random();
-            return (char)CharArray[randomizer.Next(0, 12)] +
-                   (char)CharArray[randomizer.Next(0, 12)] +
+            return CharArray[randomizer.Next(0, 12)].ToString() +
+                   CharArray[randomizer.Next(0, 12)].ToString() +
                    randomizer.Next(100000000, 999999999).ToString();
         }
     }

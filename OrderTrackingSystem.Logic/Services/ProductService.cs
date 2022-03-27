@@ -50,12 +50,14 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 foreach (var product in products)
                 {
-                    dbContext.OrderCarts.Add(new OrderCarts
+                    var orderCart = new OrderCarts
                     {
                         Amount = short.Parse(product.Amount),
                         ProductId = product.Id,
                         OrderId = orderId
-                    });
+                    };
+                    dbContext.Entry(orderCart).State = EntityState.Added;
+                    dbContext.OrderCarts.Add(orderCart);
                 }
                 await dbContext.SaveChangesAsync();
             }

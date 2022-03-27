@@ -17,6 +17,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public short Amount { get; set; }
         public int ProductId { get; set; }
         public int OrderId { get; set; }
+        public int Id { get; set; }
     
         public virtual Orders Orders { get; set; }
         public virtual Products Products { get; set; }

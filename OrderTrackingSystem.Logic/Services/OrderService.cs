@@ -11,6 +11,7 @@ namespace OrderTrackingSystem.Logic.Services
     public class OrderService : IService<OrderService>
     {
         private CustomerService CustomerService => new CustomerService();
+        private ProductService ProductService => new ProductService();
 
         public async Task<List<OrderDTO>> GetOrdersForCustomer(int customerId)
         {
@@ -42,21 +43,29 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task<int> SaveOrder(OrderDTO order)
+        public async Task SaveOrder(OrderDTO order, List<CartProductDTO> products)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
-                dbContext.Orders.Add(new Orders
+                /* W transakcji zapisujemy zamówienie */
+                using (var transactionScope = dbContext.Database.BeginTransaction())
                 {
-                    Number = ConfigurationService.GenerateElementNumber(),
-                    CustomerId = order.CustomerId,
-                    PayType = byte.Parse(order.Oplata),
-                    DeliveryType = byte.Parse(order.Dostawa),
-                    PickupId = order.PickupId,
-                    SellerId = order.SellerId,
-                    ComplaintDefinitionId = null
-                });
-                return await dbContext.SaveChangesAsync();
+                    var orderDAL = new Orders
+                    {
+                        Number = ConfigurationService.GenerateElementNumber(),
+                        CustomerId = order.CustomerId,
+                        PayType = byte.Parse(order.Oplata),
+                        DeliveryType = byte.Parse(order.Dostawa),
+                        PickupId = order.PickupId,
+                        SellerId = order.SellerId,
+                        ComplaintDefinitionId = null
+                    };
+                    dbContext.Orders.Add(orderDAL);
+                    await dbContext.SaveChangesAsync();
+                    await ProductService.SaveOrderProductsForCart(products, orderDAL.Id);
+                    /* Komitowanie transakcji */
+                    transactionScope.Commit();
+                }
             }
         }
     }
