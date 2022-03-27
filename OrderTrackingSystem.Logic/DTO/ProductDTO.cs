@@ -11,5 +11,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Sprzedawca { get; set; }
         public string Kategoria { get; set; }
         public string Rabat { get; set; }
+        [Browsable(false)]
+        public int SellerId { get; set; }
     }
 }

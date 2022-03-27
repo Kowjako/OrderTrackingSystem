@@ -118,6 +118,7 @@
                     Background="Maroon"
                     BorderBrush="Maroon"
                     Foreground="White"
+                    Command="{Binding AddToCart}"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
@@ -138,7 +139,6 @@
                     Background="Maroon"
                     BorderBrush="Maroon"
                     Foreground="White"
-                    Command="{Binding AddToCart}"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
@@ -248,10 +248,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="30"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
+                    <Button 
+                    Command="{Binding MinusAmount}"
+                    Grid.Column="0"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
-                                Width="30"
+                    Width="30"
                     Margin="0,0,0,5"
                     Background="RoyalBlue"
                     BorderBrush="RoyalBlue"
@@ -263,7 +265,7 @@
                     </Button>
                     <TextBox Grid.Column="1"
                          Margin="5,0,5,5"
-                         Text="0"
+                         Text="{Binding CurrentProductAmount, UpdateSourceTrigger=PropertyChanged}"
                          HorizontalContentAlignment="Center"
                          IsEnabled="False"
                          VerticalContentAlignment="Center">
@@ -278,6 +280,7 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Button
+                    Command="{Binding PlusAmount}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
                     Width="30"
@@ -337,6 +340,7 @@
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Disabled"
                       SelectedItem="{Binding SelectedPickup, UpdateSourceTrigger=PropertyChanged}"
                       AutoGeneratingColumn="pickupsGrid_AutoGeneratingColumn"
                       ItemsSource="{Binding PickupsList}"
@@ -357,7 +361,11 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <DataGrid x:Name="cartGrid"  
-                      Margin="5,0,5,0"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding ProductsInCart}"
                       AutoGeneratingColumn="cartGrid_AutoGeneratingColumn"
                       DockPanel.Dock="Top"/>
         </DockPanel>
@@ -419,8 +427,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0">
+                <StackPanel
+                    Grid.Column="0">
                     <TextBlock
                     HorizontalAlignment="Left"
                     Text="Kwota netto"
@@ -462,10 +470,11 @@
                     Margin="10,10,10,5"
                     FontFamily="Arial"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1">
+                <StackPanel Grid.Column="1"
+                            DataContext="{Binding}">
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="150 zł"
+                    Text="{Binding TotalPriceNetto}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -473,7 +482,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="23%"
+                    Text="{Binding VAT, StringFormat={}{0:d} %}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -481,7 +490,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="181,30 zł"
+                    Text="{Binding TotalPriceBrutto, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -489,7 +498,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="8,99 zł"
+                    Text="{Binding DeliveryCost, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -497,7 +506,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="280,73 zł"
+                    Text="{Binding FullPrice, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
