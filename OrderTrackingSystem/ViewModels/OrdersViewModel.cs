@@ -67,6 +67,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public int CurrentProductAmount { get; set; } = 0;
 
         public CustomerDTO CurrentCustomer { get; private set; }
+        public int SelectedSellerId { get; private set; }
         public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
@@ -160,11 +161,15 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         var priceWithDiscount = price - price * discount / 100;
                         ProductsInCart.Add(new CartProductDTO()
                         {
+                            Id = SelectedProduct.Id,
                             Nazwa = SelectedProduct.Nazwa,
                             Cena = priceWithDiscount.ToString(),
                             Amount = CurrentProductAmount.ToString(),
                             Rabat = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture)
                         });
+                        SelectedSellerId = SelectedProduct.SellerId;
+                        ProductsList = AllProductsList.Where(p => p.SellerId == SelectedSellerId).ToList();
+                        OnPropertyChanged(nameof(ProductsList));
                     }
                     CurrentProductAmount = 0;
                     RecalculateCartPrice();
@@ -233,7 +238,27 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 OnPropertyChanged(nameof(CurrentProductAmount));
             }));
 
-
+        private RelayCommand _acceptOrder;
+        public RelayCommand AcceptOrder =>
+            _acceptOrder ?? (_acceptOrder = new RelayCommand(async obj =>
+            {
+                /* 1 - Zapis zamówienia */
+                if(SelectedPickup == null)
+                {
+                    OnWarning?.Invoke("Należy wybrać punkt odbioru");
+                    return;
+                }
+                if(SelectedDeliveryType == -1)
+                {
+                    OnWarning?.Invoke("Należy wybrać typ opłaty");
+                    return;
+                }
+                CurrentOrder.PickupId = SelectedPickup.Id;
+                CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
+                CurrentOrder.SellerId = SelectedSellerId;
+                CurrentOrder.CustomerId = CurrentCustomer.Id;
+                var orderId = await OrderService.SaveOrder(CurrentOrder);
+            }));
         #endregion
 
         #region INotifyPropertyChanged implementation

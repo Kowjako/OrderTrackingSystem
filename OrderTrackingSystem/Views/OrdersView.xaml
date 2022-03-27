@@ -139,6 +139,7 @@
                     Background="Maroon"
                     BorderBrush="Maroon"
                     Foreground="White"
+                    Command="{Binding AcceptOrder}"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
