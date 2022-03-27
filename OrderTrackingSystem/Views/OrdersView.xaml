@@ -370,7 +370,6 @@
                       DockPanel.Dock="Top"/>
         </DockPanel>
         <StackPanel Grid.Column="2"
-                    DataContext="{Binding CurrentOrder}"
                     Grid.Row="3">
             <TextBlock
                 HorizontalAlignment="Left"
@@ -382,6 +381,7 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <ListBox
+                DataContext="{Binding CurrentOrder}"
                 DockPanel.Dock="Bottom"
                 SelectedIndex="{Binding Oplata, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
@@ -405,6 +405,7 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <ListBox DockPanel.Dock="Bottom"
+                     DataContext="{Binding CurrentOrder}"
                      SelectedIndex="{Binding Dostawa, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
                      x:Name="DeliveryTypeGroup">
@@ -470,11 +471,10 @@
                     Margin="10,10,10,5"
                     FontFamily="Arial"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1"
-                            DataContext="{Binding}">
+                <StackPanel Grid.Column="1">
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="{Binding TotalPriceNetto}"
+                    Text="{Binding TotalPriceNetto, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -482,7 +482,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Right"
-                    Text="{Binding VAT, StringFormat={}{0:d} %}"
+                    Text="{Binding VAT, StringFormat={}{0:f2} %}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"

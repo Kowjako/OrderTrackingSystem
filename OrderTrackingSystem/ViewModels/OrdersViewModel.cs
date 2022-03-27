@@ -59,11 +59,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         /* Tworzenie zamówienia */
         public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
 
-        public int TotalPriceNetto { get; set; } = 0;
-        //public decimal VAT { get; set; } = 23;
-        //public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
-        //public decimal DeliveryCost => int.Parse(CurrentOrder.Dostawa);
-        //public decimal FullPrice => TotalPriceBrutto + DeliveryCost;
+        public decimal TotalPriceNetto { get; set; } = 0;
+        public decimal VAT { get; set; } = 23;
+        public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
+        public decimal DeliveryCost => CurrentOrder.Dostawa == null ? 0m : 1m;
+        public decimal FullPrice => TotalPriceBrutto + DeliveryCost;
 
         #endregion
 
