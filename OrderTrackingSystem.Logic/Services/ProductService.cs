@@ -2,6 +2,7 @@
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,23 +45,20 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task SaveOrderProductsForCart(List<CartProductDTO> products, int orderId)
+        public async Task SaveOrderProductsForCart(List<CartProductDTO> products, int orderId, OrderTrackingSystemEntities dbContext)
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
+            foreach (var product in products)
             {
-                foreach (var product in products)
+                var orderCart = new OrderCarts
                 {
-                    var orderCart = new OrderCarts
-                    {
-                        Amount = short.Parse(product.Amount),
-                        ProductId = product.Id,
-                        OrderId = orderId
-                    };
-                    dbContext.Entry(orderCart).State = EntityState.Added;
-                    dbContext.OrderCarts.Add(orderCart);
-                }
-                await dbContext.SaveChangesAsync();
+                    Amount = short.Parse(product.Amount),
+                    ProductId = product.Id,
+                    OrderId = orderId
+                };
+                dbContext.Entry(orderCart).State = EntityState.Added;
+                dbContext.OrderCarts.Add(orderCart);
             }
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task SaveSellProductsForCart(List<CartProductDTO> products, int sellId)

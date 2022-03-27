@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using System.Linq;
 using OrderTrackingSystem.Logic.EnumMappers;
 using System.Data.Entity;
+using System;
 
 namespace OrderTrackingSystem.Logic.Services
 {
     public class OrderService : IService<OrderService>
     {
-        private CustomerService CustomerService => new CustomerService();
         private ProductService ProductService => new ProductService();
 
         public async Task<List<OrderDTO>> GetOrdersForCustomer(int customerId)
@@ -32,7 +32,7 @@ namespace OrderTrackingSystem.Logic.Services
                             {
                                 /*PayTypeEnumConverter.GetNameById(order.Id)*/
                                 Numer = order.Number,
-                                Oplata = EnumConverter.GetNameById<PayType>(order.Id),
+                                Oplata = EnumConverter.GetNameById<PayType>(order.PayType),
                                 Sklep = sellerQuery.First(),
                                 Dostawa = EnumConverter.GetNameById<DeliveryType>(order.DeliveryType),
                                 Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
@@ -48,7 +48,7 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 /* W transakcji zapisujemy zamówienie */
-                using (var transactionScope = dbContext.Database.BeginTransaction())
+                using (var transactionScope = dbContext.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
                 {
                     var orderDAL = new Orders
                     {
@@ -58,11 +58,23 @@ namespace OrderTrackingSystem.Logic.Services
                         DeliveryType = byte.Parse(order.Dostawa),
                         PickupId = order.PickupId,
                         SellerId = order.SellerId,
+                        OrderDate = DateTime.Now,
                         ComplaintDefinitionId = null
                     };
                     dbContext.Orders.Add(orderDAL);
+                    /* Zapisujemy zamówienie */
                     await dbContext.SaveChangesAsync();
-                    await ProductService.SaveOrderProductsForCart(products, orderDAL.Id);
+                    /* Zapisujemy subelementy */
+                    await ProductService.SaveOrderProductsForCart(products, orderDAL.Id, dbContext);
+                    /* Nadawanie statusu */
+                    dbContext.OrderStates.Add(new OrderStates
+                    {
+                        OrderId = orderDAL.Id,
+                        Date = DateTime.Now,
+                        State = "W trakcie przygotowania",
+                        Description = "Przesyłka jest przygotowywana przez producenta"
+                    });
+                    await dbContext.SaveChangesAsync();
                     /* Komitowanie transakcji */
                     transactionScope.Commit();
                 }

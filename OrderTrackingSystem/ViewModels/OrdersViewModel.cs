@@ -242,23 +242,36 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand AcceptOrder =>
             _acceptOrder ?? (_acceptOrder = new RelayCommand(async obj =>
             {
-                /* 1 - Zapis zamówienia */
-                if(SelectedPickup == null)
+                try
                 {
-                    OnWarning?.Invoke("Należy wybrać punkt odbioru");
-                    return;
+                    /* 1 - Zapis zamówienia */
+                    if (SelectedPickup == null)
+                    {
+                        OnWarning?.Invoke("Należy wybrać punkt odbioru");
+                        return;
+                    }
+                    if (SelectedDeliveryType == -1)
+                    {
+                        OnWarning?.Invoke("Należy wybrać typ opłaty");
+                        return;
+                    }
+                    if(ProductsInCart.Count == 0)
+                    {
+                        OnWarning?.Invoke("Należy dodać produkt do koszyka");
+                        return;
+                    }
+                    var x = ConfigurationService.GenerateElementNumber();
+                    CurrentOrder.PickupId = SelectedPickup.Id;
+                    CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
+                    CurrentOrder.SellerId = SelectedSellerId;
+                    CurrentOrder.CustomerId = CurrentCustomer.Id;
+                    await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList());
+                    OnSuccess?.Invoke("Zamówienie zostało utworzone");
                 }
-                if(SelectedDeliveryType == -1)
+                catch(Exception)
                 {
-                    OnWarning?.Invoke("Należy wybrać typ opłaty");
-                    return;
+                    OnFailure?.Invoke("Nie udało się zapisać zamówienia");
                 }
-                var x = ConfigurationService.GenerateElementNumber();
-                CurrentOrder.PickupId = SelectedPickup.Id;
-                CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
-                CurrentOrder.SellerId = SelectedSellerId;
-                CurrentOrder.CustomerId = CurrentCustomer.Id;
-                await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList());
             }));
         #endregion
 
