@@ -154,18 +154,20 @@
                 <DockPanel>
                     <ComboBox DockPanel.Dock="Top"
                         x:Name="voucherBox"
+                        ItemsSource="{Binding VouchersList}"
+                        DisplayMemberPath="Number"
+                        SelectedItem="{Binding SelectedVoucher}"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,10,10,10"
                         materialDesign:HintAssist.Hint="Wybierz bon"
                         IsEditable="False">
-                        <ComboBoxItem
-                        Content="Apple" />
                     </ComboBox>
-                    <Border   CornerRadius="10"
+                    <Border    CornerRadius="10"
                                Margin="0,10,0,0"
                                Height="120"
+                               Visibility="{Binding VouchersVisibility}"
                                Background="Violet"
                                BorderThickness="1"
                                BorderBrush="Firebrick">
@@ -203,12 +205,14 @@
                                                      VerticalAlignment="Bottom"
                                                      Margin="0,0,0,5"/>
                             </Grid>
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="Bon: UK5712315" FontSize="20" 
+                            <StackPanel Grid.Column="0"
+                                        DataContext="{Binding SelectedVoucher}">
+                                <TextBlock Text="{Binding Number, StringFormat=Bon: {0}}" FontSize="20" 
                                            FontFamily="Times New Roman" 
                                            Margin="10,10,5,0"
                                            Foreground="Maroon"/>
-                                <TextBlock Grid.Column="0" Text="256,48/500 zł"
+                                <TextBlock Grid.Column="0" 
+                                       Text="{Binding ValueString}"
                                        FontSize="40" 
                                        Foreground="Indigo" 
                                        FontFamily="Times New Roman" 
@@ -224,7 +228,7 @@
                                                              VerticalAlignment="Center"
                                                              Width="20"
                                                              Height="20"/>
-                                    <TextBlock Text="Data ważności: 10-11-2000" 
+                                    <TextBlock Text="{Binding ExpireDateString, StringFormat=Data ważności: {0}}" 
                                                Grid.Column="1"
                                                FontSize="14"
                                                VerticalAlignment="Center"
