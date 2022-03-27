@@ -12,5 +12,11 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Rezygnacja { get; set; }
         public string Kwota { get; set; }
         public string Sklep { get; set; }
+        [Browsable(false)]
+        public int PickupId { get; set; }
+        [Browsable(false)]
+        public int SellerId { get; set; }
+        [Browsable(false)]
+        public int CustomerId { get; set; }
     }
 }

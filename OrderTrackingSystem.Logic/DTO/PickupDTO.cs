@@ -4,6 +4,8 @@ namespace OrderTrackingSystem.Logic.DTO
 {
     public sealed class PickupDTO
     {
+        [Browsable(false)]
+        public int Id { get; set; }
         [DisplayName("Pojemność")]
         public string Capacity { get; set; }
         [DisplayName("Adres")]
