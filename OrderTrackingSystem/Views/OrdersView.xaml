@@ -405,8 +405,7 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <ListBox DockPanel.Dock="Bottom"
-                     DataContext="{Binding CurrentOrder}"
-                     SelectedIndex="{Binding Dostawa, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedIndex="{Binding SelectedDeliveryType, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
                      x:Name="DeliveryTypeGroup">
                 <ListBoxItem Content="Kurier DPD"/>

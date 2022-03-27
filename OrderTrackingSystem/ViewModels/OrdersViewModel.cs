@@ -56,13 +56,42 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         /* Używamy BindingList do śledzenia zmian obiektów z listy */
         public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
 
+        private int _selectedDeliveryType = -1;
+        public int SelectedDeliveryType
+        {
+            get => _selectedDeliveryType;
+            set
+            {
+                _selectedDeliveryType = value;
+                OnPropertyChanged(nameof(DeliveryCost));
+                OnPropertyChanged(nameof(FullPrice));
+            }
+        }
         /* Tworzenie zamówienia */
         public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
 
         public decimal TotalPriceNetto { get; set; } = 0;
         public decimal VAT { get; set; } = 23;
         public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
-        public decimal DeliveryCost => CurrentOrder.Dostawa == null ? 0m : 1m;
+        public decimal DeliveryCost
+        {
+            get
+            {
+                switch (SelectedDeliveryType)
+                {
+                    case 0:
+                        return 9.99m;
+                    case 1:
+                        return 11.99m;
+                    case 2:
+                        return 0.0m;
+                    case 3:
+                        return 4.99m;
+                    default:
+                        return 0m;
+                }
+            }
+        }
         public decimal FullPrice => TotalPriceBrutto + DeliveryCost;
 
         #endregion
