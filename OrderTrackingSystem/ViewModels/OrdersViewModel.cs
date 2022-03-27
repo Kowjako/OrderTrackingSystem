@@ -68,6 +68,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public CustomerDTO CurrentCustomer { get; private set; }
         public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
+        public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
         /* Używamy BindingList do śledzenia zmian obiektów z listy */
         public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
@@ -131,7 +132,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         { 
             CurrentCustomer = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             PickupsList = await ConfigService.GetPickupPoints();
-            ProductsList = await ProductService.GetAllProducts();
+            AllProductsList = await ProductService.GetAllProducts();
+            ProductsList = AllProductsList;
         }
 
         #endregion
@@ -188,11 +190,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             OnWarning("Nie ma sprzedawcy o takiej nazwie");
                             return;
                         }
-                        ProductsList = new List<ProductDTO>() { ProductsList.FirstOrDefault(p => p.Sprzedawca.Equals(obj as string)) };
+                        ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Sprzedawca.Equals(obj as string)));
                         OnPropertyChanged(nameof(ProductsList));
                     }
                     else
                     {
+                        if (AllProductsList.Any())
+                        {
+                            ProductsList = AllProductsList;
+                            OnPropertyChanged(nameof(ProductsList));
+                            return;
+                        }
                         OnWarning("Nazwa nie może być pusta");
                     }
                 }
