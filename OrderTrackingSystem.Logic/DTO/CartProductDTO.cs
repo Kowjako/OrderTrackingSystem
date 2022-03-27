@@ -8,5 +8,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Cena { get; set; }
         [DisplayName("Ilość")]
         public string Amount { get; set; }
+        [Browsable(false)]
+        public decimal Rabat { get; set; }
     }
 }

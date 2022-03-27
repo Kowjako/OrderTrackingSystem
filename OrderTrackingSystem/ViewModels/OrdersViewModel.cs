@@ -5,6 +5,7 @@ using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -31,6 +32,21 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #endregion
 
         #region Private objects & methods
+
+        private void RecalculateCartPrice()
+        {
+            var finalPriceNetto = 0.0m;
+            foreach(var product in ProductsInCart)
+            {
+                var amount = int.Parse(product.Amount);
+                var price = decimal.Parse(product.Cena.Replace(',','.'), CultureInfo.InvariantCulture);
+                finalPriceNetto += amount * price;
+            }
+            TotalPriceNetto = finalPriceNetto;
+            OnPropertyChanged(nameof(TotalPriceNetto));
+            OnPropertyChanged(nameof(TotalPriceBrutto));
+            OnPropertyChanged(nameof(FullPrice));
+        }
 
         #endregion
 
@@ -92,7 +108,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
             }
         }
-        public decimal FullPrice => TotalPriceBrutto + DeliveryCost;
+        public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto + DeliveryCost;
 
         #endregion
 
@@ -137,17 +153,22 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     else
                     {
+                        var price = decimal.Parse(SelectedProduct.Netto.Substring(0, SelectedProduct.Netto.IndexOf(" ")), CultureInfo.InvariantCulture);
+                        var discount = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture);
+                        var priceWithDiscount = price - price * discount / 100;
                         ProductsInCart.Add(new CartProductDTO()
                         {
                             Nazwa = SelectedProduct.Nazwa,
-                            Cena = SelectedProduct.Netto,
-                            Amount = CurrentProductAmount.ToString()
+                            Cena = priceWithDiscount.ToString(),
+                            Amount = CurrentProductAmount.ToString(),
+                            Rabat = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture)
                         });
                     }
                     CurrentProductAmount = 0;
+                    RecalculateCartPrice();
                     OnPropertyChanged(nameof(CurrentProductAmount));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     OnFailure?.Invoke("Nie udało się dodać do koszyka");
                 }
