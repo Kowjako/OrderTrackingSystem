@@ -151,7 +151,7 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <DockPanel>
+                <DockPanel LastChildFill="True">
                     <ComboBox DockPanel.Dock="Top"
                         x:Name="voucherBox"
                         ItemsSource="{Binding VouchersList}"
@@ -167,6 +167,7 @@
                     <Border    CornerRadius="10"
                                Margin="0,10,0,0"
                                Height="120"
+                               DockPanel.Dock="Top"
                                Visibility="{Binding VouchersVisibility}"
                                Background="Violet"
                                BorderThickness="1"
@@ -178,7 +179,7 @@
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
-                                
+
                             </Style>
                         </Border.Style>
                         <Grid>
@@ -237,7 +238,19 @@
                             </StackPanel>
                         </Grid>
                     </Border>
-                    
+                    <CheckBox DockPanel.Dock="Bottom" 
+                              IsChecked="{Binding IsVoucherFullChecked, UpdateSourceTrigger=PropertyChanged}"
+                              x:Name="acceptFullVoucher"
+                              Style="{StaticResource MaterialDesignDarkCheckBox}"  
+                              Margin="0 5 0 0"
+                              Content="Rozlicz bon w całości"/>
+                    <TextBox  DockPanel.Dock="Bottom" 
+                              Margin="0 5 0 0"
+                              Text="{Binding VoucherValueToMinus}"
+                              materialDesign:HintAssist.Hint="Kwota odliczalna"
+                              materialDesign:HintAssist.IsFloating="False"
+                              IsEnabled ="{Binding IsVoucherAmountEnabled}">
+                    </TextBox>
                 </DockPanel>
             </GroupBox>
             <GroupBox

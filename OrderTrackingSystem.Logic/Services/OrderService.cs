@@ -6,6 +6,7 @@ using System.Linq;
 using OrderTrackingSystem.Logic.EnumMappers;
 using System.Data.Entity;
 using System;
+using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -45,11 +46,12 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SaveOrder(OrderDTO order, List<CartProductDTO> products)
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using(var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                /* W transakcji zapisujemy zamówienie */
-                using (var transactionScope = dbContext.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
+                using (var dbContext = new OrderTrackingSystemEntities())
                 {
+
                     var orderDAL = new Orders
                     {
                         Number = ConfigurationService.GenerateElementNumber(),
@@ -65,7 +67,7 @@ namespace OrderTrackingSystem.Logic.Services
                     /* Zapisujemy zamówienie */
                     await dbContext.SaveChangesAsync();
                     /* Zapisujemy subelementy */
-                    await ProductService.SaveOrderProductsForCart(products, orderDAL.Id, dbContext);
+                    await ProductService.SaveOrderProductsForCart(products, orderDAL.Id);
                     /* Nadawanie statusu */
                     dbContext.OrderStates.Add(new OrderStates
                     {
@@ -75,10 +77,10 @@ namespace OrderTrackingSystem.Logic.Services
                         Description = "Przesyłka jest przygotowywana przez producenta"
                     });
                     await dbContext.SaveChangesAsync();
-                    /* Komitowanie transakcji */
-                    transactionScope.Commit();
                 }
+                transactionScope.Complete();
             }
+            
         }
     }
 }

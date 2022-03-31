@@ -77,6 +77,24 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             }
         }
 
+        public decimal VoucherValueToMinus { get; set; }
+        public bool IsVoucherAmountEnabled { get; set; } = true;
+        private bool _isVoucherFullChecked;
+        public bool IsVoucherFullChecked
+        {
+            get => _isVoucherFullChecked;
+            set
+            {
+                _isVoucherFullChecked = value;
+                IsVoucherAmountEnabled = !value;
+                OnPropertyChanged(nameof(IsVoucherAmountEnabled));
+                if(value == true)
+                {
+                    VoucherValueToMinus = 0m;
+                    OnPropertyChanged(nameof(VoucherValueToMinus));
+                }
+            }
+        }
         public Visibility VouchersVisibility => SelectedVoucher != null ? Visibility.Visible : Visibility.Collapsed;
 
         public int CurrentProductAmount { get; set; } = 0;
