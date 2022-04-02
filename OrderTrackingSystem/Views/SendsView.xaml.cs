@@ -29,5 +29,11 @@ namespace OrderTrackingSystem.Presentation.Views
         {
             (DataContext as SendsViewModel).BoxPrice = (e.OriginalSource as PurchaseElement).BoxPrice;
         }
+
+        private void productsTree_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
+        {
+            var selectedSubCategory = (e.NewValue as TreeViewItem).Tag;
+            (DataContext as SendsViewModel).ProductSubCategory = selectedSubCategory == null ? -1 : int.Parse(selectedSubCategory.ToString());
+        }
     }
 }

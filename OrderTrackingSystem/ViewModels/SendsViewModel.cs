@@ -45,16 +45,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 _boxPrice = value;
                 OnPropertyChanged(nameof(BoxPrice));
+                OnPropertyChanged(nameof(FullPrice));
             }
         }
 
         public decimal VAT { get; } = 23;
         public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
-        public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto;
+        public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto + (decimal)BoxPrice;
 
         /* Filtering */
         public decimal MinPrice { get; set; }
         public decimal MaxPrice { get; set; }
+
+        public int ProductSubCategory { get; set; } = -1;
 
         public CustomerDTO CurrentReceiver { get; private set; }
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
@@ -189,7 +192,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     ProductsList = AllProductsList;
                     if(MinPrice == 0m)
                     {
-                        if (MaxPrice == 0m) return;
+                        if (MaxPrice != 0m)
                         ProductsList = ProductsList.Where(p => decimal.Parse(p.Netto
                                                    .Substring(0, p.Netto.IndexOf(" ")), CultureInfo.InvariantCulture) <= MaxPrice)
                                                    .ToList();
@@ -210,6 +213,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                                                                           .Substring(0, p.Netto.IndexOf(" ")), CultureInfo.InvariantCulture) <= MaxPrice)
                                                                           .ToList();
                         }
+                    }
+
+                    if(ProductSubCategory != -1)
+                    {
+                        ProductsList = ProductsList.Where(p => p.SubCategoryId == ProductSubCategory).ToList();
                     }
                     OnPropertyChanged(nameof(ProductsList));
                 }

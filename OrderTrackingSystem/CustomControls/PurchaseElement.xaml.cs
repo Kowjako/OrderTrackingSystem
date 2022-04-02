@@ -27,8 +27,6 @@ namespace OrderTrackingSystem.CustomControls
 
         public static PurchaseElement CheckedElement => AllElements.FirstOrDefault(e => e.selectedBox.IsChecked == true);
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public static readonly DependencyProperty boxSize =
             DependencyProperty.Register(nameof(BoxSizeSelector), typeof(BoxSize),
             typeof(PurchaseElement), new PropertyMetadata());
@@ -55,6 +53,7 @@ namespace OrderTrackingSystem.CustomControls
         static Dictionary<BoxSize, string> BoxSizes = Boxes.BoxSizes;
         static Dictionary<BoxSize, string> BoxNames = Boxes.BoxNames;
 
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

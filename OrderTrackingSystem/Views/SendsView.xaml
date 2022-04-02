@@ -344,23 +344,23 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="#FF883C57"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <TreeView>
+                <TreeView x:Name="productsTree" SelectedItemChanged="productsTree_SelectedItemChanged">
                         <TreeViewItem IsExpanded="False" Header="Aerozole">
-                            <TreeViewItem Header="Na gardło"/>
-                            <TreeViewItem Header="Na katar"/>
+                            <TreeViewItem Tag="1" Header="Na gardło"/>
+                            <TreeViewItem Tag="2" Header="Na katar"/>
                         </TreeViewItem>
                         <TreeViewItem IsExpanded="False" Header="Tabletki">
-                            <TreeViewItem Header="Na sen"/>
-                            <TreeViewItem Header="Przeciwbólowe"/>
-                            <TreeViewItem Header="Na nadciśnienie"/>
+                            <TreeViewItem Tag="3" Header="Na sen"/>
+                            <TreeViewItem Tag="4" Header="Przeciwbólowe"/>
+                            <TreeViewItem Tag="5" Header="Na nadciśnienie"/>
                         </TreeViewItem>
                     <TreeViewItem IsExpanded="False" Header="Kremy">
-                        <TreeViewItem Header="Na skórę"/>
-                        <TreeViewItem Header="Na włosy"/>
+                        <TreeViewItem Tag="6" Header="Na skórę"/>
+                        <TreeViewItem Tag="7" Header="Na włosy"/>
                     </TreeViewItem>
                     <TreeViewItem IsExpanded="False" Header="Syropy">
-                            <TreeViewItem Header="Na kaszel"/>
-                            <TreeViewItem Header="Na podrażnienie"/>
+                            <TreeViewItem Tag="8" Header="Na kaszel"/>
+                            <TreeViewItem Tag="9" Header="Na podrażnienie"/>
                         <TreeViewItem Header="Suchość"/>
                     </TreeViewItem>
                     </TreeView>

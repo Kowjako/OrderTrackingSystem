@@ -30,7 +30,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 VAT = product.VAT.ToString(),
                                 Kategoria = product.Category.ToString(),
                                 Sprzedawca = sellerQuery.Name,
-                                SellerId = sellerQuery.Id
+                                SellerId = sellerQuery.Id,
+                                SubCategoryId = product.SubCateogryId.Value
                             };
 
                 var productsList = await query.ToListAsync();

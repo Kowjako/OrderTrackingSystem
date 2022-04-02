@@ -15,5 +15,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Rabat { get; set; }
         [Browsable(false)]
         public int SellerId { get; set; }
+        [Browsable(false)]
+        public int SubCategoryId { get; set; }
     }
 }

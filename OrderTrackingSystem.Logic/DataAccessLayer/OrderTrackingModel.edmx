@@ -146,6 +146,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.MailOrderRelations' does n
           <Property Name="Weight" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="Discount" Type="tinyint" Nullable="false" />
           <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="SubCateogryId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'OrderTrackingSystem.dbo.SellCarts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -793,6 +794,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <Property Name="Weight" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="Discount" Type="Byte" Nullable="false" />
           <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="SubCateogryId" Type="Int32" />
           <NavigationProperty Name="OrderCarts" Relationship="Self.FK__OrderCarts_ProductId" FromRole="Products" ToRole="OrderCarts" />
           <NavigationProperty Name="Sellers" Relationship="Self.FK__Products_SellerId" FromRole="Products" ToRole="Sellers" />
           <NavigationProperty Name="SellCarts" Relationship="Self.FK__SellCarts_ProductId" FromRole="Products" ToRole="SellCarts" />
@@ -1347,6 +1349,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="SubCateogryId" ColumnName="SubCateogryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
