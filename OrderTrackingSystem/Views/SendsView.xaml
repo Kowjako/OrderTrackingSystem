@@ -314,7 +314,10 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="#FF883C57"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+                <!-- Using attached event defined in own usercontrol-->
+                <DockPanel x:Name="boxPanel"
+                           DockPanel.Dock="Bottom" LastChildFill="False"
+                           purchaseElement:PurchaseElement.BoxChanged="boxPanel_BoxChanged">
                     <purchaseElement:PurchaseElement BoxSizeSelector="Small"
                                                  Width="150"   
                                                  DockPanel.Dock="Left"
@@ -468,7 +471,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Right"
-                    Text="24,99 zł"
+                    Text="{Binding BoxPrice, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"

@@ -36,6 +36,18 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Bindable properties
 
         public decimal TotalPriceNetto { get; set; } = 0;
+
+        private float _boxPrice;
+        public float BoxPrice
+        {
+            get => _boxPrice;
+            set
+            {
+                _boxPrice = value;
+                OnPropertyChanged(nameof(BoxPrice));
+            }
+        }
+
         public decimal VAT { get; } = 23;
         public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
         public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto;
@@ -206,6 +218,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
                 }
             }));
+
         #endregion
 
         #region INotifyableViewModel implementation
