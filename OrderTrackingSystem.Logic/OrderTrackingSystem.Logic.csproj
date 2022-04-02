@@ -154,6 +154,8 @@
     <Compile Include="Services\SellService.cs" />
     <Compile Include="Services\TrackerService.cs" />
     <Compile Include="Validators\CustomerValidator.cs" />
+    <Compile Include="Validators\LocalizationValidator.cs" />
+    <Compile Include="Validators\ValidatorWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

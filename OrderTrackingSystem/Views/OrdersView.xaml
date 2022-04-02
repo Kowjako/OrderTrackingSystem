@@ -9,6 +9,7 @@
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
         <converters:DecimalToStringConverter x:Key="dtsConverter"/>
+        <converters:BoleanNegativeConverter x:Key="negativeConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -243,6 +244,7 @@
                         </Grid>
                     </Border>
                     <CheckBox DockPanel.Dock="Bottom" 
+                              Visibility="{Binding VouchersVisibility}"
                               IsChecked="{Binding IsVoucherFullChecked, UpdateSourceTrigger=PropertyChanged}"
                               x:Name="acceptFullVoucher"
                               Style="{StaticResource MaterialDesignDarkCheckBox}"  
@@ -251,10 +253,13 @@
                     <!-- Używamy konwertera aby zamiast 0 wstawiać string.Empty -->
                     <TextBox  DockPanel.Dock="Bottom" 
                               Margin="0 5 0 0"
+                              Visibility="{Binding VouchersVisibility}"
                               Text="{Binding VoucherValueToMinus, Converter={StaticResource dtsConverter}}"
                               materialDesign:HintAssist.Hint="Kwota odliczalna"
                               materialDesign:HintAssist.IsFloating="False"
-                              IsEnabled ="{Binding IsVoucherAmountEnabled}">
+                              IsEnabled ="{Binding ElementName=acceptFullVoucher,
+                                                   Path=IsChecked,
+                                                   Converter={StaticResource negativeConverter}}">
                     </TextBox>
                 </DockPanel>
             </GroupBox>
