@@ -53,6 +53,33 @@ namespace OrderTrackingSystem.Logic.Services
                 return await query.FirstAsync();
             }
         }
+        
+        public async Task<CustomerDTO> GetCustomerByName(string name)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                name = name.Replace(" ", string.Empty).ToLower();
+                IQueryable<CustomerDTO> query = null;
+                query = from customer in dbContext.Customers
+                        let localizationQuery = (from localization in dbContext.Localizations
+                                                 where localization.Id == customer.LocalizationId
+                                                 select localization).FirstOrDefault()
+                        where (customer.Name + customer.Surname).ToLower().Equals(name)
+                        select new CustomerDTO
+                        {
+                            Id = customer.Id,
+                            Nazwa = customer.Name + " " + customer.Surname,
+                            Adres = localizationQuery.Street + " " +
+                                    localizationQuery.House + ", " +
+                                    localizationQuery.Flat,
+                            Email = customer.Email,
+                            MiastoKod = localizationQuery.City + ", " +
+                                        localizationQuery.ZipCode,
+                            Numer = customer.Number
+                        };
+                return await query.FirstAsync();
+            }
+        }
 
         public async Task<CustomerDTO> GetSeller(int sellerId)
         {
