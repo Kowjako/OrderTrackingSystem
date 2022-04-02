@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
              xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
+             xmlns:composite="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1500">
     <UserControl.Resources>
@@ -328,26 +329,18 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="#FF883C57"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <TreeView x:Name="productsTree" SelectedItemChanged="productsTree_SelectedItemChanged">
-                        <TreeViewItem IsExpanded="False" Header="Aerozole">
-                            <TreeViewItem Tag="1" Header="Na gardło"/>
-                            <TreeViewItem Tag="2" Header="Na katar"/>
-                        </TreeViewItem>
-                        <TreeViewItem IsExpanded="False" Header="Tabletki">
-                            <TreeViewItem Tag="3" Header="Na sen"/>
-                            <TreeViewItem Tag="4" Header="Przeciwbólowe"/>
-                            <TreeViewItem Tag="5" Header="Na nadciśnienie"/>
-                        </TreeViewItem>
-                    <TreeViewItem IsExpanded="False" Header="Kremy">
-                        <TreeViewItem Tag="6" Header="Na skórę"/>
-                        <TreeViewItem Tag="7" Header="Na włosy"/>
-                    </TreeViewItem>
-                    <TreeViewItem IsExpanded="False" Header="Syropy">
-                            <TreeViewItem Tag="8" Header="Na kaszel"/>
-                            <TreeViewItem Tag="9" Header="Na podrażnienie"/>
-                        <TreeViewItem Header="Suchość"/>
-                    </TreeViewItem>
-                    </TreeView>
+                <!-- Podpięcie własnego drzewa z kategoriami produktów -->
+                <TreeView x:Name="productsTree" 
+                          ItemsSource="{Binding CategoriesList}"
+                          SelectedItemChanged="productsTree_SelectedItemChanged">
+                    <TreeView.ItemTemplate>
+                        <!-- Dla każdej kategorii podpinamy listę potomków -->
+                        <HierarchicalDataTemplate DataType="{x:Type composite:CategoryDTO}"
+                                                  ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Title}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
             </GroupBox>
         </Grid>
         <DockPanel
