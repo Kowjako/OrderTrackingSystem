@@ -12,11 +12,7 @@ namespace OrderTrackingSystem.Logic.Validators
             RuleFor(x => x.Email).EmailAddress().WithMessage("Adres e-mail jest niepoprawny");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Imię nie może być puste");
             RuleFor(x => x.Surname).NotEmpty().WithMessage("Nazwisko nie może być puste");
-            /* Gdy Lokalizacja jest ustawiona również musimy ją zwalidować */
-            When(x => x.Localizations != null, () =>
-            {
-                RuleFor(x => x.Localizations).SetValidator(new LocalizationValidator());
-            });
+            RuleFor(x => x.Number).NotEmpty().WithMessage("Numer nie może być pusty");
         }
     }
 }

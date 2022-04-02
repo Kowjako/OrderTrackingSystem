@@ -9,7 +9,7 @@
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
         <converters:DecimalToStringConverter x:Key="dtsConverter"/>
-        <converters:BoleanNegativeConverter x:Key="negativeConverter"/>
+        <converters:BooleanNegativeConverter x:Key="negativeConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
