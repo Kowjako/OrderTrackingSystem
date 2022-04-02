@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
+             xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1500">
+    <UserControl.Resources>
+        <converters:DecimalToStringConverter x:Key="dtsConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -14,7 +18,7 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition MinHeight="100" MaxHeight="100"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="Auto"/>
@@ -42,12 +46,15 @@
                             Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button
+                        Command="{Binding FindReceiver}"
+                        CommandParameter="{Binding ElementName=receiverBox, Path=Text}"
                         Style="{DynamicResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
                             Kind="Search"
                             Opacity="1" />
                     </Button>
                     <TextBox
+                        x:Name="receiverBox"
                         FontSize="15"
                         VerticalAlignment="Center"
                         Grid.Column="1"
@@ -60,13 +67,27 @@
             <GroupBox
                 Header="Odbiorca"
                 Margin="5"
-                Height="150"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-
+                <StackPanel DataContext="{Binding CurrentReceiver}">
+                    <!-- Use this style inside this control -->
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="0,0,0,3"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontWeight="DemiBold"
+                               Text="{Binding Nazwa}"/>
+                    <TextBlock Foreground="DarkGreen"
+                               Text="{Binding Adres}"/>
+                    <TextBlock Text="{Binding MiastoKod}"/>
+                    <TextBlock Text="{Binding Email}"/>
+                    <TextBlock Foreground="Maroon"
+                               Text="{Binding Numer}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
@@ -86,7 +107,8 @@
                     <Button Grid.Column="0"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
-                                Width="30"
+                    Width="30"
+                    Command="{Binding MinusAmount}"
                     Margin="0,0,0,5"
                     Background="RoyalBlue"
                     BorderBrush="RoyalBlue"
@@ -98,7 +120,7 @@
                     </Button>
                     <TextBox Grid.Column="1"
                          Margin="5,0,5,5"
-                         Text="0"
+                         Text="{Binding CurrentProductAmount, UpdateSourceTrigger=PropertyChanged}"
                          HorizontalContentAlignment="Center"
                          IsEnabled="False"
                          VerticalContentAlignment="Center">
@@ -113,6 +135,7 @@
                         </TextBox.Resources>
                     </TextBox>
                     <Button
+                    Command="{Binding PlusAmount}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
                     Width="30"
@@ -160,6 +183,9 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <TextBox
+                    Text="{Binding MinPrice,
+                           Converter={StaticResource dtsConverter},
+                           UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="0"
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="Cena od:"
@@ -172,6 +198,9 @@
                            Height="2" 
                            Stroke="Black"/>
                 <TextBox
+                    Text="{Binding MaxPrice,
+                           Converter={StaticResource dtsConverter},
+                           UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="2"
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="Cena do:"
@@ -199,6 +228,7 @@
                 </StackPanel>
             </GroupBox>
             <Button
+                    Command="{Binding AddToCart}"
                     x:Name="btnAddToCart"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -220,6 +250,7 @@
                     VerticalAlignment="Bottom"
                     Content="Wyczyść koszyk" />
             <Button
+                    Command="{Binding FilterCommand}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -259,7 +290,16 @@
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid x:Name="elementGrid" Margin="0,0,10,0"/>
+            <DataGrid x:Name="elementGrid" 
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Disabled"
+                      SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding ProductsList}"
+                      AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
+                      Margin="0,0,5,0"/>
         </StackPanel>
         <Grid Grid.Column="1"
                     Grid.Row="3">
@@ -302,31 +342,24 @@
                 materialDesign:ColorZoneAssist.Background="#FF883C57"
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <TreeView>
-                        <TreeViewItem IsExpanded="False" Header="AGD">
-                            <TreeViewItem Header="Kuchnia"/>
-                            <TreeViewItem Header="Sprzątanie"/>
+                        <TreeViewItem IsExpanded="False" Header="Aerozole">
+                            <TreeViewItem Header="Na gardło"/>
+                            <TreeViewItem Header="Na katar"/>
                         </TreeViewItem>
-                        <TreeViewItem IsExpanded="False" Header="Elektronika">
-                            <TreeViewItem Header="Laptopy"/>
-                            <TreeViewItem Header="Konsole"/>
-                            <TreeViewItem Header="Telefony"/>
+                        <TreeViewItem IsExpanded="False" Header="Tabletki">
+                            <TreeViewItem Header="Na sen"/>
+                            <TreeViewItem Header="Przeciwbólowe"/>
+                            <TreeViewItem Header="Na nadciśnienie"/>
                         </TreeViewItem>
-                        <TreeViewItem IsExpanded="False" Header="Gadżety">
-                            <TreeViewItem Header="Smartwatche"/>
-                            <TreeViewItem Header="Aparaty fotograficzny"/>
-                            <TreeViewItem Header="Akcesoria GPS"/>
-                        </TreeViewItem>
-                        <TreeViewItem IsExpanded="False" Header="TV - Audio">
-                            <TreeViewItem Header="Telewizory"/>
-                            <TreeViewItem Header="Hi-Fi Audio"/>
-                            <TreeViewItem Header="Odtwarzacze"/>
-                        </TreeViewItem>
-                        <TreeViewItem IsExpanded="False" Header="Odzież">
-                            <TreeViewItem Header="Spodnie"/>
-                            <TreeViewItem Header="T-Shirty"/>
-                            <TreeViewItem Header="Koszulki"/>
-                            <TreeViewItem Header="Kurtki"/>
-                        </TreeViewItem>
+                    <TreeViewItem IsExpanded="False" Header="Kremy">
+                        <TreeViewItem Header="Na skórę"/>
+                        <TreeViewItem Header="Na włosy"/>
+                    </TreeViewItem>
+                    <TreeViewItem IsExpanded="False" Header="Syropy">
+                            <TreeViewItem Header="Na kaszel"/>
+                            <TreeViewItem Header="Na podrażnienie"/>
+                        <TreeViewItem Header="Suchość"/>
+                    </TreeViewItem>
                     </TreeView>
             </GroupBox>
         </Grid>
@@ -344,7 +377,14 @@
                 FontSize="17"
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
-            <DataGrid DockPanel.Dock="Top"/>
+            <DataGrid DockPanel.Dock="Top"
+                      x:Name="cartGrid"  
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding ProductsInCart}"
+                      AutoGeneratingColumn="cartGrid_AutoGeneratingColumn"/>
             <Grid DockPanel.Dock="Bottom" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -381,7 +421,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Left"
-                    Text="Dostawa"
+                    Text="Opakowanie"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -401,7 +441,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Right"
-                    Text="150 zł"
+                    Text="{Binding TotalPriceNetto, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -410,7 +450,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Right"
-                    Text="23%"
+                    Text="{Binding VAT, StringFormat={}{0:f2} %}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -419,7 +459,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Right"
-                    Text="181,30 zł"
+                    Text="{Binding TotalPriceBrutto, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -428,7 +468,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Right"
-                    Text="8,99 zł"
+                    Text="24,99 zł"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -437,7 +477,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Right"
-                    Text="280,73 zł"
+                    Text="{Binding FullPrice, StringFormat={}{0:f2} zł}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
