@@ -78,7 +78,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         }
 
         public decimal VoucherValueToMinus { get; set; }
-        public bool IsVoucherAmountEnabled { get; set; } = true;
         private bool _isVoucherFullChecked;
         public bool IsVoucherFullChecked
         {
@@ -86,8 +85,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             set
             {
                 _isVoucherFullChecked = value;
-                IsVoucherAmountEnabled = !value;
-                OnPropertyChanged(nameof(IsVoucherAmountEnabled));
                 if(value == true)
                 {
                     VoucherValueToMinus = 0m;

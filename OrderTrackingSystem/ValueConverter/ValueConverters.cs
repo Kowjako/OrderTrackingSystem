@@ -29,7 +29,7 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
     }
 
     [ValueConversion(typeof(bool), typeof(bool))]
-    public class BoleanNegativeConverter : IValueConverter
+    public class BooleanNegativeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
