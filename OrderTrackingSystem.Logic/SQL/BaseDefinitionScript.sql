@@ -284,4 +284,18 @@ ALTER TABLE Products
 ADD SubCateogryId INT
 GO
 
+CREATE TABLE ProductCategories (
+	Id INT IDENTITY(1,1),
+	Title NVARCHAR(255),
+	ParentCategoryId INT,
+	CONSTRAINT PK__ProductCategories_Id PRIMARY KEY CLUSTERED (Id),
+	CONSTRAINT FK__ProductCategories_ParentCateogoryId FOREIGN KEY (ParentCategoryId) REFERENCES ProductCategories(Id) ON DELETE NO ACTION
+)
+GO
+
+ALTER TABLE Products
+ADD CONSTRAINT FK__Products_SubCateogryId FOREIGN KEY (SubCateogryId) REFERENCES ProductCategories (Id) ON DELETE SET NULL
+GO
+
+
 COMMIT TRAN
