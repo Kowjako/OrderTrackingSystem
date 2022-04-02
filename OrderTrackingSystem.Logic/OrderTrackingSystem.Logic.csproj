@@ -112,6 +112,9 @@
     <Compile Include="DataAccessLayer\Pickups.cs">
       <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccessLayer\ProductCategories.cs">
+      <DependentUpon>OrderTrackingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessLayer\Products.cs">
       <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
@@ -134,6 +137,7 @@
       <DependentUpon>OrderTrackingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\CartProductDTO.cs" />
+    <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />

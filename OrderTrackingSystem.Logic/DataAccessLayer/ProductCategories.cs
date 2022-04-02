@@ -12,31 +12,23 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class ProductCategories
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public ProductCategories()
         {
-            this.OrderCarts = new HashSet<OrderCarts>();
-            this.SellCarts = new HashSet<SellCarts>();
+            this.ProductCategories1 = new HashSet<ProductCategories>();
+            this.Products = new HashSet<Products>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal PriceNetto { get; set; }
-        public byte VAT { get; set; }
-        public decimal PriceBrutto { get; set; }
-        public byte Category { get; set; }
-        public decimal Weight { get; set; }
-        public byte Discount { get; set; }
-        public int SellerId { get; set; }
-        public Nullable<int> SubCateogryId { get; set; }
+        public string Title { get; set; }
+        public Nullable<int> ParentCategoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderCarts> OrderCarts { get; set; }
-        public virtual ProductCategories ProductCategories { get; set; }
-        public virtual Sellers Sellers { get; set; }
+        public virtual ICollection<ProductCategories> ProductCategories1 { get; set; }
+        public virtual ProductCategories ProductCategories2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SellCarts> SellCarts { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

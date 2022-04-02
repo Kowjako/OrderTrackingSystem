@@ -158,23 +158,7 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <RadioButton
-                        Style="{StaticResource MaterialDesignRadioButton}"
-                        Content="Najpierw najtańsze"
-                        Margin="0,5,0,5">
-                    </RadioButton>
-                    <RadioButton
-                        Style="{StaticResource MaterialDesignRadioButton}"
-                        Content="Najpierw najdroższe"
-                        Margin="0,5,0,5">
-                    </RadioButton>
-                    <RadioButton
-                        Style="{StaticResource MaterialDesignRadioButton}"
-                        Content="Najpierw popularne"
-                        Margin="0,5,0,5">
-                    </RadioButton>
-                </StackPanel>
+                <StackPanel/>
             </GroupBox>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>

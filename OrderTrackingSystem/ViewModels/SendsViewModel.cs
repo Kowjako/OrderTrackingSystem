@@ -62,6 +62,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public CustomerDTO CurrentReceiver { get; private set; }
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
+        public List<CategoryDTO> CategoriesList { get; set; } = new List<CategoryDTO>();
         public ProductDTO SelectedProduct { get; set; }
         /* Używamy BindingList do śledzenia zmian obiektów z listy */
         public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
@@ -93,6 +94,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public async Task SetInitializeProperties()
         {
             AllProductsList = await ProductService.GetAllProducts();
+            CategoriesList = await ProductService.GetProductCategories();
             ProductsList = AllProductsList;
         }
 

@@ -133,6 +133,14 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.MailOrderRelations' does n
           <Property Name="LocalizationId" Type="int" Nullable="false" />
           <Property Name="WorkHours" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ProductCategories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParentCategoryId" Type="int" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Id" />
@@ -418,6 +426,18 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ProductCategories_ParentCateogoryId">
+          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
+          <End Role="ProductCategories1" Type="Self.ProductCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCategories1">
+              <PropertyRef Name="ParentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Products_SellerId">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -429,6 +449,18 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             </Principal>
             <Dependent Role="Products">
               <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products_SubCateogryId">
+          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SubCateogryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -520,6 +552,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStates" EntityType="Self.OrderStates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pickups" EntityType="Self.Pickups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sells" EntityType="Self.Sells" Schema="dbo" store:Type="Tables" />
@@ -624,8 +657,16 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             <End Role="Localizations" EntitySet="Localizations" />
             <End Role="Pickups" EntitySet="Pickups" />
           </AssociationSet>
+          <AssociationSet Name="FK__ProductCategories_ParentCateogoryId" Association="Self.FK__ProductCategories_ParentCateogoryId">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="ProductCategories1" EntitySet="ProductCategories" />
+          </AssociationSet>
           <AssociationSet Name="FK__Products_SellerId" Association="Self.FK__Products_SellerId">
             <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products_SubCateogryId" Association="Self.FK__Products_SubCateogryId">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK__SellCarts_ProductId" Association="Self.FK__SellCarts_ProductId">
@@ -781,6 +822,17 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <NavigationProperty Name="Localizations" Relationship="Self.FK__Pickups_LocalizationId" FromRole="Pickups" ToRole="Localizations" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders_PickupId" FromRole="Pickups" ToRole="Orders" />
         </EntityType>
+        <EntityType Name="ProductCategories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParentCategoryId" Type="Int32" />
+          <NavigationProperty Name="ProductCategories1" Relationship="Self.FK__ProductCategories_ParentCateogoryId" FromRole="ProductCategories" ToRole="ProductCategories1" />
+          <NavigationProperty Name="ProductCategories2" Relationship="Self.FK__ProductCategories_ParentCateogoryId" FromRole="ProductCategories1" ToRole="ProductCategories" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products_SubCateogryId" FromRole="ProductCategories" ToRole="Products" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Id" />
@@ -796,6 +848,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <Property Name="SellerId" Type="Int32" Nullable="false" />
           <Property Name="SubCateogryId" Type="Int32" />
           <NavigationProperty Name="OrderCarts" Relationship="Self.FK__OrderCarts_ProductId" FromRole="Products" ToRole="OrderCarts" />
+          <NavigationProperty Name="ProductCategories" Relationship="Self.FK__Products_SubCateogryId" FromRole="Products" ToRole="ProductCategories" />
           <NavigationProperty Name="Sellers" Relationship="Self.FK__Products_SellerId" FromRole="Products" ToRole="Sellers" />
           <NavigationProperty Name="SellCarts" Relationship="Self.FK__SellCarts_ProductId" FromRole="Products" ToRole="SellCarts" />
         </EntityType>
@@ -1079,6 +1132,30 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ProductCategories_ParentCateogoryId">
+          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
+          <End Role="ProductCategories1" Type="Self.ProductCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCategories1">
+              <PropertyRef Name="ParentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products_SubCateogryId">
+          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SubCateogryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Products_SellerId">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1137,6 +1214,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="OrderStates" EntityType="Self.OrderStates" />
           <EntitySet Name="Pickups" EntityType="Self.Pickups" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" />
           <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="Sellers" EntityType="Self.Sellers" />
           <EntitySet Name="Sells" EntityType="Self.Sells" />
@@ -1204,6 +1282,14 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <AssociationSet Name="FK__OrderStates_OrderId" Association="Self.FK__OrderStates_OrderId">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderStates" EntitySet="OrderStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCategories_ParentCateogoryId" Association="Self.FK__ProductCategories_ParentCateogoryId">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="ProductCategories1" EntitySet="ProductCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products_SubCateogryId" Association="Self.FK__Products_SubCateogryId">
+            <End Role="ProductCategories" EntitySet="ProductCategories" />
+            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK__Products_SellerId" Association="Self.FK__Products_SellerId">
             <End Role="Sellers" EntitySet="Sellers" />
@@ -1334,6 +1420,15 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
                 <ScalarProperty Name="Capacity" ColumnName="Capacity" />
                 <ScalarProperty Name="LocalizationId" ColumnName="LocalizationId" />
                 <ScalarProperty Name="WorkHours" ColumnName="WorkHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.ProductCategories">
+              <MappingFragment StoreEntitySet="ProductCategories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -102,5 +102,40 @@ namespace OrderTrackingSystem.Logic.Services
                 return await query.ToListAsync();
             }
         }
+
+        public async Task<List<CategoryDTO>> GetProductCategories()
+        {
+            using(var dbContext = new OrderTrackingSystemEntities())
+            {
+                var query = from category in dbContext.ProductCategories
+                            orderby category.ParentCategoryId
+                            select category;
+                var categoryList = await query.ToListAsync();
+                List<CategoryDTO> categoriesOutput = new List<CategoryDTO>();
+                /* Realizacja wzorca Composite */
+                foreach(var category in categoryList)
+                {
+                    if(!category.ParentCategoryId.HasValue)
+                    {
+                        categoriesOutput.Add(new CategoryDTO()
+                        {
+                            Id = category.Id,
+                            Title = category.Title,
+                            Children = new List<CategoryDTO>()
+                        });
+                    }
+                    else
+                    {
+                        categoriesOutput.First(p => p.Id == category.ParentCategoryId).Children.Add(new CategoryDTO()
+                        {
+                            Id = category.Id,
+                            Title = category.Title,
+                            Children = new List<CategoryDTO>()
+                        });
+                    }
+                }
+                return categoriesOutput;
+            }
+        }
     }
 }
