@@ -25,7 +25,7 @@ namespace OrderTrackingSystem.CustomControls
     {
         static List<PurchaseElement> AllElements = new List<PurchaseElement>();
 
-        public PurchaseElement CheckedElement => AllElements.FirstOrDefault(e => e.selectedBox.IsChecked == true);
+        public static PurchaseElement CheckedElement => AllElements.FirstOrDefault(e => e.selectedBox.IsChecked == true);
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -60,6 +60,25 @@ namespace OrderTrackingSystem.CustomControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+        /* Used as attached event for binding in XAML - SendsView */
+        public static readonly RoutedEvent BoxChangedEvent =
+                EventManager.RegisterRoutedEvent("BoxChanged",
+                RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler),
+                typeof(PurchaseElement));
+
+        public event RoutedEventHandler BoxChanged
+        {
+            add
+            {
+                AddHandler(BoxChangedEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(BoxChangedEvent, value);
+            }
+        }
+
         public PurchaseElement()
         {
             InitializeComponent();
@@ -78,6 +97,9 @@ namespace OrderTrackingSystem.CustomControls
         {
             /* Implementation of "GroupName" from RadioButton control */
             AllElements.ForEach(x => x.selectedBox.IsChecked = x.selectedBox.Equals(sender));
+            /* Wywołujemy zdarzenie po zmianie wybranego box'a */
+            RaiseEvent(new RoutedEventArgs(BoxChangedEvent));
         }
     }
+
 }
