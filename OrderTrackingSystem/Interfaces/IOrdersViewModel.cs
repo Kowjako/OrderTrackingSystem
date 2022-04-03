@@ -14,6 +14,7 @@ namespace OrderTrackingSystem.Presentation.Interfaces
         ProductDTO SelectedProduct { get; set; }
         CustomerDTO CurrentCustomer { get; }
         List<PickupDTO> PickupsList { get; set; }
+        OrderDTO CurrentOrder { get; set; }
         List<ProductDTO> AllProductsList { get; set; }
         List<ProductDTO> ProductsList { get; set; }
         List<VoucherDTO> VouchersList { get; set; }
@@ -24,6 +25,8 @@ namespace OrderTrackingSystem.Presentation.Interfaces
         decimal VAT { get; }
         decimal TotalPriceBrutto { get; }
         decimal DeliveryCost { get; }
+        decimal FullPrice { get; }
+        int SelectedDeliveryType { get; set; }
 
         Task SetInitializeProperties();
 
@@ -32,5 +35,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
         RelayCommand MinusAmount { get; }
         RelayCommand PlusAmount { get; }
         RelayCommand AcceptOrder { get; }
+        RelayCommand ClearCart { get; }
     }
 }
