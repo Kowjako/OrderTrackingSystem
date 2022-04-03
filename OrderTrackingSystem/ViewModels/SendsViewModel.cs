@@ -58,6 +58,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public decimal MinPrice { get; set; }
         public decimal MaxPrice { get; set; }
 
+        public bool IsPickupDaysDefined { get; set; }
+        public int PickupDays { get; set; }
+
         public CategoryDTO SelectedSubCategory { get; set; }
 
         public Customers CurrentSeller { get; private set; }
@@ -245,7 +248,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             }));
 
         private RelayCommand _acceptSend;
-        public RelayCommand AcceptSend =>
+        public RelayCommand AcceptSell =>
             _acceptSend ?? (_acceptSend = new RelayCommand(async obj =>
             {
                 try
@@ -257,14 +260,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
 
                     var currentSell = new SellDTO();
-                    currentSell.Numer = ConfigurationService.GenerateElementNumber();
                     currentSell.SellerId = CurrentSeller.Id;
                     currentSell.CustomerId = CurrentReceiver.Id;
+                    currentSell.PickupDays = IsPickupDaysDefined ? PickupDays : 0;
 
                     await SellService.SaveSell(currentSell, ProductsInCart.ToList());
                     OnSuccess?.Invoke("Wysyłka została utworzona");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wysyłki");
                 }

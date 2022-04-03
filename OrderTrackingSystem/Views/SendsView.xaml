@@ -203,11 +203,14 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
                     <CheckBox Content="Wyślij automatyczną wiadomość" Margin="0,0,0,0"/>
-                    <CheckBox x:Name="dayConstraint" Content="Ustaw ilość dni do odbioru" Margin="0,5,0,0"/>
+                    <CheckBox x:Name="dayConstraint" 
+                              IsChecked="{Binding IsPickupDaysDefined, UpdateSourceTrigger=PropertyChanged}"
+                              Content="Ustaw ilość dni do odbioru" Margin="0,5,0,0"/>
                     <Slider Margin="0,5,0,0" Maximum="5"
                             Minimum="1" TickFrequency="1"
                             AutoToolTipPlacement="BottomRight"
                             SmallChange="1"
+                            Value="{Binding PickupDays, UpdateSourceTrigger=PropertyChanged}"
                             IsSnapToTickEnabled="False"
                             IsHitTestVisible="{Binding ElementName=dayConstraint, Path=IsChecked}"/>
                 </StackPanel>
@@ -247,6 +250,7 @@
                     VerticalAlignment="Bottom"
                     Content="Filtruj" />
             <Button
+                    Command="{Binding AcceptSell}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"

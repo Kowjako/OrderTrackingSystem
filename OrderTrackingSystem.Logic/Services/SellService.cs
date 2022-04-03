@@ -55,7 +55,7 @@ namespace OrderTrackingSystem.Logic.Services
                         SellingDate = DateTime.Now,
                         CustomerId = order.CustomerId,
                         SellerId = order.SellerId,
-                        PickupDays = order.PickupDays == null ? 5 : order.PickupDays.Value
+                        PickupDays = order.PickupDays == 0 ? 5 : order.PickupDays.Value
                     };
                     dbContext.Sells.Add(sellDAL);
                     /* Zapisujemy wysyłkę */

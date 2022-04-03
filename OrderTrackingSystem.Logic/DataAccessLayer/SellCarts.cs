@@ -17,6 +17,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public int ProductId { get; set; }
         public byte Amount { get; set; }
         public int SellId { get; set; }
+        public int Id { get; set; }
     
         public virtual Products Products { get; set; }
         public virtual Sells Sells { get; set; }
