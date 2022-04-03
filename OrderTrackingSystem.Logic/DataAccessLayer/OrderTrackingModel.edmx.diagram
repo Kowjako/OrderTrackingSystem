@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c3a66c4ea8584672953243d1018d8e81" Name="Diagram1">
+      <Diagram DiagramId="7dd578f47b9d4ed19d97118ba5ffe10a" Name="Diagram1">
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintDefinitions" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintFolders" Width="1.5" PointX="3.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Customers" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />

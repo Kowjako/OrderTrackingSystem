@@ -89,7 +89,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.MailOrderRelations' does n
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="SenderId" Type="int" Nullable="false" />
           <Property Name="ReceiverId" Type="int" Nullable="false" />
-          <Property Name="IsFromCustomer" Type="bit" Nullable="false" />
+          <Property Name="MailRelation" Type="tinyint" />
         </EntityType>
         <EntityType Name="OrderCarts">
           <Key>
@@ -755,7 +755,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SenderId" Type="Int32" Nullable="false" />
           <Property Name="ReceiverId" Type="Int32" Nullable="false" />
-          <Property Name="IsFromCustomer" Type="Boolean" Nullable="false" />
+          <Property Name="MailRelation" Type="Byte" />
           <NavigationProperty Name="Orders" Relationship="Self.MailOrderRelations" FromRole="Mails" ToRole="Orders" />
         </EntityType>
         <EntityType Name="OrderCarts">
@@ -1363,7 +1363,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="SenderId" ColumnName="SenderId" />
                 <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
-                <ScalarProperty Name="IsFromCustomer" ColumnName="IsFromCustomer" />
+                <ScalarProperty Name="MailRelation" ColumnName="MailRelation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
