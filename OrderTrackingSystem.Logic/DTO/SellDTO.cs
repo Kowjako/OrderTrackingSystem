@@ -12,5 +12,11 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Dni { get; set; }
         public string Odbiorca { get; set; }
         public string Kwota { get; set; }
+        [Browsable(false)]
+        public int CustomerId { get; set; }
+        [Browsable(false)]
+        public int SellerId { get; set; }
+        [Browsable(false)]
+        public int? PickupDays { get; set; }
     }
 }

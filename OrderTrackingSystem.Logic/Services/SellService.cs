@@ -1,14 +1,18 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
     public class SellService : IService<SellService>
     {
+        private ProductService ProductService => new ProductService();
+
         public async Task<List<SellDTO>> GetSellsForCustomer(int customerId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
@@ -36,6 +40,32 @@ namespace OrderTrackingSystem.Logic.Services
 
                 return query.ToList();
             }
+        }
+
+        public async Task SaveSell(SellDTO order, List<CartProductDTO> products)
+        {
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                using (var dbContext = new OrderTrackingSystemEntities())
+                {
+                    var sellDAL = new Sells
+                    {
+                        Number = ConfigurationService.GenerateElementNumber(),
+                        SellingDate = DateTime.Now,
+                        CustomerId = order.CustomerId,
+                        SellerId = order.SellerId,
+                        PickupDays = order.PickupDays == null ? 5 : order.PickupDays.Value
+                    };
+                    dbContext.Sells.Add(sellDAL);
+                    /* Zapisujemy wysyłkę */
+                    await dbContext.SaveChangesAsync();
+                    /* Zapisujemy subelementy */
+                    await ProductService.SaveSellProductsForCart(products, sellDAL.Id);
+                }
+                transactionScope.Complete();
+            }
+
         }
     }
 }

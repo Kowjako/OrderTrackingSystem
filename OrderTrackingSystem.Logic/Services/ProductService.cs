@@ -67,18 +67,21 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+
         public async Task SaveSellProductsForCart(List<CartProductDTO> products, int sellId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 foreach (var product in products)
                 {
-                    dbContext.SellCarts.Add(new SellCarts
+                    var sellCart = new SellCarts
                     {
                         Amount = byte.Parse(product.Amount),
                         ProductId = product.Id,
                         SellId = sellId
-                    });
+                    };
+                    dbContext.Entry(sellCart).State = EntityState.Added;
+                    dbContext.SellCarts.Add(sellCart);
                 }
                 await dbContext.SaveChangesAsync();
             }

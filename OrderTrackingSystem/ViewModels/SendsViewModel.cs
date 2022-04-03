@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
@@ -59,6 +60,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public CategoryDTO SelectedSubCategory { get; set; }
 
+        public Customers CurrentSeller { get; private set; }
         public CustomerDTO CurrentReceiver { get; private set; }
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
@@ -75,6 +77,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private readonly CustomerService CustomerService;
         private readonly ProductService ProductService;
+        private readonly SellService SellService;
 
         #endregion
 
@@ -84,6 +87,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             CustomerService = new CustomerService();
             ProductService = new ProductService();
+            SellService = new SellService();
         }
 
 
@@ -94,6 +98,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public async Task SetInitializeProperties()
         {
             AllProductsList = await ProductService.GetAllProducts();
+            CurrentSeller = await CustomerService.GetCurrentCustomer();
             CategoriesList = await ProductService.GetProductCategories();
             ProductsList = AllProductsList;
         }
@@ -237,6 +242,32 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 RecalculateCartPrice();
                 OnPropertyChanged(nameof(ProductsInCart));
                 OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
+            }));
+
+        private RelayCommand _acceptSend;
+        public RelayCommand AcceptSend =>
+            _acceptSend ?? (_acceptSend = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    if (ProductsInCart.Count == 0)
+                    {
+                        OnWarning?.Invoke("Należy dodać produkt do koszyka");
+                        return;
+                    }
+
+                    var currentSell = new SellDTO();
+                    currentSell.Numer = ConfigurationService.GenerateElementNumber();
+                    currentSell.SellerId = CurrentSeller.Id;
+                    currentSell.CustomerId = CurrentReceiver.Id;
+
+                    await SellService.SaveSell(currentSell, ProductsInCart.ToList());
+                    OnSuccess?.Invoke("Wysyłka została utworzona");
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Nie udało się zapisać wysyłki");
+                }
             }));
 
         #endregion

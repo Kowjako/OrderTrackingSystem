@@ -297,11 +297,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         OnWarning?.Invoke("Należy dodać produkt do koszyka");
                         return;
                     }
-                    var x = ConfigurationService.GenerateElementNumber();
+
                     CurrentOrder.PickupId = SelectedPickup.Id;
                     CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
                     CurrentOrder.SellerId = SelectedSellerId;
                     CurrentOrder.CustomerId = CurrentCustomer.Id;
+
                     await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList());
                     OnSuccess?.Invoke("Zamówienie zostało utworzone");
                 }
