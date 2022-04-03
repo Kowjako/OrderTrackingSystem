@@ -225,6 +225,7 @@
                     VerticalAlignment="Bottom"
                     Content="Dodaj do koszyka" />
             <Button
+                    Command="{Binding ClearCart}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"

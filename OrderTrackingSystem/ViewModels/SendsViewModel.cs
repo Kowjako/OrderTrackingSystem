@@ -57,7 +57,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public decimal MinPrice { get; set; }
         public decimal MaxPrice { get; set; }
 
-        public int ProductSubCategory { get; set; } = -1;
+        public CategoryDTO SelectedSubCategory { get; set; }
 
         public CustomerDTO CurrentReceiver { get; private set; }
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
@@ -217,9 +217,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         }
                     }
 
-                    if(ProductSubCategory != -1)
+                    if(SelectedSubCategory != null)
                     {
-                        ProductsList = ProductsList.Where(p => p.SubCategoryId == ProductSubCategory).ToList();
+                        ProductsList = ProductsList.Where(p => p.SubCategoryId == SelectedSubCategory.Id).ToList();
                     }
                     OnPropertyChanged(nameof(ProductsList));
                 }
@@ -227,6 +227,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
+            }));
+
+        private RelayCommand _clearCart;
+        public RelayCommand ClearCart =>
+            _clearCart ?? (_clearCart = new RelayCommand(obj =>
+            {
+                ProductsInCart.Clear();
+                RecalculateCartPrice();
+                OnPropertyChanged(nameof(ProductsInCart));
+                OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
             }));
 
         #endregion

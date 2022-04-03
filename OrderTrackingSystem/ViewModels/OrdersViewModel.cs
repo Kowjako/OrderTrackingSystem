@@ -310,6 +310,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     OnFailure?.Invoke("Nie udało się zapisać zamówienia");
                 }
             }));
+
+        private RelayCommand _clearCart;
+        public RelayCommand ClearCart =>
+            _clearCart ?? (_clearCart = new RelayCommand(obj =>
+            {
+                ProductsInCart.Clear();
+                RecalculateCartPrice();
+                OnPropertyChanged(nameof(ProductsInCart));
+                OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
+            }));
         #endregion
 
         #region INotifyPropertyChanged implementation

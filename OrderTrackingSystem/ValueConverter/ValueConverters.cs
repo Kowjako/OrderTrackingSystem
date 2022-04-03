@@ -19,7 +19,8 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            decimal decimalValue = decimal.Parse(value as string, CultureInfo.InvariantCulture);
+            if (string.IsNullOrEmpty(value.ToString())) return 0m;
+            decimal decimalValue = decimal.Parse(value.ToString(), CultureInfo.InvariantCulture);
             if(decimalValue != 0m)
             {
                 return decimalValue;

@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.CustomControls;
+using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using System.Windows.Controls;
@@ -32,8 +33,7 @@ namespace OrderTrackingSystem.Presentation.Views
 
         private void productsTree_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
-            var selectedSubCategory = (e.NewValue as TreeViewItem).Tag;
-            (DataContext as SendsViewModel).ProductSubCategory = selectedSubCategory == null ? -1 : int.Parse(selectedSubCategory.ToString());
+            (DataContext as SendsViewModel).SelectedSubCategory = e.NewValue as CategoryDTO;
         }
     }
 }
