@@ -40,32 +40,14 @@ namespace OrderTrackingSystem.Logic.EnumMappers
         Spray = 3
     }
 
-    public enum SubProductType
+    public enum MailDirectionType
     {
-        /* Aerozole */
-        [Description("Na gardło")]
-        L1 = 1,
-        [Description("Na katar")]
-        L2 = 2,
-        /* Tabletki */
-        [Description("Na sen")]
-        R1 = 3,
-        [Description("Przeciwbólowe")]
-        R2 = 4,
-        [Description("Na nadciśnienie")]
-        R3 = 5,
-        /* Kremy */
-        [Description("Na skórę")]
-        K1 = 6,
-        [Description("Na włosy")]
-        K2 = 7,
-        /* Syropy */
-        [Description("Na kaszel")]
-        S1 = 8,
-        [Description("Na podrażnienie")]
-        S2 = 9,
-        [Description("Suchość")]
-        S3 = 10
+        [Description("Customer-Customer")]
+        CustomerToCustomer = 1,
+        [Description("Customer-Seller")]
+        CustomerToSeller = 2,
+        [Description("Seller-Customer")]
+        SellerToCustomer = 3
     }
 
     public static class EnumConverter

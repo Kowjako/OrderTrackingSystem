@@ -305,5 +305,16 @@ ALTER TABLE SellCarts
 ADD CONSTRAINT PK__SellCarts_Id PRIMARY KEY (Id)
 GO
 
+ALTER TABLE Mails
+DROP COLUMN IsFromCustomer
+GO
+
+ALTER TABLE Mails
+ADD MailRelation TINYINT
+GO
+
+ALTER TABLE Mails
+ADD CONSTRAINT CK__Mails_MailRelation CHECK (MailRelation IN (1,2,3))
+GO
 
 COMMIT TRAN
