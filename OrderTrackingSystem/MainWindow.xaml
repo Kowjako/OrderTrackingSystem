@@ -23,6 +23,39 @@
                             <ListBoxItem x:Name="fullScreenBtn"
                             Content="Włącz Full Screen" PreviewMouseLeftButtonDown="fullScreenBtn_PreviewMouseLeftButtonDown">
                             </ListBoxItem>
+                            <ListBoxItem Padding="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0"
+                                            ToolTip="English">
+                                        <Button.Content>
+                                            <Image Width="25"
+                                                   Height="25"
+                                                   Source="../Images/USA.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="1"
+                                            ToolTip="Polish">
+                                        <Button.Content>
+                                            <Image Width="25"
+                                                   Height="25"
+                                                   Source="../Images/PL.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="2"
+                                            ToolTip="Russian">
+                                        <Button.Content>
+                                            <Image Width="25"
+                                                   Height="25"
+                                                   Source="../Images/RU.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </ListBoxItem>
                         </ListBox>
                     </materialDesign:PopupBox>
                     <StackPanel

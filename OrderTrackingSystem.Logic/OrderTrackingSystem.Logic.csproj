@@ -140,6 +140,7 @@
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\LocalizationDTO.cs" />
+    <Compile Include="DTO\MailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\ParcelStateDTO.cs" />
     <Compile Include="DTO\PickupDTO.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
+    <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SellService.cs" />

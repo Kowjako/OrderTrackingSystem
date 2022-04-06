@@ -89,6 +89,7 @@
     <Compile Include="CustomControls\Notifyer.xaml.cs">
       <DependentUpon>Notifyer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IComplaintsViewModel.cs" />
     <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
     <Compile Include="Interfaces\IMailboxViewModel.cs" />
     <Compile Include="Interfaces\INotifyableViewModel.cs" />
@@ -265,6 +266,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PL.png" />
+    <Resource Include="Images\RU.png" />
+    <Resource Include="Images\USA.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
