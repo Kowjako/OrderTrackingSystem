@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountDetails" xml:space="preserve">
-    <value>Szczegóły konta</value>
+    <value>Данные аккаунта</value>
   </data>
   <data name="Age" xml:space="preserve">
-    <value>Wiek</value>
+    <value>Возраст</value>
   </data>
   <data name="CustomerAddress" xml:space="preserve">
-    <value>Adres zamieszkania</value>
+    <value>Место проживания</value>
   </data>
   <data name="Data" xml:space="preserve">
-    <value>Dane</value>
+    <value>Данные</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Почта</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Логин</value>
   </data>
   <data name="LoginData" xml:space="preserve">
-    <value>Dane logowania</value>
+    <value>Данные авторизации</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
-    <value>Moje zamówienia</value>
+    <value>Мои заказы</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Imię</value>
+    <value>Имя</value>
   </data>
   <data name="Number" xml:space="preserve">
-    <value>Numer</value>
+    <value>Телефон</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Hasło</value>
+    <value>Пароль</value>
   </data>
   <data name="ReadOnly" xml:space="preserve">
-    <value>Tylko do odczytu</value>
+    <value>Только к чтению</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Zapisz</value>
+    <value>Сохранить</value>
   </data>
   <data name="SendElements" xml:space="preserve">
-    <value>Wysłane elementy</value>
+    <value>Отправленные элементы</value>
   </data>
   <data name="Surname" xml:space="preserve">
-    <value>Nazwisko</value>
+    <value>Фамилия</value>
   </data>
   <data name="ToEdit" xml:space="preserve">
-    <value>Do edycji</value>
+    <value>Возможна модификация</value>
   </data>
 </root>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:OrderTrackingSystem.Views"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="800"
              Background="White">
@@ -20,7 +20,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Szczegóły konta"
+            <TextBlock Text="{x:Static res:Resources.AccountDetails}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -42,7 +42,7 @@
                       />
         <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
             <StackPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
-                <GroupBox Header="Dane"
+                <GroupBox Header="{x:Static res:Resources.Data}"
                 Padding="10"
                 Margin="5"
                 DockPanel.Dock="Top"
@@ -51,7 +51,7 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                     <StackPanel>
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Imię"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Name}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -60,7 +60,7 @@
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Nazwisko"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Surname}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -69,7 +69,7 @@
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Wiek"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Age}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -78,7 +78,7 @@
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Numer"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Number}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -87,7 +87,7 @@
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Email"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Email}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -98,7 +98,7 @@
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
-            <GroupBox Header="Dane logowania"
+            <GroupBox Header="{x:Static res:Resources.LoginData}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -116,7 +116,7 @@
                         FontSize="15"
                         Margin="0,0,0,0"
                         x:Name="NameTextBox"
-                        materialDesign:HintAssist.Hint="Login">
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.Login}">
                     </TextBox>
                     <PasswordBox
                         Grid.Column="1"
@@ -124,7 +124,7 @@
                         FontSize="15"
                         Margin="0,5,0,0"
                         x:Name="PasswordTextBox"
-                        materialDesign:HintAssist.Hint="Password">
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.Password}">
                     </PasswordBox>
                 </Grid>
             </GroupBox>
@@ -139,7 +139,7 @@
                     Command="{Binding SaveCommand}"
                     Margin="7"
                     VerticalAlignment="Bottom"
-                    Content="Zapisz" />
+                    Content="{x:Static res:Resources.Save}" />
             </DockPanel>
             <DockPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Bottom" LastChildFill="False">
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
@@ -157,12 +157,12 @@
         </DockPanel>
         
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
-            <TextBlock Text="Adres zamieszkania"
+            <TextBlock Text="{x:Static res:Resources.CustomerAddress}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <TextBlock Text="Do edycji"
+            <TextBlock Text="{x:Static res:Resources.ToEdit}"
                        Foreground="Black"
                        FontSize="10"
                        Margin="10,0,0,5"
@@ -180,12 +180,12 @@
 
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
-            <TextBlock Text="Moje zamówienia"
+            <TextBlock Text="{x:Static res:Resources.MyOrders}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,5,10,5"
                        FontFamily="Arial"/>
-            <TextBlock Text="Tylko do odczytu"
+            <TextBlock Text="{x:Static res:Resources.ReadOnly}"
                        Foreground="Black"
                        FontSize="10"
                        Margin="10,0,0,5"
@@ -203,12 +203,12 @@
 
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
-            <TextBlock Text="Wysłane elementy"
+            <TextBlock Text="{x:Static res:Resources.SendElements}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,5,10,5"
                        FontFamily="Arial"/>
-            <TextBlock Text="Tylko do odczytu"
+            <TextBlock Text="{x:Static res:Resources.ReadOnly}"
                        Foreground="Black"
                        FontSize="10"
                        Margin="10,0,0,5"
