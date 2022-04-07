@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Ilość</value>
+  </data>
   <data name="Apartment" xml:space="preserve">
     <value>Mieszkanie</value>
+  </data>
+  <data name="Buyer" xml:space="preserve">
+    <value>Nabywca</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Pojemność</value>
+  </data>
+  <data name="Caption" xml:space="preserve">
+    <value>Tytuł</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>Miasto</value>
@@ -126,8 +144,14 @@
   <data name="Complaint" xml:space="preserve">
     <value>Rezygnacja</value>
   </data>
+  <data name="Content" xml:space="preserve">
+    <value>Treść</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Kraj</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Data utworzenia</value>
   </data>
   <data name="DaysToGet" xml:space="preserve">
     <value>Dni do odbioru</value>
@@ -135,8 +159,17 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Typ dostawy</value>
   </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Rabat</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="House" xml:space="preserve">
     <value>Budynek</value>
+  </data>
+  <data name="Netto" xml:space="preserve">
+    <value>Netto</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
@@ -144,11 +177,20 @@
   <data name="PayType" xml:space="preserve">
     <value>Typ opłaty</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>Cena</value>
+  </data>
   <data name="Receiver" xml:space="preserve">
     <value>Odbiorca</value>
   </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Sprzedawca</value>
+  </data>
   <data name="SendDate" xml:space="preserve">
     <value>Data wysyłki</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Nadawca</value>
   </data>
   <data name="Shop" xml:space="preserve">
     <value>Sklep</value>
@@ -156,8 +198,17 @@
   <data name="Street" xml:space="preserve">
     <value>Ulica</value>
   </data>
+  <data name="UniqueName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
   <data name="Value" xml:space="preserve">
     <value>Kwota</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>VAT</value>
+  </data>
+  <data name="WorkTime" xml:space="preserve">
+    <value>Czas pracy</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Kod pocztowy</value>

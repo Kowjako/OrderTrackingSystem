@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
@@ -6,13 +7,13 @@ namespace OrderTrackingSystem.Logic.DTO
     {
         [Browsable(false)]
         public int Id { get; set; }
-        [DisplayName("Pojemność")]
+        [Display(Name = "Capacity", ResourceType = typeof(Properties.Resources))]
         public string Capacity { get; set; }
-        [DisplayName("Adres")]
+        [Display(Name = "Address", ResourceType = typeof(Properties.Resources))]
         public string Adres { get; set; }
-        [DisplayName("Miasto")]
+        [Display(Name = "City", ResourceType = typeof(Properties.Resources))]
         public string MiastoKod { get; set; }
-        [DisplayName("Czas pracy")]
+        [Display(Name = "WorkTime", ResourceType = typeof(Properties.Resources))]
         public string WorkTime { get; set; }
     }
 }

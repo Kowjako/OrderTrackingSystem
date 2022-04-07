@@ -61,11 +61,65 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adres.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ilość.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mieszkanie.
         /// </summary>
         public static string Apartment {
             get {
                 return ResourceManager.GetString("Apartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nabywca.
+        /// </summary>
+        public static string Buyer {
+            get {
+                return ResourceManager.GetString("Buyer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pojemność.
+        /// </summary>
+        public static string Capacity {
+            get {
+                return ResourceManager.GetString("Capacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tytuł.
+        /// </summary>
+        public static string Caption {
+            get {
+                return ResourceManager.GetString("Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kategoria.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         
@@ -88,11 +142,29 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Treść.
+        /// </summary>
+        public static string Content {
+            get {
+                return ResourceManager.GetString("Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kraj.
         /// </summary>
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data utworzenia.
+        /// </summary>
+        public static string CreateDate {
+            get {
+                return ResourceManager.GetString("CreateDate", resourceCulture);
             }
         }
         
@@ -115,11 +187,38 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rabat.
+        /// </summary>
+        public static string Discount {
+            get {
+                return ResourceManager.GetString("Discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Budynek.
         /// </summary>
         public static string House {
             get {
                 return ResourceManager.GetString("House", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Netto.
+        /// </summary>
+        public static string Netto {
+            get {
+                return ResourceManager.GetString("Netto", resourceCulture);
             }
         }
         
@@ -142,6 +241,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cena.
+        /// </summary>
+        public static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odbiorca.
         /// </summary>
         public static string Receiver {
@@ -151,11 +259,29 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sprzedawca.
+        /// </summary>
+        public static string Seller {
+            get {
+                return ResourceManager.GetString("Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data wysyłki.
         /// </summary>
         public static string SendDate {
             get {
                 return ResourceManager.GetString("SendDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nadawca.
+        /// </summary>
+        public static string Sender {
+            get {
+                return ResourceManager.GetString("Sender", resourceCulture);
             }
         }
         
@@ -178,11 +304,38 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nazwa.
+        /// </summary>
+        public static string UniqueName {
+            get {
+                return ResourceManager.GetString("UniqueName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kwota.
         /// </summary>
         public static string Value {
             get {
                 return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VAT.
+        /// </summary>
+        public static string VAT {
+            get {
+                return ResourceManager.GetString("VAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czas pracy.
+        /// </summary>
+        public static string WorkTime {
+            get {
+                return ResourceManager.GetString("WorkTime", resourceCulture);
             }
         }
         

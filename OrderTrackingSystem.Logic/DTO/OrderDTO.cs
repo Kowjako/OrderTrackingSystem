@@ -17,6 +17,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Kwota { get; set; }
         [Display(Name = "Shop", ResourceType = typeof(Properties.Resources))]
         public string Sklep { get; set; }
+
         [Browsable(false)]
         public int PickupId { get; set; }
         [Browsable(false)]

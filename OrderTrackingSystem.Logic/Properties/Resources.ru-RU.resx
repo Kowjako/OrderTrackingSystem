@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
   <data name="Apartment" xml:space="preserve">
     <value>Квартира</value>
+  </data>
+  <data name="Buyer" xml:space="preserve">
+    <value>Покупатель</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Вместительность</value>
+  </data>
+  <data name="Caption" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>Город</value>
@@ -126,8 +144,14 @@
   <data name="Complaint" xml:space="preserve">
     <value>Оформлена жалоба</value>
   </data>
+  <data name="Content" xml:space="preserve">
+    <value>Содержание</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Страна</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Дата создания</value>
   </data>
   <data name="DaysToGet" xml:space="preserve">
     <value>Дней осталось</value>
@@ -135,8 +159,17 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Тип доставки</value>
   </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Эл. почта</value>
+  </data>
   <data name="House" xml:space="preserve">
     <value>Дом</value>
+  </data>
+  <data name="Netto" xml:space="preserve">
+    <value>Нетто</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
@@ -144,11 +177,20 @@
   <data name="PayType" xml:space="preserve">
     <value>Тип оплаты</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
   <data name="Receiver" xml:space="preserve">
     <value>Получатель</value>
   </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Продавец</value>
+  </data>
   <data name="SendDate" xml:space="preserve">
     <value>Дата отправки</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Отправитель</value>
   </data>
   <data name="Shop" xml:space="preserve">
     <value>Магазин</value>
@@ -156,8 +198,17 @@
   <data name="Street" xml:space="preserve">
     <value>Улица</value>
   </data>
+  <data name="UniqueName" xml:space="preserve">
+    <value>Название</value>
+  </data>
   <data name="Value" xml:space="preserve">
     <value>Сумма</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>Налог</value>
+  </data>
+  <data name="WorkTime" xml:space="preserve">
+    <value>Время работы</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Почтовый код</value>
