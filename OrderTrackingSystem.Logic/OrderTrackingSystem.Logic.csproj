@@ -49,6 +49,7 @@
     <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.10.3.6\lib\netstandard2.0\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -148,8 +149,24 @@
     <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="DTO\TrackableItemDTO.cs" />
     <Compile Include="DTO\VoucherDTO.cs" />
-    <Compile Include="EnumMappers\EnumMapper.cs" />
+    <Compile Include="HelperClasses\DisplayNameBinder.cs" />
+    <Compile Include="HelperClasses\EnumMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.en-GB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.en-GB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.ru-RU.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.ru-RU.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IService.cs" />
@@ -191,7 +208,20 @@
     <Content Include="SQL\BaseDefinitionScript.sql" />
     <Content Include="SQL\TriggerDefinitionScript.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.en-GB.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en-GB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru-RU.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.ru-RU.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

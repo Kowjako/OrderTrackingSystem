@@ -135,7 +135,6 @@
     <Compile Include="Views\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowExtension\DisplayNameBinder.cs" />
     <Compile Include="WindowExtension\WindowExtension.cs" />
     <Page Include="CustomControls\ComplaintProgress.xaml">
       <SubType>Designer</SubType>

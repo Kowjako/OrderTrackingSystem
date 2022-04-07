@@ -5,13 +5,17 @@ namespace OrderTrackingSystem.Logic.DTO
 {
     public sealed class SellDTO
     {
+        [Display(Name= "Number", ResourceType = typeof(Properties.Resources))]
         public string Numer { get; set; }
-        [DisplayName("Data wysyłki")]
+        [Display(Name = "SendDate", ResourceType = typeof(Properties.Resources))]
         public string Data { get; set; }
-        [DisplayName("Dni do odbioru")]
+        [Display(Name = "DaysToGet", ResourceType = typeof(Properties.Resources))]
         public string Dni { get; set; }
+        [Display(Name = "Receiver", ResourceType = typeof(Properties.Resources))]
         public string Odbiorca { get; set; }
+        [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
         public string Kwota { get; set; }
+
         [Browsable(false)]
         public int CustomerId { get; set; }
         [Browsable(false)]
