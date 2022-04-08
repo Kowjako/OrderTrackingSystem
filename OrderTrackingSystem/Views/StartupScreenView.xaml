@@ -5,8 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="1400">
     <Grid>
-            
+        <Grid.Background>
+            <ImageBrush ImageSource="../Images/background.png"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="2">
+            <TextBlock Text="UKTracker"
+                       FontSize="25"
+                       Margin="5"
+                       Foreground="White"
+                       FontWeight="DemiBold"
+                       FontFamily="Arial"/>
+
+            <TextBlock Text="Developed by Uladzimir Kaviaka"
+                       FontSize="20"
+                       Margin="5"
+                       Foreground="LightBlue"
+                       FontWeight="DemiBold"
+                       FontFamily="Arial"/>
+        </StackPanel>
     </Grid>
 </UserControl>

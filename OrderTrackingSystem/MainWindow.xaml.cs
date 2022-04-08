@@ -20,6 +20,7 @@ namespace OrderTrackingSystem
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new StartupViewModel();
         }
 
         #region Common behaviour
