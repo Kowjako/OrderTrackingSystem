@@ -137,6 +137,7 @@ namespace OrderTrackingSystem
             var cultureName = (e.OriginalSource as Button).Tag as string;
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(cultureName);
+            DataContext = new StartupViewModel();
         }
 
         #endregion
