@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,26 +14,65 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     /// </summary>
     public partial class MindMapControl : UserControl
     {
-        readonly IList<string> LinkedItems = new List<string>();
-
         public MindMapControl()
         {
             InitializeComponent();
         }
 
-        private void expandBtn_Click(object sender, RoutedEventArgs e)
+        #region Bindowalna kolekcja
+
+        /* Dependency property żeby zrobić binding do RelatedOrders
+        * MailboxViewModel do tej kontrolki */
+        public readonly static DependencyProperty RelatedOrdersProperty =
+        DependencyProperty.Register(nameof(RelatedOrders),
+        typeof(ObservableCollection<string>),
+        typeof(MindMapControl),
+        new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true, PropertyChangedCallback = OrderAddedCallback});
+
+        /* Jeżeli DependencyProperty ustawiamy na XAMLu a nie w code-behind to set i get wywoływane tak
+         * że debugger nam tego nie pokaże, więc dodawać logikę do get/set nie ma sensu bo i tak się 
+         * nie uruchomi gdy bindings ustawiany z poziomu XAML */
+        public ObservableCollection<string> RelatedOrders
         {
-            AddNode("XY123412412412");
+            get => GetValue(RelatedOrdersProperty) as ObservableCollection<string>;
+            set => SetValue(RelatedOrdersProperty, value);
         }
+
+        public static void OrderAddedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+
+        /* Used as attached event for binding in XAML - MailBoxView */
+        public static readonly RoutedEvent OrderAddedHandler =
+                EventManager.RegisterRoutedEvent("OrderAdded",
+                RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler),
+                typeof(MindMapControl));
+
+        public event RoutedEventHandler OrderAdded
+        {
+            add
+            {
+                AddHandler(OrderAddedHandler, value);
+            }
+            remove
+            {
+                RemoveHandler(OrderAddedHandler, value);
+            }
+        }
+
+        #endregion
+
 
         public void AddNode(string refNumber)
         {
-            if (LinkedItems.Count == 3) return;
-            if (LinkedItems.Count == 0)
+            if (RelatedOrders.Count() == 3) return;
+            if (RelatedOrders.Count() == 0)
             {
                 DrawMainConnector();
             }
-            LinkedItems.Add(refNumber);
+            RelatedOrders.Add(refNumber);
             OnNodeAdded();
         }
 
@@ -57,7 +98,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 secondaryGrid.Children.RemoveAt(1);
             }
 
-            for (int i = 0; i < LinkedItems.Count; i++)
+            for (int i = 0; i < RelatedOrders.Count; i++)
             {
                 var border = new Border()
                 {
@@ -69,7 +110,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
                 var header = new TextBlock()
                 {
-                    Text = LinkedItems[i],
+                    Text = RelatedOrders[i],
                     FontWeight = FontWeights.Bold,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center
@@ -94,7 +135,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         
         private int CalculateRowNumber(int elementIndex)
         {
-            if (LinkedItems.Count == 1)
+            if (RelatedOrders.Count == 1)
             {
                 return 1;
             }
@@ -104,7 +145,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
         private void DrawHelperConnector()
         {
-            if (LinkedItems.Count == 1 | LinkedItems.Count == 3)
+            if (RelatedOrders.Count == 1 | RelatedOrders.Count == 3)
             {
                 var line = new Rectangle
                 {
@@ -116,7 +157,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 Grid.SetColumn(line, 0);
                 secondaryGrid.Children.Add(line);
             }
-            if (LinkedItems.Count != 1)
+            if (RelatedOrders.Count != 1)
             {
                 #region Vertical Connector
 
@@ -174,7 +215,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
         private void BuildDefaultGrid()
         {
-            if (LinkedItems.Count == 2)
+            if (RelatedOrders.Count == 2)
             {
                 ordersGrid.RowDefinitions.Clear();
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
@@ -182,7 +223,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             }
             else
             {
-                if (LinkedItems.Count == 3) ordersGrid.RowDefinitions.Clear();
+                if (RelatedOrders.Count == 3) ordersGrid.RowDefinitions.Clear();
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
                 ordersGrid.RowDefinitions.Add(new RowDefinition());

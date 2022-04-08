@@ -28,6 +28,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<MailDTO> ReceivedMessages { get; set; }
         public List<MailDTO> SentMessages { get; set; }
         public CustomerDTO MailReceiver { get; set; }
+        public List<string> RelatedToCurrentMailOrders { get; set; }
 
         private MailDTO _selectedMail;
         public MailDTO SelectedMail
