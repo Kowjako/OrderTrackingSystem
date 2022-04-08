@@ -16,5 +16,14 @@ namespace OrderTrackingSystem.Presentation.Views
             InitializeComponent();
         }
 
+        private void sentGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
+
+        private void receiveGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
     }
 }

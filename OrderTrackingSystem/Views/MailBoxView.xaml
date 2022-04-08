@@ -80,7 +80,7 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
+                <StackPanel DataContext="{Binding OriginalMail}">
                     <TextBox
                     Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -88,6 +88,7 @@
                     Height="40"
                     Padding="7,8,0,0"
                     FontSize="15"
+                    Text="{Binding Caption, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="Temat"
                     />
@@ -98,6 +99,7 @@
                     TextWrapping="Wrap"
                     Padding="7,8,0,0"
                     FontSize="15"
+                    Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="Treść"
                     />
@@ -134,7 +136,7 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding CurrentReceiver}">
+                <StackPanel DataContext="{Binding MailReceiver}">
                     <!-- Use this style inside this control -->
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type TextBlock}">
@@ -234,7 +236,16 @@
                        FontSize="17"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-            <DataGrid x:Name="elementGrid" Margin="0,0,5,0"/>
+            <DataGrid x:Name="sentGrid" 
+                      Margin="0,0,5,0"
+                      CanUserAddRows="False"
+                      SelectedItem="{Binding SelectedMail}"
+                      ItemsSource="{Binding SentMessages}"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Disabled"
+                      AutoGeneratingColumn="sentGrid_AutoGeneratingColumn"/>
         </StackPanel>
         <DockPanel
                    LastChildFill="False"
@@ -250,10 +261,20 @@
                 FontSize="17"
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
-            <DataGrid DockPanel.Dock="Top"/>
+            <DataGrid x:Name="receiveGrid"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      SelectedItem="{Binding SelectedMail}"
+                      ItemsSource="{Binding ReceivedMessages}"
+                      DockPanel.Dock="Top"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Disabled"
+                      AutoGeneratingColumn="receiveGrid_AutoGeneratingColumn"/>
         </DockPanel>
         <DockPanel Grid.Column="1"
                    Grid.Row="3"
+                   DataContext="{Binding SelectedMail}"
                    LastChildFill="True"
                    Grid.ColumnSpan="2">
             <TextBlock Text="Pogląd wiadomości"
@@ -266,16 +287,16 @@
                        Foreground="Black"
                        FontSize="17"
                        FontWeight="Bold"
-                       Text="Zawiadomienie o rezygnacji zamówienia"
+                       Text="{Binding Caption}"
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
             <TextBlock DockPanel.Dock="Top"
-                       Text="Od: Wlodzimierz Kowjako (wkowjako@uktracker.com)"
+                       Text="{Binding NadawcaData, StringFormat=Od: {0}}"
                        Margin="10,0,10,5"
                        FontSize="13"
                        Foreground="Black"/>
             <TextBlock DockPanel.Dock="Top"
-                       Text="Do: Krystian Sliwinski (ksliwinski@uktracker.com)"
+                       Text="{Binding OdbiorcaData, StringFormat=Do: {0}}"
                        Margin="10,0,10,5"
                        FontSize="13"
                        Foreground="Black"/>
@@ -325,6 +346,7 @@
                        Margin="10,10,10,0"
                        FontFamily="Arial"/>
             <TextBox
+                Text="{Binding Content}"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 AcceptsReturn="True"
                 Margin="10"

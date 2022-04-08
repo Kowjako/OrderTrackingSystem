@@ -20,6 +20,15 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Odbiorca { get; set; }
 
         [Browsable(false)]
+        public string NadawcaMail { get; set; }
+        [Browsable(false)]
+        public string OdbiorcaMail { get; set; }
+        [Browsable(false)]
+        public string NadawcaData => string.Format("{0} ({1})", Nadawca, NadawcaMail);
+        [Browsable(false)]
+        public string OdbiorcaData => string.Format("{0} ({1})", Odbiorca, OdbiorcaMail);
+
+        [Browsable(false)]
         public string[] RelatedOrders { get; set; }
         [Browsable(false)]
         public int SellerId { get; set; }
