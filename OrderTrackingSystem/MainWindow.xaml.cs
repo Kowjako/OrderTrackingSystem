@@ -92,7 +92,10 @@ namespace OrderTrackingSystem
 
         private async void MailboxMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new MailboxViewModel();
+            var viewModel = new MailboxViewModel();
+            AttachEventsToViewModel(viewModel);
+            await viewModel.SetInitializeProperties();
+            DataContext = viewModel;
         }
 
         private async void ComplaintsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

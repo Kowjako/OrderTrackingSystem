@@ -68,7 +68,7 @@
                         <TextBlock
                         VerticalAlignment="Center"
                         Margin="16 0 0 0"
-                        Text="UKTracker" 
+                        Text="UKTracker - Let's Track!" 
                         FontSize="18"
                         />
                     </StackPanel>

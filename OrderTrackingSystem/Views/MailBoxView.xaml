@@ -41,6 +41,38 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
+            <Border Grid.Column="2"
+                DockPanel.Dock="Top"
+                Grid.Row="0"
+                Margin="5"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="35" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Command="{Binding FindSeller}"
+                        CommandParameter="{Binding ElementName=sellerBox, Path=Text}"
+                        Style="{DynamicResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Kind="Search"
+                            Opacity="1" />
+                    </Button>
+                    <TextBox
+                        x:Name="sellerBox"
+                        FontSize="15"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"
+                        Margin="0 0 15 0"
+                        materialDesign:HintAssist.Hint="Wyszukaj odbiorcę"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"/>
+                </Grid>
+            </Border>
             <GroupBox
                 Header="Tworzenie wiadomości"
                 Margin="5"
@@ -50,9 +82,9 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
                     <TextBox
+                    Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    Margin="5"
                     Height="40"
                     Padding="7,8,0,0"
                     FontSize="15"
@@ -62,18 +94,8 @@
                     <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    Margin="5"
-                    Height="40"
-                    Padding="7,8,0,0"
-                    FontSize="15"
-                    materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Odbiorca"
-                    />
-                    <TextBox
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    VerticalAlignment="Top"
-                    Margin="5"
-                    Height="40"
+                    MinHeight="40"
+                    TextWrapping="Wrap"
                     Padding="7,8,0,0"
                     FontSize="15"
                     materialDesign:HintAssist.Background="LightPink"
@@ -106,6 +128,32 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
             </Grid>
             <GroupBox
+                Header="Odbiorca"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <StackPanel DataContext="{Binding CurrentReceiver}">
+                    <!-- Use this style inside this control -->
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="0,0,0,3"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock FontWeight="DemiBold"
+                               Text="{Binding Nazwa}"/>
+                    <TextBlock Foreground="DarkGreen"
+                               Text="{Binding Adres}"/>
+                    <TextBlock Text="{Binding MiastoKod}"/>
+                    <TextBlock Text="{Binding Email}"/>
+                    <TextBlock Foreground="Maroon"
+                               Text="{Binding Numer}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
                 Header="Filtracja"
                 Margin="5"
                 DockPanel.Dock="Top"
@@ -118,19 +166,6 @@
                     <RadioButton GroupName="mailFilter" 
                                  Content="Wiadomości odebrane"
                                  Margin="0,5,0,0"/>
-                    <Border BorderBrush="Gray"
-                            BorderThickness="2"
-                            Margin="0,10,0,0"
-                            Padding="5,0,0,0">
-                    <TextBox
-                        FontSize="15"
-                        VerticalAlignment="Center"
-                        Grid.Column="1"
-                        Margin="0 0 15 0"
-                        materialDesign:HintAssist.Hint="Wpisz odbiorcę"
-                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                        BorderThickness="0"/>
-                    </Border>
                 </StackPanel>
             </GroupBox>
             <GroupBox
