@@ -123,20 +123,47 @@
   <data name="Age" xml:space="preserve">
     <value>Age</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ChooseComplaintTemplate" xml:space="preserve">
+    <value>Choose complaint template</value>
+  </data>
+  <data name="Complaint" xml:space="preserve">
+    <value>Complaint</value>
+  </data>
+  <data name="ConfirmReceive" xml:space="preserve">
+    <value>Confirm delivery</value>
+  </data>
   <data name="CustomerAddress" xml:space="preserve">
-    <value>Customer Address</value>
+    <value>Localization</value>
   </data>
   <data name="Data" xml:space="preserve">
-    <value>Personal Data</value>
+    <value>Personal data</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FindOrderOrSell" xml:space="preserve">
+    <value>Find parcel</value>
+  </data>
+  <data name="GenerateAutomaticMail" xml:space="preserve">
+    <value>Send automatic email</value>
+  </data>
+  <data name="HideProgress" xml:space="preserve">
+    <value>Hide progress</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="LoginData" xml:space="preserve">
-    <value>Login Data</value>
+    <value>Authorization data</value>
+  </data>
+  <data name="MakeComplaint" xml:space="preserve">
+    <value>Found complaint</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>My orders</value>
@@ -145,7 +172,13 @@
     <value>Name</value>
   </data>
   <data name="Number" xml:space="preserve">
-    <value>Number</value>
+    <value>Phone</value>
+  </data>
+  <data name="OnlyOrder" xml:space="preserve">
+    <value>Only ordered</value>
+  </data>
+  <data name="OnlySent" xml:space="preserve">
+    <value>Only sent</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -153,16 +186,34 @@
   <data name="ReadOnly" xml:space="preserve">
     <value>Read only</value>
   </data>
+  <data name="Receiver" xml:space="preserve">
+    <value>Receiver</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Seller</value>
+  </data>
   <data name="SendElements" xml:space="preserve">
     <value>Sent elements</value>
+  </data>
+  <data name="SentAndOrderElements" xml:space="preserve">
+    <value>Sent and Ordered elements</value>
+  </data>
+  <data name="ShowElements" xml:space="preserve">
+    <value>Show elements</value>
+  </data>
+  <data name="ShowProgress" xml:space="preserve">
+    <value>Show progress</value>
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Surname</value>
   </data>
   <data name="ToEdit" xml:space="preserve">
-    <value>To edit</value>
+    <value>Can edit</value>
+  </data>
+  <data name="Tracking" xml:space="preserve">
+    <value>Parcel tracking</value>
   </data>
 </root>
