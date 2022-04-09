@@ -144,6 +144,9 @@
   <data name="AvailableProducts" xml:space="preserve">
     <value>Available products</value>
   </data>
+  <data name="BoxPrice" xml:space="preserve">
+    <value>Box</value>
+  </data>
   <data name="Brutto" xml:space="preserve">
     <value>Brutto</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Complaint" xml:space="preserve">
     <value>Complaint</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Configuration</value>
   </data>
   <data name="ConfirmReceive" xml:space="preserve">
     <value>Confirm delivery</value>
@@ -189,6 +195,9 @@
   <data name="FindOrderOrSell" xml:space="preserve">
     <value>Find parcel</value>
   </data>
+  <data name="FindReceiver" xml:space="preserve">
+    <value>Find receiver</value>
+  </data>
   <data name="FindShop" xml:space="preserve">
     <value>Find shop</value>
   </data>
@@ -197,6 +206,9 @@
   </data>
   <data name="HideProgress" xml:space="preserve">
     <value>Hide progress</value>
+  </data>
+  <data name="Large" xml:space="preserve">
+    <value>Large</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -209,6 +221,9 @@
   </data>
   <data name="MakeOrder" xml:space="preserve">
     <value>Order creation</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>My orders</value>
@@ -228,14 +243,26 @@
   <data name="OnlySent" xml:space="preserve">
     <value>Only sent</value>
   </data>
+  <data name="ParcelSize" xml:space="preserve">
+    <value>Parcel size</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="PayType" xml:space="preserve">
     <value>Pay type</value>
   </data>
+  <data name="PriceFrom" xml:space="preserve">
+    <value>Price from:</value>
+  </data>
+  <data name="PriceTo" xml:space="preserve">
+    <value>Price to:</value>
+  </data>
   <data name="ProductAmount" xml:space="preserve">
     <value>Product amount</value>
+  </data>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Drugs categories</value>
   </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Read only</value>
@@ -252,11 +279,20 @@
   <data name="Seller" xml:space="preserve">
     <value>Seller</value>
   </data>
+  <data name="SendAutomaticEmail" xml:space="preserve">
+    <value>Generate automatic mail</value>
+  </data>
+  <data name="SendCreation" xml:space="preserve">
+    <value>Send creation</value>
+  </data>
   <data name="SendElements" xml:space="preserve">
     <value>Sent elements</value>
   </data>
   <data name="SentAndOrderElements" xml:space="preserve">
     <value>Sent and Ordered elements</value>
+  </data>
+  <data name="SetPickupDays" xml:space="preserve">
+    <value>Set pikcup days</value>
   </data>
   <data name="ShowElements" xml:space="preserve">
     <value>Show elements</value>
@@ -266,6 +302,12 @@
   </data>
   <data name="SingleVoucher" xml:space="preserve">
     <value>Voucher: {0}</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="Sorting" xml:space="preserve">
+    <value>Sorting</value>
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Sum</value>

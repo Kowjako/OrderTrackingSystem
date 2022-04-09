@@ -66,11 +66,11 @@ namespace OrderTrackingSystem.CustomControls
             }
         }
 
-        static Dictionary<BoxSize, int> BoxImageSizes = Boxes.BoxSizeImage;
-        static Dictionary<BoxSize, string> BoxImages = Boxes.BoxImages;
-        static Dictionary<BoxSize, float> BoxPrices = Boxes.BoxPrices;
-        static Dictionary<BoxSize, string> BoxSizes = Boxes.BoxSizes;
-        static Dictionary<BoxSize, string> BoxNames = Boxes.BoxNames;
+        Dictionary<BoxSize, int> BoxImageSizes = Boxes.BoxSizeImage;
+        Dictionary<BoxSize, string> BoxImages = Boxes.BoxImages;
+        Dictionary<BoxSize, float> BoxPrices = Boxes.BoxPrices;
+        Dictionary<BoxSize, string> BoxSizes = Boxes.BoxSizes;
+        Dictionary<BoxSize, string> BoxNames = Boxes.BoxNames;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -78,12 +78,10 @@ namespace OrderTrackingSystem.CustomControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-
-       
-
         public PurchaseElement()
         {
             InitializeComponent();
+            OnPropertyChanged(nameof(BoxName));
             AllElements.Add(this);
             DataContext = this;
         }

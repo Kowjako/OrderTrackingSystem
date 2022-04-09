@@ -144,6 +144,9 @@
   <data name="AvailableProducts" xml:space="preserve">
     <value>Produkty dostępne</value>
   </data>
+  <data name="BoxPrice" xml:space="preserve">
+    <value>Opakowanie</value>
+  </data>
   <data name="Brutto" xml:space="preserve">
     <value>Kwota brutto</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Complaint" xml:space="preserve">
     <value>Rezygnacja</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Konfiguracja</value>
   </data>
   <data name="ConfirmReceive" xml:space="preserve">
     <value>Potwierdź odbiór</value>
@@ -189,6 +195,9 @@
   <data name="FindOrderOrSell" xml:space="preserve">
     <value>Wyszukaj zamówienie/wysyłkę</value>
   </data>
+  <data name="FindReceiver" xml:space="preserve">
+    <value>Wyszukaj odbiorcę</value>
+  </data>
   <data name="FindShop" xml:space="preserve">
     <value>Wyszukaj sklep</value>
   </data>
@@ -197,6 +206,9 @@
   </data>
   <data name="HideProgress" xml:space="preserve">
     <value>Ukryj progres</value>
+  </data>
+  <data name="Large" xml:space="preserve">
+    <value>Duża</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -209,6 +221,9 @@
   </data>
   <data name="MakeOrder" xml:space="preserve">
     <value>Złożenie zamówienia</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Średnia</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Moje zamówienia</value>
@@ -228,14 +243,26 @@
   <data name="OnlySent" xml:space="preserve">
     <value>Tylko wysłane</value>
   </data>
+  <data name="ParcelSize" xml:space="preserve">
+    <value>Rozmiar przesyłki</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
   <data name="PayType" xml:space="preserve">
     <value>Metody płatności</value>
   </data>
+  <data name="PriceFrom" xml:space="preserve">
+    <value>Cena od:</value>
+  </data>
+  <data name="PriceTo" xml:space="preserve">
+    <value>Cend do:</value>
+  </data>
   <data name="ProductAmount" xml:space="preserve">
     <value>Ilość produktu</value>
+  </data>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Kategorie leków</value>
   </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Tylko do odczytu</value>
@@ -252,11 +279,20 @@
   <data name="Seller" xml:space="preserve">
     <value>Nadawca</value>
   </data>
+  <data name="SendAutomaticEmail" xml:space="preserve">
+    <value>Wyślij automatyczną wiadomość</value>
+  </data>
+  <data name="SendCreation" xml:space="preserve">
+    <value>Nadawanie przesyłki</value>
+  </data>
   <data name="SendElements" xml:space="preserve">
     <value>Wysłane elementy</value>
   </data>
   <data name="SentAndOrderElements" xml:space="preserve">
     <value>Elementy zamówione i wysłane</value>
+  </data>
+  <data name="SetPickupDays" xml:space="preserve">
+    <value>Ustaw ilość dni do odbioru</value>
   </data>
   <data name="ShowElements" xml:space="preserve">
     <value>Pokaż elementy</value>
@@ -266,6 +302,12 @@
   </data>
   <data name="SingleVoucher" xml:space="preserve">
     <value>Bon: {0}</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>Mała</value>
+  </data>
+  <data name="Sorting" xml:space="preserve">
+    <value>Sortowanie</value>
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Suma</value>

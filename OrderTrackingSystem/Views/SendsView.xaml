@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:purchaseElement="clr-namespace:OrderTrackingSystem.CustomControls"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:composite="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
@@ -25,7 +26,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Nadawanie przesyłki"
+            <TextBlock Text="{x:Static res:Resources.SendCreation}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -60,13 +61,13 @@
                         VerticalAlignment="Center"
                         Grid.Column="1"
                         Margin="0 0 15 0"
-                        materialDesign:HintAssist.Hint="Wyszukaj odbiorcę"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.FindReceiver}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
                 </Grid>
             </Border>
             <GroupBox
-                Header="Odbiorca"
+                Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -92,7 +93,7 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Ilość produktu"
+                Header="{x:Static res:Resources.ProductAmount}"
                 Margin="5"
                 Height="90"
                 DockPanel.Dock="Top"
@@ -153,7 +154,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox
-                Header="Sortowanie"
+                Header="{x:Static res:Resources.Sorting}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -173,7 +174,7 @@
                            UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="0"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Cena od:"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.PriceFrom}"
                     Focusable="True"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}">
@@ -188,24 +189,24 @@
                            UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="2"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Cena do:"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.PriceTo}"
                     Focusable="True"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}">
                 </TextBox>
             </Grid>
             <GroupBox
-                Header="Konfiguracja"
+                Header="{x:Static res:Resources.Configuration}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
-                    <CheckBox Content="Wyślij automatyczną wiadomość" Margin="0,0,0,0"/>
+                    <CheckBox Content="{x:Static res:Resources.SendAutomaticEmail}" Margin="0,0,0,0"/>
                     <CheckBox x:Name="dayConstraint" 
                               IsChecked="{Binding IsPickupDaysDefined, UpdateSourceTrigger=PropertyChanged}"
-                              Content="Ustaw ilość dni do odbioru" Margin="0,5,0,0"/>
+                              Content="{x:Static res:Resources.SetPickupDays}" Margin="0,5,0,0"/>
                     <Slider Margin="0,5,0,0" Maximum="5"
                             Minimum="1" TickFrequency="1"
                             AutoToolTipPlacement="BottomRight"
@@ -226,7 +227,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Dodaj do koszyka" />
+                    Content="{x:Static res:Resources.AddToCart}" />
             <Button
                     Command="{Binding ClearCart}"
                     DockPanel.Dock="Bottom"
@@ -237,7 +238,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Wyczyść koszyk" />
+                    Content="{x:Static res:Resources.ClearCart}" />
             <Button
                     Command="{Binding FilterCommand}"
                     DockPanel.Dock="Bottom"
@@ -248,7 +249,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Filtruj" />
+                    Content="{x:Static res:Resources.Filter}" />
             <Button
                     Command="{Binding AcceptSell}"
                     DockPanel.Dock="Bottom"
@@ -259,7 +260,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Zatwierdź" />
+                    Content="{x:Static res:Resources.Accept}" />
         </DockPanel>
         <GridSplitter Grid.Column="1"
                       Grid.Row="0"
@@ -275,7 +276,7 @@
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
-            <TextBlock Text="Produkty dostępne"
+            <TextBlock Text="{x:Static res:Resources.AvailableProducts}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
@@ -299,7 +300,7 @@
             </Grid.ColumnDefinitions>
             <GroupBox
                 Grid.Column="0"
-                Header="Rozmiar przesyłki"
+                Header="{x:Static res:Resources.ParcelSize}"
                 Margin="5"            
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="#FF883C57"
@@ -327,7 +328,7 @@
             </GroupBox>
             <GroupBox
                 Grid.Column="1"
-                Header="Kategorie produktów"
+                Header="{x:Static res:Resources.ProductCategory}"
                 Margin="5,5,10,5"
                 HorizontalAlignment="Stretch"
                 DockPanel.Dock="Top"
@@ -356,7 +357,7 @@
             <TextBlock
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Left"
-                Text="Koszyk"
+                Text="{x:Static res:Resources.Cart}"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
@@ -379,7 +380,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Left"
-                    Text="Kwota netto"
+                    Text="{x:Static res:Resources.Netto}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -388,7 +389,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Left"
-                    Text="VAT"
+                    Text="{x:Static res:Resources.VAT}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -397,7 +398,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Left"
-                    Text="Kwota brutto"
+                    Text="{x:Static res:Resources.Brutto}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -406,7 +407,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Left"
-                    Text="Opakowanie"
+                    Text="{x:Static res:Resources.BoxPrice}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -415,7 +416,7 @@
                     <TextBlock
                     DockPanel.Dock="Top"
                     HorizontalAlignment="Left"
-                    Text="Suma"
+                    Text="{x:Static res:Resources.Sum}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"

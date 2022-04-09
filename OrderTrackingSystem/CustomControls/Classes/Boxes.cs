@@ -41,9 +41,9 @@ namespace OrderTrackingSystem.CustomControls.Classes
 
         public static Dictionary<BoxSize, string> BoxNames => new Dictionary<BoxSize, string>
         {
-            { BoxSize.Small, "Mała" },
-            { BoxSize.Medium, "Średnia" },
-            { BoxSize.Large, "Duża" }
+            { BoxSize.Small, Presentation.Properties.Resources.ResourceManager.GetString("Small", System.Globalization.CultureInfo.CurrentCulture) },
+            { BoxSize.Medium, Presentation.Properties.Resources.ResourceManager.GetString("Medium", System.Globalization.CultureInfo.CurrentCulture)  },
+            { BoxSize.Large, Presentation.Properties.Resources.ResourceManager.GetString("Large", System.Globalization.CultureInfo.CurrentCulture)  }
         };
     }
 }

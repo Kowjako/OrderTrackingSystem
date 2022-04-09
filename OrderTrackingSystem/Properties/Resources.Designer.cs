@@ -142,6 +142,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opakowanie.
+        /// </summary>
+        public static string BoxPrice {
+            get {
+                return ResourceManager.GetString("BoxPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kwota brutto.
         /// </summary>
         public static string Brutto {
@@ -183,6 +192,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Complaint {
             get {
                 return ResourceManager.GetString("Complaint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfiguracja.
+        /// </summary>
+        public static string Configuration {
+            get {
+                return ResourceManager.GetString("Configuration", resourceCulture);
             }
         }
         
@@ -277,6 +295,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wyszukaj odbiorcę.
+        /// </summary>
+        public static string FindReceiver {
+            get {
+                return ResourceManager.GetString("FindReceiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyszukaj sklep.
         /// </summary>
         public static string FindShop {
@@ -300,6 +327,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string HideProgress {
             get {
                 return ResourceManager.GetString("HideProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duża.
+        /// </summary>
+        public static string Large {
+            get {
+                return ResourceManager.GetString("Large", resourceCulture);
             }
         }
         
@@ -336,6 +372,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string MakeOrder {
             get {
                 return ResourceManager.GetString("MakeOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Średnia.
+        /// </summary>
+        public static string Medium {
+            get {
+                return ResourceManager.GetString("Medium", resourceCulture);
             }
         }
         
@@ -394,6 +439,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rozmiar przesyłki.
+        /// </summary>
+        public static string ParcelSize {
+            get {
+                return ResourceManager.GetString("ParcelSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hasło.
         /// </summary>
         public static string Password {
@@ -412,11 +466,38 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cena od:.
+        /// </summary>
+        public static string PriceFrom {
+            get {
+                return ResourceManager.GetString("PriceFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cend do:.
+        /// </summary>
+        public static string PriceTo {
+            get {
+                return ResourceManager.GetString("PriceTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ilość produktu.
         /// </summary>
         public static string ProductAmount {
             get {
                 return ResourceManager.GetString("ProductAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kategorie leków.
+        /// </summary>
+        public static string ProductCategory {
+            get {
+                return ResourceManager.GetString("ProductCategory", resourceCulture);
             }
         }
         
@@ -466,6 +547,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wyślij automatyczną wiadomość.
+        /// </summary>
+        public static string SendAutomaticEmail {
+            get {
+                return ResourceManager.GetString("SendAutomaticEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nadawanie przesyłki.
+        /// </summary>
+        public static string SendCreation {
+            get {
+                return ResourceManager.GetString("SendCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wysłane elementy.
         /// </summary>
         public static string SendElements {
@@ -480,6 +579,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string SentAndOrderElements {
             get {
                 return ResourceManager.GetString("SentAndOrderElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ustaw ilość dni do odbioru.
+        /// </summary>
+        public static string SetPickupDays {
+            get {
+                return ResourceManager.GetString("SetPickupDays", resourceCulture);
             }
         }
         
@@ -507,6 +615,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string SingleVoucher {
             get {
                 return ResourceManager.GetString("SingleVoucher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mała.
+        /// </summary>
+        public static string Small {
+            get {
+                return ResourceManager.GetString("Small", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sortowanie.
+        /// </summary>
+        public static string Sorting {
+            get {
+                return ResourceManager.GetString("Sorting", resourceCulture);
             }
         }
         
