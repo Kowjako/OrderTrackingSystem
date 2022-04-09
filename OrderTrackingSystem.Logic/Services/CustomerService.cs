@@ -33,21 +33,20 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 IQueryable<CustomerDTO> query = null;
                 query = from customer in dbContext.Customers
-                        let localizationQuery = (from localization in dbContext.Localizations
-                                                where localization.Id == customer.LocalizationId
-                                                select localization).FirstOrDefault()
+                        join loc in dbContext.Localizations  /* INNER JOIN */
+                        on customer.LocalizationId equals loc.Id
                         where customer.Id == customerId
 
                         select new CustomerDTO
                         {
                             Id = customer.Id,
                             Nazwa = customer.Name + " " + customer.Surname,
-                            Adres = localizationQuery.Street + " " +
-                                    localizationQuery.House + ", " +
-                                    localizationQuery.Flat,
+                            Adres = loc.Street + " " +
+                                    loc.House + ", " +
+                                    loc.Flat,
                             Email = customer.Email,
-                            MiastoKod = localizationQuery.City + ", " +
-                                        localizationQuery.ZipCode,
+                            MiastoKod = loc.City + ", " +
+                                        loc.ZipCode,
                             Numer = customer.Number
                         };
                 return await query.FirstAsync();
@@ -61,20 +60,20 @@ namespace OrderTrackingSystem.Logic.Services
                 name = name.Replace(" ", string.Empty).ToLower();
                 IQueryable<CustomerDTO> query = null;
                 query = from customer in dbContext.Customers
-                        let localizationQuery = (from localization in dbContext.Localizations
-                                                 where localization.Id == customer.LocalizationId
-                                                 select localization).FirstOrDefault()
+                        join loc in dbContext.Localizations
+                        on customer.LocalizationId equals loc.Id
                         where (customer.Name + customer.Surname).ToLower().Equals(name)
+
                         select new CustomerDTO
                         {
                             Id = customer.Id,
                             Nazwa = customer.Name + " " + customer.Surname,
-                            Adres = localizationQuery.Street + " " +
-                                    localizationQuery.House + ", " +
-                                    localizationQuery.Flat,
+                            Adres = loc.Street + " " +
+                                    loc.House + ", " +
+                                    loc.Flat,
                             Email = customer.Email,
-                            MiastoKod = localizationQuery.City + ", " +
-                                        localizationQuery.ZipCode,
+                            MiastoKod = loc.City + ", " +
+                                        loc.ZipCode,
                             Numer = customer.Number
                         };
                 return await query.FirstAsync();
@@ -87,20 +86,19 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 IQueryable<CustomerDTO> query = null;
                 query = from seller in dbContext.Sellers
-                        let localizationQuery = (from localization in dbContext.Localizations
-                                                where localization.Id == seller.LocalizationId
-                                                select localization).FirstOrDefault()
+                        join loc in dbContext.Localizations
+                        on seller.LocalizationId equals loc.Id
                         where seller.Id == sellerId
 
                         select new CustomerDTO
                         {
                             Nazwa = seller.Name,
-                            Adres = localizationQuery.Street + " " +
-                                    localizationQuery.House + ", " +
-                                    localizationQuery.Flat,
+                            Adres = loc.Street + " " +
+                                    loc.House + ", " +
+                                    loc.Flat,
                             Email = seller.Email,
-                            MiastoKod = localizationQuery.City + ", " +
-                                        localizationQuery.ZipCode,
+                            MiastoKod = loc.City + ", " +
+                                        loc.ZipCode,
                             Numer = seller.Number
                         };
                 return await query.FirstAsync();
