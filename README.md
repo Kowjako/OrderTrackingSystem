@@ -6,5 +6,5 @@ System śledzenia zamówień - moja praca dyplomowa, rozbudowany system do zarz�
 🛡️ Microsoft SQL Server  
 🛡️ Entity Framework 6  
 🛡️ ADO.NET  
-🛡️ Windows Presentation Foundation (WPF) + Material Design
+🛡️ Windows Presentation Foundation (WPF) + Material Design  
 🛡️ Fluent Validation  
