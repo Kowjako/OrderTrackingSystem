@@ -102,7 +102,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
         public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
         public List<VoucherDTO> VouchersList { get; set; } = new List<VoucherDTO>();
-        /* Używamy BindingList do śledzenia zmian obiektów z listy */
+        /* Używamy BindingList do śledzenia zmian obiektów z listy*/
         public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
 
         private int _selectedDeliveryType = -1;
@@ -201,11 +201,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         });
                         SelectedSellerId = SelectedProduct.SellerId;
                         ProductsList = AllProductsList.Where(p => p.SellerId == SelectedSellerId).ToList();
-                        OnPropertyChanged(nameof(ProductsList));
                     }
                     CurrentProductAmount = 0;
                     RecalculateCartPrice();
                     OnPropertyChanged(nameof(CurrentProductAmount));
+                    OnPropertyChanged(nameof(ProductsInCart));
                 }
                 catch (Exception ex)
                 {

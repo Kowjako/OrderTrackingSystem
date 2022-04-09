@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:OrderTrackingSystem.CustomControls.TimeLineBar"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:controls1="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1500">
     <Grid>
@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Tracking przesyłek"
+            <TextBlock Text="{x:Static res:Resources.Tracking}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -56,13 +56,13 @@
                         VerticalAlignment="Center"
                         Grid.Column="1"
                         Margin="0 0 15 0"
-                        materialDesign:HintAssist.Hint="Wyszukaj zamówienie/wysyłkę"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.FindOrderOrSell}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
                 </Grid>
             </Border>
             <GroupBox
-                Header="Pokaż elementy"
+                Header="{x:Static res:Resources.ShowElements}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -74,24 +74,24 @@
                         x:Name="All"
                         GroupName="Elements"
                         IsChecked="False"
-                        Content="Wszystkie" 
+                        Content="{x:Static res:Resources.All}" 
                         Margin="0,0,0,5"/>
                     <RadioButton
                         x:Name="OnlyOrders"
                         GroupName="Elements"
                         IsChecked="False"
-                        Content="Tylko zamówione" 
+                        Content="{x:Static res:Resources.OnlyOrder}" 
                         Margin="0,5,0,5"/>
                     <RadioButton
                         x:Name="OnlySends"
                         GroupName="Elements"
                         IsChecked="False"
-                        Content="Tylko wysłane" 
+                        Content="{x:Static res:Resources.OnlySent}" 
                         Margin="0,5,0,5"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Nadawca"
+                Header="{x:Static res:Resources.Seller}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -117,7 +117,7 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Odbiorca"
+                Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -168,7 +168,7 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
             </Grid>
             <GroupBox
-                Header="Rezygnacja"
+                Header="{x:Static res:Resources.Complaint}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -180,15 +180,13 @@
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,10,10,10"
-                        materialDesign:HintAssist.Hint="Wybierz szablon reklamacyjny"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.ChooseComplaintTemplate}"
                         IsEditable="False">
-                        <ComboBoxItem
-                        Content="Apple" />
                     </ComboBox>
                     <CheckBox
                         Margin="0,5,0,0"
                         IsChecked="True"
-                        Content="Wygeneruj automatyczną wiadomość" />
+                        Content="{x:Static res:Resources.GenerateAutomaticMail}" />
                 </StackPanel>
             </GroupBox>
             <Button
@@ -200,7 +198,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Potwierdź odbiór" />
+                    Content="{x:Static res:Resources.ConfirmReceive}" />
             <Button
                     x:Name="btnUndoOrder"
                     DockPanel.Dock="Bottom"
@@ -211,7 +209,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Złóz rezygnację" />
+                    Content="{x:Static res:Resources.MakeComplaint}" />
             <Button
                     x:Name="btnDateFilter"
                     DockPanel.Dock="Bottom"
@@ -223,7 +221,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Odfiltruj" />
+                    Content="{x:Static res:Resources.Filter}" />
             <Button
                     x:Name="btnShowProgress"
                     DockPanel.Dock="Bottom"
@@ -236,14 +234,14 @@
                     Click="btnShowProgress_Click"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Pokaż progres" />
+                    Content="{x:Static res:Resources.ShowProgress}" />
         </DockPanel>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0"
                     x:Name="mainPanel"
                     Grid.ColumnSpan="2">
-            <TextBlock Text="Elementy zamówione i wysłane"
+            <TextBlock Text="{x:Static res:Resources.SentAndOrderElements}"
                        Foreground="Black"
                        VerticalAlignment="Center"
                        FontSize="17"
@@ -278,7 +276,7 @@
                     BorderBrush="Maroon"
                     x:Name="hideProgress"
                     Click="hideProgress_Click"
-                    Content="Ukryj progres"/>
+                    Content="{x:Static res:Resources.HideProgress}"/>
         </DockPanel>
     </Grid>
 </UserControl>

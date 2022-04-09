@@ -181,11 +181,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             Amount = CurrentProductAmount.ToString(),
                             Rabat = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture)
                         });
-                        OnPropertyChanged(nameof(ProductsList));
                     }
                     CurrentProductAmount = 0;
                     RecalculateCartPrice();
                     OnPropertyChanged(nameof(CurrentProductAmount));
+                    OnPropertyChanged(nameof(ProductsInCart));
                 }
                 catch (Exception ex)
                 {

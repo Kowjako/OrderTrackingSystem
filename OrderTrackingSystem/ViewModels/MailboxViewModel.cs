@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private readonly MailService MailService;
         private readonly CustomerService CustomerService;
+        private readonly OrderService OrderService;
 
         #endregion
 
@@ -28,7 +30,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<MailDTO> ReceivedMessages { get; set; }
         public List<MailDTO> SentMessages { get; set; }
         public CustomerDTO MailReceiver { get; set; }
-        public List<string> RelatedToCurrentMailOrders { get; set; }
+        public ObservableCollection<string> RelatedToCurrentMailOrders { get; set; } = new ObservableCollection<string>();
+        public List<OrderDTO> CustomerOrders { get; set; }
+        public OrderDTO SelectedOrder { get; set; }
 
         private MailDTO _selectedMail;
         public MailDTO SelectedMail
@@ -49,6 +53,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             MailService = new MailService();
             CustomerService = new CustomerService();
+            OrderService = new OrderService();
         }
 
         #endregion
@@ -60,6 +65,30 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             CurrentSender = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             ReceivedMessages = await MailService.GetReceivedMailsForCustomer(CurrentSender.Id);
             SentMessages = await MailService.GetSendMailsForCustomer(CurrentSender.Id);
+            CustomerOrders = await OrderService.GetOrdersForCustomer(CurrentSender.Id);
+        }
+
+        public void OnLinkToOrderAdded()
+        {
+            if(RelatedToCurrentMailOrders.Any(i => i.Equals(SelectedOrder.Numer)))
+            {
+                OnWarning?.Invoke("Zamówienie o podanym numerze już dołączone");
+                return;
+            }
+            if(string.IsNullOrEmpty(SelectedOrder.Numer))
+            {
+                OnFailure?.Invoke("Nie można dołączyć pustego zamówienia");
+                return;
+            }
+            if (RelatedToCurrentMailOrders.Count == 3)
+            {
+                OnFailure?.Invoke("Maksymalnie można dołączyć 3 zamówienia");
+                return;
+            }
+
+            RelatedToCurrentMailOrders.Add(SelectedOrder.Numer);
+            RelatedToCurrentMailOrders = new ObservableCollection<string>(RelatedToCurrentMailOrders);
+            OnPropertyChanged(nameof(RelatedToCurrentMailOrders));
         }
 
         #endregion

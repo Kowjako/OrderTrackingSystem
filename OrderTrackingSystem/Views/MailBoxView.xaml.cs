@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Presentation.WindowExtension;
+﻿using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.Presentation.WindowExtension;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,11 @@ namespace OrderTrackingSystem.Presentation.Views
         private void receiveGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
+
+        private void orderLinker_ClickAddOrder(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MailboxViewModel).OnLinkToOrderAdded();
         }
     }
 }

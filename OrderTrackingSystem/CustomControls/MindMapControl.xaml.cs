@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,9 +16,12 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     /// </summary>
     public partial class MindMapControl : UserControl
     {
+        private static event Action OnNodeAddedEvent;
+
         public MindMapControl()
         {
             InitializeComponent();
+            OnNodeAddedEvent += AddNode;
         }
 
         #region Bindowalna kolekcja
@@ -40,39 +45,37 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
         public static void OrderAddedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+            OnNodeAddedEvent?.Invoke();
         }
 
         /* Used as attached event for binding in XAML - MailBoxView */
-        public static readonly RoutedEvent OrderAddedHandler =
-                EventManager.RegisterRoutedEvent("OrderAdded",
+        public static readonly RoutedEvent AddOrderClick =
+                EventManager.RegisterRoutedEvent("ClickAddOrder",
                 RoutingStrategy.Bubble,
                 typeof(RoutedEventHandler),
                 typeof(MindMapControl));
 
-        public event RoutedEventHandler OrderAdded
+        public event RoutedEventHandler ClickAddOrder
         {
             add
             {
-                AddHandler(OrderAddedHandler, value);
+                AddHandler(AddOrderClick, value);
             }
             remove
             {
-                RemoveHandler(OrderAddedHandler, value);
+                RemoveHandler(AddOrderClick, value);
             }
         }
 
         #endregion
 
-
-        public void AddNode(string refNumber)
+        public void AddNode()
         {
-            if (RelatedOrders.Count() == 3) return;
-            if (RelatedOrders.Count() == 0)
+            if (RelatedOrders.Count() == 0) return;
+            else
             {
                 DrawMainConnector();
             }
-            RelatedOrders.Add(refNumber);
             OnNodeAdded();
         }
 
@@ -98,7 +101,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 secondaryGrid.Children.RemoveAt(1);
             }
 
-            for (int i = 0; i < RelatedOrders.Count; i++)
+            for (int i = 0; i < RelatedOrders.Count(); i++)
             {
                 var border = new Border()
                 {
@@ -110,7 +113,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
                 var header = new TextBlock()
                 {
-                    Text = RelatedOrders[i],
+                    Text = RelatedOrders.ElementAt(i),
                     FontWeight = FontWeights.Bold,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center
@@ -135,7 +138,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         
         private int CalculateRowNumber(int elementIndex)
         {
-            if (RelatedOrders.Count == 1)
+            if (RelatedOrders.Count() == 1)
             {
                 return 1;
             }
@@ -145,7 +148,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
         private void DrawHelperConnector()
         {
-            if (RelatedOrders.Count == 1 | RelatedOrders.Count == 3)
+            if (RelatedOrders.Count() == 1 | RelatedOrders.Count() == 3)
             {
                 var line = new Rectangle
                 {
@@ -157,7 +160,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
                 Grid.SetColumn(line, 0);
                 secondaryGrid.Children.Add(line);
             }
-            if (RelatedOrders.Count != 1)
+            if (RelatedOrders.Count() != 1)
             {
                 #region Vertical Connector
 
@@ -215,7 +218,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
 
         private void BuildDefaultGrid()
         {
-            if (RelatedOrders.Count == 2)
+            if (RelatedOrders.Count() == 2)
             {
                 ordersGrid.RowDefinitions.Clear();
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
@@ -223,11 +226,16 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             }
             else
             {
-                if (RelatedOrders.Count == 3) ordersGrid.RowDefinitions.Clear();
+                if (RelatedOrders.Count() == 3) ordersGrid.RowDefinitions.Clear();
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
                 ordersGrid.RowDefinitions.Add(new RowDefinition());
             }
+        }
+
+        private void expandBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(AddOrderClick));
         }
     }
 }

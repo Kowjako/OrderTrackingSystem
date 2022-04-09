@@ -183,17 +183,20 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <controls:MindMapControl Grid.Row="0"
+                                             x:Name="orderLinker"
+                                             ClickAddOrder="orderLinker_ClickAddOrder"
+                                             RelatedOrders="{Binding RelatedToCurrentMailOrders, Mode=TwoWay}"
                                              Margin="0,0,0,10"/>
                     <ComboBox
+                        ItemsSource="{Binding CustomerOrders}"
+                        DisplayMemberPath="Numer"
+                        SelectedItem="{Binding SelectedOrder}"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,10,10,10"
                         materialDesign:HintAssist.Hint="Wybierz zamówienie"
                         IsEditable="False">
-                        <ComboBoxItem
-                        Content="Apple" />
-                        
                     </ComboBox>
                 </Grid>
             </GroupBox>

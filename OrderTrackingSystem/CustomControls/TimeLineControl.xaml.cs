@@ -28,7 +28,6 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
         public TimeLineControl()
         {
             InitializeComponent();
-            TimeLineNodes = new ObservableCollection<ParcelStateDTO>();
             /* Podpinamy co się dzieje gdy zmieniana kolekcja node'ów */
             OnNodeSetted += AddNode;
         }
