@@ -79,6 +79,42 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wszystkie.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybierz szablon reklamacyjny.
+        /// </summary>
+        public static string ChooseComplaintTemplate {
+            get {
+                return ResourceManager.GetString("ChooseComplaintTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rezygnacja.
+        /// </summary>
+        public static string Complaint {
+            get {
+                return ResourceManager.GetString("Complaint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Potwierdź odbiór.
+        /// </summary>
+        public static string ConfirmReceive {
+            get {
+                return ResourceManager.GetString("ConfirmReceive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adres zamieszkania.
         /// </summary>
         public static string CustomerAddress {
@@ -106,6 +142,42 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odfiltruj.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyszukaj zamówienie/wysyłkę.
+        /// </summary>
+        public static string FindOrderOrSell {
+            get {
+                return ResourceManager.GetString("FindOrderOrSell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wygeneruj automatyczną wiadomość.
+        /// </summary>
+        public static string GenerateAutomaticMail {
+            get {
+                return ResourceManager.GetString("GenerateAutomaticMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukryj progres.
+        /// </summary>
+        public static string HideProgress {
+            get {
+                return ResourceManager.GetString("HideProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -120,6 +192,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string LoginData {
             get {
                 return ResourceManager.GetString("LoginData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Złóż rezygnację.
+        /// </summary>
+        public static string MakeComplaint {
+            get {
+                return ResourceManager.GetString("MakeComplaint", resourceCulture);
             }
         }
         
@@ -151,6 +232,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tylko zamówione.
+        /// </summary>
+        public static string OnlyOrder {
+            get {
+                return ResourceManager.GetString("OnlyOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tylko wysłane.
+        /// </summary>
+        public static string OnlySent {
+            get {
+                return ResourceManager.GetString("OnlySent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hasło.
         /// </summary>
         public static string Password {
@@ -169,6 +268,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odbiorca.
+        /// </summary>
+        public static string Receiver {
+            get {
+                return ResourceManager.GetString("Receiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zapisz.
         /// </summary>
         public static string Save {
@@ -178,11 +286,47 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nadawca.
+        /// </summary>
+        public static string Seller {
+            get {
+                return ResourceManager.GetString("Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wysłane elementy.
         /// </summary>
         public static string SendElements {
             get {
                 return ResourceManager.GetString("SendElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elementy zamówione i wysłane.
+        /// </summary>
+        public static string SentAndOrderElements {
+            get {
+                return ResourceManager.GetString("SentAndOrderElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pokaż elementy.
+        /// </summary>
+        public static string ShowElements {
+            get {
+                return ResourceManager.GetString("ShowElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pokaż progres.
+        /// </summary>
+        public static string ShowProgress {
+            get {
+                return ResourceManager.GetString("ShowProgress", resourceCulture);
             }
         }
         
@@ -201,6 +345,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string ToEdit {
             get {
                 return ResourceManager.GetString("ToEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tracking przesyłek.
+        /// </summary>
+        public static string Tracking {
+            get {
+                return ResourceManager.GetString("Tracking", resourceCulture);
             }
         }
     }

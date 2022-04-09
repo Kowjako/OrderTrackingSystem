@@ -123,6 +123,18 @@
   <data name="Age" xml:space="preserve">
     <value>Wiek</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Wszystkie</value>
+  </data>
+  <data name="ChooseComplaintTemplate" xml:space="preserve">
+    <value>Wybierz szablon reklamacyjny</value>
+  </data>
+  <data name="Complaint" xml:space="preserve">
+    <value>Rezygnacja</value>
+  </data>
+  <data name="ConfirmReceive" xml:space="preserve">
+    <value>Potwierdź odbiór</value>
+  </data>
   <data name="CustomerAddress" xml:space="preserve">
     <value>Adres zamieszkania</value>
   </data>
@@ -132,11 +144,26 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Odfiltruj</value>
+  </data>
+  <data name="FindOrderOrSell" xml:space="preserve">
+    <value>Wyszukaj zamówienie/wysyłkę</value>
+  </data>
+  <data name="GenerateAutomaticMail" xml:space="preserve">
+    <value>Wygeneruj automatyczną wiadomość</value>
+  </data>
+  <data name="HideProgress" xml:space="preserve">
+    <value>Ukryj progres</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="LoginData" xml:space="preserve">
     <value>Dane logowania</value>
+  </data>
+  <data name="MakeComplaint" xml:space="preserve">
+    <value>Złóż rezygnację</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Moje zamówienia</value>
@@ -147,22 +174,46 @@
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
   </data>
+  <data name="OnlyOrder" xml:space="preserve">
+    <value>Tylko zamówione</value>
+  </data>
+  <data name="OnlySent" xml:space="preserve">
+    <value>Tylko wysłane</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Tylko do odczytu</value>
   </data>
+  <data name="Receiver" xml:space="preserve">
+    <value>Odbiorca</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
   </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Nadawca</value>
+  </data>
   <data name="SendElements" xml:space="preserve">
     <value>Wysłane elementy</value>
+  </data>
+  <data name="SentAndOrderElements" xml:space="preserve">
+    <value>Elementy zamówione i wysłane</value>
+  </data>
+  <data name="ShowElements" xml:space="preserve">
+    <value>Pokaż elementy</value>
+  </data>
+  <data name="ShowProgress" xml:space="preserve">
+    <value>Pokaż progres</value>
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Nazwisko</value>
   </data>
   <data name="ToEdit" xml:space="preserve">
     <value>Do edycji</value>
+  </data>
+  <data name="Tracking" xml:space="preserve">
+    <value>Tracking przesyłek</value>
   </data>
 </root>
