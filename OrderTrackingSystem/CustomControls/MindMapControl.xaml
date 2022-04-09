@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
              x:Name="control"
              d:DesignHeight="200" d:DesignWidth="300">
@@ -33,7 +33,7 @@
                             BorderThickness="3"
                             Grid.Column="0"
                             Margin="5,0,0,0">
-                        <TextBlock Text="Linki"
+                        <TextBlock Text="{x:Static res:Resources.Links}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"/>
                     </Border>

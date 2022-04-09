@@ -168,6 +168,9 @@
   <data name="ConfirmReceive" xml:space="preserve">
     <value>Confirm delivery</value>
   </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
   <data name="CustomerAddress" xml:space="preserve">
     <value>Localization</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="Emailbox" xml:space="preserve">
+    <value>Mail box</value>
   </data>
   <data name="ExpireDate" xml:space="preserve">
     <value>Expire date: {0}</value>
@@ -210,11 +216,35 @@
   <data name="Large" xml:space="preserve">
     <value>Large</value>
   </data>
+  <data name="LinkedOrders" xml:space="preserve">
+    <value>Linked orders</value>
+  </data>
+  <data name="LinkOrder" xml:space="preserve">
+    <value>Link orders</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Links</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="LoginData" xml:space="preserve">
     <value>Authorization data</value>
+  </data>
+  <data name="MailContent" xml:space="preserve">
+    <value>Mail content</value>
+  </data>
+  <data name="MailCreation" xml:space="preserve">
+    <value>Mail creation</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>From: {0}</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>To: {0}</value>
+  </data>
+  <data name="MailView" xml:space="preserve">
+    <value>Mail view</value>
   </data>
   <data name="MakeComplaint" xml:space="preserve">
     <value>Found complaint</value>
@@ -267,14 +297,23 @@
   <data name="ReadOnly" xml:space="preserve">
     <value>Read only</value>
   </data>
+  <data name="ReceivedMails" xml:space="preserve">
+    <value>Received mails</value>
+  </data>
   <data name="Receiver" xml:space="preserve">
     <value>Receiver</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reply</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SelectBon" xml:space="preserve">
     <value>Select voucher</value>
+  </data>
+  <data name="SelectOrder" xml:space="preserve">
+    <value>Select order</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Seller</value>
@@ -288,8 +327,14 @@
   <data name="SendElements" xml:space="preserve">
     <value>Sent elements</value>
   </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Send message</value>
+  </data>
   <data name="SentAndOrderElements" xml:space="preserve">
     <value>Sent and Ordered elements</value>
+  </data>
+  <data name="SentMails" xml:space="preserve">
+    <value>Sent mails</value>
   </data>
   <data name="SetPickupDays" xml:space="preserve">
     <value>Set pikcup days</value>
@@ -317,6 +362,9 @@
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Surname</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
   <data name="ToEdit" xml:space="preserve">
     <value>Can edit</value>

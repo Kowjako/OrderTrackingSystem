@@ -66,11 +66,11 @@ namespace OrderTrackingSystem.CustomControls
             }
         }
 
-        Dictionary<BoxSize, int> BoxImageSizes = Boxes.BoxSizeImage;
-        Dictionary<BoxSize, string> BoxImages = Boxes.BoxImages;
-        Dictionary<BoxSize, float> BoxPrices = Boxes.BoxPrices;
-        Dictionary<BoxSize, string> BoxSizes = Boxes.BoxSizes;
-        Dictionary<BoxSize, string> BoxNames = Boxes.BoxNames;
+        internal Dictionary<BoxSize, int> BoxImageSizes = Boxes.BoxSizeImage;
+        internal Dictionary<BoxSize, string> BoxImages = Boxes.BoxImages;
+        internal Dictionary<BoxSize, float> BoxPrices = Boxes.BoxPrices;
+        internal Dictionary<BoxSize, string> BoxSizes = Boxes.BoxSizes;
+        internal Dictionary<BoxSize, string> BoxNames = Boxes.BoxNames;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

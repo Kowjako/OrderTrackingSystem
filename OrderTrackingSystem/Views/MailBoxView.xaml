@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              xmlns:controls="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="800">
@@ -33,7 +34,7 @@
                       Background="Black"
                       Height="4"/>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Skrzynka E-MAIL"
+            <TextBlock Text="{x:Static res:Resources.Emailbox}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -68,13 +69,13 @@
                         VerticalAlignment="Center"
                         Grid.Column="1"
                         Margin="0 0 15 0"
-                        materialDesign:HintAssist.Hint="Wyszukaj odbiorcę"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.FindReceiver}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
                 </Grid>
             </Border>
             <GroupBox
-                Header="Tworzenie wiadomości"
+                Header="{x:Static res:Resources.MailCreation}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -90,7 +91,7 @@
                     FontSize="15"
                     Text="{Binding Caption, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Temat"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Title}"
                     />
                     <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -101,7 +102,7 @@
                     FontSize="15"
                     Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Treść"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Content}"
                     />
                 </StackPanel>
             </GroupBox>
@@ -130,7 +131,7 @@
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
             </Grid>
             <GroupBox
-                Header="Odbiorca"
+                Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -156,7 +157,7 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Filtracja"
+                Header="{x:Static res:Resources.Filter}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -164,14 +165,14 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
                     <RadioButton GroupName="mailFilter"
-                                 Content="Wiadomości wysłane"/>
+                                 Content="{x:Static res:Resources.SentMails}"/>
                     <RadioButton GroupName="mailFilter" 
-                                 Content="Wiadomości odebrane"
+                                 Content="{x:Static res:Resources.ReceivedMails}"
                                  Margin="0,5,0,0"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Powiąż zamówienie"
+                Header="{x:Static res:Resources.LinkOrder}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -195,7 +196,7 @@
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,10,10,10"
-                        materialDesign:HintAssist.Hint="Wybierz zamówienie"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectOrder}"
                         IsEditable="False">
                     </ComboBox>
                 </Grid>
@@ -209,7 +210,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Wyślij wiadomość" />
+                    Content="{x:Static res:Resources.SendMail}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -219,7 +220,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Odpowiedz" />
+                    Content="{x:Static res:Resources.Reply}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -229,12 +230,12 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Filtruj" />
+                    Content="{x:Static res:Resources.Filter}" />
         </DockPanel>
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
-            <TextBlock Text="Wiadomości wysłane"
+            <TextBlock Text="{x:Static res:Resources.SentMails}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
@@ -258,7 +259,7 @@
             <TextBlock
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Left"
-                Text="Wiadomości odebrane"
+                Text="{x:Static res:Resources.ReceivedMails}"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
@@ -280,7 +281,7 @@
                    DataContext="{Binding SelectedMail}"
                    LastChildFill="True"
                    Grid.ColumnSpan="2">
-            <TextBlock Text="Pogląd wiadomości"
+            <TextBlock Text="{x:Static res:Resources.MailView}"
                        Foreground="Black"
                        DockPanel.Dock="Top"
                        FontSize="17"
@@ -294,19 +295,19 @@
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
             <TextBlock DockPanel.Dock="Top"
-                       Text="{Binding NadawcaData, StringFormat=Od: {0}}"
+                       Text="{Binding NadawcaData, StringFormat={x:Static res:Resources.MailFrom}}"
                        Margin="10,0,10,5"
                        FontSize="13"
                        Foreground="Black"/>
             <TextBlock DockPanel.Dock="Top"
-                       Text="{Binding OdbiorcaData, StringFormat=Do: {0}}"
+                       Text="{Binding OdbiorcaData, StringFormat={x:Static res:Resources.MailTo}}"
                        Margin="10,0,10,5"
                        FontSize="13"
                        Foreground="Black"/>
             <TextBlock DockPanel.Dock="Top"
                        Foreground="Black"
                        FontSize="17"
-                       Text="Powiązane zamówienia"
+                       Text="{x:Static res:Resources.LinkedOrders}"
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
             <StackPanel DockPanel.Dock="Top"
@@ -345,7 +346,7 @@
             <TextBlock DockPanel.Dock="Top"
                        Foreground="Black"
                        FontSize="17"
-                       Text="Treść wiadomości"
+                       Text="{x:Static res:Resources.MailContent}"
                        Margin="10,10,10,0"
                        FontFamily="Arial"/>
             <TextBox
