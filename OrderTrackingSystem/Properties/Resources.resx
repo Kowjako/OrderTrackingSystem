@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="AcceptFullVoucher" xml:space="preserve">
+    <value>Rozlicz bon w całości</value>
+  </data>
   <data name="AccountDetails" xml:space="preserve">
     <value>Szczegóły konta</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Dodaj do koszyka</value>
   </data>
   <data name="Age" xml:space="preserve">
     <value>Wiek</value>
@@ -126,8 +135,26 @@
   <data name="All" xml:space="preserve">
     <value>Wszystkie</value>
   </data>
+  <data name="AmountToMinus" xml:space="preserve">
+    <value>Kwota odliczalna</value>
+  </data>
+  <data name="AvailablePickups" xml:space="preserve">
+    <value>Dostępne punkty odbiory</value>
+  </data>
+  <data name="AvailableProducts" xml:space="preserve">
+    <value>Produkty dostępne</value>
+  </data>
+  <data name="Brutto" xml:space="preserve">
+    <value>Kwota brutto</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Koszyk</value>
+  </data>
   <data name="ChooseComplaintTemplate" xml:space="preserve">
     <value>Wybierz szablon reklamacyjny</value>
+  </data>
+  <data name="ClearCart" xml:space="preserve">
+    <value>Wyczyść koszyk</value>
   </data>
   <data name="Complaint" xml:space="preserve">
     <value>Rezygnacja</value>
@@ -141,14 +168,29 @@
   <data name="Data" xml:space="preserve">
     <value>Dane</value>
   </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>Dostawa</value>
+  </data>
+  <data name="DeliveryPoint" xml:space="preserve">
+    <value>Punkt odbioru</value>
+  </data>
+  <data name="DeliveryType" xml:space="preserve">
+    <value>Metody dostawy</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>Data ważności: {0}</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Odfiltruj</value>
   </data>
   <data name="FindOrderOrSell" xml:space="preserve">
     <value>Wyszukaj zamówienie/wysyłkę</value>
+  </data>
+  <data name="FindShop" xml:space="preserve">
+    <value>Wyszukaj sklep</value>
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Wygeneruj automatyczną wiadomość</value>
@@ -165,11 +207,17 @@
   <data name="MakeComplaint" xml:space="preserve">
     <value>Złóż rezygnację</value>
   </data>
+  <data name="MakeOrder" xml:space="preserve">
+    <value>Złożenie zamówienia</value>
+  </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Moje zamówienia</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Imię</value>
+  </data>
+  <data name="Netto" xml:space="preserve">
+    <value>Kwota netto</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
@@ -183,6 +231,12 @@
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
+  <data name="PayType" xml:space="preserve">
+    <value>Metody płatności</value>
+  </data>
+  <data name="ProductAmount" xml:space="preserve">
+    <value>Ilość produktu</value>
+  </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Tylko do odczytu</value>
   </data>
@@ -191,6 +245,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
+  </data>
+  <data name="SelectBon" xml:space="preserve">
+    <value>Wybierz bon</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Nadawca</value>
@@ -207,6 +264,15 @@
   <data name="ShowProgress" xml:space="preserve">
     <value>Pokaż progres</value>
   </data>
+  <data name="SingleVoucher" xml:space="preserve">
+    <value>Bon: {0}</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="Summarize" xml:space="preserve">
+    <value>Podsumowanie</value>
+  </data>
   <data name="Surname" xml:space="preserve">
     <value>Nazwisko</value>
   </data>
@@ -215,5 +281,11 @@
   </data>
   <data name="Tracking" xml:space="preserve">
     <value>Tracking przesyłek</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>VAT</value>
+  </data>
+  <data name="Voucher" xml:space="preserve">
+    <value>Bony</value>
   </data>
 </root>

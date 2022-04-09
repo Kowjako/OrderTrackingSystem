@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="AcceptFullVoucher" xml:space="preserve">
+    <value>Использовать купон на полную сумму</value>
+  </data>
   <data name="AccountDetails" xml:space="preserve">
     <value>Данные аккаунта</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Добавить в корзину</value>
   </data>
   <data name="Age" xml:space="preserve">
     <value>Возраст</value>
@@ -126,8 +135,26 @@
   <data name="All" xml:space="preserve">
     <value>Все</value>
   </data>
+  <data name="AmountToMinus" xml:space="preserve">
+    <value>Сумма к списанию</value>
+  </data>
+  <data name="AvailablePickups" xml:space="preserve">
+    <value>Доступные пункты доставки</value>
+  </data>
+  <data name="AvailableProducts" xml:space="preserve">
+    <value>Доступные продукты</value>
+  </data>
+  <data name="Brutto" xml:space="preserve">
+    <value>Сумма брутто</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Корзина</value>
+  </data>
   <data name="ChooseComplaintTemplate" xml:space="preserve">
     <value>Выбрать шаблон жалобы</value>
+  </data>
+  <data name="ClearCart" xml:space="preserve">
+    <value>Очистить корзину</value>
   </data>
   <data name="Complaint" xml:space="preserve">
     <value>Жалоба</value>
@@ -141,14 +168,29 @@
   <data name="Data" xml:space="preserve">
     <value>Данные</value>
   </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>Доставка</value>
+  </data>
+  <data name="DeliveryPoint" xml:space="preserve">
+    <value>Пункт доставки</value>
+  </data>
+  <data name="DeliveryType" xml:space="preserve">
+    <value>Методы доставки</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>Годен до: {0}</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Фильтрация</value>
   </data>
   <data name="FindOrderOrSell" xml:space="preserve">
     <value>Найти отправку/посылку</value>
+  </data>
+  <data name="FindShop" xml:space="preserve">
+    <value>Найти магазин</value>
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Отправить автоматическое сообщение</value>
@@ -165,11 +207,17 @@
   <data name="MakeComplaint" xml:space="preserve">
     <value>Оформить жалобу</value>
   </data>
+  <data name="MakeOrder" xml:space="preserve">
+    <value>Создание заказа</value>
+  </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Мои заказы</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="Netto" xml:space="preserve">
+    <value>Сумма нетто</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Телефон</value>
@@ -183,6 +231,12 @@
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
+  <data name="PayType" xml:space="preserve">
+    <value>Методы оплаты</value>
+  </data>
+  <data name="ProductAmount" xml:space="preserve">
+    <value>Кол-во продукта</value>
+  </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Только к чтению</value>
   </data>
@@ -191,6 +245,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="SelectBon" xml:space="preserve">
+    <value>Выбрать купон</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Продавец</value>
@@ -207,6 +264,15 @@
   <data name="ShowProgress" xml:space="preserve">
     <value>Показать прогресс</value>
   </data>
+  <data name="SingleVoucher" xml:space="preserve">
+    <value>Купон: {0}</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Summarize" xml:space="preserve">
+    <value>Итог</value>
+  </data>
   <data name="Surname" xml:space="preserve">
     <value>Фамилия</value>
   </data>
@@ -215,5 +281,11 @@
   </data>
   <data name="Tracking" xml:space="preserve">
     <value>Трекинг посылок</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>Налог</value>
+  </data>
+  <data name="Voucher" xml:space="preserve">
+    <value>Купон</value>
   </data>
 </root>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -24,7 +25,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Złożenie zamówienia"
+            <TextBlock Text="{x:Static res:Resources.MakeOrder}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -59,13 +60,13 @@
                         VerticalAlignment="Center"
                         Grid.Column="1"
                         Margin="0 0 15 0"
-                        materialDesign:HintAssist.Hint="Wyszukaj sklep"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.FindShop}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
                 </Grid>
             </Border>
             <GroupBox
-                Header="Odbiorca"
+                Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -91,7 +92,7 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox
-                Header="Punkt odbioru"
+                Header="{x:Static res:Resources.DeliveryPoint}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -127,7 +128,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Dodaj do koszyka" />
+                    Content="{x:Static res:Resources.AddToCart}" />
             <Button
                     Command="{Binding ClearCart}"
                     DockPanel.Dock="Bottom"
@@ -138,7 +139,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Wyczyść koszyk" />
+                    Content="{x:Static res:Resources.ClearCart}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -149,9 +150,9 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Zatwierdź" />
+                    Content="{x:Static res:Resources.Accept}" />
             <GroupBox
-                Header="Bony"
+                Header="{x:Static res:Resources.Voucher}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -167,7 +168,7 @@
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,10,10,10"
-                        materialDesign:HintAssist.Hint="Wybierz bon"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectBon}"
                         IsEditable="False">
                     </ComboBox>
                     <Border    CornerRadius="10"
@@ -214,7 +215,7 @@
                             </Grid>
                             <StackPanel Grid.Column="0"
                                         DataContext="{Binding SelectedVoucher}">
-                                <TextBlock Text="{Binding Number, StringFormat=Bon: {0}}" FontSize="20" 
+                                <TextBlock Text="{Binding Number, StringFormat={x:Static res:Resources.SingleVoucher}}" FontSize="20" 
                                            FontFamily="Times New Roman" 
                                            Margin="10,10,5,0"
                                            Foreground="Maroon"/>
@@ -235,7 +236,7 @@
                                                              VerticalAlignment="Center"
                                                              Width="20"
                                                              Height="20"/>
-                                    <TextBlock Text="{Binding ExpireDateString, StringFormat=Data ważności: {0}}" 
+                                    <TextBlock Text="{Binding ExpireDateString, StringFormat={x:Static res:Resources.ExpireDate}}" 
                                                Grid.Column="1"
                                                FontSize="14"
                                                VerticalAlignment="Center"
@@ -250,13 +251,13 @@
                               x:Name="acceptFullVoucher"
                               Style="{StaticResource MaterialDesignDarkCheckBox}"  
                               Margin="0 5 0 0"
-                              Content="Rozlicz bon w całości"/>
+                              Content="{x:Static res:Resources.AcceptFullVoucher}"/>
                     <!-- Używamy konwertera aby zamiast 0 wstawiać string.Empty -->
                     <TextBox  DockPanel.Dock="Bottom" 
                               Margin="0 5 0 0"
                               Visibility="{Binding VouchersVisibility}"
                               Text="{Binding VoucherValueToMinus, Converter={StaticResource dtsConverter}}"
-                              materialDesign:HintAssist.Hint="Kwota odliczalna"
+                              materialDesign:HintAssist.Hint="{x:Static res:Resources.AmountToMinus}"
                               materialDesign:HintAssist.IsFloating="False"
                               IsEnabled ="{Binding ElementName=acceptFullVoucher,
                                                    Path=IsChecked,
@@ -265,7 +266,7 @@
                 </DockPanel>
             </GroupBox>
             <GroupBox
-                Header="Ilość produktu"
+                Header="{x:Static res:Resources.ProductAmount}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -342,7 +343,7 @@
         <StackPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
-            <TextBlock Text="Produkty dostępne"
+            <TextBlock Text="{x:Static res:Resources.AvailableProducts}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
@@ -360,7 +361,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1"
                     Grid.Row="3">
-            <TextBlock Text="Dostępne punkty odbioru"
+            <TextBlock Text="{x:Static res:Resources.AvailablePickups}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
@@ -383,7 +384,7 @@
             <TextBlock
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Left"
-                Text="Koszyk"
+                Text="{x:Static res:Resources.Cart}"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
@@ -403,7 +404,7 @@
             <TextBlock
                 HorizontalAlignment="Left"
                 FontWeight="DemiBold"
-                Text="Metody płatności"
+                Text="{x:Static res:Resources.PayType}"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
@@ -426,7 +427,7 @@
             </ListBox>
             <TextBlock
                 HorizontalAlignment="Left"
-                Text="Metody dostawy"
+                Text="{x:Static res:Resources.DeliveryType}"
                 TextAlignment="Left"
                 FontWeight="DemiBold"
                 Foreground="Black"
@@ -445,7 +446,7 @@
             <TextBlock
                 HorizontalAlignment="Left"
                 FontWeight="DemiBold"
-                Text="Podsumowanie"
+                Text="{x:Static res:Resources.Summarize}"
                 TextAlignment="Left"
                 Foreground="Black"
                 FontSize="17"
@@ -460,7 +461,7 @@
                     Grid.Column="0">
                     <TextBlock
                     HorizontalAlignment="Left"
-                    Text="Kwota netto"
+                    Text="{x:Static res:Resources.Netto}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -468,7 +469,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Left"
-                    Text="VAT"
+                    Text="{x:Static res:Resources.VAT}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -476,7 +477,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Left"
-                    Text="Kwota brutto"
+                    Text="{x:Static res:Resources.Brutto}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -484,7 +485,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Left"
-                    Text="Dostawa"
+                    Text="{x:Static res:Resources.Delivery}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"
@@ -492,7 +493,7 @@
                     FontFamily="Arial"/>
                     <TextBlock
                     HorizontalAlignment="Left"
-                    Text="Suma"
+                    Text="{x:Static res:Resources.Sum}"
                     TextAlignment="Left"
                     Foreground="Black"
                     FontSize="17"

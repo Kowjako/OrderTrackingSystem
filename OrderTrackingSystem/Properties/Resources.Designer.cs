@@ -61,11 +61,38 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zatwierdź.
+        /// </summary>
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rozlicz bon w całości.
+        /// </summary>
+        public static string AcceptFullVoucher {
+            get {
+                return ResourceManager.GetString("AcceptFullVoucher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Szczegóły konta.
         /// </summary>
         public static string AccountDetails {
             get {
                 return ResourceManager.GetString("AccountDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj do koszyka.
+        /// </summary>
+        public static string AddToCart {
+            get {
+                return ResourceManager.GetString("AddToCart", resourceCulture);
             }
         }
         
@@ -88,11 +115,65 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kwota odliczalna.
+        /// </summary>
+        public static string AmountToMinus {
+            get {
+                return ResourceManager.GetString("AmountToMinus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dostępne punkty odbiory.
+        /// </summary>
+        public static string AvailablePickups {
+            get {
+                return ResourceManager.GetString("AvailablePickups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produkty dostępne.
+        /// </summary>
+        public static string AvailableProducts {
+            get {
+                return ResourceManager.GetString("AvailableProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwota brutto.
+        /// </summary>
+        public static string Brutto {
+            get {
+                return ResourceManager.GetString("Brutto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koszyk.
+        /// </summary>
+        public static string Cart {
+            get {
+                return ResourceManager.GetString("Cart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wybierz szablon reklamacyjny.
         /// </summary>
         public static string ChooseComplaintTemplate {
             get {
                 return ResourceManager.GetString("ChooseComplaintTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyczyść koszyk.
+        /// </summary>
+        public static string ClearCart {
+            get {
+                return ResourceManager.GetString("ClearCart", resourceCulture);
             }
         }
         
@@ -133,11 +214,47 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dostawa.
+        /// </summary>
+        public static string Delivery {
+            get {
+                return ResourceManager.GetString("Delivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punkt odbioru.
+        /// </summary>
+        public static string DeliveryPoint {
+            get {
+                return ResourceManager.GetString("DeliveryPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metody dostawy.
+        /// </summary>
+        public static string DeliveryType {
+            get {
+                return ResourceManager.GetString("DeliveryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data ważności: {0}.
+        /// </summary>
+        public static string ExpireDate {
+            get {
+                return ResourceManager.GetString("ExpireDate", resourceCulture);
             }
         }
         
@@ -156,6 +273,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string FindOrderOrSell {
             get {
                 return ResourceManager.GetString("FindOrderOrSell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyszukaj sklep.
+        /// </summary>
+        public static string FindShop {
+            get {
+                return ResourceManager.GetString("FindShop", resourceCulture);
             }
         }
         
@@ -205,6 +331,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Złożenie zamówienia.
+        /// </summary>
+        public static string MakeOrder {
+            get {
+                return ResourceManager.GetString("MakeOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moje zamówienia.
         /// </summary>
         public static string MyOrders {
@@ -219,6 +354,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwota netto.
+        /// </summary>
+        public static string Netto {
+            get {
+                return ResourceManager.GetString("Netto", resourceCulture);
             }
         }
         
@@ -259,6 +403,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metody płatności.
+        /// </summary>
+        public static string PayType {
+            get {
+                return ResourceManager.GetString("PayType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ilość produktu.
+        /// </summary>
+        public static string ProductAmount {
+            get {
+                return ResourceManager.GetString("ProductAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tylko do odczytu.
         /// </summary>
         public static string ReadOnly {
@@ -282,6 +444,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybierz bon.
+        /// </summary>
+        public static string SelectBon {
+            get {
+                return ResourceManager.GetString("SelectBon", resourceCulture);
             }
         }
         
@@ -331,6 +502,33 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bon: {0}.
+        /// </summary>
+        public static string SingleVoucher {
+            get {
+                return ResourceManager.GetString("SingleVoucher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suma.
+        /// </summary>
+        public static string Sum {
+            get {
+                return ResourceManager.GetString("Sum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podsumowanie.
+        /// </summary>
+        public static string Summarize {
+            get {
+                return ResourceManager.GetString("Summarize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nazwisko.
         /// </summary>
         public static string Surname {
@@ -354,6 +552,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Tracking {
             get {
                 return ResourceManager.GetString("Tracking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VAT.
+        /// </summary>
+        public static string VAT {
+            get {
+                return ResourceManager.GetString("VAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bony.
+        /// </summary>
+        public static string Voucher {
+            get {
+                return ResourceManager.GetString("Voucher", resourceCulture);
             }
         }
     }
