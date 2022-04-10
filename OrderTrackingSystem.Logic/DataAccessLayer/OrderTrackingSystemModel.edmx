@@ -69,15 +69,13 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.ComplaintStates' does not 
           <Property Name="House" Type="tinyint" Nullable="false" />
           <Property Name="ZipCode" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'OrderTrackingSystem.dbo.MailOrderRelations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MailOrderRelations">
           <Key>
-            <PropertyRef Name="MailId" />
-            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="MailId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Mails">
           <Key>
@@ -544,6 +542,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <EntitySet Name="ComplaintFolders" EntityType="Self.ComplaintFolders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localizations" EntityType="Self.Localizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailOrderRelations" EntityType="Self.MailOrderRelations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mails" EntityType="Self.Mails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderCarts" EntityType="Self.OrderCarts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
@@ -567,12 +566,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
     [ComplaintStates].[State] AS [State], 
     [ComplaintStates].[Date] AS [Date]
     FROM [dbo].[ComplaintStates] AS [ComplaintStates]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="MailOrderRelations" EntityType="Self.MailOrderRelations" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [MailOrderRelations].[MailId] AS [MailId], 
-    [MailOrderRelations].[OrderId] AS [OrderId]
-    FROM [dbo].[MailOrderRelations] AS [MailOrderRelations]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Session" EntityType="Self.Session" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -745,6 +738,16 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <NavigationProperty Name="Pickups" Relationship="Self.FK__Pickups_LocalizationId" FromRole="Localizations" ToRole="Pickups" />
           <NavigationProperty Name="Sellers" Relationship="Self.FK__Sellers_LocalizationId" FromRole="Localizations" ToRole="Sellers" />
         </EntityType>
+        <EntityType Name="MailOrderRelations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="MailId" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Mails" Relationship="Self.FK__MailOrderRelations_MailId" FromRole="MailOrderRelations" ToRole="Mails" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__MailOrderRelations_OrderId" FromRole="MailOrderRelations" ToRole="Orders" />
+        </EntityType>
         <EntityType Name="Mails">
           <Key>
             <PropertyRef Name="Id" />
@@ -756,7 +759,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <Property Name="SenderId" Type="Int32" Nullable="false" />
           <Property Name="ReceiverId" Type="Int32" Nullable="false" />
           <Property Name="MailRelation" Type="Byte" />
-          <NavigationProperty Name="Orders" Relationship="Self.MailOrderRelations" FromRole="Mails" ToRole="Orders" />
+          <NavigationProperty Name="MailOrderRelations" Relationship="Self.FK__MailOrderRelations_MailId" FromRole="Mails" ToRole="MailOrderRelations" />
         </EntityType>
         <EntityType Name="OrderCarts">
           <Key>
@@ -784,12 +787,12 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <Property Name="OrderDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ComplaintDefinitions" Relationship="Self.FK__Orders_ComplaintDefinitionId" FromRole="Orders" ToRole="ComplaintDefinitions" />
           <NavigationProperty Name="Customers" Relationship="Self.FK__Orders_CustomerId" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="MailOrderRelations" Relationship="Self.FK__MailOrderRelations_OrderId" FromRole="Orders" ToRole="MailOrderRelations" />
           <NavigationProperty Name="OrderCarts" Relationship="Self.FK__OrderCarts_OrderId" FromRole="Orders" ToRole="OrderCarts" />
           <NavigationProperty Name="ComplaintStates" Relationship="Self.FK__ComplaintStates_OrderId" FromRole="Orders" ToRole="ComplaintStates" />
           <NavigationProperty Name="Pickups" Relationship="Self.FK__Orders_PickupId" FromRole="Orders" ToRole="Pickups" />
           <NavigationProperty Name="Sellers" Relationship="Self.FK__Orders_SellerId" FromRole="Orders" ToRole="Sellers" />
           <NavigationProperty Name="OrderStates" Relationship="Self.FK__OrderStates_OrderId" FromRole="Orders" ToRole="OrderStates" />
-          <NavigationProperty Name="Mails" Relationship="Self.MailOrderRelations" FromRole="Orders" ToRole="Mails" />
         </EntityType>
         <EntityType Name="OrderStates">
           <Key>
@@ -1040,6 +1043,34 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__MailOrderRelations_MailId">
+          <End Role="Mails" Type="Self.Mails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MailOrderRelations" Type="Self.MailOrderRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailOrderRelations">
+              <PropertyRef Name="MailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MailOrderRelations_OrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MailOrderRelations" Type="Self.MailOrderRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailOrderRelations">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrderCarts_OrderId">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1190,15 +1221,12 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <End Role="ComplaintFolders" Type="Self.ComplaintFolders" Multiplicity="*" />
           <End Role="ComplaintDefinitions" Type="Self.ComplaintDefinitions" Multiplicity="*" />
         </Association>
-        <Association Name="MailOrderRelations">
-          <End Role="Mails" Type="Self.Mails" Multiplicity="*" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="OrderTrackingSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ComplaintDefinitions" EntityType="Self.ComplaintDefinitions" />
           <EntitySet Name="ComplaintFolders" EntityType="Self.ComplaintFolders" />
           <EntitySet Name="Customers" EntityType="Self.Customers" />
           <EntitySet Name="Localizations" EntityType="Self.Localizations" />
+          <EntitySet Name="MailOrderRelations" EntityType="Self.MailOrderRelations" />
           <EntitySet Name="Mails" EntityType="Self.Mails" />
           <EntitySet Name="OrderCarts" EntityType="Self.OrderCarts" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
@@ -1249,6 +1277,14 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             <End Role="Localizations" EntitySet="Localizations" />
             <End Role="Sellers" EntitySet="Sellers" />
           </AssociationSet>
+          <AssociationSet Name="FK__MailOrderRelations_MailId" Association="Self.FK__MailOrderRelations_MailId">
+            <End Role="Mails" EntitySet="Mails" />
+            <End Role="MailOrderRelations" EntitySet="MailOrderRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MailOrderRelations_OrderId" Association="Self.FK__MailOrderRelations_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="MailOrderRelations" EntitySet="MailOrderRelations" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrderCarts_OrderId" Association="Self.FK__OrderCarts_OrderId">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderCarts" EntitySet="OrderCarts" />
@@ -1296,10 +1332,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           <AssociationSet Name="ComplaintRelations" Association="Self.ComplaintRelations">
             <End Role="ComplaintFolders" EntitySet="ComplaintFolders" />
             <End Role="ComplaintDefinitions" EntitySet="ComplaintDefinitions" />
-          </AssociationSet>
-          <AssociationSet Name="MailOrderRelations" Association="Self.MailOrderRelations">
-            <End Role="Mails" EntitySet="Mails" />
-            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1351,6 +1383,15 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
                 <ScalarProperty Name="Flat" ColumnName="Flat" />
                 <ScalarProperty Name="House" ColumnName="House" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailOrderRelations">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.MailOrderRelations">
+              <MappingFragment StoreEntitySet="MailOrderRelations">
+                <ScalarProperty Name="MailId" ColumnName="MailId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1518,14 +1559,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
             </EndProperty>
             <EndProperty Name="ComplaintDefinitions">
               <ScalarProperty Name="Id" ColumnName="ComplaintId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="MailOrderRelations" TypeName="OrderTrackingSystemModel.MailOrderRelations" StoreEntitySet="MailOrderRelations">
-            <EndProperty Name="Mails">
-              <ScalarProperty Name="Id" ColumnName="MailId" />
-            </EndProperty>
-            <EndProperty Name="Orders">
-              <ScalarProperty Name="Id" ColumnName="OrderId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

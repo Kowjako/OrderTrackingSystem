@@ -17,7 +17,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Mails()
         {
-            this.Orders = new HashSet<Orders>();
+            this.MailOrderRelations = new HashSet<MailOrderRelations>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public Nullable<byte> MailRelation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<MailOrderRelations> MailOrderRelations { get; set; }
     }
 }

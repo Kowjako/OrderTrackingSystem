@@ -17,10 +17,10 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Orders()
         {
+            this.MailOrderRelations = new HashSet<MailOrderRelations>();
             this.OrderCarts = new HashSet<OrderCarts>();
             this.ComplaintStates = new HashSet<ComplaintStates>();
             this.OrderStates = new HashSet<OrderStates>();
-            this.Mails = new HashSet<Mails>();
         }
     
         public int Id { get; set; }
@@ -36,6 +36,8 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual ComplaintDefinitions ComplaintDefinitions { get; set; }
         public virtual Customers Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MailOrderRelations> MailOrderRelations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderCarts> OrderCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComplaintStates> ComplaintStates { get; set; }
@@ -43,7 +45,5 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual Sellers Sellers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderStates> OrderStates { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mails> Mails { get; set; }
     }
 }

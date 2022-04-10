@@ -29,6 +29,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual DbSet<ComplaintFolders> ComplaintFolders { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Localizations> Localizations { get; set; }
+        public virtual DbSet<MailOrderRelations> MailOrderRelations { get; set; }
         public virtual DbSet<Mails> Mails { get; set; }
         public virtual DbSet<OrderCarts> OrderCarts { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }

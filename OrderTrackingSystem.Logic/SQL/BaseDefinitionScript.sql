@@ -317,4 +317,13 @@ ALTER TABLE Mails
 ADD CONSTRAINT CK__Mails_MailRelation CHECK (MailRelation IN (1,2,3))
 GO
 
+ALTER TABLE MailOrderRelations
+ADD Id INT IDENTITY(1,1)
+GO
+
+ALTER TABLE MailOrderRelations
+ADD CONSTRAINT PK__MailOrderRelations_Id PRIMARY KEY (Id)
+GO
+
+
 COMMIT TRAN
