@@ -56,7 +56,7 @@
                             Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button
-                        Command="{Binding FindSeller}"
+                        Command="{Binding FindReceiver}"
                         CommandParameter="{Binding ElementName=sellerBox, Path=Text}"
                         Style="{DynamicResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
@@ -114,7 +114,7 @@
                 </Grid.ColumnDefinitions>
                 <DatePicker
                     Grid.Column="0"
-                    SelectedDate="{x:Static sys:DateTime.Now}"
+                    SelectedDate="{Binding DateFrom}"
                     Focusable="False"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}">
@@ -125,7 +125,7 @@
                            Stroke="Black"/>
                 <DatePicker
                     Grid.Column="2"
-                    SelectedDate="{x:Static sys:DateTime.Now}"
+                    SelectedDate="{Binding DateTo}"
                     Focusable="False"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
@@ -163,10 +163,13 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
+                <!-- Attached event ToggleButton.Checked-->
+                <StackPanel ToggleButton.Checked="StackPanel_Checked">
                     <RadioButton GroupName="mailFilter"
+                                 x:Name="sentMsg"
                                  Content="{x:Static res:Resources.SentMails}"/>
-                    <RadioButton GroupName="mailFilter" 
+                    <RadioButton GroupName="mailFilter"
+                                 x:Name="receivedMsg"
                                  Content="{x:Static res:Resources.ReceivedMails}"
                                  Margin="0,5,0,0"/>
                 </StackPanel>
@@ -222,6 +225,7 @@
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Reply}" />
             <Button
+                    Command="{Binding FilterCommand}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"

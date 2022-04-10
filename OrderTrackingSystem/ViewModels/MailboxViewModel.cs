@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
@@ -34,7 +35,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public ObservableCollection<string> RelatedToCurrentMailOrders { get; set; } = new ObservableCollection<string>();
         public List<OrderDTO> CustomerOrders { get; set; }
         public OrderDTO SelectedOrder { get; set; }
-        public List<Chip> CurrentMailChips { get; set; }
+
+        public DateTime DateFrom { get; set; } = DateTime.Now;
+        public DateTime DateTo { get; set; } = DateTime.Now;
+        public int SelectedFilterMsgType = -1;
 
         private MailDTO _selectedMail;
         public MailDTO SelectedMail
@@ -94,6 +98,68 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         }
 
         #endregion
+
+        #region Commands
+
+        private RelayCommand _findReceiver;
+        public RelayCommand FindReceiver =>
+            _findReceiver ?? (_findReceiver = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(obj as string))
+                    {
+                        MailReceiver = await CustomerService.GetCustomerByName(obj as string);
+                        OnPropertyChanged(nameof(MailReceiver));
+                    }
+                    else
+                    {
+                        OnWarning?.Invoke("Nazwa nie może być pusta");
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+
+        private RelayCommand _filterCommand;
+        public RelayCommand FilterCommand =>
+            _filterCommand ?? (_filterCommand = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    if (DateFrom != DateTo && DateFrom < DateTo)
+                    {
+                        switch (SelectedFilterMsgType)
+                        {
+                            case 0:
+                                SentMessages = SentMessages.Where(p => DateTime.Parse(p.Date) <= DateTo &&
+                                                                       DateTime.Parse(p.Date) >= DateFrom).ToList();
+                                OnPropertyChanged(nameof(SentMessages));
+                                break;
+                            case 1:
+                                ReceivedMessages = SentMessages.Where(p => DateTime.Parse(p.Date) <= DateTo &&
+                                                                       DateTime.Parse(p.Date) >= DateFrom).ToList();
+                                OnPropertyChanged(nameof(ReceivedMessages));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        OnWarning?.Invoke("Proszę ustawić różne daty, oraz data początkowa musi być mniejsza niż końcowa");
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+
+        #endregion
+
 
         #region INotifyableViewModel implementation
 
