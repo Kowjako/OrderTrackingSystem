@@ -30,9 +30,21 @@ namespace OrderTrackingSystem.Logic.Services
                                 NadawcaMail = customer.Email,
                                 SellerId = mail.SenderId,
                                 ReceiverId = mail.ReceiverId,
-                                MailRelation = mail.MailRelation.Value
+                                MailRelation = mail.MailRelation.Value,
                             };
                 var firstStageList = await query.ToListAsync();
+
+                /* Podpinamy zamówienia */
+                firstStageList.ForEach(async p =>
+                {
+                    var relationQuery = from relation in dbContext.MailOrderRelations
+                                        join order in dbContext.Orders
+                                        on relation.OrderId equals order.Id
+                                        where relation.MailId == p.Id
+                                        select order.Number;
+
+                    p.RelatedOrders = await relationQuery.ToArrayAsync();
+                });
 
                 /* Skoro szukamy dla customera nie rozpatrywamy relacji SellerToCustomer */
                 firstStageList.ForEach(async p =>
@@ -82,6 +94,18 @@ namespace OrderTrackingSystem.Logic.Services
                             };
 
                 var firstStageList = await query.ToListAsync();
+
+                /* Podpinamy zamówienia */
+                firstStageList.ForEach(async p =>
+                {
+                    var relationQuery = from relation in dbContext.MailOrderRelations
+                                        join order in dbContext.Orders
+                                        on relation.OrderId equals order.Id
+                                        where relation.MailId == p.Id
+                                        select order.Number;
+
+                    p.RelatedOrders = await relationQuery.ToArrayAsync();
+                });
 
                 /* Nie rozpatrywamy relacji CustomerToSeller bo customer nie może być sellerem */
                 firstStageList.ForEach(async p =>

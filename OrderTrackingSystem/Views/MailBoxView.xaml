@@ -322,7 +322,18 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <materialDesign:Chip Content="{Binding}"/>
+                        <!-- {Binding} means binding directly to object
+                        because we have string[] and it hasn't own
+                        properties-->
+                        <materialDesign:Chip 
+                                    Margin="10,0,10,10"
+                                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                    Content="{Binding}">
+                            <materialDesign:Chip.Icon>
+                                <materialDesign:PackIcon Kind="Link"/>
+                            </materialDesign:Chip.Icon>
+                        </materialDesign:Chip>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
