@@ -187,6 +187,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opis.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rabat.
         /// </summary>
         public static string Discount {
@@ -255,6 +264,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string Receiver {
             get {
                 return ResourceManager.GetString("Receiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dni na rozpatrywanie.
+        /// </summary>
+        public static string RemainDays {
+            get {
+                return ResourceManager.GetString("RemainDays", resourceCulture);
             }
         }
         

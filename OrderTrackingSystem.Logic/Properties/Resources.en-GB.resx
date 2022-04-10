@@ -159,6 +159,9 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Delivery type</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="Discount" xml:space="preserve">
     <value>Discount</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="Receiver" xml:space="preserve">
     <value>Receiver</value>
+  </data>
+  <data name="RemainDays" xml:space="preserve">
+    <value>Days to close remain</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Seller</value>
