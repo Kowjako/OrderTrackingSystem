@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="DTO\CartProductDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\ComplaintDefinitionDTO.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\LocalizationDTO.cs" />
     <Compile Include="DTO\MailDTO.cs" />

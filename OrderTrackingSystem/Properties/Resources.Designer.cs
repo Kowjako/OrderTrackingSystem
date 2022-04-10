@@ -268,6 +268,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wyłącz Fullscreen.
+        /// </summary>
+        public static string DisableFullscreen {
+            get {
+                return ResourceManager.GetString("DisableFullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -282,6 +291,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Emailbox {
             get {
                 return ResourceManager.GetString("Emailbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Włącz Fullscreen.
+        /// </summary>
+        public static string EnableFullscreen {
+            get {
+                return ResourceManager.GetString("EnableFullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wyjdź.
+        /// </summary>
+        public static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
             }
         }
         

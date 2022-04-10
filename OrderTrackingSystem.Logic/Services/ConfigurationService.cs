@@ -9,6 +9,20 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
+    public enum OrderState
+    {
+        PrepatedBySeller = 0,
+        GetFromSeller = 1,
+        GetByLocal = 2,
+        SentFromLocal = 3,
+        ToDelivery = 4,
+        ReadyToPickup = 5,
+        Getted = 6,
+        ComplaintSet = 7,
+        ComplaintResolved = 8,
+        ReturnToSeller = 9
+    }
+
     public class ConfigurationService : IService<ConfigurationService>
     {
         private static readonly char[] CharArray = 
@@ -64,6 +78,35 @@ namespace OrderTrackingSystem.Logic.Services
             return CharArray[randomizer.Next(0, 12)].ToString() +
                    CharArray[randomizer.Next(0, 12)].ToString() +
                    randomizer.Next(100000000, 999999999).ToString();
+        }
+
+        public static Tuple<string, string> GetStatusDetails(OrderState state)
+        {
+            switch(state)
+            {
+                case OrderState.PrepatedBySeller:
+                    return new Tuple<string, string>(Properties.Resources.PrepatedBySeller, Properties.Resources.PrepareBySellerDesc);
+                case OrderState.GetFromSeller:
+                    return new Tuple<string, string>(Properties.Resources.GetFromSeller, Properties.Resources.GetFromSellerDesc);
+                case OrderState.GetByLocal:
+                    return new Tuple<string, string>(Properties.Resources.GetByLocal, Properties.Resources.GetByLocalDesc);
+                case OrderState.SentFromLocal:
+                    return new Tuple<string, string>(Properties.Resources.SentFromLocal, Properties.Resources.SentFromLocalDesc);
+                case OrderState.ToDelivery:
+                    return new Tuple<string, string>(Properties.Resources.ToDelivery, Properties.Resources.ToDeliveryDesc);
+                case OrderState.ReadyToPickup:
+                    return new Tuple<string, string>(Properties.Resources.ReadyToPickup, Properties.Resources.ReadyToPickupDesc);
+                case OrderState.Getted:
+                    return new Tuple<string, string>(Properties.Resources.Getted, Properties.Resources.GettedDesc);
+                case OrderState.ComplaintSet:
+                    return new Tuple<string, string>(Properties.Resources.ComplaintSet, Properties.Resources.ComplaintSetDesc);
+                case OrderState.ComplaintResolved:
+                    return new Tuple<string, string>(Properties.Resources.ComplaintResolved, Properties.Resources.ComplaintResolvedDesc);
+                case OrderState.ReturnToSeller:
+                    return new Tuple<string, string>(Properties.Resources.ReturnToSeller, Properties.Resources.ReturnToSellerDesc);
+                default:
+                    return null;
+            }
         }
     }
 }

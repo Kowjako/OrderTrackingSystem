@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1600" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize"
         MaxHeight="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}">
@@ -19,9 +20,9 @@
                     PlacementMode="BottomAndAlignRightEdges">
                         <ListBox HorizontalContentAlignment="Stretch">
                             <ListBoxItem
-                            Content="Wyjdz" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
+                            Content="{x:Static res:Resources.Exit}" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
                             <ListBoxItem x:Name="fullScreenBtn"
-                            Content="Włącz Full Screen" PreviewMouseLeftButtonDown="fullScreenBtn_PreviewMouseLeftButtonDown">
+                            Content="{x:Static res:Resources.EnableFullscreen}" PreviewMouseLeftButtonDown="fullScreenBtn_PreviewMouseLeftButtonDown">
                             </ListBoxItem>
                             <ListBoxItem Padding="0">
                                 <UniformGrid Columns="3">

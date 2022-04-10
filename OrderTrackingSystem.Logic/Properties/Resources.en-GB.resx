@@ -144,6 +144,18 @@
   <data name="Complaint" xml:space="preserve">
     <value>Complaint</value>
   </data>
+  <data name="ComplaintResolved" xml:space="preserve">
+    <value>Resolve complaint</value>
+  </data>
+  <data name="ComplaintResolvedDesc" xml:space="preserve">
+    <value>Complaint was resolved</value>
+  </data>
+  <data name="ComplaintSet" xml:space="preserve">
+    <value>Make complaint</value>
+  </data>
+  <data name="ComplaintSetDesc" xml:space="preserve">
+    <value>Registered customer complaint</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Content</value>
   </data>
@@ -168,6 +180,24 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="GetByLocal" xml:space="preserve">
+    <value>Come to local office</value>
+  </data>
+  <data name="GetByLocalDesc" xml:space="preserve">
+    <value>Parcel comes to local office</value>
+  </data>
+  <data name="GetFromSeller" xml:space="preserve">
+    <value>Get from seller</value>
+  </data>
+  <data name="GetFromSellerDesc" xml:space="preserve">
+    <value>Parcel taken by delivery company</value>
+  </data>
+  <data name="Getted" xml:space="preserve">
+    <value>Picked</value>
+  </data>
+  <data name="GettedDesc" xml:space="preserve">
+    <value>Received</value>
+  </data>
   <data name="House" xml:space="preserve">
     <value>House</value>
   </data>
@@ -180,14 +210,32 @@
   <data name="PayType" xml:space="preserve">
     <value>Pay type</value>
   </data>
+  <data name="PrepareBySellerDesc" xml:space="preserve">
+    <value>Parcel is prepare for sell by seller</value>
+  </data>
+  <data name="PrepatedBySeller" xml:space="preserve">
+    <value>Prepared by seller</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="ReadyToPickup" xml:space="preserve">
+    <value>Ready to pickup</value>
+  </data>
+  <data name="ReadyToPickupDesc" xml:space="preserve">
+    <value>Ready to pickup</value>
   </data>
   <data name="Receiver" xml:space="preserve">
     <value>Receiver</value>
   </data>
   <data name="RemainDays" xml:space="preserve">
     <value>Days to close remain</value>
+  </data>
+  <data name="ReturnToSeller" xml:space="preserve">
+    <value>Return to seller</value>
+  </data>
+  <data name="ReturnToSellerDesc" xml:space="preserve">
+    <value>Parcel returns to seller</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Seller</value>
@@ -198,11 +246,23 @@
   <data name="Sender" xml:space="preserve">
     <value>Sender</value>
   </data>
+  <data name="SentFromLocal" xml:space="preserve">
+    <value>Sent from local office</value>
+  </data>
+  <data name="SentFromLocalDesc" xml:space="preserve">
+    <value>Parcel was sent from local office</value>
+  </data>
   <data name="Shop" xml:space="preserve">
     <value>Shop</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Street</value>
+  </data>
+  <data name="ToDelivery" xml:space="preserve">
+    <value>To delivery</value>
+  </data>
+  <data name="ToDeliveryDesc" xml:space="preserve">
+    <value>Courier delivery parcel to pickup point</value>
   </data>
   <data name="UniqueName" xml:space="preserve">
     <value>Name</value>

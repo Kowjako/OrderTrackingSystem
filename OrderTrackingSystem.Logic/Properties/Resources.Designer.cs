@@ -142,6 +142,42 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rozwiązanie reklamacji.
+        /// </summary>
+        public static string ComplaintResolved {
+            get {
+                return ResourceManager.GetString("ComplaintResolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reklamacja została pomyślnie rozwiązana, przesyłka jest w drodze.
+        /// </summary>
+        public static string ComplaintResolvedDesc {
+            get {
+                return ResourceManager.GetString("ComplaintResolvedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Założona reklamacja.
+        /// </summary>
+        public static string ComplaintSet {
+            get {
+                return ResourceManager.GetString("ComplaintSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zarejestrowana reklamacja nabywcy.
+        /// </summary>
+        public static string ComplaintSetDesc {
+            get {
+                return ResourceManager.GetString("ComplaintSetDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Treść.
         /// </summary>
         public static string Content {
@@ -214,6 +250,60 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Przyjęta w lokalnym oddziale.
+        /// </summary>
+        public static string GetByLocal {
+            get {
+                return ResourceManager.GetString("GetByLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesyłka trafiła do lokalnego centrum procesingowo.
+        /// </summary>
+        public static string GetByLocalDesc {
+            get {
+                return ResourceManager.GetString("GetByLocalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odebrana od nadawcy.
+        /// </summary>
+        public static string GetFromSeller {
+            get {
+                return ResourceManager.GetString("GetFromSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesyłka została odebrana od nadawcy.
+        /// </summary>
+        public static string GetFromSellerDesc {
+            get {
+                return ResourceManager.GetString("GetFromSellerDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odebrana.
+        /// </summary>
+        public static string Getted {
+            get {
+                return ResourceManager.GetString("Getted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odebrana.
+        /// </summary>
+        public static string GettedDesc {
+            get {
+                return ResourceManager.GetString("GettedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Budynek.
         /// </summary>
         public static string House {
@@ -250,11 +340,47 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Przesyłka jest przygotowywana przez producenta.
+        /// </summary>
+        public static string PrepareBySellerDesc {
+            get {
+                return ResourceManager.GetString("PrepareBySellerDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przygotowanie przesyłki.
+        /// </summary>
+        public static string PrepatedBySeller {
+            get {
+                return ResourceManager.GetString("PrepatedBySeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cena.
         /// </summary>
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gotowa do odbioru.
+        /// </summary>
+        public static string ReadyToPickup {
+            get {
+                return ResourceManager.GetString("ReadyToPickup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesyłka jest gotowa do odbioru.
+        /// </summary>
+        public static string ReadyToPickupDesc {
+            get {
+                return ResourceManager.GetString("ReadyToPickupDesc", resourceCulture);
             }
         }
         
@@ -273,6 +399,24 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string RemainDays {
             get {
                 return ResourceManager.GetString("RemainDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zwrot do nadawcy.
+        /// </summary>
+        public static string ReturnToSeller {
+            get {
+                return ResourceManager.GetString("ReturnToSeller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesyłka została zwrócona do nadawcy.
+        /// </summary>
+        public static string ReturnToSellerDesc {
+            get {
+                return ResourceManager.GetString("ReturnToSellerDesc", resourceCulture);
             }
         }
         
@@ -304,6 +448,24 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wysłana z lokalnego oddziału.
+        /// </summary>
+        public static string SentFromLocal {
+            get {
+                return ResourceManager.GetString("SentFromLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesyłka została wysłana z lokalnego centrum.
+        /// </summary>
+        public static string SentFromLocalDesc {
+            get {
+                return ResourceManager.GetString("SentFromLocalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sklep.
         /// </summary>
         public static string Shop {
@@ -318,6 +480,24 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string Street {
             get {
                 return ResourceManager.GetString("Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wydana do doręczenia.
+        /// </summary>
+        public static string ToDelivery {
+            get {
+                return ResourceManager.GetString("ToDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesyłka jest przekazana do doręczenia.
+        /// </summary>
+        public static string ToDeliveryDesc {
+            get {
+                return ResourceManager.GetString("ToDeliveryDesc", resourceCulture);
             }
         }
         

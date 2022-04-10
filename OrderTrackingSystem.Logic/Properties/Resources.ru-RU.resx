@@ -144,6 +144,18 @@
   <data name="Complaint" xml:space="preserve">
     <value>Оформлена жалоба</value>
   </data>
+  <data name="ComplaintResolved" xml:space="preserve">
+    <value>Решение жалобы</value>
+  </data>
+  <data name="ComplaintResolvedDesc" xml:space="preserve">
+    <value>Жалоба решена</value>
+  </data>
+  <data name="ComplaintSet" xml:space="preserve">
+    <value>Создание жалобы</value>
+  </data>
+  <data name="ComplaintSetDesc" xml:space="preserve">
+    <value>Зарегистрирована жалоба покупателя</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Содержание</value>
   </data>
@@ -168,6 +180,24 @@
   <data name="Email" xml:space="preserve">
     <value>Эл. почта</value>
   </data>
+  <data name="GetByLocal" xml:space="preserve">
+    <value>Принята в локальном офисе</value>
+  </data>
+  <data name="GetByLocalDesc" xml:space="preserve">
+    <value>Посылка прибыла в локальный сортировочный центр</value>
+  </data>
+  <data name="GetFromSeller" xml:space="preserve">
+    <value>Забрана у продавца</value>
+  </data>
+  <data name="GetFromSellerDesc" xml:space="preserve">
+    <value>Посылка забрана у отправителя</value>
+  </data>
+  <data name="Getted" xml:space="preserve">
+    <value>Получено</value>
+  </data>
+  <data name="GettedDesc" xml:space="preserve">
+    <value>Получена</value>
+  </data>
   <data name="House" xml:space="preserve">
     <value>Дом</value>
   </data>
@@ -180,14 +210,32 @@
   <data name="PayType" xml:space="preserve">
     <value>Тип оплаты</value>
   </data>
+  <data name="PrepareBySellerDesc" xml:space="preserve">
+    <value>Посылка подготавливается отправителем</value>
+  </data>
+  <data name="PrepatedBySeller" xml:space="preserve">
+    <value>Подготовка посылки</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Цена</value>
+  </data>
+  <data name="ReadyToPickup" xml:space="preserve">
+    <value>Готова к получению</value>
+  </data>
+  <data name="ReadyToPickupDesc" xml:space="preserve">
+    <value>Готова к получению</value>
   </data>
   <data name="Receiver" xml:space="preserve">
     <value>Получатель</value>
   </data>
   <data name="RemainDays" xml:space="preserve">
     <value>Дни на рассмотрение</value>
+  </data>
+  <data name="ReturnToSeller" xml:space="preserve">
+    <value>Возврат продавцу</value>
+  </data>
+  <data name="ReturnToSellerDesc" xml:space="preserve">
+    <value>Посылка возвращена отправителю</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Продавец</value>
@@ -198,11 +246,23 @@
   <data name="Sender" xml:space="preserve">
     <value>Отправитель</value>
   </data>
+  <data name="SentFromLocal" xml:space="preserve">
+    <value>Отправлена из локального офиса</value>
+  </data>
+  <data name="SentFromLocalDesc" xml:space="preserve">
+    <value>Посылка покинула промежуточный центр</value>
+  </data>
   <data name="Shop" xml:space="preserve">
     <value>Магазин</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Улица</value>
+  </data>
+  <data name="ToDelivery" xml:space="preserve">
+    <value>Выдача для доставки</value>
+  </data>
+  <data name="ToDeliveryDesc" xml:space="preserve">
+    <value>Посылка выдана к доставке</value>
   </data>
   <data name="UniqueName" xml:space="preserve">
     <value>Название</value>

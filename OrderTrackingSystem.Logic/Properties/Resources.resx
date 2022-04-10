@@ -144,6 +144,18 @@
   <data name="Complaint" xml:space="preserve">
     <value>Rezygnacja</value>
   </data>
+  <data name="ComplaintResolved" xml:space="preserve">
+    <value>Rozwiązanie reklamacji</value>
+  </data>
+  <data name="ComplaintResolvedDesc" xml:space="preserve">
+    <value>Reklamacja została pomyślnie rozwiązana, przesyłka jest w drodze</value>
+  </data>
+  <data name="ComplaintSet" xml:space="preserve">
+    <value>Założona reklamacja</value>
+  </data>
+  <data name="ComplaintSetDesc" xml:space="preserve">
+    <value>Zarejestrowana reklamacja nabywcy</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Treść</value>
   </data>
@@ -168,6 +180,24 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="GetByLocal" xml:space="preserve">
+    <value>Przyjęta w lokalnym oddziale</value>
+  </data>
+  <data name="GetByLocalDesc" xml:space="preserve">
+    <value>Przesyłka trafiła do lokalnego centrum procesingowo</value>
+  </data>
+  <data name="GetFromSeller" xml:space="preserve">
+    <value>Odebrana od nadawcy</value>
+  </data>
+  <data name="GetFromSellerDesc" xml:space="preserve">
+    <value>Przesyłka została odebrana od nadawcy</value>
+  </data>
+  <data name="Getted" xml:space="preserve">
+    <value>Odebrana</value>
+  </data>
+  <data name="GettedDesc" xml:space="preserve">
+    <value>Odebrana</value>
+  </data>
   <data name="House" xml:space="preserve">
     <value>Budynek</value>
   </data>
@@ -180,14 +210,32 @@
   <data name="PayType" xml:space="preserve">
     <value>Typ opłaty</value>
   </data>
+  <data name="PrepareBySellerDesc" xml:space="preserve">
+    <value>Przesyłka jest przygotowywana przez producenta</value>
+  </data>
+  <data name="PrepatedBySeller" xml:space="preserve">
+    <value>Przygotowanie przesyłki</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Cena</value>
+  </data>
+  <data name="ReadyToPickup" xml:space="preserve">
+    <value>Gotowa do odbioru</value>
+  </data>
+  <data name="ReadyToPickupDesc" xml:space="preserve">
+    <value>Przesyłka jest gotowa do odbioru</value>
   </data>
   <data name="Receiver" xml:space="preserve">
     <value>Odbiorca</value>
   </data>
   <data name="RemainDays" xml:space="preserve">
     <value>Dni na rozpatrywanie</value>
+  </data>
+  <data name="ReturnToSeller" xml:space="preserve">
+    <value>Zwrot do nadawcy</value>
+  </data>
+  <data name="ReturnToSellerDesc" xml:space="preserve">
+    <value>Przesyłka została zwrócona do nadawcy</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Sprzedawca</value>
@@ -198,11 +246,23 @@
   <data name="Sender" xml:space="preserve">
     <value>Nadawca</value>
   </data>
+  <data name="SentFromLocal" xml:space="preserve">
+    <value>Wysłana z lokalnego oddziału</value>
+  </data>
+  <data name="SentFromLocalDesc" xml:space="preserve">
+    <value>Przesyłka została wysłana z lokalnego centrum</value>
+  </data>
   <data name="Shop" xml:space="preserve">
     <value>Sklep</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Ulica</value>
+  </data>
+  <data name="ToDelivery" xml:space="preserve">
+    <value>Wydana do doręczenia</value>
+  </data>
+  <data name="ToDeliveryDesc" xml:space="preserve">
+    <value>Przesyłka jest przekazana do doręczenia</value>
   </data>
   <data name="UniqueName" xml:space="preserve">
     <value>Nazwa</value>

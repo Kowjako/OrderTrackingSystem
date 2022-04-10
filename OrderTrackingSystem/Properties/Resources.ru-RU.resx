@@ -186,11 +186,20 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Методы доставки</value>
   </data>
+  <data name="DisableFullscreen" xml:space="preserve">
+    <value>Выключить полный экран</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
   </data>
   <data name="Emailbox" xml:space="preserve">
     <value>Почтовый ящик</value>
+  </data>
+  <data name="EnableFullscreen" xml:space="preserve">
+    <value>Включить полный экран</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выход</value>
   </data>
   <data name="ExpireDate" xml:space="preserve">
     <value>Годен до: {0}</value>

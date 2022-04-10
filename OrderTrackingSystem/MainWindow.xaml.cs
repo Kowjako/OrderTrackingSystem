@@ -4,6 +4,7 @@ using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using OrderTrackingSystem.ViewModels;
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,7 +40,8 @@ namespace OrderTrackingSystem
         {
             this.WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             MaxHeight = SystemParameters.WorkArea.Height;
-            fullScreenBtn.Content = WindowState == WindowState.Maximized ? "Wyjdz z Full Screen" : "Włącz Full Screen";
+            fullScreenBtn.Content = WindowState == WindowState.Maximized ? Presentation.Properties.Resources.ResourceManager.GetString("EnableFullscreen", CultureInfo.CurrentCulture)
+                                                                         : Presentation.Properties.Resources.ResourceManager.GetString("DisableFullscreen", CultureInfo.CurrentCulture);
         }
 
         private void menuExpander_Click(object sender, RoutedEventArgs e)
