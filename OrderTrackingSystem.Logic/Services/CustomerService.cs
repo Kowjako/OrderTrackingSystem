@@ -18,7 +18,7 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async void UpdateCustomer(Customers customer)
+        public async Task UpdateCustomer(Customers customer)
         {
             using(var dbContext = new OrderTrackingSystemEntities())
             {
@@ -49,7 +49,7 @@ namespace OrderTrackingSystem.Logic.Services
                                         loc.ZipCode,
                             Numer = customer.Number
                         };
-                return await query.FirstAsync();
+                return await query.FirstOrDefaultAsync();
             }
         }
         
@@ -76,7 +76,33 @@ namespace OrderTrackingSystem.Logic.Services
                                         loc.ZipCode,
                             Numer = customer.Number
                         };
-                return await query.FirstAsync();
+                return await query.FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task<CustomerDTO> GetSellerByName(string name)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                name = name.Replace(" ", string.Empty).ToLower();
+                IQueryable<CustomerDTO> query = null;
+                query = from seller in dbContext.Sellers
+                        join loc in dbContext.Localizations
+                        on seller.LocalizationId equals loc.Id
+                        where seller.Name.ToLower().Equals(name)
+                        select new CustomerDTO
+                        {
+                            Id = seller.Id,
+                            Nazwa = seller.Name,
+                            Adres = loc.Street + " " +
+                                    loc.House + ", " +
+                                    loc.Flat,
+                            Email = seller.Email,
+                            MiastoKod = loc.City + ", " +
+                                        loc.ZipCode,
+                            Numer = seller.Number
+                        };
+                return await query.FirstOrDefaultAsync();
             }
         }
 
@@ -101,7 +127,7 @@ namespace OrderTrackingSystem.Logic.Services
                                         loc.ZipCode,
                             Numer = seller.Number
                         };
-                return await query.FirstAsync();
+                return await query.FirstOrDefaultAsync();
             }
         }
     }

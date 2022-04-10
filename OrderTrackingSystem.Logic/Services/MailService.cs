@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
     public class MailService : IService<MailService>
     {
+        private OrderService OrderService => new OrderService();
+
         public async Task<List<MailDTO>> GetSendMailsForCustomer(int senderId)
         {
             /* Zakładamy że wyszukujemy dla customer'a */
@@ -32,7 +35,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 ReceiverId = mail.ReceiverId,
                                 MailRelation = mail.MailRelation.Value,
                             };
-                var firstStageList = await query.ToListAsync();
+                var firstStageList = await query.AsNoTracking().ToListAsync();
 
                 /* Podpinamy zamówienia */
                 firstStageList.ForEach(async p =>
@@ -43,14 +46,14 @@ namespace OrderTrackingSystem.Logic.Services
                                         where relation.MailId == p.Id
                                         select order.Number;
 
-                    p.RelatedOrders = await relationQuery.ToArrayAsync();
+                    p.RelatedOrders = await relationQuery.AsNoTracking().ToArrayAsync();
                 });
 
                 /* Skoro szukamy dla customera nie rozpatrywamy relacji SellerToCustomer */
                 firstStageList.ForEach(async p =>
                 {
                     p.Date = DateTime.Parse(p.Date).ToShortDateString();
-                    switch(p.MailRelation)
+                    switch (p.MailRelation)
                     {
                         case (byte)MailDirectionType.CustomerToCustomer:
                             var receiverCus = await dbContext.Customers.FindAsync(p.ReceiverId);
@@ -93,7 +96,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 MailRelation = mail.MailRelation.Value
                             };
 
-                var firstStageList = await query.ToListAsync();
+                var firstStageList = await query.AsNoTracking().ToListAsync();
 
                 /* Podpinamy zamówienia */
                 firstStageList.ForEach(async p =>
@@ -104,7 +107,7 @@ namespace OrderTrackingSystem.Logic.Services
                                         where relation.MailId == p.Id
                                         select order.Number;
 
-                    p.RelatedOrders = await relationQuery.ToArrayAsync();
+                    p.RelatedOrders = await relationQuery.AsNoTracking().ToArrayAsync();
                 });
 
                 /* Nie rozpatrywamy relacji CustomerToSeller bo customer nie może być sellerem */
@@ -129,6 +132,45 @@ namespace OrderTrackingSystem.Logic.Services
                 });
 
                 return firstStageList;
+            }
+        }
+
+        public async Task SendMail(MailDTO mail, string[] relatedOrders = null)
+        {
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                using (var dbContext = new OrderTrackingSystemEntities())
+                {
+                    var mailDAL = new Mails
+                    {
+                        Caption = mail.Caption,
+                        Content = mail.Content,
+                        Date = DateTime.Now,
+                        SenderId = mail.SellerId,
+                        ReceiverId = mail.ReceiverId,
+                        MailRelation = mail.MailRelation
+                    };
+
+                    dbContext.Mails.Add(mailDAL);
+                    await dbContext.SaveChangesAsync();
+
+                    /* Pobieramy zamówienia po numerach */
+                    var ordersToLink = await OrderService.GetOrdersListByCodes(relatedOrders);
+
+                    /* Tworzymy relacje i dodajemy do kontekstu */
+                    ordersToLink.ForEach(p =>
+                    {
+                        dbContext.MailOrderRelations.Add(new MailOrderRelations()
+                        {
+                            MailId = mailDAL.Id,
+                            OrderId = p.Id
+                        });
+                    });
+
+                    await dbContext.SaveChangesAsync();
+                };
+                transactionScope.Complete();
             }
         }
     }
