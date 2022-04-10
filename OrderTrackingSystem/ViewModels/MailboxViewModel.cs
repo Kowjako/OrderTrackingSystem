@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+﻿using MaterialDesignThemes.Wpf;
+using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
@@ -33,6 +34,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public ObservableCollection<string> RelatedToCurrentMailOrders { get; set; } = new ObservableCollection<string>();
         public List<OrderDTO> CustomerOrders { get; set; }
         public OrderDTO SelectedOrder { get; set; }
+        public List<Chip> CurrentMailChips { get; set; }
 
         private MailDTO _selectedMail;
         public MailDTO SelectedMail
@@ -75,7 +77,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 OnWarning?.Invoke("Zamówienie o podanym numerze już dołączone");
                 return;
             }
-            if(string.IsNullOrEmpty(SelectedOrder.Numer))
+            if(SelectedOrder == null || string.IsNullOrEmpty(SelectedOrder.Numer))
             {
                 OnFailure?.Invoke("Nie można dołączyć pustego zamówienia");
                 return;

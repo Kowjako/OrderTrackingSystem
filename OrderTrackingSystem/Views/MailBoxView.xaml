@@ -8,7 +8,7 @@
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              xmlns:controls="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="800">
+             d:DesignHeight="1200" d:DesignWidth="800">
     <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -16,7 +16,7 @@
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition MinHeight="100" MaxHeight="100"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
@@ -86,7 +86,7 @@
                     Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    Height="40"
+                    MinHeight="40"
                     Padding="7,8,0,0"
                     FontSize="15"
                     Text="{Binding Caption, UpdateSourceTrigger=PropertyChanged}"
@@ -180,8 +180,8 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <controls:MindMapControl Grid.Row="0"
                                              x:Name="orderLinker"
@@ -310,39 +310,23 @@
                        Text="{x:Static res:Resources.LinkedOrders}"
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
-            <StackPanel DockPanel.Dock="Top"
-                        Orientation="Horizontal">
-                <materialDesign:Chip
-                    Margin="10,0,10,10"
-                    Content="#XYZ19234652"
-                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
-                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                    <materialDesign:Chip.Icon>
-                        <materialDesign:PackIcon
-                            Kind="Link" />
-                    </materialDesign:Chip.Icon>
-                </materialDesign:Chip>
-                <materialDesign:Chip
-                    Margin="10,0,10,10"
-                    Content="#RZA619847218"
-                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
-                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                    <materialDesign:Chip.Icon>
-                        <materialDesign:PackIcon
-                            Kind="Link" />
-                    </materialDesign:Chip.Icon>
-                </materialDesign:Chip>
-                <materialDesign:Chip
-                    Margin="10,0,10,10"
-                    Content="#QPA51261265"
-                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
-                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                    <materialDesign:Chip.Icon>
-                        <materialDesign:PackIcon
-                            Kind="Link" />
-                    </materialDesign:Chip.Icon>
-                </materialDesign:Chip>
-            </StackPanel>
+            
+            <!-- Use ItemsControl to define container and item template -->
+            <ItemsControl x:Name="links" 
+                          ItemsSource="{Binding RelatedOrders}" 
+                          DockPanel.Dock="Top">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Chip Content="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
             <TextBlock DockPanel.Dock="Top"
                        Foreground="Black"
                        FontSize="17"
