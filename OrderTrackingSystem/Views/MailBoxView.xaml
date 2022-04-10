@@ -205,6 +205,7 @@
                 </Grid>
             </GroupBox>
             <Button
+                    Command="{Binding SendMessage}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"

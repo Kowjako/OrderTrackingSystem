@@ -2,7 +2,9 @@
 using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,9 +27,15 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #endregion
 
+        #region Private variables
+
+        private MailDirectionType MailDirection;
+
+        #endregion
+
         #region Bindable objects
 
-        public MailDTO OriginalMail { get; set; }
+        public MailDTO OriginalMail { get; set; } = new MailDTO();
         public CustomerDTO CurrentSender { get; set; }
         public List<MailDTO> ReceivedMessages { get; set; }
         public List<MailDTO> SentMessages { get; set; }
@@ -71,7 +79,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             CurrentSender = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             ReceivedMessages = await MailService.GetReceivedMailsForCustomer(CurrentSender.Id);
             SentMessages = await MailService.GetSendMailsForCustomer(CurrentSender.Id);
-            CustomerOrders = await OrderService.GetOrdersForCustomer(CurrentSender.Id);
+            //CustomerOrders = await OrderService.GetOrdersForCustomer(CurrentSender.Id);
         }
 
         public void OnLinkToOrderAdded()
@@ -109,7 +117,23 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (!string.IsNullOrEmpty(obj as string))
                     {
+                        /* Sprawdzamy czy to customer */
                         MailReceiver = await CustomerService.GetCustomerByName(obj as string);
+                        /* Sprawdzamy czy to sklep */
+                        if(MailReceiver == null)
+                        {
+                            MailReceiver = await CustomerService.GetSellerByName(obj as string);
+                            if (MailReceiver == null)
+                            {
+                                OnWarning?.Invoke("Nie istnieje takiej osoby/sklepu");
+                                return;
+                            }
+                            MailDirection = MailDirectionType.CustomerToSeller;
+                        }
+                        else
+                        {
+                            MailDirection = MailDirectionType.CustomerToCustomer;
+                        }                        
                         OnPropertyChanged(nameof(MailReceiver));
                     }
                     else
@@ -155,6 +179,32 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 catch (Exception)
                 {
 
+                }
+            }));
+
+        private RelayCommand _sendMessage;
+        public RelayCommand SendMessage =>
+            _sendMessage ?? (_sendMessage = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    ValidatorWrapper.Validate(new MailValidator(), OriginalMail);
+                    if(ValidatorWrapper.IsValid)
+                    {
+                        OriginalMail.SellerId = CurrentSender.Id;
+                        OriginalMail.ReceiverId = MailReceiver.Id;
+                        OriginalMail.MailRelation = (byte)MailDirection;
+                        await MailService.SendMail(OriginalMail, RelatedToCurrentMailOrders.ToArray());
+                        OnSuccess?.Invoke("Wiadomość pomyślnie wysłana");
+                    }
+                    else
+                    {
+                        OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                    }
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Nie udało się wykonać operacji");
                 }
             }));
 
