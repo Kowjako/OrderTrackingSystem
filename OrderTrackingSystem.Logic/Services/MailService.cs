@@ -9,13 +9,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 
-
 /*
  * Używamy ForEachAsync bo użycie zwyklego ForEach z delegatem Action
  * powoduje wyjatki bo async ze zwracanym typem void jest niebezpieczne
- *
  */
-
 
 namespace OrderTrackingSystem.Logic.Services
 {

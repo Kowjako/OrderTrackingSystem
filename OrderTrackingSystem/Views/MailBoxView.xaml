@@ -19,7 +19,7 @@
             <RowDefinition MinHeight="100" MaxHeight="100"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <GridSplitter Grid.Column="1"
                       Grid.Row="0"
@@ -28,6 +28,7 @@
                       Background="Black"/>
         <GridSplitter Grid.Row="2"
                       Grid.Column="1"
+                      Visibility="{Binding SplitterVisibility}"
                       Grid.ColumnSpan="2"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
@@ -283,9 +284,11 @@
         </DockPanel>
         <DockPanel Grid.Column="1"
                    Grid.Row="3"
-                   DataContext="{Binding SelectedMail}"
+                   Height="{Binding ActualMailHeight}"
                    LastChildFill="True"
                    Grid.ColumnSpan="2">
+            <DockPanel DataContext="{Binding SelectedMail}"
+                       LastChildFill="True">
             <TextBlock Text="{x:Static res:Resources.MailView}"
                        Foreground="Black"
                        DockPanel.Dock="Top"
@@ -358,6 +361,7 @@
                 IsReadOnly="True"
                 DockPanel.Dock="Left"
                 VerticalScrollBarVisibility="Auto"/>
+            </DockPanel>
         </DockPanel>
     </Grid>
 </UserControl>
