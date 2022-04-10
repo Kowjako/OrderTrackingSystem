@@ -1,12 +1,21 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
+using OrderTrackingSystem.Logic.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
+
+
+/*
+ * Używamy ForEachAsync bo użycie zwyklego ForEach z delegatem Action
+ * powoduje wyjatki bo async ze zwracanym typem void jest niebezpieczne
+ *
+ */
+
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -37,8 +46,9 @@ namespace OrderTrackingSystem.Logic.Services
                             };
                 var firstStageList = await query.AsNoTracking().ToListAsync();
 
+
                 /* Podpinamy zamówienia */
-                firstStageList.ForEach(async p =>
+                await firstStageList.ForEachAsync(async p =>
                 {
                     var relationQuery = from relation in dbContext.MailOrderRelations
                                         join order in dbContext.Orders
@@ -50,7 +60,7 @@ namespace OrderTrackingSystem.Logic.Services
                 });
 
                 /* Skoro szukamy dla customera nie rozpatrywamy relacji SellerToCustomer */
-                firstStageList.ForEach(async p =>
+                await firstStageList.ForEachAsync(async p =>
                 {
                     p.Date = DateTime.Parse(p.Date).ToShortDateString();
                     switch (p.MailRelation)
@@ -98,8 +108,8 @@ namespace OrderTrackingSystem.Logic.Services
 
                 var firstStageList = await query.AsNoTracking().ToListAsync();
 
-                /* Podpinamy zamówienia */
-                firstStageList.ForEach(async p =>
+                /* Podpinamy zamówienia  */
+                await firstStageList.ForEachAsync(async p =>
                 {
                     var relationQuery = from relation in dbContext.MailOrderRelations
                                         join order in dbContext.Orders
@@ -111,7 +121,7 @@ namespace OrderTrackingSystem.Logic.Services
                 });
 
                 /* Nie rozpatrywamy relacji CustomerToSeller bo customer nie może być sellerem */
-                firstStageList.ForEach(async p =>
+                await firstStageList.ForEachAsync(async p =>
                 {
                     p.Date = DateTime.Parse(p.Date).ToShortDateString();
                     switch (p.MailRelation)
@@ -175,3 +185,4 @@ namespace OrderTrackingSystem.Logic.Services
         }
     }
 }
+
