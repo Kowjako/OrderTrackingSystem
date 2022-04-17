@@ -59,6 +59,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public decimal MaxPrice { get; set; }
 
         public bool IsPickupDaysDefined { get; set; }
+        public bool SendAutomaticMail { get; set; }
         public int PickupDays { get; set; }
 
         public CategoryDTO SelectedSubCategory { get; set; }
@@ -81,6 +82,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         private readonly CustomerService CustomerService;
         private readonly ProductService ProductService;
         private readonly SellService SellService;
+        private readonly MailService MailService;
 
         #endregion
 
@@ -91,8 +93,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             CustomerService = new CustomerService();
             ProductService = new ProductService();
             SellService = new SellService();
+            MailService = new MailService();
         }
-
 
         #endregion
 
@@ -265,6 +267,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     currentSell.PickupDays = IsPickupDaysDefined ? PickupDays : 0;
 
                     await SellService.SaveSell(currentSell, ProductsInCart.ToList());
+                    if(SendAutomaticMail)
+                    {
+                        await MailService.GenerateAutomaticMessageAfterSend(CurrentReceiver.Id, CurrentSeller.Id, currentSell.Numer);
+                    }
                     OnSuccess?.Invoke("Wysyłka została utworzona");
                 }
                 catch (Exception ex)

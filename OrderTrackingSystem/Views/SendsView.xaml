@@ -203,7 +203,9 @@
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
-                    <CheckBox Content="{x:Static res:Resources.SendAutomaticEmail}" Margin="0,0,0,0"/>
+                    <CheckBox IsChecked="{Binding SendAutomaticMail, UpdateSourceTrigger=PropertyChanged}"
+                              Content="{x:Static res:Resources.SendAutomaticEmail}" 
+                              Margin="0,0,0,0"/>
                     <CheckBox x:Name="dayConstraint" 
                               IsChecked="{Binding IsPickupDaysDefined, UpdateSourceTrigger=PropertyChanged}"
                               Content="{x:Static res:Resources.SetPickupDays}" Margin="0,5,0,0"/>
