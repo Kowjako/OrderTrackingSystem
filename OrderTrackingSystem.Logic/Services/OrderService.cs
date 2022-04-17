@@ -82,7 +82,7 @@ namespace OrderTrackingSystem.Logic.Services
                     if (voucher != null)
                     {
                         Vouchers originalVoucher = await dbContext.Vouchers.FirstAsync(p => p.Id == voucher.Id);
-                        originalVoucher.RemainValue = voucher.RemainValue;
+                        originalVoucher.Value = voucher.Value;
                     }
 
                     var customer = await CustomerService.GetCurrentCustomer();

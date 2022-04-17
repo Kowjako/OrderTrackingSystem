@@ -102,7 +102,9 @@ namespace OrderTrackingSystem.Logic.Services
                                 RemainValue = voucher.RemainValue,
                                 ExpireDate = voucher.ExpireDate
                             };
-                return await query.ToListAsync();
+
+                /* Zwracamy tylko bony mające kwotę */
+                return await query.Where(p => p.Value != 0).ToListAsync();
             }
         }
 

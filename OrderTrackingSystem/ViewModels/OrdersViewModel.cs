@@ -268,6 +268,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
+                    decimal valueToMinusFromBalance = 0.0m;
                     /* 1 - Zapis zamówienia */
                     if (SelectedPickup == null)
                     {
@@ -289,8 +290,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         OnWarning?.Invoke("Należy dodać produkt do koszyka");
                         return;
                     }
-
-                    decimal valueToMinusFromBalance = 0.0m;
                     /* Został wybrany bon */
                     if(SelectedVoucher != null)
                     {
