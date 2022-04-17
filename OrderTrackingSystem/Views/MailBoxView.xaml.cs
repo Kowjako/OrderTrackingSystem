@@ -35,17 +35,13 @@ namespace OrderTrackingSystem.Presentation.Views
         private void StackPanel_Checked(object sender, RoutedEventArgs e)
         {
             var selectedToggle = e.OriginalSource as ToggleButton;
-            switch (selectedToggle.Name)
+
+            (DataContext as MailboxViewModel).SelectedFilterMsgType = selectedToggle.Name switch
             {
-                case "sentMsg":
-                    (DataContext as MailboxViewModel).SelectedFilterMsgType = 0;
-                    break;
-                case "receivedMsg":
-                    (DataContext as MailboxViewModel).SelectedFilterMsgType = 1;
-                    break;
-                default:
-                    break;
-            }
+                "sentMsg" => 0,
+                "receivedMsg" => 1,
+                _ => -1
+            };
         }
     }
 }

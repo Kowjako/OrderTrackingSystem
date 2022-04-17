@@ -67,7 +67,7 @@ namespace OrderTrackingSystem.ViewModels
                         if (ValidatorWrapper.IsValid)
                         {
                             /* Update customer */
-                            CustomerService.UpdateCustomer(CurrentCustomer);
+                            await CustomerService.UpdateCustomer(CurrentCustomer);
 
                             /* Update localization */
                             var currentLocalization = Localization[0];

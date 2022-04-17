@@ -46,18 +46,14 @@ namespace OrderTrackingSystem.Presentation.Views
         private void filterChecked(object sender, RoutedEventArgs e)
         {
             var selectedToggle = e.OriginalSource as ToggleButton;
-            switch(selectedToggle.Name)
+
+            (DataContext as TrackingViewModel).ItemsSelection = selectedToggle.Name switch
             {
-                case "All":
-                    (DataContext as TrackingViewModel).ItemsSelection = 0;
-                    break;
-                case "OnlyOrders":
-                    (DataContext as TrackingViewModel).ItemsSelection = 1;
-                    break;
-                case "OnlySends":
-                    (DataContext as TrackingViewModel).ItemsSelection = 2;
-                    break;
-            }
+                "All" => 0,
+                "OnlyOrders" => 1,
+                "OnlySends" => 2,
+                _ => -1
+            };
         }
 
         private void hideProgress_Click(object sender, RoutedEventArgs e)

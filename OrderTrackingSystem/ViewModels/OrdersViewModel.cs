@@ -122,25 +122,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public decimal TotalPriceNetto { get; set; } = 0;
         public decimal VAT { get; } = 23;
         public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
-        public decimal DeliveryCost
+
+        /* Analogiczne z get - switch - return */
+        public decimal DeliveryCost => SelectedDeliveryType switch
         {
-            get
-            {
-                switch (SelectedDeliveryType)
-                {
-                    case 0:
-                        return 9.99m;
-                    case 1:
-                        return 11.99m;
-                    case 2:
-                        return 0.0m;
-                    case 3:
-                        return 4.99m;
-                    default:
-                        return 0m;
-                }
-            }
-        }
+            0 => 9.99m,
+            1 => 11.99m,
+            2 => 0.0m,
+            3 => 4.99m,
+            _ => 9m
+        };
+
         public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto + DeliveryCost;
 
         #endregion
