@@ -320,7 +320,7 @@
                        Foreground="Black"
                        FontSize="17"
                        Visibility="{Binding HasRelatedOrders, Converter={StaticResource btvConverter}}"
-                       Text="{x:Static res:Resources.LinkedOrders}"
+                       Text="{x:Static res:Resources.LinkedToMailItems}"
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
             

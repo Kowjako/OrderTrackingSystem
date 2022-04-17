@@ -201,6 +201,12 @@
   <data name="House" xml:space="preserve">
     <value>Budynek</value>
   </data>
+  <data name="MailCaptionAfterSendAutomatic" xml:space="preserve">
+    <value>Zarejestrowana przesyłka dla Ciebie [AUTOMATYCZNA]</value>
+  </data>
+  <data name="MailContentAfterSendAutomatic" xml:space="preserve">
+    <value>Witam, wysłałem do Ciebie przesyłke, jej numer {0}. Pozdrawiam. {1}</value>
+  </data>
   <data name="Netto" xml:space="preserve">
     <value>Netto</value>
   </data>

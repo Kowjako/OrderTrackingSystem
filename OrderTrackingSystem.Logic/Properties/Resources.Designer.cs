@@ -313,6 +313,24 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarejestrowana przesyłka dla Ciebie [AUTOMATYCZNA].
+        /// </summary>
+        public static string MailCaptionAfterSendAutomatic {
+            get {
+                return ResourceManager.GetString("MailCaptionAfterSendAutomatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witam, wysłałem do Ciebie przesyłke, jej numer {0}. Pozdrawiam. {1}.
+        /// </summary>
+        public static string MailContentAfterSendAutomatic {
+            get {
+                return ResourceManager.GetString("MailContentAfterSendAutomatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Netto.
         /// </summary>
         public static string Netto {

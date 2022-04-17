@@ -226,7 +226,7 @@
     <value>Большая</value>
   </data>
   <data name="LinkedOrders" xml:space="preserve">
-    <value>Связанные заказы</value>
+    <value>Связанные элементы</value>
   </data>
   <data name="LinkOrder" xml:space="preserve">
     <value>Ассоциация заказов</value>

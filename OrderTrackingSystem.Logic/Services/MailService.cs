@@ -19,6 +19,7 @@ namespace OrderTrackingSystem.Logic.Services
     public class MailService : IService<MailService>
     {
         private OrderService OrderService => new OrderService();
+        private SellService SellService => new SellService();
 
         public async Task<List<MailDTO>> GetSendMailsForCustomer(int senderId)
         {
@@ -164,6 +165,47 @@ namespace OrderTrackingSystem.Logic.Services
 
                     /* Pobieramy zamówienia po numerach */
                     var ordersToLink = await OrderService.GetOrdersListByCodes(relatedOrders);
+
+                    /* Tworzymy relacje i dodajemy do kontekstu */
+                    ordersToLink.ForEach(p =>
+                    {
+                        dbContext.MailOrderRelations.Add(new MailOrderRelations()
+                        {
+                            MailId = mailDAL.Id,
+                            OrderId = p.Id
+                        });
+                    });
+
+                    await dbContext.SaveChangesAsync();
+                };
+                transactionScope.Complete();
+            }
+        }
+
+        public async Task GenerateAutomaticMessageAfterSend(int receiverId, int sellerId, string relatedSend = null)
+        {
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                using (var dbContext = new OrderTrackingSystemEntities())
+                {
+                    var customer = await dbContext.Customers.FirstAsync(p => p.Id == sellerId);
+
+                    var mailDAL = new Mails
+                    {
+                        Caption = Properties.Resources.MailCaptionAfterSendAutomatic,
+                        Content = string.Format(Properties.Resources.MailContentAfterSendAutomatic, relatedSend, customer.Name),
+                        Date = DateTime.Now,
+                        SenderId = sellerId,
+                        ReceiverId = receiverId,
+                        MailRelation = (int)MailDirectionType.CustomerToCustomer
+                    };
+
+                    dbContext.Mails.Add(mailDAL);
+                    await dbContext.SaveChangesAsync();
+
+                    /* Pobieramy zamówienia po numerach */
+                    var ordersToLink = await SellService.GetSellListByCodes(new[] { relatedSend });
 
                     /* Tworzymy relacje i dodajemy do kontekstu */
                     ordersToLink.ForEach(p =>

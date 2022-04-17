@@ -67,5 +67,16 @@ namespace OrderTrackingSystem.Logic.Services
             }
 
         }
+
+        public async Task<List<Sells>> GetSellListByCodes(string[] codes)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var orderQuery = from order in dbContext.Sells
+                                 where codes.Contains(order.Number)
+                                 select order;
+                return await orderQuery.AsNoTracking().ToListAsync();
+            }
+        }
     }
 }

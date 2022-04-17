@@ -201,6 +201,12 @@
   <data name="House" xml:space="preserve">
     <value>Дом</value>
   </data>
+  <data name="MailCaptionAfterSendAutomatic" xml:space="preserve">
+    <value>Появилась посылка зарегестрированная на тебя [АВТОМАТИЧЕСКАЯ]</value>
+  </data>
+  <data name="MailContentAfterSendAutomatic" xml:space="preserve">
+    <value>Здравствуйте, отправил вам посылку, её номер {0}. С уважением. {1}</value>
+  </data>
   <data name="Netto" xml:space="preserve">
     <value>Нетто</value>
   </data>

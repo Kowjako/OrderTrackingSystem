@@ -385,7 +385,7 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powiązane zamówienia.
+        ///   Looks up a localized string similar to Powiązane elementy.
         /// </summary>
         public static string LinkedOrders {
             get {
