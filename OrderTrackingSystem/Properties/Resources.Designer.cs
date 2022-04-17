@@ -70,7 +70,7 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rozlicz bon w całości.
+        ///   Looks up a localized string similar to Opłać całe zamówienie.
         /// </summary>
         public static string AcceptFullVoucher {
             get {

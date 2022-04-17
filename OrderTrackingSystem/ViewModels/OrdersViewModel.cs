@@ -290,12 +290,53 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         return;
                     }
 
+                    decimal valueToMinusFromBalance = 0.0m;
+                    /* Został wybrany bon */
+                    if(SelectedVoucher != null)
+                    {
+                        if(IsVoucherFullChecked)
+                        {
+                            if(FullPrice < SelectedVoucher.Value)
+                            {
+                                SelectedVoucher.Value -= FullPrice;
+                            }
+                            else
+                            {
+                                /* Obliczamy kwote co musimy odjac z glownego konta */
+                                valueToMinusFromBalance = FullPrice - SelectedVoucher.Value;
+                                /* Rozliczamy bon w calosci */
+                                SelectedVoucher.Value = 0;
+                            }
+                        }
+                        else
+                        {
+                            if(VoucherValueToMinus > SelectedVoucher.Value)
+                            {
+                                OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota bonu");
+                                return;
+                            }
+                            else
+                            {
+                                if(VoucherValueToMinus > FullPrice)
+                                {
+                                    OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota zamówienia");
+                                    return;
+                                }
+                                else
+                                {
+                                    SelectedVoucher.Value -= FullPrice;
+                                    valueToMinusFromBalance = FullPrice - VoucherValueToMinus;
+                                }
+                            }
+                        }
+                    }
+
                     CurrentOrder.PickupId = SelectedPickup.Id;
                     CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
                     CurrentOrder.SellerId = SelectedSellerId;
                     CurrentOrder.CustomerId = CurrentCustomer.Id;
 
-                    await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList());
+                    await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList(), valueToMinusFromBalance, SelectedVoucher ?? null);
                     OnSuccess?.Invoke("Zamówienie zostało utworzone");
                 }
                 catch(Exception)

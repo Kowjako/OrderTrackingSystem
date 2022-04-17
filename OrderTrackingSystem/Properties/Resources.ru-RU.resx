@@ -121,7 +121,7 @@
     <value>Подтвердить</value>
   </data>
   <data name="AcceptFullVoucher" xml:space="preserve">
-    <value>Использовать купон на полную сумму</value>
+    <value>Оплатить полностью заказ купоном</value>
   </data>
   <data name="AccountDetails" xml:space="preserve">
     <value>Данные аккаунта</value>

@@ -13,6 +13,7 @@ namespace OrderTrackingSystem.Logic.Services
     public class OrderService : IService<OrderService>
     {
         private ProductService ProductService => new ProductService();
+        private CustomerService CustomerService => new CustomerService();
 
         public async Task<List<OrderDTO>> GetOrdersForCustomer(int customerId)
         {
@@ -44,7 +45,7 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task SaveOrder(OrderDTO order, List<CartProductDTO> products)
+        public async Task SaveOrder(OrderDTO order, List<CartProductDTO> products, decimal amountToMinusBalance, VoucherDTO voucher = null)
         {
             var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
             using(var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -76,6 +77,17 @@ namespace OrderTrackingSystem.Logic.Services
                         State = "W trakcie przygotowania",
                         Description = "Przesyłka jest przygotowywana przez producenta"
                     });
+
+                    /*Rozliczamy pieniadze */
+                    if (voucher != null)
+                    {
+                        Vouchers originalVoucher = await dbContext.Vouchers.FirstAsync(p => p.Id == voucher.Id);
+                        originalVoucher.RemainValue = voucher.RemainValue;
+                    }
+
+                    var customer = await CustomerService.GetCurrentCustomer();
+                    customer.Balance -= amountToMinusBalance;
+                    dbContext.Entry(customer).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
                 }
                 transactionScope.Complete();

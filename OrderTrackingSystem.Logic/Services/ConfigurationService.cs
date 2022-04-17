@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -25,6 +26,8 @@ namespace OrderTrackingSystem.Logic.Services
 
     public class ConfigurationService : IService<ConfigurationService>
     {
+        private CustomerService CustomerService => new CustomerService();
+
         private static readonly char[] CharArray = 
         {
             'A', 'B', 'C', 'D','E','F','G','H','I','G','K','L'

@@ -121,7 +121,7 @@
     <value>Accept</value>
   </data>
   <data name="AcceptFullVoucher" xml:space="preserve">
-    <value>Use voucher for full amount</value>
+    <value>Use voucher for ful order price</value>
   </data>
   <data name="AccountDetails" xml:space="preserve">
     <value>Account Data</value>

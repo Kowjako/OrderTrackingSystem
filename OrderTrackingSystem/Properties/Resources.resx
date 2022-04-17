@@ -121,7 +121,7 @@
     <value>Zatwierdź</value>
   </data>
   <data name="AcceptFullVoucher" xml:space="preserve">
-    <value>Rozlicz bon w całości</value>
+    <value>Opłać całe zamówienie</value>
   </data>
   <data name="AccountDetails" xml:space="preserve">
     <value>Szczegóły konta</value>
