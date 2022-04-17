@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
@@ -37,5 +38,8 @@ namespace OrderTrackingSystem.Logic.DTO
         public int ReceiverId { get; set; }
         [Browsable(false)]
         public byte MailRelation { get; set; }
+
+        [Browsable(false)]
+        public bool HasRelatedOrders => RelatedOrders.Any();
     }
 }

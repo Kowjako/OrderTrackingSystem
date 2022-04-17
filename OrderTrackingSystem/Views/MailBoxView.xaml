@@ -6,9 +6,13 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
+             xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:controls="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="1200" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="btvConverter"/>
+    </UserControl.Resources>
     <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -315,6 +319,7 @@
             <TextBlock DockPanel.Dock="Top"
                        Foreground="Black"
                        FontSize="17"
+                       Visibility="{Binding HasRelatedOrders, Converter={StaticResource btvConverter}}"
                        Text="{x:Static res:Resources.LinkedOrders}"
                        Margin="10,10,10,10"
                        FontFamily="Arial"/>
