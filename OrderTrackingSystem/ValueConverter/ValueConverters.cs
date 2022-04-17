@@ -36,4 +36,22 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => !(value as bool?).Value;
     }
 
+    [ValueConversion(typeof(bool), typeof(Visibility))]
+    public class BoolToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (value as bool?) switch
+        {
+            true => Visibility.Visible,
+            false => Visibility.Collapsed,
+            _ => Visibility.Visible
+        };
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (value as Visibility?) switch
+        {
+            Visibility.Visible => true,
+            Visibility.Collapsed => false,
+            _ => true
+        };
+
+    }
 }
