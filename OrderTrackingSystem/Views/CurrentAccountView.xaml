@@ -155,16 +155,18 @@
             </DockPanel>
             
         </DockPanel>
-        
-        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+
+        <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <TextBlock Text="{x:Static res:Resources.CustomerAddress}"
                        Foreground="Black"
                        FontSize="17"
+                       DockPanel.Dock="Top"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
             <TextBlock Text="{x:Static res:Resources.ToEdit}"
                        Foreground="Black"
                        FontSize="10"
+                       DockPanel.Dock="Top"
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
             <DataGrid x:Name="dgLocalization" Background="White" 
@@ -177,20 +179,21 @@
                       ItemsSource="{Binding Localization, UpdateSourceTrigger=PropertyChanged}"
                       Margin="5">
             </DataGrid>
-
-        </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
-            <TextBlock Text="{x:Static res:Resources.MyOrders}"
+        </DockPanel>
+        <DockPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="1">
+                <TextBlock Text="{x:Static res:Resources.MyOrders}"
                        Foreground="Black"
                        FontSize="17"
+                       DockPanel.Dock="Top"
                        Margin="10,5,10,5"
                        FontFamily="Arial"/>
-            <TextBlock Text="{x:Static res:Resources.ReadOnly}"
+                <TextBlock Text="{x:Static res:Resources.ReadOnly}"
                        Foreground="Black"
                        FontSize="10"
+                       DockPanel.Dock="Top"
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
-            <DataGrid Background="White" 
+                <DataGrid Background="White" 
                       x:Name="ordersGrid"
                       AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       Foreground="Black"
@@ -200,30 +203,33 @@
                       HorizontalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Orders}"
                       Margin="5"/>
-
-        </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
+        </DockPanel>
+        <DockPanel Grid.Column="1" Grid.Row="3" Grid.RowSpan="1">
             <TextBlock Text="{x:Static res:Resources.SendElements}"
                        Foreground="Black"
+                       DockPanel.Dock="Top"
                        FontSize="17"
                        Margin="10,5,10,5"
                        FontFamily="Arial"/>
             <TextBlock Text="{x:Static res:Resources.ReadOnly}"
                        Foreground="Black"
                        FontSize="10"
+                       DockPanel.Dock="Top"
                        Margin="10,0,0,5"
                        FontFamily="Arial"/>
             <DataGrid Background="White"
+                      VerticalScrollBarVisibility="Auto"
                       x:Name="sellsGrid"
                       Foreground="Black"
                       ItemsSource="{Binding Sells}"
+                      ScrollViewer.CanContentScroll="True"
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Hidden"
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       AutoGeneratingColumn="sellsGrid_AutoGeneratingColumn"
                       Margin="5"/>
-
-        </StackPanel>
+        </DockPanel>
+ 
     </Grid>
 </UserControl>
