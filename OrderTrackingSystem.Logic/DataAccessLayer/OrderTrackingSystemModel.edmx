@@ -302,9 +302,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__MailOrderRelations_OrderId">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="MailOrderRelations" Type="Self.MailOrderRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -1058,9 +1056,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__MailOrderRelations_OrderId">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="MailOrderRelations" Type="Self.MailOrderRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">

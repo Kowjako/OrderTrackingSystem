@@ -62,21 +62,12 @@ namespace OrderTrackingSystem.Logic.Services
                     await dbContext.SaveChangesAsync();
                     /* Zapisujemy subelementy */
                     await ProductService.SaveSellProductsForCart(products, sellDAL.Id);
+                    /* Ustawiamy numer po dodaniu do bazy */
+                    order.Numer = sellDAL.Number;
                 }
                 transactionScope.Complete();
             }
 
-        }
-
-        public async Task<List<Sells>> GetSellListByCodes(string[] codes)
-        {
-            using (var dbContext = new OrderTrackingSystemEntities())
-            {
-                var orderQuery = from order in dbContext.Sells
-                                 where codes.Contains(order.Number)
-                                 select order;
-                return await orderQuery.AsNoTracking().ToListAsync();
-            }
         }
     }
 }

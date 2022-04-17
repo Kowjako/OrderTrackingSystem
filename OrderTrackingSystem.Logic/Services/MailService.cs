@@ -203,22 +203,7 @@ namespace OrderTrackingSystem.Logic.Services
 
                     dbContext.Mails.Add(mailDAL);
                     await dbContext.SaveChangesAsync();
-
-                    /* Pobieramy zamówienia po numerach */
-                    var ordersToLink = await SellService.GetSellListByCodes(new[] { relatedSend });
-
-                    /* Tworzymy relacje i dodajemy do kontekstu */
-                    ordersToLink.ForEach(p =>
-                    {
-                        dbContext.MailOrderRelations.Add(new MailOrderRelations()
-                        {
-                            MailId = mailDAL.Id,
-                            OrderId = p.Id
-                        });
-                    });
-
-                    await dbContext.SaveChangesAsync();
-                };
+                }
                 transactionScope.Complete();
             }
         }

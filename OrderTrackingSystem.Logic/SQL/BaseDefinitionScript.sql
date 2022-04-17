@@ -325,5 +325,4 @@ ALTER TABLE MailOrderRelations
 ADD CONSTRAINT PK__MailOrderRelations_Id PRIMARY KEY (Id)
 GO
 
-
 COMMIT TRAN
