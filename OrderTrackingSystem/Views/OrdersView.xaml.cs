@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Presentation.WindowExtension;
+﻿using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.Presentation.WindowExtension;
 using System.Windows.Controls;
 
 namespace OrderTrackingSystem.Presentation.Views
@@ -26,6 +27,14 @@ namespace OrderTrackingSystem.Presentation.Views
         private void cartGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
+
+        private async void ordersView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            cartGrid.MaxHeight = cartGrid.ActualHeight;
+            elementGrid.MaxHeight = elementGrid.ActualHeight;
+            pickupsGrid.MaxHeight = pickupsGrid.ActualHeight;
+            await (DataContext as OrdersViewModel).SetInitializeProperties();
         }
     }
 }

@@ -159,6 +159,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             AllProductsList = await ProductService.GetAllProducts();
             ProductsList = AllProductsList;
             VouchersList = await ProductService.GetVouchersForCurrentCustomer();
+            OnManyPropertyChanged(new[] {nameof(CurrentCustomer), nameof(PickupsList), nameof(AllProductsList), nameof(ProductsList),
+                                          nameof(VouchersList)});
         }
 
         #endregion
@@ -361,6 +363,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void OnManyPropertyChanged(IEnumerable<string> props)
+        {
+            foreach (var prop in props)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
         }
 
         #endregion

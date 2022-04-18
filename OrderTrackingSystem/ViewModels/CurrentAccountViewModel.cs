@@ -6,6 +6,7 @@ using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -128,10 +129,12 @@ namespace OrderTrackingSystem.ViewModels
         public async Task SetInitializeProperties()
         {
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
-            Localization.Add(await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId));
+            Localization = new List<LocalizationDTO> { await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId) };
             Orders = await OrderSerivce.GetOrdersForCustomer(CurrentCustomer.Id);
             Sells = await SellService.GetSellsForCustomer(CurrentCustomer.Id);
-            OnManyPropertyChanged(new[] { nameof(CurrentCustomer), nameof(Localizations), nameof(Orders), nameof(Sells) });
+
+            //Zmienilismy calkowicie listy poprzez = new ..., wiec musimy wywolac zeby odswiezyc wiazania
+            OnManyPropertyChanged(new[] { nameof(CurrentCustomer), nameof(Localization), nameof(Orders), nameof(Sells) });
         }
 
         #endregion

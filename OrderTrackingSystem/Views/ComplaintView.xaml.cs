@@ -25,5 +25,11 @@ namespace OrderTrackingSystem.Presentation.Views
             InitializeComponent();
 
         }
+
+        private void complaintsView_Loaded(object sender, RoutedEventArgs e)
+        {
+            complaintFolders.MaxHeight = complaintFolders.ActualHeight;
+            elementGrid.MaxHeight = elementGrid.ActualHeight;
+        }
     }
 }

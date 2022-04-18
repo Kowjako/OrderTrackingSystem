@@ -59,33 +59,31 @@ namespace OrderTrackingSystem
 
         #region DataContext
 
-        private async void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new CurrentAccountViewModel();
             AttachEventsToViewModel(viewModel);           
             DataContext = viewModel;
         }
 
-        private async void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new TrackingViewModel();
             AttachEventsToViewModel(viewModel);
             DataContext = viewModel;
         }
 
-        private async void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void OrdersMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new OrdersViewModel();
             AttachEventsToViewModel(viewModel);
-            await viewModel.SetInitializeProperties();
             DataContext = viewModel;
         }
 
-        private async void SendsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SendsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new SendsViewModel();
             AttachEventsToViewModel(viewModel);
-            await viewModel.SetInitializeProperties();
             DataContext = viewModel;
         }
 

@@ -23,6 +23,8 @@ namespace OrderTrackingSystem.Views
         private async void main_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             sellsGrid.MaxHeight = sellsGrid.ActualHeight;
+            ordersGrid.MaxHeight = ordersGrid.ActualHeight;
+            dgLocalization.MaxHeight = dgLocalization.ActualHeight;
             await (DataContext as CurrentAccountViewModel).SetInitializeProperties();
         }
     }

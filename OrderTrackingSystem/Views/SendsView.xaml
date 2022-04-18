@@ -9,6 +9,8 @@
              xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:composite="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
+             x:Name="sendsView"
+             Loaded="sendsView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1500">
     <UserControl.Resources>
         <converters:DecimalToStringConverter x:Key="dtsConverter"/>
@@ -275,25 +277,27 @@
                       Grid.Row="2"
                       Height="4"
                       Background="Black"/>
-        <StackPanel Grid.Column="1"
+        <DockPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
             <TextBlock Text="{x:Static res:Resources.AvailableProducts}"
                        Foreground="Black"
                        FontSize="17"
+                       DockPanel.Dock="Top"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
             <DataGrid x:Name="elementGrid" 
                       CanUserAddRows="False"
                       ColumnWidth="*"
+                      DockPanel.Dock="Top"
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
                       SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding ProductsList}"
                       AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
-                      Margin="0,0,5,0"/>
-        </StackPanel>
+                      Margin="0,0,5,5"/>
+        </DockPanel>
         <Grid Grid.Column="1"
                     Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -339,6 +343,7 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <!-- Podpięcie własnego drzewa z kategoriami produktów -->
                 <TreeView x:Name="productsTree" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ItemsSource="{Binding CategoriesList}"
                           SelectedItemChanged="productsTree_SelectedItemChanged">
                     <TreeView.ItemTemplate>

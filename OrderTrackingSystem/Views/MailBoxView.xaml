@@ -242,16 +242,17 @@
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Filter}" />
         </DockPanel>
-        <StackPanel Grid.Column="1"
+        <DockPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
             <TextBlock Text="{x:Static res:Resources.SentMails}"
                        Foreground="Black"
                        FontSize="17"
+                       DockPanel.Dock="Top"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
             <DataGrid x:Name="sentGrid" 
-                      Margin="0,0,5,0"
+                      Margin="0,0,5,5"
                       CanUserAddRows="False"
                       SelectedItem="{Binding SelectedMail}"
                       ItemsSource="{Binding SentMessages}"
@@ -260,10 +261,8 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Disabled"
                       AutoGeneratingColumn="sentGrid_AutoGeneratingColumn"/>
-        </StackPanel>
-        <DockPanel
-                   LastChildFill="False"
-                   Grid.Column="2"
+        </DockPanel>
+        <DockPanel Grid.Column="2"
                    Grid.Row="0"
                    Grid.RowSpan="3" Margin="1,0,0,0">
             <TextBlock
@@ -278,6 +277,7 @@
             <DataGrid x:Name="receiveGrid"
                       CanUserAddRows="False"
                       ColumnWidth="*"
+                      Margin="0 0 0 5"
                       IsReadOnly="True"
                       SelectedItem="{Binding SelectedMail}"
                       ItemsSource="{Binding ReceivedMessages}"
@@ -355,7 +355,7 @@
                        Foreground="Black"
                        FontSize="17"
                        Text="{x:Static res:Resources.MailContent}"
-                       Margin="10,10,10,0"
+                       Margin="10,10,10,5"
                        FontFamily="Arial"/>
             <TextBox
                 Text="{Binding Content}"

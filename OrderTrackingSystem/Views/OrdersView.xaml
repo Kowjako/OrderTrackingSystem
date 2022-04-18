@@ -7,12 +7,14 @@
              xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
+             Loaded="ordersView_Loaded"
+             x:Name="ordersView"
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
         <converters:DecimalToStringConverter x:Key="dtsConverter"/>
         <converters:BooleanNegativeConverter x:Key="negativeConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="8*"/>
@@ -340,45 +342,48 @@
                       HorizontalAlignment="Right"
                       VerticalAlignment="Stretch"
                       Background="Black"/>
-        <StackPanel Grid.Column="1"
+        <DockPanel  Grid.Column="1"
                     Grid.RowSpan="3"
+                    LastChildFill="True"
                     Grid.Row="0">
             <TextBlock Text="{x:Static res:Resources.AvailableProducts}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
+                       DockPanel.Dock="Top"
                        FontFamily="Arial"/>
             <DataGrid x:Name="elementGrid" 
+                      VerticalContentAlignment="Top"
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
                       SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding ProductsList}"
                       AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
-                      Margin="0,0,5,0"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1"
+                      Margin="0,0,5,5"/>
+        </DockPanel>
+        <DockPanel  Grid.Column="1"
                     Grid.Row="3">
             <TextBlock Text="{x:Static res:Resources.AvailablePickups}"
                        Foreground="Black"
                        FontSize="17"
+                       DockPanel.Dock="Top"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
             <DataGrid x:Name="pickupsGrid"
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
+                      VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
                       SelectedItem="{Binding SelectedPickup, UpdateSourceTrigger=PropertyChanged}"
                       AutoGeneratingColumn="pickupsGrid_AutoGeneratingColumn"
                       ItemsSource="{Binding PickupsList}"
-                      Margin="0,0,10,0"/>
-        </StackPanel>
-        <DockPanel
-                   LastChildFill="False"
-                   Grid.Column="2"
+                      Margin="0,0,5,0"/>
+        </DockPanel>
+        <DockPanel Grid.Column="2"
                    Grid.Row="0"
                    Grid.RowSpan="3" Margin="1,0,0,0">
             <TextBlock
@@ -394,10 +399,12 @@
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
+                      VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
                       ItemsSource="{Binding ProductsInCart}"
                       AutoGeneratingColumn="cartGrid_AutoGeneratingColumn"
-                      DockPanel.Dock="Top"/>
+                      DockPanel.Dock="Top"
+                      Margin="0 0 0 5"/>
         </DockPanel>
         <StackPanel Grid.Column="2"
                     Grid.Row="3">

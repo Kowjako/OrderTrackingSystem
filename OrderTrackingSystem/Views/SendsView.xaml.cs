@@ -35,5 +35,12 @@ namespace OrderTrackingSystem.Presentation.Views
         {
             (DataContext as SendsViewModel).SelectedSubCategory = e.NewValue as CategoryDTO;
         }
+
+        private async void sendsView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            elementGrid.MaxHeight = elementGrid.ActualHeight;
+            productsTree.MaxHeight = productsTree.ActualHeight;
+            await (DataContext as SendsViewModel).SetInitializeProperties();
+        }
     }
 }
