@@ -72,5 +72,11 @@ namespace OrderTrackingSystem.Presentation.Views
             gridAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
             elementGrid.BeginAnimation(MarginProperty, gridAnimation);
         }
+
+        private async void trackView_Loaded(object sender, RoutedEventArgs e)
+        {
+            elementGrid.MaxHeight = elementGrid.ActualHeight;
+            await (DataContext as TrackingViewModel).SetInitializeProperties();
+        }
     }
 }

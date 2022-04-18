@@ -80,6 +80,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             Items = await TrackerService.GetItemsForCustomer(CurrentCustomer.Id);
             CurrentItems = Items;
+            OnManyPropertyChanged(new[] { nameof(CurrentCustomer), nameof(Items), nameof(CurrentItems) });
         }
 
         #endregion
@@ -96,10 +97,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     switch(ItemsSelection)
                     {
                         case 1:
-                            Items = Items.Where(p => p.CustomerId == CurrentCustomer.Id).ToList();
+                            Items = Items.Where(p => p.IsOrder).ToList();
                             break;
                         case 2:
-                            Items = Items.Where(p => p.SellerId == CurrentCustomer.Id).ToList();
+                            Items = Items.Where(p => !p.IsOrder).ToList();
                             break;
                         default:
                             break;
@@ -202,6 +203,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void OnManyPropertyChanged(IEnumerable<string> props)
+        {
+            foreach (var prop in props)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
         }
 
         #endregion

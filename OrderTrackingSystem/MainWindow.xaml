@@ -31,7 +31,7 @@
                                             Click="Button_Click"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center">
-                                    <Image Width="25"
+                                        <Image Width="25"
                                                    Height="25"
                                                    Margin="3"
                                                    Source="../Images/USA.png"/>
@@ -137,10 +137,9 @@
                 </TabItem>
             </TabControl>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ContentControl x:Name="mainControl" Content="{Binding}"/>
+            <ContentControl x:Name="mainControl"
+                            Content="{Binding}"/>
             </ScrollViewer>
-            
         </DockPanel>
-
     </Border>
 </Window>

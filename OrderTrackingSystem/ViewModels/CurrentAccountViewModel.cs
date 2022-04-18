@@ -6,12 +6,15 @@ using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.ViewModels
 {
-    public class CurrentAccountViewModel : ICurrentAccountViewModel, INotifyableViewModel
+    public class CurrentAccountViewModel : ICurrentAccountViewModel, INotifyableViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 
@@ -19,6 +22,23 @@ namespace OrderTrackingSystem.ViewModels
         public event Action<string> OnFailure;
         public event Action<string> OnWarning;
 
+        #endregion
+
+        #region INotifyProeprtyChanged implementation
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void OnManyPropertyChanged(IEnumerable<string> props)
+        {
+            foreach (var prop in props)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
+        }
         #endregion
 
         #region Services
@@ -111,6 +131,7 @@ namespace OrderTrackingSystem.ViewModels
             Localization.Add(await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId));
             Orders = await OrderSerivce.GetOrdersForCustomer(CurrentCustomer.Id);
             Sells = await SellService.GetSellsForCustomer(CurrentCustomer.Id);
+            OnManyPropertyChanged(new[] { nameof(CurrentCustomer), nameof(Localizations), nameof(Orders), nameof(Sells) });
         }
 
         #endregion

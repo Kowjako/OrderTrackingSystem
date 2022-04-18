@@ -7,6 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
+             x:Name="trackView"
+             Loaded="trackView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1500">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,7 +20,7 @@
             <RowDefinition MinHeight="100" MaxHeight="100"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
             <TextBlock Text="{x:Static res:Resources.Tracking}"
@@ -142,7 +144,7 @@
                                Text="{Binding Numer}"/>
                 </StackPanel>
             </GroupBox>
-            
+
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
@@ -236,13 +238,14 @@
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ShowProgress}" />
         </DockPanel>
-        <StackPanel Grid.Column="1"
-                    Grid.RowSpan="3"
+        <DockPanel Grid.Column="1"
+                    Grid.RowSpan="4"
                     Grid.Row="0"
                     x:Name="mainPanel"
                     Grid.ColumnSpan="2">
             <TextBlock Text="{x:Static res:Resources.SentAndOrderElements}"
                        Foreground="Black"
+                       DockPanel.Dock="Top"
                        VerticalAlignment="Center"
                        FontSize="17"
                        Margin="10,10,240,5"
@@ -253,12 +256,14 @@
                       Foreground="Black"
                       CanUserAddRows="False"
                       ColumnWidth="*"
+                      VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.CanContentScroll="True"
                       IsReadOnly="True"
                       SelectionUnit="FullRow"
                       SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Items}"/>
-        </StackPanel>
+        </DockPanel>
         <DockPanel x:Name="tracker" 
                    Background="Yellow" 
                    HorizontalAlignment="Right"

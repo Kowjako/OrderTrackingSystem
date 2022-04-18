@@ -62,17 +62,14 @@ namespace OrderTrackingSystem
         private async void TabItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new CurrentAccountViewModel();
-            AttachEventsToViewModel(viewModel);
-            await viewModel.SetInitializeProperties();
+            AttachEventsToViewModel(viewModel);           
             DataContext = viewModel;
         }
 
         private async void trackingMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
             var viewModel = new TrackingViewModel();
             AttachEventsToViewModel(viewModel);
-            await viewModel.SetInitializeProperties();
             DataContext = viewModel;
         }
 
