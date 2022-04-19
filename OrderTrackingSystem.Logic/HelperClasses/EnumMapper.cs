@@ -50,6 +50,16 @@ namespace OrderTrackingSystem.Logic.EnumMappers
         SellerToCustomer = 3
     }
 
+    public enum ComplaintState
+    {
+        [Description("Założenie reklamacji")]
+        ComplaintCreate = 1,
+        [Description("Decyzja sprzedawcy")]
+        SellerDecision = 2,
+        [Description("Rozwiązanie reklamacji")]
+        ComplaintSolved = 3
+    }
+
     public static class EnumConverter
     {
         /* Generyczna metoda do konwersji z Id na Description */
