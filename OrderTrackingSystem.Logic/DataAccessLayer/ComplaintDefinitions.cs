@@ -17,8 +17,8 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ComplaintDefinitions()
         {
+            this.ComplaintRelations = new HashSet<ComplaintRelations>();
             this.Orders = new HashSet<Orders>();
-            this.ComplaintFolders = new HashSet<ComplaintFolders>();
         }
     
         public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public string Definition { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<ComplaintRelations> ComplaintRelations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComplaintFolders> ComplaintFolders { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public ComplaintFolders()
         {
             this.ComplaintFolders1 = new HashSet<ComplaintFolders>();
-            this.ComplaintDefinitions = new HashSet<ComplaintDefinitions>();
+            this.ComplaintRelations = new HashSet<ComplaintRelations>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual ICollection<ComplaintFolders> ComplaintFolders1 { get; set; }
         public virtual ComplaintFolders ComplaintFolders2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComplaintDefinitions> ComplaintDefinitions { get; set; }
+        public virtual ICollection<ComplaintRelations> ComplaintRelations { get; set; }
     }
 }

@@ -31,8 +31,11 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
         public string Name { get; set; }
         [Display(Name = "RemainDays", ResourceType = typeof(Properties.Resources))]
-        public string RemainDays { get; set; }
+        public byte RemainDays { get; set; }
         [Display(Name = "Description", ResourceType = typeof(Properties.Resources))]
         public string Definition { get; set; }
+
+        [Browsable(false)]
+        public int ComplaintFolderId { get; set; }
     }
 }

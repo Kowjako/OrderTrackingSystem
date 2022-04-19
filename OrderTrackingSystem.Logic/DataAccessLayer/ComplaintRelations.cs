@@ -12,13 +12,13 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class ComplaintStates
+    public partial class ComplaintRelations
     {
-        public int OrderId { get; set; }
-        public byte State { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int ComplaintId { get; set; }
+        public int ComplaintFolderId { get; set; }
         public int Id { get; set; }
     
-        public virtual Orders Orders { get; set; }
+        public virtual ComplaintDefinitions ComplaintDefinitions { get; set; }
+        public virtual ComplaintFolders ComplaintFolders { get; set; }
     }
 }

@@ -4,28 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fb262c50c34346dfa7ca89e22973955c" Name="Diagram1">
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintDefinitions" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintFolders" Width="1.5" PointX="3.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Customers" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Localizations" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.MailOrderRelations" Width="1.5" PointX="10.5" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Mails" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.OrderCarts" Width="1.5" PointX="13.5" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Orders" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.OrderStates" Width="1.5" PointX="10.5" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Pickups" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.ProductCategories" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Products" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.SellCarts" Width="1.5" PointX="10.5" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Sellers" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Sells" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Vouchers" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintStates" Width="1.5" PointX="10.5" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Session" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Users" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="4e016e7d459c43768be6e6445945069d" Name="Diagram1">
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintDefinitions" Width="1.5" PointX="6" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintFolders" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintRelations" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintStates" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Customers" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Localizations" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.MailOrderRelations" Width="1.5" PointX="10.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Mails" Width="1.5" PointX="8.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.OrderCarts" Width="1.5" PointX="13.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Orders" Width="1.5" PointX="8.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.OrderStates" Width="1.5" PointX="10.5" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Pickups" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.ProductCategories" Width="1.5" PointX="6" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Products" Width="1.5" PointX="8.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.SellCarts" Width="1.5" PointX="10.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Sellers" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Sells" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Vouchers" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Session" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Users" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintRelations_ComplaintId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Orders_ComplaintDefinitionId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintFolders_ParentComplaintFolderId" ManuallyRouted="false" />
+        <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintRelations_ComplaintFolderId" ManuallyRouted="false" />
+        <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintStates_OrderId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Customers_LocalizationId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Orders_CustomerId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Sells_CustomerId" ManuallyRouted="false" />
@@ -37,7 +41,6 @@
         <AssociationConnector Association="OrderTrackingSystemModel.FK__MailOrderRelations_OrderId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__OrderCarts_OrderId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__OrderCarts_ProductId" ManuallyRouted="false" />
-        <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintStates_OrderId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Orders_PickupId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Orders_SellerId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__OrderStates_OrderId" ManuallyRouted="false" />
@@ -46,7 +49,6 @@
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Products_SellerId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__SellCarts_ProductId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__SellCarts_SellId" ManuallyRouted="false" />
-        <AssociationConnector Association="OrderTrackingSystemModel.ComplaintRelations" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

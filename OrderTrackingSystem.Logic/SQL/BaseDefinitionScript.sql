@@ -333,4 +333,12 @@ ALTER TABLE ComplaintStates
 ADD Date DATETIME
 GO
 
+ALTER TABLE ComplaintRelations
+ADD Id INT IDENTITY(1,1)
+GO
+
+ALTER TABLE ComplaintRelations
+ADD CONSTRAINT PK__ComplaintRelations_Id PRIMARY KEY (Id)
+GO
+
 COMMIT TRAN

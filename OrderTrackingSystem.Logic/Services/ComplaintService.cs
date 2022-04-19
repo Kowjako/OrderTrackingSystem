@@ -60,8 +60,30 @@ namespace OrderTrackingSystem.Logic.Services
                             {
                                 OrderNumber = order.Number,
                                 State = EnumConverter.GetNameById<ComplaintState>(complaint.State),
-                                Date = complaint.Date
+                                Date = complaint.Date.Value.ToShortDateString()
                             };
+                return await query.ToListAsync();
+            }
+        }
+
+        public async Task<List<ComplaintDefinitionDTO>> GetComplaintDefinitions()
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var query = from complaintRelation in dbContext.ComplaintRelations
+                            join complaint in dbContext.ComplaintDefinitions
+                            on complaintRelation.ComplaintId equals complaint.Id
+                            join complaintFolder in dbContext.ComplaintFolders
+                            on complaintRelation.ComplaintFolderId equals complaintFolder.Id
+                            select new ComplaintDefinitionDTO()
+                            {
+                                Id = complaint.Id,
+                                Name = complaint.ComplaintName,
+                                RemainDays = complaint.RemainDays,
+                                Definition = complaint.Definition,
+                                ComplaintFolderId = complaintFolder.Id
+                            };
+                return await query.ToListAsync();
             }
         }
     }
