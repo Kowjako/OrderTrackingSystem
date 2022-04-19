@@ -325,4 +325,12 @@ ALTER TABLE MailOrderRelations
 ADD CONSTRAINT PK__MailOrderRelations_Id PRIMARY KEY (Id)
 GO
 
+ALTER TABLE ComplaintStates
+DROP COLUMN Date
+GO
+
+ALTER TABLE ComplaintStates
+ADD Date DATETIME
+GO
+
 COMMIT TRAN

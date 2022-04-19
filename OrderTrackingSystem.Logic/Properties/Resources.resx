@@ -165,6 +165,9 @@
   <data name="CreateDate" xml:space="preserve">
     <value>Data utworzenia</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data utworzenia</value>
+  </data>
   <data name="DaysToGet" xml:space="preserve">
     <value>Dni do odbioru</value>
   </data>
@@ -213,6 +216,9 @@
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>Zamówienie</value>
+  </data>
   <data name="PayType" xml:space="preserve">
     <value>Typ opłaty</value>
   </data>
@@ -260,6 +266,9 @@
   </data>
   <data name="Shop" xml:space="preserve">
     <value>Sklep</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Ulica</value>

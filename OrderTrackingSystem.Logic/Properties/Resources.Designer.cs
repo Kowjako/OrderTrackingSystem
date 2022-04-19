@@ -205,6 +205,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data utworzenia.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dni do odbioru.
         /// </summary>
         public static string DaysToGet {
@@ -349,6 +358,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zamówienie.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Typ opłaty.
         /// </summary>
         public static string PayType {
@@ -489,6 +507,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string Shop {
             get {
                 return ResourceManager.GetString("Shop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
             }
         }
         
