@@ -341,4 +341,14 @@ ALTER TABLE ComplaintRelations
 ADD CONSTRAINT PK__ComplaintRelations_Id PRIMARY KEY (Id)
 GO
 
+ALTER TABLE ComplaintStates
+ADD Id INT IDENTITY(1,1)
+GO
+
+ALTER TABLE ComplaintStates
+ADD CONSTRAINT PK__ComplaintStates_Id PRIMARY KEY (Id)
+GO
+
+
+
 COMMIT TRAN

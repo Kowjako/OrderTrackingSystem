@@ -76,6 +76,9 @@
     <Compile Include="DataAccessLayer\ComplaintFolders.cs">
       <DependentUpon>OrderTrackingSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccessLayer\ComplaintRelations.cs">
+      <DependentUpon>OrderTrackingSystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessLayer\ComplaintStates.cs">
       <DependentUpon>OrderTrackingSystemModel.tt</DependentUpon>
     </Compile>
