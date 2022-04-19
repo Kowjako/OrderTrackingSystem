@@ -11,6 +11,8 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class TrackerService : IService<TrackerService>
     {
+        private ConfigurationService ConfigurationService => new ConfigurationService()
+
         public async Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
@@ -83,9 +85,9 @@ namespace OrderTrackingSystem.Logic.Services
                 }
                 List<ParcelStateDTO> ParcelStates = OrderStates.Select(p => new ParcelStateDTO
                 {
-                    Name = p.State,
-                    Data = p.Date,
-                    Description = p.Description
+                    Name = ConfigurationService.GetStatusDetails((OrderState)int.Parse(p.State)).name,
+                    Description = ConfigurationService.GetStatusDetails((OrderState)int.Parse(p.State)).description,
+                    Data = p.Date
                 }).ToList();
                 return ParcelStates;
             }
