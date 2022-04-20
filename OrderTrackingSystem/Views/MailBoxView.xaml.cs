@@ -43,5 +43,12 @@ namespace OrderTrackingSystem.Presentation.Views
                 _ => -1
             };
         }
+
+        private async void mailView_Loaded(object sender, RoutedEventArgs e)
+        {
+            sentGrid.MaxHeight = sentGrid.ActualHeight;
+            receiveGrid.MaxHeight = receiveGrid.ActualHeight;
+            await (DataContext as MailboxViewModel).SetInitializeProperties();
+        }
     }
 }

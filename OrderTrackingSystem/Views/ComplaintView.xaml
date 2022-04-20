@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:customControls1="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
+             xmlns:composite="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
              x:Name="complaintsView"
              Loaded="complaintsView_Loaded"
@@ -195,32 +196,17 @@
                       materialDesign:ColorZoneAssist.Mode="Custom"
                       materialDesign:ColorZoneAssist.Background="YellowGreen"
                       materialDesign:ColorZoneAssist.Foreground="Black">
-                <TreeView x:Name="complaintFolders">
-                    <TreeViewItem Header="Zepsute zamówienia" IsExpanded="False">
-                        <TreeViewItem Header="Zwrót pieniędzy" />
-                        <TreeViewItem Header="Wymiana towaru na nowy" />
-                        <TreeViewItem Header="Naprawa towaru" />
-                    </TreeViewItem>
-                    <TreeViewItem Header="Pozostałe" IsExpanded="True">
-                        <TreeViewItem Header="Towar niezgodny z opisem">
-                            <TreeViewItem Header="Zwrót pieniędzy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="Data ważności minęła">
-                            <TreeViewItem Header="Zwrót pieniędzy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                        </TreeViewItem>
-                        <TreeViewItem Header="Nieoryginalny towar">
-                            <TreeViewItem Header="Zwrót pieniędzy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                            <TreeViewItem Header="Wymiana towaru na nowy" />
-                        </TreeViewItem>
-                    </TreeViewItem>
+                <TreeView x:Name="complaintsFolders" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ItemsSource="{Binding ComplaintFolderList}"
+                          SelectedItemChanged="complaintsFolders_SelectedItemChanged">
+                    <TreeView.ItemTemplate>
+                        <!-- Dla każdej kategorii podpinamy listę potomków -->
+                        <HierarchicalDataTemplate DataType="{x:Type composite:ComplaintFolderDTO}"
+                                                  ItemsSource="{Binding Children}">
+                            <TextBlock Text="{Binding Name}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
                 </TreeView>
             </GroupBox>
             <GroupBox Grid.Column="0"
@@ -242,7 +228,15 @@
                        DockPanel.Dock="Top"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-                <DataGrid x:Name="elementGrid" Margin="0,0,5,0"/>
+                <DataGrid x:Name="elementGrid" 
+                          Margin="0,0,5,0"
+                          Foreground="Black"
+                          CanUserAddRows="False"
+                          SelectionUnit="FullRow"
+                          ColumnWidth="*"
+                          IsReadOnly="True"
+                          AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
+                          ItemsSource="{Binding ComplaintsList}"/>
             </DockPanel>
         </Grid>
     </Grid>

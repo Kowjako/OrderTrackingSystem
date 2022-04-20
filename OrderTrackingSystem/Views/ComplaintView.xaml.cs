@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.Presentation.WindowExtension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +28,21 @@ namespace OrderTrackingSystem.Presentation.Views
 
         }
 
-        private void complaintsView_Loaded(object sender, RoutedEventArgs e)
+        private async void complaintsView_Loaded(object sender, RoutedEventArgs e)
         {
-            complaintFolders.MaxHeight = complaintFolders.ActualHeight;
+            complaintsFolders.MaxHeight = complaintsFolders.ActualHeight;
             elementGrid.MaxHeight = elementGrid.ActualHeight;
+            await (DataContext as ComplaintsViewModel).SetInitializeProperties();
+        }
+
+        private void complaintsFolders_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
+        }
+
+        private void elementGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DisplayNameBinder.SetDisplayNameIfExists(e);
         }
     }
 }
