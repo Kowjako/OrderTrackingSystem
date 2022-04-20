@@ -87,17 +87,18 @@ namespace OrderTrackingSystem
             DataContext = viewModel;
         }
 
-        private async void MailboxMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MailboxMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var viewModel = new MailboxViewModel();
             AttachEventsToViewModel(viewModel);
-            await viewModel.SetInitializeProperties();
             DataContext = viewModel;
         }
 
-        private async void ComplaintsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ComplaintsMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new ComplaintsViewModel();
+            var viewModel = new ComplaintsViewModel();
+            AttachEventsToViewModel(viewModel);
+            DataContext = viewModel;
         }
         #endregion
 

@@ -52,6 +52,8 @@ namespace OrderTrackingSystem.Logic.EnumMappers
 
     public enum ComplaintState
     {
+        [Description("Anulowana")]
+        Cancelled = 0,
         [Description("Założenie reklamacji")]
         ComplaintCreate = 1,
         [Description("Decyzja sprzedawcy")]

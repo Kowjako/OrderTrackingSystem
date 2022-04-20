@@ -59,10 +59,16 @@ namespace OrderTrackingSystem.Logic.Services
                             select new ComplaintsDTO()
                             {
                                 OrderNumber = order.Number,
-                                State = EnumConverter.GetNameById<ComplaintState>(complaint.State),
-                                Date = complaint.Date.Value.ToShortDateString()
+                                State = complaint.State.ToString(),
+                                Date = complaint.Date.Value.ToString()
                             };
-                return await query.ToListAsync();
+                var stagedList =  await query.ToListAsync();
+                stagedList.ForEach(p =>
+                {
+                    p.State = EnumConverter.GetNameById<ComplaintState>(int.Parse(p.State));
+                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
+                });
+                return stagedList;
             }
         }
 

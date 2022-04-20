@@ -11,7 +11,7 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class TrackerService : IService<TrackerService>
     {
-        private ConfigurationService ConfigurationService => new ConfigurationService()
+        private ConfigurationService ConfigurationService => new ConfigurationService();
 
         public async Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId)
         {

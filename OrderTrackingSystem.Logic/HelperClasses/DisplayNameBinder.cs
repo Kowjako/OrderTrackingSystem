@@ -23,7 +23,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
             }
         }
 
-        public static string GetPropertyDisplayName(object descriptor)
+        private static string GetPropertyDisplayName(object descriptor)
         {
             var pd = descriptor as PropertyDescriptor;
             if (pd != null)
