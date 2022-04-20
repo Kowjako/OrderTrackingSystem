@@ -87,6 +87,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             ReceivedMessages = await MailService.GetReceivedMailsForCustomer(CurrentSender.Id);
             SentMessages = await MailService.GetSendMailsForCustomer(CurrentSender.Id);
             CustomerOrders = await OrderService.GetOrdersForCustomer(CurrentSender.Id);
+            OnManyPropertyChanged(new[] { nameof(CurrentSender), nameof(ReceivedMessages), nameof(SentMessages), nameof(CustomerOrders) });
         }
 
         public void OnLinkToOrderAdded()
@@ -232,6 +233,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void OnManyPropertyChanged(IEnumerable<string> props)
+        {
+            foreach (var prop in props)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
         }
 
         #endregion
