@@ -126,6 +126,15 @@
   <data name="AccountDetails" xml:space="preserve">
     <value>Данные аккаунта</value>
   </data>
+  <data name="AddComplaint" xml:space="preserve">
+    <value>Добавить шаблон</value>
+  </data>
+  <data name="AddComplaintToFolder" xml:space="preserve">
+    <value>Добавить шаблон в папку</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Добавить папку</value>
+  </data>
   <data name="AddToCart" xml:space="preserve">
     <value>Добавить в корзину</value>
   </data>
@@ -162,6 +171,24 @@
   <data name="Complaint" xml:space="preserve">
     <value>Жалоба</value>
   </data>
+  <data name="ComplaintDays" xml:space="preserve">
+    <value>Кол-во дней на рассмотрение</value>
+  </data>
+  <data name="ComplaintFolders" xml:space="preserve">
+    <value>Папки жалоб</value>
+  </data>
+  <data name="ComplaintName" xml:space="preserve">
+    <value>Название шаблона</value>
+  </data>
+  <data name="ComplaintObject" xml:space="preserve">
+    <value>Шаблоны жалоб</value>
+  </data>
+  <data name="ComplaintProcess" xml:space="preserve">
+    <value>Процесс жалобы</value>
+  </data>
+  <data name="ComplaintViews" xml:space="preserve">
+    <value>Шаблоны жалоб</value>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Конфигурация</value>
   </data>
@@ -170,6 +197,9 @@
   </data>
   <data name="Content" xml:space="preserve">
     <value>Содержание</value>
+  </data>
+  <data name="CreateComplaint" xml:space="preserve">
+    <value>Создать шаблон</value>
   </data>
   <data name="CustomerAddress" xml:space="preserve">
     <value>Место проживания</value>
@@ -215,6 +245,12 @@
   </data>
   <data name="FindShop" xml:space="preserve">
     <value>Найти магазин</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Название папки</value>
+  </data>
+  <data name="FolderRemoving" xml:space="preserve">
+    <value>Удаление папки</value>
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Отправить автоматическое сообщение</value>
@@ -264,6 +300,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Средняя</value>
   </data>
+  <data name="MyComplaints" xml:space="preserve">
+    <value>Мои жалобы</value>
+  </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Мои заказы</value>
   </data>
@@ -312,6 +351,15 @@
   <data name="Receiver" xml:space="preserve">
     <value>Получатель</value>
   </data>
+  <data name="RemoveAlsoFromThisFolder" xml:space="preserve">
+    <value>Удалить также жалобы из этой папки</value>
+  </data>
+  <data name="RemoveFolder" xml:space="preserve">
+    <value>Удалить папку</value>
+  </data>
+  <data name="RemoveToParentCatalog" xml:space="preserve">
+    <value>Перенести жалобы в родительский каталог</value>
+  </data>
   <data name="Reply" xml:space="preserve">
     <value>Ответить</value>
   </data>
@@ -323,6 +371,9 @@
   </data>
   <data name="SelectOrder" xml:space="preserve">
     <value>Выбрать заказ</value>
+  </data>
+  <data name="SelectParentFolder" xml:space="preserve">
+    <value>Выбери родительский каталог</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Продавец</value>
@@ -380,6 +431,9 @@
   </data>
   <data name="Tracking" xml:space="preserve">
     <value>Трекинг посылок</value>
+  </data>
+  <data name="UndoComplaint" xml:space="preserve">
+    <value>Аннулировать жалобу</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>Налог</value>

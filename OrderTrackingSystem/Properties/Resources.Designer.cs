@@ -88,6 +88,33 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj wzorzec.
+        /// </summary>
+        public static string AddComplaint {
+            get {
+                return ResourceManager.GetString("AddComplaint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj wzorzec do folderu.
+        /// </summary>
+        public static string AddComplaintToFolder {
+            get {
+                return ResourceManager.GetString("AddComplaintToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj folder.
+        /// </summary>
+        public static string AddFolder {
+            get {
+                return ResourceManager.GetString("AddFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj do koszyka.
         /// </summary>
         public static string AddToCart {
@@ -196,6 +223,60 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ilość dni na rozpatrywanie.
+        /// </summary>
+        public static string ComplaintDays {
+            get {
+                return ResourceManager.GetString("ComplaintDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foldery reklamacyjne.
+        /// </summary>
+        public static string ComplaintFolders {
+            get {
+                return ResourceManager.GetString("ComplaintFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa wzorca.
+        /// </summary>
+        public static string ComplaintName {
+            get {
+                return ResourceManager.GetString("ComplaintName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wzorce reklamacyjne.
+        /// </summary>
+        public static string ComplaintObject {
+            get {
+                return ResourceManager.GetString("ComplaintObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przebieg reklamacji.
+        /// </summary>
+        public static string ComplaintProcess {
+            get {
+                return ResourceManager.GetString("ComplaintProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wzorce reklamacyjne.
+        /// </summary>
+        public static string ComplaintViews {
+            get {
+                return ResourceManager.GetString("ComplaintViews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Konfiguracja.
         /// </summary>
         public static string Configuration {
@@ -219,6 +300,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Content {
             get {
                 return ResourceManager.GetString("Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utwórz wzorzec.
+        /// </summary>
+        public static string CreateComplaint {
+            get {
+                return ResourceManager.GetString("CreateComplaint", resourceCulture);
             }
         }
         
@@ -354,6 +444,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string FindShop {
             get {
                 return ResourceManager.GetString("FindShop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa folderu.
+        /// </summary>
+        public static string FolderName {
+            get {
+                return ResourceManager.GetString("FolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usunięcie folderu.
+        /// </summary>
+        public static string FolderRemoving {
+            get {
+                return ResourceManager.GetString("FolderRemoving", resourceCulture);
             }
         }
         
@@ -502,6 +610,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Moje reklamacje.
+        /// </summary>
+        public static string MyComplaints {
+            get {
+                return ResourceManager.GetString("MyComplaints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moje zamówienia.
         /// </summary>
         public static string MyOrders {
@@ -646,6 +763,33 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuń również reklamacje z tego folderu.
+        /// </summary>
+        public static string RemoveAlsoFromThisFolder {
+            get {
+                return ResourceManager.GetString("RemoveAlsoFromThisFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuń folder.
+        /// </summary>
+        public static string RemoveFolder {
+            get {
+                return ResourceManager.GetString("RemoveFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przenieś reklamacje do folderu nadrzędnego.
+        /// </summary>
+        public static string RemoveToParentCatalog {
+            get {
+                return ResourceManager.GetString("RemoveToParentCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odpowiedz.
         /// </summary>
         public static string Reply {
@@ -678,6 +822,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string SelectOrder {
             get {
                 return ResourceManager.GetString("SelectOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wybierz katalog nadrzędzny.
+        /// </summary>
+        public static string SelectParentFolder {
+            get {
+                return ResourceManager.GetString("SelectParentFolder", resourceCulture);
             }
         }
         
@@ -849,6 +1002,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Tracking {
             get {
                 return ResourceManager.GetString("Tracking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anuluj reklamację.
+        /// </summary>
+        public static string UndoComplaint {
+            get {
+                return ResourceManager.GetString("UndoComplaint", resourceCulture);
             }
         }
         

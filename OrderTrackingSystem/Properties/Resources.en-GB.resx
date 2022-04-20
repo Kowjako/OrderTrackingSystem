@@ -126,6 +126,15 @@
   <data name="AccountDetails" xml:space="preserve">
     <value>Account Data</value>
   </data>
+  <data name="AddComplaint" xml:space="preserve">
+    <value>Add template</value>
+  </data>
+  <data name="AddComplaintToFolder" xml:space="preserve">
+    <value>Add template to folder</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
   <data name="AddToCart" xml:space="preserve">
     <value>Add to cart</value>
   </data>
@@ -162,6 +171,24 @@
   <data name="Complaint" xml:space="preserve">
     <value>Complaint</value>
   </data>
+  <data name="ComplaintDays" xml:space="preserve">
+    <value>Remain days to solve</value>
+  </data>
+  <data name="ComplaintFolders" xml:space="preserve">
+    <value>Complaint folders</value>
+  </data>
+  <data name="ComplaintName" xml:space="preserve">
+    <value>Complaint name</value>
+  </data>
+  <data name="ComplaintObject" xml:space="preserve">
+    <value>Complaint templates</value>
+  </data>
+  <data name="ComplaintProcess" xml:space="preserve">
+    <value>Complaint process</value>
+  </data>
+  <data name="ComplaintViews" xml:space="preserve">
+    <value>Complaint templates</value>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Configuration</value>
   </data>
@@ -170,6 +197,9 @@
   </data>
   <data name="Content" xml:space="preserve">
     <value>Content</value>
+  </data>
+  <data name="CreateComplaint" xml:space="preserve">
+    <value>Create template</value>
   </data>
   <data name="CustomerAddress" xml:space="preserve">
     <value>Localization</value>
@@ -215,6 +245,12 @@
   </data>
   <data name="FindShop" xml:space="preserve">
     <value>Find shop</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Folder name</value>
+  </data>
+  <data name="FolderRemoving" xml:space="preserve">
+    <value>Removing folder</value>
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Send automatic email</value>
@@ -264,6 +300,9 @@
   <data name="Medium" xml:space="preserve">
     <value>Medium</value>
   </data>
+  <data name="MyComplaints" xml:space="preserve">
+    <value>My complaints</value>
+  </data>
   <data name="MyOrders" xml:space="preserve">
     <value>My orders</value>
   </data>
@@ -312,6 +351,15 @@
   <data name="Receiver" xml:space="preserve">
     <value>Receiver</value>
   </data>
+  <data name="RemoveAlsoFromThisFolder" xml:space="preserve">
+    <value>Remove also complaints from this folder</value>
+  </data>
+  <data name="RemoveFolder" xml:space="preserve">
+    <value>Delete folder</value>
+  </data>
+  <data name="RemoveToParentCatalog" xml:space="preserve">
+    <value>Move complaints to parent folder</value>
+  </data>
   <data name="Reply" xml:space="preserve">
     <value>Reply</value>
   </data>
@@ -323,6 +371,9 @@
   </data>
   <data name="SelectOrder" xml:space="preserve">
     <value>Select order</value>
+  </data>
+  <data name="SelectParentFolder" xml:space="preserve">
+    <value>Choose parent folder</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Seller</value>
@@ -380,6 +431,9 @@
   </data>
   <data name="Tracking" xml:space="preserve">
     <value>Parcel tracking</value>
+  </data>
+  <data name="UndoComplaint" xml:space="preserve">
+    <value>Undo complaints</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>TAX</value>

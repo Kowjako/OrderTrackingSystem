@@ -44,5 +44,10 @@ namespace OrderTrackingSystem.Presentation.Views
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
         }
+
+        private void complaintDefinitionsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
     }
 }

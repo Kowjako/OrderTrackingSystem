@@ -7,6 +7,7 @@
              xmlns:customControls1="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              xmlns:composite="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              x:Name="complaintsView"
              Loaded="complaintsView_Loaded"
              d:DesignHeight="950" d:DesignWidth="800">
@@ -22,7 +23,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Wzorce reklamacyjne"
+            <TextBlock Text="{x:Static res:Resources.ComplaintViews}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -39,7 +40,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Dodaj wzorzec" />
+                    Content="{x:Static res:Resources.AddComplaint}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -49,7 +50,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Dodaj folder" />
+                    Content="{x:Static res:Resources.AddFolder}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -59,7 +60,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Usuń folder" />
+                    Content="{x:Static res:Resources.RemoveFolder}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -69,7 +70,7 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Dodaj wzorzec do folderu" />
+                    Content="{x:Static res:Resources.AddComplaintToFolder}" />
             <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -79,8 +80,8 @@
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Anuluj reklamację" />
-            <GroupBox Header="Utwórz wzorzec"
+                    Content="{x:Static res:Resources.UndoComplaint}" />
+            <GroupBox Header="{x:Static res:Resources.CreateComplaint}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -94,7 +95,7 @@
                     Padding="5,12,5,5"
                     FontSize="12"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Nazwa wzorca"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.ComplaintName}"
                     />
                     <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -103,7 +104,7 @@
                     Padding="5,12,5,5"
                     FontSize="12"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Ilość dni dla rozpatrywania"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.ComplaintDays}"
                     />
                     <TextBox
                     AcceptsReturn="True"
@@ -114,12 +115,12 @@
                     FontSize="12"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Treść"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Content}"
                     />
                     
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Dodanie folderu"
+            <GroupBox Header="{x:Static res:Resources.AddFolder}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -132,7 +133,7 @@
                         Grid.Row="1"
                         Padding="5,10,10,10"
                         FontSize="12"
-                        materialDesign:HintAssist.Hint="Wybierz katalog nadrzędny"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectParentFolder}"
                         IsEditable="False">
                     <ComboBoxItem
                         Content="Apple" />
@@ -144,11 +145,11 @@
                     Padding="5,12,5,5"
                     FontSize="12"
                     materialDesign:HintAssist.Background="LightPink"
-                    materialDesign:HintAssist.Hint="Nazwa folderu"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.FolderName}"
                     />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Usunięcie folderu"
+            <GroupBox Header="{x:Static res:Resources.RemoveFolder}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -158,15 +159,15 @@
                     <RadioButton
                         GroupName="DeleteComplaint"
                         IsChecked="True"
-                        Content="Usuń również reklamacje z tego folderu" />
+                        Content="{x:Static res:Resources.RemoveAlsoFromThisFolder}" />
                     <RadioButton
                         Margin="0,5,0,0"
                         GroupName="DeleteComplaint"
                         IsChecked="False"
-                        Content="Przenieś reklamacje do folderu nadrzędnego" />
+                        Content="{x:Static res:Resources.RemoveToParentCatalog}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Przebieg reklamacji"
+            <GroupBox Header="{x:Static res:Resources.ComplaintProcess}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -191,7 +192,7 @@
             </Grid.RowDefinitions>
             <GroupBox Grid.Column="0"
                       ScrollViewer.CanContentScroll="True"
-                      Header="Foldery reklamacyjne"
+                      Header="{x:Static res:Resources.ComplaintFolders}"
                       Margin="5"
                       materialDesign:ColorZoneAssist.Mode="Custom"
                       materialDesign:ColorZoneAssist.Background="YellowGreen"
@@ -211,18 +212,25 @@
             </GroupBox>
             <GroupBox Grid.Column="0"
                       Grid.Row="1"
-                      Header="Wzorce reklamacyjne"
+                      Header="{x:Static res:Resources.ComplaintObject}"
                       Margin="5"
                       materialDesign:ColorZoneAssist.Mode="Custom"
                       materialDesign:ColorZoneAssist.Background="YellowGreen"
                       materialDesign:ColorZoneAssist.Foreground="Black">
                 <DataGrid Background="White" 
-                      Foreground="Black"/>
+                          Foreground="Black"
+                          CanUserAddRows="False"
+                          SelectionUnit="FullRow"
+                          ColumnWidth="*"
+                          x:Name="complaintDefinitionsGrid"
+                          ItemsSource="{Binding ComplaintDefinitionList}"
+                          AutoGeneratingColumn="complaintDefinitionsGrid_AutoGeneratingColumn"
+                          IsReadOnly="True"/>
             </GroupBox>
             <DockPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">
-                <TextBlock Text="Moje reklamacje"
+                <TextBlock Text="{x:Static res:Resources.MyComplaints}"
                        Foreground="Black"
                        FontSize="17"
                        DockPanel.Dock="Top"
