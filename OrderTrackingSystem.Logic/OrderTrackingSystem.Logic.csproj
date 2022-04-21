@@ -161,6 +161,7 @@
     <Compile Include="HelperClasses\DisplayNameBinder.cs" />
     <Compile Include="HelperClasses\EnumMapper.cs" />
     <Compile Include="HelperClasses\Extensions.cs" />
+    <Compile Include="HelperClasses\RecursiveTreeFiller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OrderTrackingSystem.Logic.HelperClasses;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +15,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Date { get; set; }
     }
 
-    public class ComplaintFolderDTO
+    public class ComplaintFolderDTO : IComposite<ComplaintFolderDTO>
     {
         [Browsable(false)]
         public int Id { get; set; }
@@ -22,6 +23,8 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Name { get; set; }
         [Browsable(false)]
         public List<ComplaintFolderDTO> Children { get; set; }
+        [Browsable(false)]
+        public int? ParentId { get; set; }
     }
 
     public class ComplaintDefinitionDTO

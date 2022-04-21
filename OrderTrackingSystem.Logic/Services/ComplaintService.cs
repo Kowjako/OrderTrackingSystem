@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
+using OrderTrackingSystem.Logic.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,31 +22,18 @@ namespace OrderTrackingSystem.Logic.Services
                             select folder;
                 var folderList = await query.ToListAsync();
 
-                List<ComplaintFolderDTO> foldersOutput = new List<ComplaintFolderDTO>();
+                var folderListDTO = folderList.Select(p =>
+                    new ComplaintFolderDTO
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Children = new List<ComplaintFolderDTO>(),
+                        ParentId = p.ParentComplaintFolderId
+                    }).ToList();
 
-                /* Realizacja wzorca Composite */
-                foreach (var folder in folderList)
-                {
-                    if (!folder.ParentComplaintFolderId.HasValue)
-                    {
-                        foldersOutput.Add(new ComplaintFolderDTO()
-                        {
-                            Id = folder.Id,
-                            Name = folder.Name,
-                            Children = new List<ComplaintFolderDTO>()
-                        });
-                    }
-                    else
-                    {
-                        foldersOutput.First(p => p.Id == folder.ParentComplaintFolderId).Children.Add(new ComplaintFolderDTO()
-                        {
-                            Id = folder.Id,
-                            Name = folder.Name,
-                            Children = new List<ComplaintFolderDTO>()
-                        });
-                    }
-                }
-                return foldersOutput;
+                RecursiveTreeFiller<ComplaintFolderDTO>.FillTreeRecursive(folderListDTO);
+
+                return folderListDTO.Where(p => p.ParentId == null).ToList();
             }
         }
 
@@ -92,5 +80,6 @@ namespace OrderTrackingSystem.Logic.Services
                 return await query.ToListAsync();
             }
         }
+
     }
 }

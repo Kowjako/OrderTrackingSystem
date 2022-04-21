@@ -16,14 +16,24 @@ namespace OrderTrackingSystem.Logic.HelperClasses
 
     public class RecursiveTreeFiller<T> where T : IComposite<T>
     {
-        public static void FillTreeRecursive(T parentObject, List<T> allChildrensToSeparate)
+        public static void FillTreeRecursive(List<T> allObjects)
+        {
+            /* Wybieramy wszystkich rodzicow, parentId = null i wypelniamy je */
+            var parentFolders = allObjects.Where(p => p.ParentId == null);
+            foreach (var parentFolder in parentFolders)
+            {
+                FillParent(parentFolder, allObjects);
+            }
+        }
+
+        private static void FillParent(T parentObject, List<T> allChildrensToSeparate)
         {
             parentObject.Children.AddRange(allChildrensToSeparate.Where(f => f.ParentId == parentObject.Id));
             if (parentObject.Children.Any())
             {
                 foreach (var subFolder in parentObject.Children)
                 {
-                    FillTreeRecursive(subFolder, allChildrensToSeparate);
+                    FillParent(subFolder, allChildrensToSeparate);
                 }
             }
             else
