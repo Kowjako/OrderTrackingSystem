@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.DTO;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
@@ -49,8 +50,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<ComplaintsDTO> ComplaintsList { get; set; } = new List<ComplaintsDTO>();
         public List<ComplaintDefinitionDTO> ComplaintDefinitionList { get; set; } = new List<ComplaintDefinitionDTO>();
 
-        public ComplaintDefinitionDTO CurrentComplaint { get; set; }
+        public ComplaintDefinitionDTO CurrentComplaint { get; set; } = new ComplaintDefinitionDTO();
         public List<ComplaintFolderDTO> AllComplaintFolderList { get; set; }
+        public ComplaintFolderDTO SelectedFolder { get; set; }
 
         public string FolderToAddName { get; set; }
 
@@ -75,6 +77,28 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             AllComplaintFolderList = await ComplaintService.GetComplaintFoldersAll();
             OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });
         }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _addTemplate;
+        public RelayCommand AddTemplate =>
+            _addTemplate ?? (_addTemplate = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    if(SelectedFolder != null)
+                    {
+                        await ComplaintService.SaveComplaintTemplate(CurrentComplaint, SelectedFolder);
+                    }
+                    OnSuccess?.Invoke("Wzorzec został zapisany");
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Nie udało się zapisać wzorca");
+                }
+            }));
 
         #endregion
     }

@@ -29,6 +29,30 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
         }
     }
 
+    [ValueConversion(typeof(byte), typeof(string))]
+    public class ByteToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            /* Pattern matching */
+            if (value is byte decimalValue && decimalValue == 0)
+                return string.Empty;
+            else
+                return value.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (string.IsNullOrEmpty(value.ToString())) return 0;
+            byte decimalValue = byte.Parse(value.ToString());
+            if (decimalValue != 0)
+            {
+                return decimalValue;
+            }
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
     [ValueConversion(typeof(bool), typeof(bool))]
     public class BooleanNegativeConverter : IValueConverter
     {

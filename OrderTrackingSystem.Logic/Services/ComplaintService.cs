@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -102,6 +103,35 @@ namespace OrderTrackingSystem.Logic.Services
                                 ComplaintFolderId = complaintFolder.Id
                             };
                 return await query.ToListAsync();
+            }
+        }
+
+        public async Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, ComplaintFolderDTO folder)
+        {
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                using (var dbContext = new OrderTrackingSystemEntities())
+                {
+                    var complaintDAL = new ComplaintDefinitions
+                    {
+                        ComplaintName = complaint.Name,
+                        Definition = complaint.Definition,
+                        RemainDays = complaint.RemainDays
+                    };
+
+                    dbContext.ComplaintDefinitions.Add(complaintDAL);
+
+                    var complaintFolderRelation = new ComplaintRelations
+                    {
+                        ComplaintId = complaintDAL.Id,
+                        ComplaintFolderId = folder.Id
+                    };
+
+                    dbContext.ComplaintRelations.Add(complaintFolderRelation);
+                    await dbContext.SaveChangesAsync();
+                }
+                transactionScope.Complete();
             }
         }
 

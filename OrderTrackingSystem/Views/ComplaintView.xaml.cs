@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Presentation.ViewModels;
+﻿using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace OrderTrackingSystem.Presentation.Views
 
         private void complaintsFolders_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+            (DataContext as ComplaintsViewModel).SelectedFolder = e.NewValue as ComplaintFolderDTO;
         }
 
         private void elementGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
