@@ -38,6 +38,29 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task<List<ComplaintFolderDTO>> GetComplaintFoldersAll()
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var query = from folder in dbContext.ComplaintFolders
+                            orderby folder.ParentComplaintFolderId
+                            select folder;
+
+                var folderList = await query.ToListAsync();
+                var outputDTO = folderList.Select(p =>
+                    new ComplaintFolderDTO
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Children = new List<ComplaintFolderDTO>(),
+                        ParentId = p.ParentComplaintFolderId
+
+                    }
+                );
+                return outputDTO.ToList();
+            }
+        }
+
         public async Task<List<ComplaintsDTO>> GetComplaints()
         {
             using(var dbContext = new OrderTrackingSystemEntities())

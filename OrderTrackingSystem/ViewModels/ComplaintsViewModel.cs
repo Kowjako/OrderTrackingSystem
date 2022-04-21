@@ -35,7 +35,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public void OnManyPropertyChanged(IEnumerable<string> props)
         {
-            foreach(var prop in props)
+            foreach (var prop in props)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
             }
@@ -48,6 +48,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<ComplaintFolderDTO> ComplaintFolderList { get; set; } = new List<ComplaintFolderDTO>();
         public List<ComplaintsDTO> ComplaintsList { get; set; } = new List<ComplaintsDTO>();
         public List<ComplaintDefinitionDTO> ComplaintDefinitionList { get; set; } = new List<ComplaintDefinitionDTO>();
+
+        public ComplaintDefinitionDTO CurrentComplaint { get; set; }
+        public List<ComplaintFolderDTO> AllComplaintFolderList { get; set; }
+
+        public string FolderToAddName { get; set; }
 
         #endregion
 
@@ -67,7 +72,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             ComplaintFolderList = await ComplaintService.GetComplaintFolders();
             ComplaintsList = await ComplaintService.GetComplaints();
             ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
-            OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList) });
+            AllComplaintFolderList = await ComplaintService.GetComplaintFoldersAll();
+            OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });
         }
 
         #endregion
