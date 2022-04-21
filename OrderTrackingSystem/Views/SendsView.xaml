@@ -350,7 +350,7 @@
                         <!-- Dla każdej kategorii podpinamy listę potomków -->
                         <HierarchicalDataTemplate DataType="{x:Type composite:CategoryDTO}"
                                                   ItemsSource="{Binding Children}">
-                            <TextBlock Text="{Binding Title}"/>
+                            <TextBlock Text="{Binding Name}"/>
                         </HierarchicalDataTemplate>
                     </TreeView.ItemTemplate>
                 </TreeView>

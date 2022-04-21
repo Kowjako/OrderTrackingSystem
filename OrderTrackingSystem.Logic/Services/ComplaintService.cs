@@ -23,14 +23,15 @@ namespace OrderTrackingSystem.Logic.Services
                 var folderList = await query.ToListAsync();
 
                 var folderListDTO = folderList.Select(p =>
-                    new ComplaintFolderDTO
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Children = new List<ComplaintFolderDTO>(),
-                        ParentId = p.ParentComplaintFolderId
-                    }).ToList();
+                new ComplaintFolderDTO
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Children = new List<ComplaintFolderDTO>(),
+                    ParentId = p.ParentComplaintFolderId
+                }).ToList();
 
+                /* Rekurencyjne wypelnianie drzewa */
                 RecursiveTreeFiller<ComplaintFolderDTO>.FillTreeRecursive(folderListDTO);
 
                 return folderListDTO.Where(p => p.ParentId == null).ToList();

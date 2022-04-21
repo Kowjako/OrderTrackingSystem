@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
+using OrderTrackingSystem.Logic.HelperClasses;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
@@ -116,30 +117,20 @@ namespace OrderTrackingSystem.Logic.Services
                             orderby category.ParentCategoryId
                             select category;
                 var categoryList = await query.ToListAsync();
-                List<CategoryDTO> categoriesOutput = new List<CategoryDTO>();
-                /* Realizacja wzorca Composite */
-                foreach(var category in categoryList)
+
+                var categoryListDTO = categoryList.Select(p =>
+                new CategoryDTO
                 {
-                    if(!category.ParentCategoryId.HasValue)
-                    {
-                        categoriesOutput.Add(new CategoryDTO()
-                        {
-                            Id = category.Id,
-                            Title = category.Title,
-                            Children = new List<CategoryDTO>()
-                        });
-                    }
-                    else
-                    {
-                        categoriesOutput.First(p => p.Id == category.ParentCategoryId).Children.Add(new CategoryDTO()
-                        {
-                            Id = category.Id,
-                            Title = category.Title,
-                            Children = new List<CategoryDTO>()
-                        });
-                    }
-                }
-                return categoriesOutput;
+                    Id = p.Id,
+                    Name = p.Title,
+                    Children = new List<CategoryDTO>(),
+                    ParentId = p.ParentCategoryId
+                }).ToList();
+
+                /* Rekurencyjne wypelnianie drzewa */
+                RecursiveTreeFiller<CategoryDTO>.FillTreeRecursive(categoryListDTO);
+
+                return categoryListDTO.Where(p => p.ParentId == null).ToList();
             }
         }
     }
