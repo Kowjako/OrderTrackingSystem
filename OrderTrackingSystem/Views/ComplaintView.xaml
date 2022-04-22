@@ -45,7 +45,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddComplaint}" />
-            <Button
+            <Button Command="{Binding AddFolder}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -136,6 +136,7 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
                     <ComboBox
+                        SelectedItem="{Binding SelectedFolderToAdd, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding AllComplaintFolderList}"
                         DisplayMemberPath="Name"
                         materialDesign:HintAssist.Background="LightPink"

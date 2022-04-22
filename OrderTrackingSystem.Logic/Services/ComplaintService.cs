@@ -135,5 +135,22 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task AddNewFolder(string name, ComplaintFolderDTO parentFolder)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                int? parentFolderId = parentFolder?.Id ?? null;
+
+                var complaintDAL = new ComplaintFolders
+                {
+                    Name = name,
+                    ParentComplaintFolderId = parentFolderId
+                };
+
+                dbContext.ComplaintFolders.Add(complaintDAL);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
     }
 }

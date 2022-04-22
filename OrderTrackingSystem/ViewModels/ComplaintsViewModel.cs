@@ -53,6 +53,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public ComplaintDefinitionDTO CurrentComplaint { get; set; } = new ComplaintDefinitionDTO();
         public List<ComplaintFolderDTO> AllComplaintFolderList { get; set; }
         public ComplaintFolderDTO SelectedFolder { get; set; }
+        public ComplaintFolderDTO SelectedFolderToAdd { get; set; }
 
         public string FolderToAddName { get; set; }
 
@@ -91,8 +92,27 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     if(SelectedFolder != null)
                     {
                         await ComplaintService.SaveComplaintTemplate(CurrentComplaint, SelectedFolder);
+                        OnSuccess?.Invoke("Wzorzec został zapisany");
                     }
-                    OnSuccess?.Invoke("Wzorzec został zapisany");
+                    else
+                    {
+                        OnWarning?.Invoke("Należy wybrać katalog gdzie wzorzec umieścić");
+                    }
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Nie udało się zapisać wzorca");
+                }
+            }));
+
+        private RelayCommand _addFolder;
+        public RelayCommand AddFolder =>
+            _addFolder ?? (_addFolder = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    await ComplaintService.AddNewFolder(FolderToAddName, SelectedFolderToAdd);
+                    OnSuccess?.Invoke("Folder został dodany");
                 }
                 catch (Exception)
                 {
