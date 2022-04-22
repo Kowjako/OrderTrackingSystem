@@ -16,7 +16,7 @@ namespace OrderTrackingSystem.Logic.Services
     {
         public async Task<List<ComplaintFolderDTO>> GetComplaintFolders()
         {
-            using(var dbContext = new OrderTrackingSystemEntities())
+            using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var query = from folder in dbContext.ComplaintFolders
                             orderby folder.ParentComplaintFolderId
@@ -64,7 +64,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task<List<ComplaintsDTO>> GetComplaints()
         {
-            using(var dbContext = new OrderTrackingSystemEntities())
+            using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
@@ -75,7 +75,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 State = complaint.State.ToString(),
                                 Date = complaint.Date.Value.ToString()
                             };
-                var stagedList =  await query.ToListAsync();
+                var stagedList = await query.ToListAsync();
                 stagedList.ForEach(p =>
                 {
                     p.State = EnumConverter.GetNameById<ComplaintState>(int.Parse(p.State));
@@ -152,5 +152,46 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task DeleteWithAncestor(ComplaintFolderDTO complaintFolder)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                await DeleteChilds(complaintFolder, dbContext);
+            }
+        }
+
+        private async Task DeleteChilds(ComplaintFolderDTO parent, OrderTrackingSystemEntities context)
+        {
+            foreach (var child in parent.Children)
+            {
+                if (!child.Children.Any())
+                {
+                    var folder = new ComplaintFolders()
+                    {
+                        Id = child.Id
+                    };
+                    context.ComplaintFolders.Attach(folder);
+                    context.Entry(folder).State = EntityState.Modified;
+                    context.ComplaintFolders.Remove(folder);
+                    await context.SaveChangesAsync();
+                }
+                else
+                {
+                    /* rekurencyjne usuwamy dzieci */
+                    await DeleteChilds(child, context);
+                }
+            }
+
+            /* usuwamy rodzica bieżącego */
+            var parentAbove = new ComplaintFolders()
+            {
+                Id = parent.Id
+            };
+            context.ComplaintFolders.Attach(parentAbove);
+            context.Entry(parentAbove).State = EntityState.Modified;
+            context.ComplaintFolders.Remove(parentAbove);
+            await context.SaveChangesAsync();
+        }
     }
 }
+

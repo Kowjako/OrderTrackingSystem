@@ -35,16 +35,6 @@
         </Border>
         <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink"
                    LastChildFill="False">
-            <Button Command="{Binding AddTemplate}"
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
-                    Content="{x:Static res:Resources.AddComplaint}" />
             <Button Command="{Binding AddFolder}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -55,7 +45,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddFolder}" />
-            <Button
+            <Button Command="{Binding RemoveFolder}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -65,7 +55,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.RemoveFolder}" />
-            <Button
+            <Button Command="{Binding AddTemplate}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -165,15 +155,15 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
+                <StackPanel ToggleButton.Checked="StackPanel_Checked">
                     <RadioButton
                         GroupName="DeleteComplaint"
-                        IsChecked="True"
+                        x:Name="alsoFromFolder"
                         Content="{x:Static res:Resources.RemoveAlsoFromThisFolder}" />
                     <RadioButton
                         Margin="0,5,0,0"
                         GroupName="DeleteComplaint"
-                        IsChecked="False"
+                        x:Name="moveToParent"
                         Content="{x:Static res:Resources.RemoveToParentCatalog}" />
                 </StackPanel>
             </GroupBox>

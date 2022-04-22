@@ -56,6 +56,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public ComplaintFolderDTO SelectedFolderToAdd { get; set; }
 
         public string FolderToAddName { get; set; }
+        public byte SelectedFolderDeleteType { get; set; } = 2;
 
         #endregion
 
@@ -115,6 +116,31 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     OnSuccess?.Invoke("Folder został dodany");
                 }
                 catch (Exception)
+                {
+                    OnFailure?.Invoke("Nie udało się zapisać wzorca");
+                }
+            }));
+
+        private RelayCommand _removeFolder;
+        public RelayCommand RemoveFolder =>
+            _removeFolder ?? (_removeFolder = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    switch(SelectedFolderDeleteType)
+                    {
+                        case 0:
+                            await ComplaintService.DeleteWithAncestor(SelectedFolder);
+                            break;
+                        case 1:
+                            //await ComplaintService.DeleteAndMoveToAncestor(SelectedFolder);
+                            break;
+                        default:
+                            break;
+                    }
+                    OnSuccess?.Invoke("Folder usunięty pomyślnie");
+                }
+                catch (Exception ex)
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wzorca");
                 }

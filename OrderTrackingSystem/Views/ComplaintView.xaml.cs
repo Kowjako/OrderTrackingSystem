@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -49,6 +50,18 @@ namespace OrderTrackingSystem.Presentation.Views
         private void complaintDefinitionsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
+
+        private void StackPanel_Checked(object sender, RoutedEventArgs e)
+        {
+            var selectedToggle = e.OriginalSource as ToggleButton;
+
+            (DataContext as ComplaintsViewModel).SelectedFolderDeleteType = selectedToggle.Name switch
+            {
+                "alsoFromFolder" => 0,
+                "moveToParent" => 1,
+                _ => 2
+            };
         }
     }
 }
