@@ -192,6 +192,28 @@ namespace OrderTrackingSystem.Logic.Services
             context.ComplaintFolders.Remove(parentAbove);
             await context.SaveChangesAsync();
         }
+
+        public async Task DeleteAndMoveToAncestor(ComplaintFolderDTO complaintFolder)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var childs = RecursiveTreeFiller<ComplaintFolderDTO>.GetAllChild(complaintFolder);
+                childs.ForEach(p =>
+                {
+                    p.ParentId = complaintFolder.ParentId;
+                    var folder = new ComplaintFolders()
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        ParentComplaintFolderId = p.ParentId
+                    };
+
+                    dbContext.Entry(folder).State = EntityState.Modified;
+                });
+
+                await dbContext.SaveChangesAsync();                
+            }
+        }
     }
 }
 

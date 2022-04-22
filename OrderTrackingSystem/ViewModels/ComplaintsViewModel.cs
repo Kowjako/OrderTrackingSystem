@@ -133,7 +133,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             await ComplaintService.DeleteWithAncestor(SelectedFolder);
                             break;
                         case 1:
-                            //await ComplaintService.DeleteAndMoveToAncestor(SelectedFolder);
+                            await ComplaintService.DeleteAndMoveToAncestor(SelectedFolder);
                             break;
                         default:
                             break;
