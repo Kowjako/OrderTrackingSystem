@@ -20,10 +20,6 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     /// </summary>
     public partial class ComplaintProgress : UserControl
     {
-        private const int RADIUS_X = 10;
-        private const int RADIUS_Y = 10;
-
-
         public int ActualComplaintState
         {
             get { return (int)GetValue(ActualComplaintStateProperty); }
@@ -42,44 +38,8 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            GenerateStates();
-        }
-
-        private void GenerateStates()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                var ellipse = new Border
-                {
-                    BorderBrush = new SolidColorBrush(Colors.Black),
-                    BorderThickness = new Thickness(1.5),
-                    Height = RADIUS_Y * 2,
-                    Margin = i != 0 ? new Thickness(0,10,0,0) : new Thickness(0),
-                    Width = RADIUS_X * 2
-                };
-
-
-                if (i < ActualComplaintState)
-                {
-                    ellipse.Child = GenerateChildRectangle();
-                }
-
-                Grid.SetColumn(ellipse, 0);
-                Grid.SetRow(ellipse, i);
-                mainContainer.Children.Add(ellipse);
-            }
-        }
-
-        private UIElement GenerateChildRectangle()
-        {
-            return new Rectangle
-            {
-                Height = RADIUS_Y,
-                Width = RADIUS_X,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Fill = new SolidColorBrush(Colors.DodgerBlue)
-            };
+            line1.Width = mainContainer.ColumnDefinitions[1].ActualWidth;
+            line2.Width = line1.Width;
         }
     }
 }

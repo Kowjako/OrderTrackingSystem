@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="440">
+             d:DesignHeight="80" d:DesignWidth="500">
     <UserControl.Resources>
         <!-- Control template dla zaznaczonego checkbox-->
         <ControlTemplate x:Key="stateDone" TargetType="{x:Type CheckBox}">
@@ -48,11 +48,11 @@
     </UserControl.Resources>
     <Grid x:Name="mainContainer" Grid.IsSharedSizeScope="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="X"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="X"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="X"/>
+            <ColumnDefinition Width="2*" SharedSizeGroup="X"/>
+            <ColumnDefinition Width="1.75*"/>
+            <ColumnDefinition Width="2*" SharedSizeGroup="X"/>
+            <ColumnDefinition Width="1.75*"/>
+            <ColumnDefinition Width="2*" SharedSizeGroup="X"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -76,31 +76,31 @@
                   BorderBrush="Gray"
                   IsChecked="True">
         </CheckBox>
-        <Line Stroke="#1CB164"
+        <Rectangle Stroke="Green"
               Grid.Column="1"
+              StrokeThickness="2"
+              x:Name="line1"
               VerticalAlignment="Center"
-              X1="0"
-              X2="80"
-              StrokeDashArray="2 2"/>
-        <Line Stroke="SlateGray"
+              Width="100"
+              StrokeDashArray="2 3"/>
+        <Rectangle Stroke="SlateGray"
               Grid.Column="3"
+              StrokeThickness="2"
               VerticalAlignment="Center"
-              X1="0"
-              X2="80"
-              StrokeThickness="1"
-              StrokeDashArray="2 2"/>
+              x:Name="line2"
+              StrokeDashArray="2 3"/>
         <StackPanel Grid.Column="0"
                     Grid.Row="1">
             <TextBlock Margin="2"
                        Text="Założenie reklamacji"
-                       FontSize="10"/>
+                       FontSize="12"/>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
                 <Image Height="12" 
                        Margin="2"
                        Width="12" 
                        Source="../Images/clock.png"/>
-                <TextBlock FontSize="7"
+                <TextBlock FontSize="10"
                            VerticalAlignment="Center"
                            Text="01-Czerwca-2022"/>
             </StackPanel>
@@ -108,15 +108,16 @@
         <StackPanel Grid.Column="2"
                     Grid.Row="1">
             <TextBlock Margin="2"
+                       HorizontalAlignment="Center"
                        Text="Decyzja sprzedawcy"
-                       FontSize="10"/>
+                       FontSize="12"/>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
                 <Image Height="12" 
                        Margin="2"
                        Width="12" 
                        Source="../Images/clock.png"/>
-                <TextBlock FontSize="7"
+                <TextBlock FontSize="10"
                            VerticalAlignment="Center"
                            Text="02-Czerwca-2022"/>
             </StackPanel>
@@ -126,14 +127,14 @@
             <TextBlock Margin="2"
                        HorizontalAlignment="Center"
                        Text="Koniec reklamacji"
-                       FontSize="10"/>
+                       FontSize="12"/>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
                 <Image Height="12" 
                        Margin="2"
                        Width="12" 
                        Source="../Images/clock.png"/>
-                <TextBlock FontSize="7"
+                <TextBlock FontSize="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Text="05-Czerwca-2022"/>

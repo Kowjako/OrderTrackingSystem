@@ -173,9 +173,6 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <customControls1:ComplaintProgress ActualComplaintState="1"/>
-                </StackPanel>
             </GroupBox>
 
         </DockPanel>
@@ -229,6 +226,7 @@
             </GroupBox>
             <DockPanel Grid.Column="1"
                     Grid.RowSpan="3"
+                       LastChildFill="False"
                     Grid.Row="0">
                 <TextBlock Text="{x:Static res:Resources.MyComplaints}"
                        Foreground="Black"
@@ -236,15 +234,21 @@
                        DockPanel.Dock="Top"
                        Margin="10,10,10,5"
                        FontFamily="Arial"/>
-                <DataGrid x:Name="elementGrid" 
+                <DataGrid x:Name="elementGrid"
+                          DockPanel.Dock="Top"
                           Margin="0,0,5,0"
                           Foreground="Black"
                           CanUserAddRows="False"
                           SelectionUnit="FullRow"
                           ColumnWidth="*"
+                          VerticalScrollBarVisibility="Auto"
                           IsReadOnly="True"
                           AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
                           ItemsSource="{Binding ComplaintsList}"/>
+                <customControls1:ComplaintProgress
+                    x:Name="complaintProgressBar"
+                    Margin="15,5,25,10"
+                    DockPanel.Dock="Bottom"/>
             </DockPanel>
         </Grid>
     </Grid>
