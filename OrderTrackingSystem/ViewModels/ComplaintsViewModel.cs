@@ -127,6 +127,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
+                    //TODO: uwzglednienie ComplaintRelations
                     switch(SelectedFolderDeleteType)
                     {
                         case 0:
