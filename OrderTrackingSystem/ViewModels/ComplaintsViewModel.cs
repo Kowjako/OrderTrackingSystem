@@ -5,6 +5,7 @@ using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -57,7 +58,21 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public string FolderToAddName { get; set; }
         public byte SelectedFolderDeleteType { get; set; } = 2;
+        public int SelectedComplaintState { get; set; } = 0;
+        public List<DateTime?> SelectedComplaintStateDates { get; set; }
 
+        private ComplaintsDTO _selectedComplaint;
+        public ComplaintsDTO SelectedComplaint
+        {
+            get => _selectedComplaint;
+            set
+            {
+                _selectedComplaint = value;
+                SelectedComplaintState = value.StateId;
+                SelectedComplaintStateDates = value.ComplaintStateDates.Where(p => p.HasValue).ToList();
+                OnManyPropertyChanged(new[] { nameof(SelectedComplaintState), nameof(SelectedComplaintStateDates) });
+            }
+        }
         #endregion
 
         #region Ctor
@@ -127,7 +142,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    //TODO: uwzglednienie ComplaintRelations
                     switch(SelectedFolderDeleteType)
                     {
                         case 0:

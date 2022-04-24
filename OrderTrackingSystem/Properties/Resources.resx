@@ -177,6 +177,9 @@
   <data name="ComplaintDecision" xml:space="preserve">
     <value>Decyzja sprzedawcy</value>
   </data>
+  <data name="ComplaintDefinitionCreator" xml:space="preserve">
+    <value>Kreator definicji wzorca</value>
+  </data>
   <data name="ComplaintFolders" xml:space="preserve">
     <value>Foldery reklamacyjne</value>
   </data>

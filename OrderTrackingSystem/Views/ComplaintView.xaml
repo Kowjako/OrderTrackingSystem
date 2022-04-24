@@ -167,7 +167,14 @@
                         Content="{x:Static res:Resources.RemoveToParentCatalog}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{x:Static res:Resources.ComplaintDefinitionCreator}"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
 
+            </GroupBox>
         </DockPanel>
         <Grid Grid.Column="1"
               Grid.Row="0"
@@ -234,12 +241,15 @@
                           CanUserAddRows="False"
                           SelectionUnit="FullRow"
                           ColumnWidth="*"
+                          SelectedItem="{Binding SelectedComplaint, UpdateSourceTrigger=PropertyChanged}"
                           VerticalScrollBarVisibility="Auto"
                           IsReadOnly="True"
                           AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
                           ItemsSource="{Binding ComplaintsList}"/>
                 <customControls1:ComplaintProgress
                     x:Name="complaintProgressBar"
+                    ComplaintDates="{Binding SelectedComplaintStateDates}"
+                    ActualComplaintState="{Binding SelectedComplaintState}"
                     Margin="15,5,25,10"
                     DockPanel.Dock="Bottom"/>
             </DockPanel>

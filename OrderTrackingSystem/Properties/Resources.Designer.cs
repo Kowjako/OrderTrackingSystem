@@ -241,6 +241,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kreator definicji wzorca.
+        /// </summary>
+        public static string ComplaintDefinitionCreator {
+            get {
+                return ResourceManager.GetString("ComplaintDefinitionCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foldery reklamacyjne.
         /// </summary>
         public static string ComplaintFolders {

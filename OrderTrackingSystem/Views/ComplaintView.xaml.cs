@@ -33,7 +33,7 @@ namespace OrderTrackingSystem.Presentation.Views
         private async void complaintsView_Loaded(object sender, RoutedEventArgs e)
         {
             complaintsFolders.MaxHeight = complaintsFolders.ActualHeight;
-            elementGrid.MaxHeight = elementGrid.ActualHeight;
+            //elementGrid.MaxHeight = elementGrid.ActualHeight;
             await (DataContext as ComplaintsViewModel).SetInitializeProperties();
         }
 
