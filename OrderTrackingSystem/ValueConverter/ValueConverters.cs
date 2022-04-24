@@ -19,12 +19,6 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (string.IsNullOrEmpty(value.ToString())) return 0m;
-            decimal decimalValue = decimal.Parse(value.ToString(), CultureInfo.InvariantCulture);
-            if(decimalValue != 0m)
-            {
-                return decimalValue;
-            }
             return DependencyProperty.UnsetValue;
         }
     }
@@ -43,12 +37,6 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (string.IsNullOrEmpty(value.ToString())) return 0;
-            byte decimalValue = byte.Parse(value.ToString());
-            if (decimalValue != 0)
-            {
-                return decimalValue;
-            }
             return DependencyProperty.UnsetValue;
         }
     }
@@ -70,12 +58,24 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
             _ => Visibility.Visible
         };
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (value as Visibility?) switch
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Visibility.Visible => true,
-            Visibility.Collapsed => false,
-            _ => true
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
+    [ValueConversion(typeof(int), typeof(Visibility))]
+    public class IntToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (value as int?) switch
+        {
+            var x when x.HasValue && x.Value > 0 => Visibility.Visible,
+            _ => Visibility.Collapsed
         };
 
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return DependencyProperty.UnsetValue;
+        }
     }
 }
