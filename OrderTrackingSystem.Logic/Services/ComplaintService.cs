@@ -156,7 +156,29 @@ namespace OrderTrackingSystem.Logic.Services
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
+                var allChildIds = RecursiveTreeFiller<ComplaintFolderDTO>.GetAllChild(complaintFolder).Select(p => p.Id);
+                
                 await DeleteChilds(complaintFolder, dbContext);
+
+                /* Wybor relacji do usuniecia */
+                var relationDeleteQuery = from rel in dbContext.ComplaintRelations
+                                          where allChildIds.Contains(rel.Id)
+                                          select rel;
+
+                var relationList = await relationDeleteQuery.ToListAsync();
+
+                /* Usuwamy relacje -> trigger usunie szablony */
+                await relationList.ForEachAsync(async p =>
+                {
+                    var complaintRelation = new ComplaintRelations()
+                    {
+                        Id = p.Id
+                    };
+                    dbContext.ComplaintRelations.Attach(complaintRelation);
+                    dbContext.Entry(complaintRelation).State = EntityState.Modified;
+                    dbContext.ComplaintRelations.Remove(complaintRelation);
+                    await dbContext.SaveChangesAsync();
+                });
             }
         }
 

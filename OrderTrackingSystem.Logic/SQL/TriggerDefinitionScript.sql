@@ -55,4 +55,25 @@ IF (SELECT COUNT(Id) FROM
 	SELECT Id FROM Sellers WHERE Id = @SenderId) AS TBL) < 2
 DELETE FROM Mails WHERE Id = (SELECT Id FROM INSERTED)
 GO
+
+
+/* Trigger usuwajacy szablony reklamacyjne przy usunięciu
+relacji folder - szablon, bo istnienie szablony zakłada 
+przynależność tego szablonu do określonego folderu */
+
+IF OBJECT_ID('TR__ComplaintRelations_OnDelete', 'TR') IS NOT NULL
+DROP TRIGGER TR__ComplaintRelations_OnDelete
+GO
+
+CREATE TRIGGER TR__ComplaintRelations_OnDelete
+ON ComplaintRelations
+AFTER DELETE
+AS
+
+DECLARE @ComplaintId INT;
+
+SELECT @ComplaintId = ComplaintId FROM DELETED
+DELETE FROM ComplaintDefinitions WHERE ID = @ComplaintId
+GO
+
 COMMIT TRAN

@@ -31,7 +31,7 @@ namespace OrderTrackingSystem
             this.DragMove();
         }
 
-        private void ListBoxItem_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void exit_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
@@ -42,6 +42,8 @@ namespace OrderTrackingSystem
             MaxHeight = SystemParameters.WorkArea.Height;
             fullScreenBtn.Content = WindowState == WindowState.Maximized ? Presentation.Properties.Resources.ResourceManager.GetString("EnableFullscreen", CultureInfo.CurrentCulture)
                                                                          : Presentation.Properties.Resources.ResourceManager.GetString("DisableFullscreen", CultureInfo.CurrentCulture);
+            exit.Content = Presentation.Properties.Resources.ResourceManager.GetString("Exit", CultureInfo.CurrentCulture);
+            
         }
 
         private void menuExpander_Click(object sender, RoutedEventArgs e)
@@ -143,6 +145,5 @@ namespace OrderTrackingSystem
         }
 
         #endregion
-
     }
 }

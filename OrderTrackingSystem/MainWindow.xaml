@@ -19,8 +19,8 @@
                     DockPanel.Dock="Right"
                     PlacementMode="BottomAndAlignRightEdges">
                         <ListBox HorizontalContentAlignment="Stretch">
-                            <ListBoxItem
-                            Content="{x:Static res:Resources.Exit}" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
+                            <ListBoxItem x:Name="exit"
+                            Content="{x:Static res:Resources.Exit}" PreviewMouseLeftButtonDown="exit_PreviewMouseLeftButtonDown"/>
                             <ListBoxItem x:Name="fullScreenBtn"
                             Content="{x:Static res:Resources.EnableFullscreen}" PreviewMouseLeftButtonDown="fullScreenBtn_PreviewMouseLeftButtonDown">
                             </ListBoxItem>
