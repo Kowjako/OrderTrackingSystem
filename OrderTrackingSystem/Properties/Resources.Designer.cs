@@ -232,6 +232,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decyzja sprzedawcy.
+        /// </summary>
+        public static string ComplaintDecision {
+            get {
+                return ResourceManager.GetString("ComplaintDecision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foldery reklamacyjne.
         /// </summary>
         public static string ComplaintFolders {
@@ -264,6 +273,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string ComplaintProcess {
             get {
                 return ResourceManager.GetString("ComplaintProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Założenie reklamacji.
+        /// </summary>
+        public static string ComplaintRegister {
+            get {
+                return ResourceManager.GetString("ComplaintRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koniec reklamacji.
+        /// </summary>
+        public static string ComplaintResolve {
+            get {
+                return ResourceManager.GetString("ComplaintResolve", resourceCulture);
             }
         }
         

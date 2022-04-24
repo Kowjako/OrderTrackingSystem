@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="500">
     <UserControl.Resources>
@@ -92,7 +93,7 @@
         <StackPanel Grid.Column="0"
                     Grid.Row="1">
             <TextBlock Margin="2"
-                       Text="Założenie reklamacji"
+                       Text="{x:Static res:Resources.ComplaintRegister}"
                        FontSize="12"/>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
@@ -109,7 +110,7 @@
                     Grid.Row="1">
             <TextBlock Margin="2"
                        HorizontalAlignment="Center"
-                       Text="Decyzja sprzedawcy"
+                       Text="{x:Static res:Resources.ComplaintDecision}"
                        FontSize="12"/>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
@@ -126,7 +127,7 @@
                     Grid.Row="1">
             <TextBlock Margin="2"
                        HorizontalAlignment="Center"
-                       Text="Koniec reklamacji"
+                       Text="{x:Static res:Resources.ComplaintResolve}"
                        FontSize="12"/>
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">

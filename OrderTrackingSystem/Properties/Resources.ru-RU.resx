@@ -174,6 +174,9 @@
   <data name="ComplaintDays" xml:space="preserve">
     <value>Кол-во дней на рассмотрение</value>
   </data>
+  <data name="ComplaintDecision" xml:space="preserve">
+    <value>Решение продавца</value>
+  </data>
   <data name="ComplaintFolders" xml:space="preserve">
     <value>Папки жалоб</value>
   </data>
@@ -185,6 +188,12 @@
   </data>
   <data name="ComplaintProcess" xml:space="preserve">
     <value>Процесс жалобы</value>
+  </data>
+  <data name="ComplaintRegister" xml:space="preserve">
+    <value>Создание жалобы</value>
+  </data>
+  <data name="ComplaintResolve" xml:space="preserve">
+    <value>Конец жалобы</value>
   </data>
   <data name="ComplaintViews" xml:space="preserve">
     <value>Шаблоны жалоб</value>
