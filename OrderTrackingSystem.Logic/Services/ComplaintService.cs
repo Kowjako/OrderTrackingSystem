@@ -256,13 +256,7 @@ namespace OrderTrackingSystem.Logic.Services
                     templatesInCurrent.ForEach(p =>
                     {
                         p.ComplaintFolderId = complaintFolder.ParentId.Value;
-                        var relation = new ComplaintRelations()
-                        {
-                            Id = p.Id,
-                            ComplaintFolderId = p.ComplaintFolderId,
-                            ComplaintId = p.ComplaintId
-                        };
-                        dbContext.Entry(relation).State = EntityState.Modified;
+                        dbContext.Entry(p).State = EntityState.Modified;
                     });
 
                     await dbContext.SaveChangesAsync();
