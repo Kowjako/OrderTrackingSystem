@@ -156,16 +156,18 @@ namespace OrderTrackingSystem.Logic.Services
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
-                var allChildIds = RecursiveTreeFiller<ComplaintFolderDTO>.GetAllChild(complaintFolder).Select(p => p.Id);
-                
-                await DeleteChilds(complaintFolder, dbContext);
+                /* Pobieramy id folderów głównego i podrzędnych */
+                var allChildIds = RecursiveTreeFiller<ComplaintFolderDTO>.GetAllChild(complaintFolder).Select(p => p.Id).ToList();
+                allChildIds.Add(complaintFolder.Id);
 
-                /* Wybor relacji do usuniecia */
+                /* Wybor relacji do usuniecia wskazujące na sub-foldery - robimy przed usunięciem folderów */
                 var relationDeleteQuery = from rel in dbContext.ComplaintRelations
-                                          where allChildIds.Contains(rel.Id)
+                                          where allChildIds.Contains(rel.ComplaintFolderId)
                                           select rel;
 
                 var relationList = await relationDeleteQuery.ToListAsync();
+
+                await DeleteChilds(complaintFolder, dbContext);
 
                 /* Usuwamy relacje -> trigger usunie szablony */
                 await relationList.ForEachAsync(async p =>
@@ -184,56 +186,88 @@ namespace OrderTrackingSystem.Logic.Services
 
         private async Task DeleteChilds(ComplaintFolderDTO parent, OrderTrackingSystemEntities context)
         {
-            foreach (var child in parent.Children)
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                if (!child.Children.Any())
+                foreach (var child in parent.Children)
                 {
-                    var folder = new ComplaintFolders()
+                    if (!child.Children.Any())
                     {
-                        Id = child.Id
-                    };
-                    context.ComplaintFolders.Attach(folder);
-                    context.Entry(folder).State = EntityState.Modified;
-                    context.ComplaintFolders.Remove(folder);
-                    await context.SaveChangesAsync();
+                        var folder = new ComplaintFolders()
+                        {
+                            Id = child.Id
+                        };
+                        context.ComplaintFolders.Attach(folder);
+                        context.Entry(folder).State = EntityState.Modified;
+                        context.ComplaintFolders.Remove(folder);
+                        await context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        /* rekurencyjne usuwamy dzieci */
+                        await DeleteChilds(child, context);
+                    }
                 }
-                else
-                {
-                    /* rekurencyjne usuwamy dzieci */
-                    await DeleteChilds(child, context);
-                }
-            }
 
-            /* usuwamy rodzica bieżącego */
-            var parentAbove = new ComplaintFolders()
-            {
-                Id = parent.Id
-            };
-            context.ComplaintFolders.Attach(parentAbove);
-            context.Entry(parentAbove).State = EntityState.Modified;
-            context.ComplaintFolders.Remove(parentAbove);
-            await context.SaveChangesAsync();
+                /* usuwamy rodzica bieżącego */
+                var parentAbove = new ComplaintFolders()
+                {
+                    Id = parent.Id
+                };
+                context.ComplaintFolders.Attach(parentAbove);
+                context.Entry(parentAbove).State = EntityState.Modified;
+                context.ComplaintFolders.Remove(parentAbove);
+                await context.SaveChangesAsync();
+
+                transactionScope.Complete();
+            }
         }
 
         public async Task DeleteAndMoveToAncestor(ComplaintFolderDTO complaintFolder)
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                var childs = RecursiveTreeFiller<ComplaintFolderDTO>.GetAllChild(complaintFolder);
-                childs.ForEach(p =>
+                using (var dbContext = new OrderTrackingSystemEntities())
                 {
-                    p.ParentId = complaintFolder.ParentId;
-                    var folder = new ComplaintFolders()
+                    var childs = RecursiveTreeFiller<ComplaintFolderDTO>.GetAllChild(complaintFolder);
+                    childs.ForEach(p =>
                     {
-                        Id = p.Id,
-                        Name = p.Name,
-                        ParentComplaintFolderId = p.ParentId
-                    };
+                        p.ParentId = complaintFolder.ParentId;
+                        var folder = new ComplaintFolders()
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                            ParentComplaintFolderId = p.ParentId
+                        };
 
-                    dbContext.Entry(folder).State = EntityState.Modified;
-                });
+                        dbContext.Entry(folder).State = EntityState.Modified;
+                    });
+                    await dbContext.SaveChangesAsync();
 
-                await dbContext.SaveChangesAsync();                
+                    /* Wybieramy id szablonów znajdujace sie bezposrednio w tym folderze */
+                    var templateIds = from rel in dbContext.ComplaintRelations
+                                      join def in dbContext.ComplaintDefinitions
+                                      on rel.ComplaintId equals def.Id
+                                      where rel.ComplaintFolderId == complaintFolder.Id
+                                      select rel;
+                    var templatesInCurrent = await templateIds.ToListAsync();
+
+                    templatesInCurrent.ForEach(p =>
+                    {
+                        p.ComplaintFolderId = complaintFolder.ParentId.Value;
+                        var relation = new ComplaintRelations()
+                        {
+                            Id = p.Id,
+                            ComplaintFolderId = p.ComplaintFolderId,
+                            ComplaintId = p.ComplaintId
+                        };
+                        dbContext.Entry(relation).State = EntityState.Modified;
+                    });
+
+                    await dbContext.SaveChangesAsync();
+                }
+                transactionScope.Complete();
             }
         }
     }
