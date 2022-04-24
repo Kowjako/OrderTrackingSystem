@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
+             xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="500">
     <UserControl.Resources>
+        <converters:IntToVisibilityConverter x:Key="iToVConverter"/>
         <!-- Control template dla zaznaczonego checkbox-->
         <ControlTemplate x:Key="stateDone" TargetType="{x:Type CheckBox}">
             <Border Width="30"
@@ -42,8 +44,18 @@
         <!-- Styl dla odznaczonego checkbox -->
         <Style x:Key="unchecked" TargetType="{x:Type CheckBox}">
             <Style.Setters>
-                <Setter Property="BorderBrush" Value="LightGray"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
                 <Setter Property="Background" Value="Snow"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="lineNotDone" TargetType="{x:Type Rectangle}">
+            <Style.Setters>
+                <Setter Property="Stroke" Value="Gray"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="lineDone" TargetType="{x:Type Rectangle}">
+            <Style.Setters>
+                <Setter Property="Stroke" Value="Green"/>
             </Style.Setters>
         </Style>
     </UserControl.Resources>
@@ -61,31 +73,33 @@
         </Grid.RowDefinitions>
         <CheckBox Template="{StaticResource stateDone}" 
                   Grid.Column="0" 
+                  x:Name="cb1"
                   Style="{StaticResource checked}"
                   IsChecked="True">
         </CheckBox>
         <CheckBox Template="{StaticResource stateUndone}" 
                   Grid.Column="2"
+                  x:Name="cb2"
                   Style="{StaticResource unchecked}"
-                  BorderBrush="Gray"
                   IsChecked="True">
 
         </CheckBox>
         <CheckBox Template="{StaticResource stateUndone}" 
                   Grid.Column="4"
+                  x:Name="cb3"
                   Style="{StaticResource unchecked}"
-                  BorderBrush="Gray"
                   IsChecked="True">
         </CheckBox>
-        <Rectangle Stroke="Green"
+        <Rectangle
               Grid.Column="1"
               StrokeThickness="2"
               x:Name="line1"
+              Style="{StaticResource lineNotDone}"
               VerticalAlignment="Center"
               Width="100"
               StrokeDashArray="2 3"/>
-        <Rectangle Stroke="SlateGray"
-              Grid.Column="3"
+        <Rectangle Grid.Column="3"
+              Style="{StaticResource lineNotDone}"
               StrokeThickness="2"
               VerticalAlignment="Center"
               x:Name="line2"
@@ -99,9 +113,12 @@
                         HorizontalAlignment="Center">
                 <Image Height="12" 
                        Margin="2"
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Width="12" 
+                       Visibility="{Binding ElementName=state1, Path=Text.Length, Converter={StaticResource iToVConverter}}"
                        Source="../Images/clock.png"/>
                 <TextBlock FontSize="10"
+                           x:Name="state1"
                            VerticalAlignment="Center"
                            Text="{Binding ComplaintDates[0], StringFormat={}{0:dd-MM-yyyy}}"/>
             </StackPanel>
@@ -115,10 +132,13 @@
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
                 <Image Height="12" 
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Margin="2"
                        Width="12" 
+                       Visibility="{Binding ElementName=state2, Path=Text.Length, Converter={StaticResource iToVConverter}}"
                        Source="../Images/clock.png"/>
                 <TextBlock FontSize="10"
+                           x:Name="state2"
                            VerticalAlignment="Center"
                            Text="{Binding ComplaintDates[1], StringFormat={}{0:dd-MM-yyyy}}"/>
             </StackPanel>
@@ -132,10 +152,13 @@
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
                 <Image Height="12" 
+                       Visibility="{Binding ElementName=state3, Path=Text.Length, Converter={StaticResource iToVConverter}}"
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Margin="2"
                        Width="12" 
                        Source="../Images/clock.png"/>
                 <TextBlock FontSize="10"
+                           x:Name="state3"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Text="{Binding ComplaintDates[2], StringFormat={}{0:dd-MM-yyyy}}"/>

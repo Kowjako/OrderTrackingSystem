@@ -21,7 +21,7 @@ namespace OrderTrackingSystem.Logic.DTO
         public DateTime? SolutionDate { get; set; }
         [Browsable(false)]
         public DateTime? EndDate { get; set; }
-
+        [Browsable(false)]
         public List<DateTime?> ComplaintStateDates => new List<DateTime?> { DateTime.Parse(Date), SolutionDate, EndDate };
     }
 

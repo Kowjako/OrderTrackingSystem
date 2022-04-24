@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderTrackingSystem.Logic.HelperClasses;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -64,6 +65,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls
         private void RefreshDates()
         {
             OnPropertyChanged(nameof(ComplaintDates));
+            InvalidateVisual();
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -71,6 +73,56 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             base.OnRender(drawingContext);
             line1.Width = mainContainer.ColumnDefinitions[1].ActualWidth;
             line2.Width = line1.Width;
+
+            if (ComplaintDates != null)
+            {
+                cb1.Style = ComplaintDates.Count(p => p.HasValue) switch
+                {
+                    var x when x.In(1, 2, 3) => FindResource("checked") as Style
+                };
+                cb1.Template = FindResource("stateDone") as ControlTemplate;
+                line1.Style = FindResource("lineDone") as Style;
+
+                cb2.Style = ComplaintDates.Count(p => p.HasValue) switch
+                {
+                    var x when x.In(2, 3) => FindResource("checked") as Style,
+                    _ => FindResource("unchecked") as Style
+                };
+                cb2.Template = ComplaintDates.Count(p => p.HasValue) switch
+                { 
+                    var x when x.In(2, 3) => FindResource("stateDone") as ControlTemplate,
+                    _ => FindResource("stateUndone") as ControlTemplate,
+                };
+
+                cb3.Style = ComplaintDates.Count(p => p.HasValue) switch
+                {
+                    var x when x.In(3) => FindResource("checked") as Style,
+                    _ => FindResource("unchecked") as Style
+                };
+                cb3.Template = ComplaintDates.Count(p => p.HasValue) switch
+                {
+                    var x when x.In(3) => FindResource("stateDone") as ControlTemplate,
+                    _ => FindResource("stateUndone") as ControlTemplate
+                };
+
+                line1.Style = ComplaintDates.Count(p => p.HasValue) switch
+                {
+                    var x when x.In(1, 2, 3) => FindResource("lineDone") as Style,
+                    _ => FindResource("lineNotDone") as Style
+                };
+
+                line2.Style = ComplaintDates.Count(p => p.HasValue) switch
+                {
+                    var x when x.In(2, 3) => FindResource("lineDone") as Style,
+                    _ => FindResource("lineNotDone") as Style
+                };
+            }
+            else
+            {
+                cb1.Style = FindResource("unchecked") as Style;
+                cb1.Template = FindResource("stateUndone") as ControlTemplate;
+                line1.Style = FindResource("lineNotDone") as Style;
+            }
         }
     }
 }
