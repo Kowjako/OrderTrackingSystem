@@ -103,7 +103,7 @@
                        Source="../Images/clock.png"/>
                 <TextBlock FontSize="10"
                            VerticalAlignment="Center"
-                           Text="01-Czerwca-2022"/>
+                           Text="{Binding ComplaintDates[0], StringFormat={}{0:dd-MM-yyyy}}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="2"
@@ -120,7 +120,7 @@
                        Source="../Images/clock.png"/>
                 <TextBlock FontSize="10"
                            VerticalAlignment="Center"
-                           Text="02-Czerwca-2022"/>
+                           Text="{Binding ComplaintDates[1], StringFormat={}{0:dd-MM-yyyy}}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="4"
@@ -138,7 +138,7 @@
                 <TextBlock FontSize="10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Text="05-Czerwca-2022"/>
+                           Text="{Binding ComplaintDates[2], StringFormat={}{0:dd-MM-yyyy}}"/>
             </StackPanel>
         </StackPanel>
     </Grid>
