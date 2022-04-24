@@ -18,6 +18,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public ComplaintDefinitions()
         {
             this.ComplaintRelations = new HashSet<ComplaintRelations>();
+            this.ComplaintStates = new HashSet<ComplaintStates>();
             this.Orders = new HashSet<Orders>();
         }
     
@@ -28,6 +29,8 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ComplaintRelations> ComplaintRelations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ComplaintStates> ComplaintStates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
     }

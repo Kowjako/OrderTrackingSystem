@@ -18,7 +18,11 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public byte State { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public int Id { get; set; }
+        public Nullable<System.DateTime> SolutionDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public int ComplaintDefinitionId { get; set; }
     
+        public virtual ComplaintDefinitions ComplaintDefinitions { get; set; }
         public virtual Orders Orders { get; set; }
     }
 }

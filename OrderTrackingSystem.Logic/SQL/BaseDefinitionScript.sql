@@ -349,6 +349,18 @@ ALTER TABLE ComplaintStates
 ADD CONSTRAINT PK__ComplaintStates_Id PRIMARY KEY (Id)
 GO
 
+ALTER TABLE ComplaintStates
+ADD SolutionDate DATETIME,
+	EndDate DATETIME,
+	ComplaintDefinitionId INT 
+GO
 
+ALTER TABLE ComplaintStates
+ALTER COLUMN ComplaintDefinitionId INT NOT NULL
+GO
+
+ALTER TABLE ComplaintStates
+ADD CONSTRAINT FK__ComplaintStates_ComplaintDefinitionId FOREIGN KEY (ComplaintDefinitionId) REFERENCES ComplaintDefinitions (Id)
+GO
 
 COMMIT TRAN

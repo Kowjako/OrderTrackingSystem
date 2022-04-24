@@ -73,7 +73,10 @@ namespace OrderTrackingSystem.Logic.Services
                             {
                                 OrderNumber = order.Number,
                                 State = complaint.State.ToString(),
-                                Date = complaint.Date.Value.ToString()
+                                Date = complaint.Date.Value.ToString(),
+                                StateId = complaint.State,
+                                SolutionDate = complaint.SolutionDate,
+                                EndDate = complaint.EndDate
                             };
                 var stagedList = await query.ToListAsync();
                 stagedList.ForEach(p =>
