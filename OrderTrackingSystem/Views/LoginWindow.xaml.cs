@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -27,6 +28,16 @@ namespace OrderTrackingSystem.Presentation.Views
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void createNewAcc_Click(object sender, RoutedEventArgs e)
+        {
+            var gridAnimation = new DoubleAnimation();
+            gridAnimation.From = 800;
+            gridAnimation.To = 1180;
+            gridAnimation.Duration = TimeSpan.FromSeconds(2);
+            gridAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            logWindow.BeginAnimation(DockPanel.WidthProperty, gridAnimation);
         }
     }
 }

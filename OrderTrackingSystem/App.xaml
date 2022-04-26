@@ -5,8 +5,9 @@
              xmlns:views="clr-namespace:OrderTrackingSystem.Views"
              xmlns:viewmodelsP="clr-namespace:OrderTrackingSystem.Presentation.ViewModels"
              xmlns:viewsP="clr-namespace:OrderTrackingSystem.Presentation.Views"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views\LoginWindow.xaml">
     <!-- StartupUri Views\LoginWindow.xaml -->
+    <!--MainWindow.xaml-->
     <Application.Resources>
         
         <ResourceDictionary>

@@ -5,15 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        x:Name="logWindow"
         ResizeMode="NoResize" WindowStyle="None"
         Title="LoginWindow" Height="450" Width="800">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="lgbtBrush">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="Lime" Offset="0.1"/>
+                <GradientStop Color="Aqua" Offset="1"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+    </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1"
             Opacity="50"
             MouseDown="Border_MouseDown">
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
             <Border Grid.Column="0">
                 <Border.Background>
@@ -29,12 +39,13 @@
             <TextBlock Text="UKTracker v1.0"
                        DockPanel.Dock="Top"
                        FontSize="30"
-                       Foreground="White"
+                       Foreground="{StaticResource lgbtBrush}"
                        Margin="-50,-50,0,0"/>
                 <Rectangle Margin="-50,10,100,0" Fill="White" Height="6"/>
             </DockPanel>
             </Border>
-            <Border Background="White" Grid.Column="1">
+            <Border Background="White" Grid.Column="1" BorderThickness="1 0 1 0"
+                    BorderBrush="Black">
                 <DockPanel Margin="100,100,0,0"
                            LastChildFill="False">
                     <TextBlock Text="Login"
@@ -54,8 +65,9 @@
                              Margin="0,10,80,0"
                              FontSize="17"
                              materialDesign:HintAssist.Hint="Hasło"/>
-                    <Button
-                             Margin="0,30,250,0"
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Button
+                             Margin="0,40,10,0"
                              DockPanel.Dock="Top"
                              Height="50"
                              Background="Maroon"
@@ -64,36 +76,138 @@
                              FontSize="17"
                              Style="{StaticResource MaterialDesignRaisedButton}"
                              materialDesign:ButtonAssist.CornerRadius="10">
-                    </Button>
+                        </Button>
+                        <Button x:Name="createNewAcc"
+                             Click="createNewAcc_Click"
+                             Margin="0,40,0,0"
+                             DockPanel.Dock="Top"
+                             Height="50"
+                             Background="Maroon"
+                             BorderBrush="Maroon"
+                             Content="Załóż konto"
+                             FontSize="17"
+                             Style="{StaticResource MaterialDesignRaisedButton}"
+                             materialDesign:ButtonAssist.CornerRadius="10">
+                        </Button>
+
+                    </StackPanel>
                 </DockPanel>
             </Border>
-            <Button Grid.Column="0"
-                    Height="70"
-                    Width="70"
-                    FontSize="30"
-                    Margin="0,-40,-35,0"
-                    HorizontalAlignment="Right"
-                    Content=">">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="Black"
-                                BorderThickness="2"
-                                CornerRadius="40">
-                            <Border.Background>
-                                <LinearGradientBrush>
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="Red" Offset="0.1"/>
-                                        <GradientStop Color="Orange" Offset="0.6"/>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <ContentPresenter 
-                                Margin="25,10,0,0"
-                                Content="{TemplateBinding Content}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+
+            <Grid Grid.Column="2" x:Name="newAccGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="190"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Width="250">
+                <TextBlock Text="Imię"
+                           Margin="20,15,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Imię"/>
+                <TextBlock Text="Nazwisko"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Nazwisko"/>
+                <TextBlock Text="Wiek"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Wiek"/>
+                <TextBlock Text="Email"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Email"/>
+                <TextBlock Text="Numer"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Numer"/>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" Width="240">
+                    <TextBlock Text="Kraj"
+                           Margin="20,15,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Imię"/>
+                    <TextBlock Text="Miasto"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Nazwisko"/>
+                    <TextBlock Text="Ulica"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Wiek"/>
+                    <TextBlock Text="Budynek"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Email"/>
+                    <TextBlock Text="Mieszkanie"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Numer"/>
+                    <TextBlock Text="Kod pocztowy"
+                           Margin="20,5,5,5"
+                           FontSize="15"
+                           Foreground="Black"/>
+                    <TextBox   Margin="20,0,80,0"
+                           FontSize="13"
+                           Width="200"
+                           materialDesign:HintAssist.Hint="Kod pocztowy"/>
+                    
+                </StackPanel>
+                <Button  Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         VerticalAlignment="Bottom"
+                             DockPanel.Dock="Top"
+                             Height="30"
+                             Width="150"
+                         Margin="0 0 0 15"
+                             Background="Maroon"
+                             BorderBrush="Maroon"
+                             Content="Zatwierdź"
+                             FontSize="15"
+                             Style="{StaticResource MaterialDesignRaisedButton}"
+                             materialDesign:ButtonAssist.CornerRadius="10">
+                </Button>
+            </Grid>
         </Grid>
     </Border>
 </Window>

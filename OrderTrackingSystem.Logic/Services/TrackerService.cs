@@ -85,6 +85,7 @@ namespace OrderTrackingSystem.Logic.Services
                 }
                 List<ParcelStateDTO> ParcelStates = OrderStates.Select(p => new ParcelStateDTO
                 {
+                    StateId = p.State,
                     Name = ConfigurationService.GetStatusDetails((OrderState)p.State).name,
                     Description = ConfigurationService.GetStatusDetails((OrderState)p.State).description,
                     Data = p.Date

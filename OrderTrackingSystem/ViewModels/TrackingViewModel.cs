@@ -227,12 +227,20 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 if (SelectedItem.IsOrder)
                 {
-                    await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
-                    OnSuccess("Odbiór został potwierdzony");
+                    var parcelStates = await TrackerService.GetParcelState(SelectedItem.Id);
+                    if(!parcelStates.Any(p => p.StateId == (int)OrderState.Getted))
+                    {
+                        await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
+                        OnSuccess("Odbiór został potwierdzony.");
+                    }
+                    else
+                    {
+                        OnWarning("Przesyłka już jest odebrana.");
+                    } 
                 }
                 else
                 {
-                    OnWarning("Potwierdzenie odbioru dostępne dla zamówionych elementów");
+                    OnWarning("Potwierdzenie odbioru dostępne dla zamówionych elementów.");
                 }
             }));
 
