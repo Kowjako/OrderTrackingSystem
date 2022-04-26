@@ -116,9 +116,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="State" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Pickups">
           <Key>
@@ -826,9 +825,8 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__OrderStates_OrderId" FromRole="OrderStates" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Pickups">
@@ -1520,7 +1518,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a pri
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
