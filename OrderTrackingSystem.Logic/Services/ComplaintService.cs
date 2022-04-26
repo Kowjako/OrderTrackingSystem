@@ -267,6 +267,11 @@ namespace OrderTrackingSystem.Logic.Services
                 transactionScope.Complete();
             }
         }
+
+        public async Task RegisterNewComplaint(int complaintDefinitionId, int orderId)
+        {
+
+        }
     }
 }
 

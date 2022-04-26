@@ -363,4 +363,12 @@ ALTER TABLE ComplaintStates
 ADD CONSTRAINT FK__ComplaintStates_ComplaintDefinitionId FOREIGN KEY (ComplaintDefinitionId) REFERENCES ComplaintDefinitions (Id)
 GO
 
+ALTER TABLE OrderStates
+ALTER COLUMN State INT NOT NULL
+GO
+
+ALTER TABLE OrderStates
+DROP COLUMN Description
+GO
+
 COMMIT TRAN

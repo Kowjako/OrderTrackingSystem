@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
@@ -27,6 +28,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private readonly TrackerService TrackerService;
         private readonly CustomerService CustomerService;
+        private readonly ComplaintService ComplaintService;
 
         #endregion
 
@@ -62,6 +64,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public DateTime EndDate { get; set; } = DateTime.Now;
         public int ItemsSelection { get; set; }
 
+        public List<ComplaintDefinitionDTO> ComplaintDefinitionsList { get; set; }
+        public ComplaintDefinitionDTO SelectedComplaint { get; set; }
+
+        public bool SentMessageWithComplaint { get; set; } = false;
+
         #endregion
 
         #region Ctor
@@ -70,6 +77,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             TrackerService = new TrackerService();
             CustomerService = new CustomerService();
+            ComplaintService = new ComplaintService();
         }
         #endregion
 
@@ -80,7 +88,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             Items = await TrackerService.GetItemsForCustomer(CurrentCustomer.Id);
             CurrentItems = Items;
-            OnManyPropertyChanged(new[] { nameof(CurrentCustomer), nameof(Items), nameof(CurrentItems) });
+            ComplaintDefinitionsList = await ComplaintService.GetComplaintDefinitions();
+            OnManyPropertyChanged(new[] { nameof(CurrentCustomer), 
+                                          nameof(Items), 
+                                          nameof(CurrentItems), 
+                                          nameof(ComplaintDefinitionsList) });
         }
 
         #endregion
@@ -162,6 +174,41 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     else
                     {
                         OnWarning("Progres można zobaczyć tylko dla zamówień");
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+
+        private RelayCommand _makeComplaint;
+        public RelayCommand MakeComplaint =>
+            _makeComplaint ?? (_makeComplaint = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    if (!SelectedItem.IsOrder)
+                    {
+                        var orderId = SelectedItem.Id;
+                        var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+                        using(var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+                        {
+                            /* Dodanie kolejnego statusu na zalozenie reklamacji */
+                            await TrackerService.AddNewStateForOrder(orderId, OrderState.ComplaintSet);
+                            /* Dodac reklamacje */
+                            await ComplaintService.RegisterNewComplaint(SelectedComplaint.Id, orderId);
+                            if(SentMessageWithComplaint)
+                            {
+                                /* wysyla automatycznego powiadomienia */
+                            }
+                            transactionScope.Complete();
+                        }
+                        OnPropertyChanged(nameof(ParcelStates));
+                    }
+                    else
+                    {
+                        OnWarning("Rezygnację można złożyć tylko na zamówienia.");
                     }
                 }
                 catch (Exception)

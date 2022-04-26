@@ -85,11 +85,29 @@ namespace OrderTrackingSystem.Logic.Services
                 }
                 List<ParcelStateDTO> ParcelStates = OrderStates.Select(p => new ParcelStateDTO
                 {
-                    Name = ConfigurationService.GetStatusDetails((OrderState)int.Parse(p.State)).name,
-                    Description = ConfigurationService.GetStatusDetails((OrderState)int.Parse(p.State)).description,
+                    Name = ConfigurationService.GetStatusDetails((OrderState)p.State).name,
+                    Description = ConfigurationService.GetStatusDetails((OrderState)p.State).description,
                     Data = p.Date
                 }).ToList();
                 return ParcelStates;
+            }
+        }
+
+        public async Task AddNewStateForOrder(int orderId, OrderState newState)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var stateId = (int)newState;
+                var orderStateDAL = new OrderStates()
+                {
+                    OrderId = orderId,
+                    State = stateId,
+                    Date = DateTime.Now
+                };
+
+                dbContext.Entry(orderStateDAL).State = EntityState.Added;
+                dbContext.OrderStates.Add(orderStateDAL);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

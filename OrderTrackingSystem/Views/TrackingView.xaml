@@ -178,6 +178,9 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel >
                     <ComboBox
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding SelectedComplaint, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding ComplaintDefinitionsList}"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
@@ -187,7 +190,7 @@
                     </ComboBox>
                     <CheckBox
                         Margin="0,5,0,0"
-                        IsChecked="True"
+                        IsChecked="{Binding SentMessageWithComplaint, UpdateSourceTrigger=PropertyChanged}"
                         Content="{x:Static res:Resources.GenerateAutomaticMail}" />
                 </StackPanel>
             </GroupBox>

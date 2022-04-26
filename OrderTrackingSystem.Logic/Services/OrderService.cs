@@ -74,8 +74,7 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         OrderId = orderDAL.Id,
                         Date = DateTime.Now,
-                        State = "W trakcie przygotowania",
-                        Description = "Przesyłka jest przygotowywana przez producenta"
+                        State = 0
                     });
 
                     /*Rozliczamy pieniadze */
