@@ -29,6 +29,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         private readonly TrackerService TrackerService;
         private readonly CustomerService CustomerService;
         private readonly ComplaintService ComplaintService;
+        private readonly MailService MailService;
 
         #endregion
 
@@ -78,6 +79,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             TrackerService = new TrackerService();
             CustomerService = new CustomerService();
             ComplaintService = new ComplaintService();
+            MailService = new MailService();
         }
         #endregion
 
@@ -200,7 +202,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             await ComplaintService.RegisterNewComplaint(SelectedComplaint.Id, orderId);
                             if(SentMessageWithComplaint)
                             {
-                                /* wysyla automatycznego powiadomienia */
+                                /* wysylamy automatyczne powiadomienie */
+                                var receiverId = SelectedItem.SellerId;
+                                await MailService.SendComplaintMessage(receiverId, SelectedItem.CustomerId, SelectedItem.Id);
                             }
                             transactionScope.Complete();
                         }

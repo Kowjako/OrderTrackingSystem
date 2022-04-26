@@ -178,6 +178,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarejestrowana nowa reklamacja.
+        /// </summary>
+        public static string ComplaintSetHeader {
+            get {
+                return ResourceManager.GetString("ComplaintSetHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Treść.
         /// </summary>
         public static string Content {
@@ -318,6 +327,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string House {
             get {
                 return ResourceManager.GetString("House", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Witam, złożyłem reklamację na swoje zamówienie pod numerem {0}. Pozdrawiam {1}..
+        /// </summary>
+        public static string MailAutomaticSetComplaint {
+            get {
+                return ResourceManager.GetString("MailAutomaticSetComplaint", resourceCulture);
             }
         }
         

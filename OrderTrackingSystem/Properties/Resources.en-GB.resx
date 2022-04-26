@@ -198,6 +198,9 @@
   <data name="ComplaintResolve" xml:space="preserve">
     <value>Complaint resolved</value>
   </data>
+  <data name="ComplaintSetHeader" xml:space="preserve">
+    <value>New complaint was registered</value>
+  </data>
   <data name="ComplaintViews" xml:space="preserve">
     <value>Complaint templates</value>
   </data>

@@ -156,6 +156,9 @@
   <data name="ComplaintSetDesc" xml:space="preserve">
     <value>Registered customer complaint</value>
   </data>
+  <data name="ComplaintSetHeader" xml:space="preserve">
+    <value>New complaint was registered</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Content</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="House" xml:space="preserve">
     <value>House</value>
+  </data>
+  <data name="MailAutomaticSetComplaint" xml:space="preserve">
+    <value>Hello, i found a complaint to my order {0}. Best wishes {1}.</value>
   </data>
   <data name="MailCaptionAfterSendAutomatic" xml:space="preserve">
     <value>Parcel was sent to you [AUTOMATIC]</value>

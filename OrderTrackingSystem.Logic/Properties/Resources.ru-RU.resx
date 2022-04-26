@@ -156,6 +156,9 @@
   <data name="ComplaintSetDesc" xml:space="preserve">
     <value>Зарегистрирована жалоба покупателя</value>
   </data>
+  <data name="ComplaintSetHeader" xml:space="preserve">
+    <value>Зарегистрирована новая жалоба</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Содержание</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="House" xml:space="preserve">
     <value>Дом</value>
+  </data>
+  <data name="MailAutomaticSetComplaint" xml:space="preserve">
+    <value>Здравствуйте, создал жалобу на заказ под номером {0}. С уважением {1}.</value>
   </data>
   <data name="MailCaptionAfterSendAutomatic" xml:space="preserve">
     <value>Появилась посылка зарегестрированная на тебя [АВТОМАТИЧЕСКАЯ]</value>

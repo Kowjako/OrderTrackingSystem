@@ -198,6 +198,9 @@
   <data name="ComplaintResolve" xml:space="preserve">
     <value>Конец жалобы</value>
   </data>
+  <data name="ComplaintSetHeader" xml:space="preserve">
+    <value>Зарегистрирована новая жалоба</value>
+  </data>
   <data name="ComplaintViews" xml:space="preserve">
     <value>Шаблоны жалоб</value>
   </data>

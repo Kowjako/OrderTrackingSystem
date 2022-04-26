@@ -198,6 +198,9 @@
   <data name="ComplaintResolve" xml:space="preserve">
     <value>Koniec reklamacji</value>
   </data>
+  <data name="ComplaintSetHeader" xml:space="preserve">
+    <value>Zarejestrowana nowa reklamacja</value>
+  </data>
   <data name="ComplaintViews" xml:space="preserve">
     <value>Wzorce reklamacyjne</value>
   </data>

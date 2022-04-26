@@ -207,6 +207,28 @@ namespace OrderTrackingSystem.Logic.Services
                 transactionScope.Complete();
             }
         }
+
+        public async Task SendComplaintMessage(int sellerId, int receiverId, int orderId)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var customer = await dbContext.Customers.FirstAsync(p => p.Id == sellerId);
+                var order = await dbContext.Orders.FirstAsync(p => p.Id == orderId);
+
+                var mailDAL = new Mails
+                {
+                    Caption = Properties.Resources.ComplaintSetHeader,
+                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint, order.Number, customer.Name),
+                    Date = DateTime.Now,
+                    SenderId = sellerId,
+                    ReceiverId = receiverId,
+                    MailRelation = (int)MailDirectionType.CustomerToSeller
+                };
+
+                dbContext.Mails.Add(mailDAL);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }
 

@@ -304,6 +304,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarejestrowana nowa reklamacja.
+        /// </summary>
+        public static string ComplaintSetHeader {
+            get {
+                return ResourceManager.GetString("ComplaintSetHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wzorce reklamacyjne.
         /// </summary>
         public static string ComplaintViews {

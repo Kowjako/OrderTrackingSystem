@@ -270,7 +270,20 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task RegisterNewComplaint(int complaintDefinitionId, int orderId)
         {
+            using(var dbContext = new OrderTrackingSystemEntities())
+            {
+                var complaintDAL = new ComplaintStates()
+                {
+                    OrderId = orderId,
+                    State = 1,
+                    Date = DateTime.Now,
+                    ComplaintDefinitionId = complaintDefinitionId
+                };
 
+                dbContext.Entry(complaintDAL).State = EntityState.Added;
+                dbContext.ComplaintStates.Add(complaintDAL);
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }
