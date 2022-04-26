@@ -156,6 +156,9 @@
   <data name="ComplaintSetDesc" xml:space="preserve">
     <value>Zarejestrowana reklamacja nabywcy</value>
   </data>
+  <data name="ComplaintSetHeader" xml:space="preserve">
+    <value>Zarejestrowana nowa reklamacja</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Treść</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="House" xml:space="preserve">
     <value>Budynek</value>
+  </data>
+  <data name="MailAutomaticSetComplaint" xml:space="preserve">
+    <value>Witam, złożyłem reklamację na swoje zamówienie pod numerem {0}. Pozdrawiam {1}.</value>
   </data>
   <data name="MailCaptionAfterSendAutomatic" xml:space="preserve">
     <value>Zarejestrowana przesyłka dla Ciebie [AUTOMATYCZNA]</value>

@@ -194,7 +194,7 @@
                         Content="{x:Static res:Resources.GenerateAutomaticMail}" />
                 </StackPanel>
             </GroupBox>
-            <Button
+            <Button Command="{Binding ConfirmDelivery}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -204,7 +204,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ConfirmReceive}" />
-            <Button
+            <Button Command="{Binding MakeComplaint}"
                     x:Name="btnUndoOrder"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"

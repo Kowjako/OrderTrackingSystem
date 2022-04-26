@@ -208,7 +208,7 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task SendComplaintMessage(int sellerId, int receiverId, int orderId)
+        public async Task SendComplaintMessage(int receiverId, int sellerId, int orderId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {

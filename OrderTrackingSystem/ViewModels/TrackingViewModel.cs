@@ -190,7 +190,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if (!SelectedItem.IsOrder)
+                    if (SelectedItem.IsOrder)
                     {
                         var orderId = SelectedItem.Id;
                         var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
@@ -208,16 +208,31 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             }
                             transactionScope.Complete();
                         }
-                        OnPropertyChanged(nameof(ParcelStates));
+                        OnSuccess("Reklamacja założona poprawnie");
                     }
                     else
                     {
                         OnWarning("Rezygnację można złożyć tylko na zamówienia.");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    OnFailure("Błąd podczas założenia reklamacji");
+                }
+            }));
 
+        private RelayCommand _confirmDelivery;
+        public RelayCommand ConfirmDelivery =>
+            _confirmDelivery ?? (_confirmDelivery = new RelayCommand(async obj =>
+            {
+                if (SelectedItem.IsOrder)
+                {
+                    await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
+                    OnSuccess("Odbiór został potwierdzony");
+                }
+                else
+                {
+                    OnWarning("Potwierdzenie odbioru dostępne dla zamówionych elementów");
                 }
             }));
 
