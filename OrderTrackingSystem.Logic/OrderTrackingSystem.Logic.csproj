@@ -158,6 +158,7 @@
     <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="DTO\TrackableItemDTO.cs" />
     <Compile Include="DTO\VoucherDTO.cs" />
+    <Compile Include="HelperClasses\Cryptography.cs" />
     <Compile Include="HelperClasses\DisplayNameBinder.cs" />
     <Compile Include="HelperClasses\EnumMapper.cs" />
     <Compile Include="HelperClasses\Extensions.cs" />
