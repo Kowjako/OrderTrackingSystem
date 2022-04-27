@@ -16,6 +16,12 @@ namespace OrderTrackingSystem.Logic.Validators
             Result = validator.Validate(obj);
         }
 
+        public static bool ValidateWithResult<T>(AbstractValidator<T> validator, T obj)
+        {
+            Result = validator.Validate(obj);
+            return IsValid;
+        }
+
         private static string GenerateErrorMessage()
         {
             var sb = new StringBuilder();

@@ -44,5 +44,14 @@ namespace OrderTrackingSystem.Logic.Services
                 }
             }
         }
+
+        public async Task AddNewLocalization(Localizations localization)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                dbContext.Localizations.Add(localization);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

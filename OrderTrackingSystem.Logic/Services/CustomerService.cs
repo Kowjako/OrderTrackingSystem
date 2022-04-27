@@ -3,6 +3,7 @@ using OrderTrackingSystem.Logic.DTO;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
+using OrderTrackingSystem.Logic.HelperClasses;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -128,6 +129,45 @@ namespace OrderTrackingSystem.Logic.Services
                             Numer = seller.Number
                         };
                 return await query.FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task AddNewCustomer(Customers customer, int localizationId, (string login, string password) credentials)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                customer.LocalizationId = localizationId;
+                dbContext.Customers.Add(customer);
+
+                var user = new Users()
+                {
+                    Login = credentials.login,
+                    Password = Cryptography.EncryptWithRSA(credentials.password),
+                    AccountType = true
+                };
+                dbContext.Users.Add(user);
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddNewSeller(Sellers seller, int localizationId, (string login, string password) credentials)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                seller.LocalizationId = localizationId;
+                dbContext.Sellers.Add(seller);
+
+                var user = new Users()
+                {
+                    Login = credentials.login,
+                    Password = Cryptography.EncryptWithRSA(credentials.password),
+                    AccountType = false
+                };
+
+                dbContext.Users.Add(user);
+
+                await dbContext.SaveChangesAsync();
             }
         }
     }

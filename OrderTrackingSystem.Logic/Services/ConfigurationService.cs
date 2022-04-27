@@ -51,6 +51,11 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task MakeSessionForCredentials(string login, string password)
+        {
+
+        }
+
         public async Task<List<PickupDTO>> GetPickupPoints()
         {
             using (var dbContext = new OrderTrackingSystemEntities())
