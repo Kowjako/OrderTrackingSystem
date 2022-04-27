@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
@@ -56,7 +57,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if(!string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password))
                     {
-                        await ConfigurationService.MakeSessionForCredentials(Login, Password);
+                        var loginSuccess = await ConfigurationService.MakeSessionForCredentials(Login, Password);
+                        if(loginSuccess)
+                        {
+                            var mainWindow = new MainWindow();
+                            mainWindow.Show();
+                            Application.Current.Windows[0].Close();
+                        }
                     }
                 }
                 catch (Exception)

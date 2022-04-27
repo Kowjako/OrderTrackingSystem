@@ -138,6 +138,7 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 customer.LocalizationId = localizationId;
                 dbContext.Customers.Add(customer);
+                await dbContext.SaveChangesAsync();
 
                 var encryptedPassword = Cryptography.EncryptWithRSA(credentials.password);
 
@@ -160,6 +161,7 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 seller.LocalizationId = localizationId;
                 dbContext.Sellers.Add(seller);
+                await dbContext.SaveChangesAsync();
 
                 var encryptedPassword = Cryptography.EncryptWithRSA(credentials.password);
 

@@ -8,7 +8,7 @@
         xmlns:converter="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
         x:Name="logWindow"
         ResizeMode="NoResize" WindowStyle="None"
-        Title="LoginWindow" Height="450" Width="1180">
+        Title="LoginWindow" Height="450" Width="800">
     <Window.Resources>
         <LinearGradientBrush x:Key="lgbtBrush">
             <LinearGradientBrush.GradientStops>
@@ -211,9 +211,9 @@
                            materialDesign:HintAssist.Hint="Hasło"/>
 
                 </StackPanel>
-                <StackPanel x:Name="customerGrid" 
-                            DataContext="{Binding NewCustomer}"
+                <StackPanel x:Name="customerGrid"
                             Grid.Column="1" Width="0">
+                    <StackPanel DataContext="{Binding NewCustomer}">
                     <TextBlock Text="Imię"
                            Margin="20,15,5,5"
                            FontSize="15"
@@ -259,6 +259,7 @@
                            Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
                            Width="200"
                            materialDesign:HintAssist.Hint="Numer"/>
+                    </StackPanel>
                     <TextBlock Text="Login"
                            Margin="20,5,5,5"
                            FontSize="15"
