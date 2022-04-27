@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -53,7 +54,34 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task MakeSessionForCredentials(string login, string password)
         {
+            var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
+            (string login, string password, bool accType) fetchedData = (string.Empty, string.Empty, false);
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                using (var sqlCommand = new SqlCommand("SELECT Login, Password, AccountType FROM Users WHERE login = @login", sqlConnection))
+                {
+                    var sqlParameter = new SqlParameter("@login", login);
+                    sqlCommand.Parameters.Add(sqlParameter);
+                    await sqlConnection.OpenAsync();
+                    using (var sqlReader = await sqlCommand.ExecuteReaderAsync())
+                    {
+                        while (await sqlReader.ReadAsync())
+                        {
+                            fetchedData = (sqlReader.GetValue(0).ToString(), sqlReader.GetValue(1).ToString(), bool.Parse(sqlReader.GetValue(2).ToString()));
+                        }                       
+                    }
 
+                    /* Dane do logowania poprawne zakładamy sesję */
+                    if(Cryptography.DecryptFromRSA(fetchedData.password).Equals(password))
+                    {
+
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid credentials");
+                    }
+                }
+            }
         }
 
         public async Task<List<PickupDTO>> GetPickupPoints()

@@ -78,4 +78,23 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
             return DependencyProperty.UnsetValue;
         }
     }
+
+    [ValueConversion(typeof(string), typeof(DateTime))]
+    public class DateToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is DateTime dt && dt == new DateTime(1, 1, 1))
+            {
+                return DateTime.Now;
+            }
+            else
+                return value as DateTime?;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value as DateTime?;
+        }
+    }
 }

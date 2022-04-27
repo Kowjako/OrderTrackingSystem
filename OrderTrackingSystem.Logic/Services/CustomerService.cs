@@ -139,10 +139,12 @@ namespace OrderTrackingSystem.Logic.Services
                 customer.LocalizationId = localizationId;
                 dbContext.Customers.Add(customer);
 
+                var encryptedPassword = Cryptography.EncryptWithRSA(credentials.password);
+
                 var user = new Users()
                 {
                     Login = credentials.login,
-                    Password = Cryptography.EncryptWithRSA(credentials.password),
+                    Password = encryptedPassword,
                     AccountType = true
                 };
                 dbContext.Users.Add(user);
@@ -158,10 +160,12 @@ namespace OrderTrackingSystem.Logic.Services
                 seller.LocalizationId = localizationId;
                 dbContext.Sellers.Add(seller);
 
+                var encryptedPassword = Cryptography.EncryptWithRSA(credentials.password);
+
                 var user = new Users()
                 {
                     Login = credentials.login,
-                    Password = Cryptography.EncryptWithRSA(credentials.password),
+                    Password = encryptedPassword,
                     AccountType = false
                 };
 

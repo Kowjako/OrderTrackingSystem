@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        xmlns:converter="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
         x:Name="logWindow"
         ResizeMode="NoResize" WindowStyle="None"
         Title="LoginWindow" Height="450" Width="1180">
@@ -15,6 +16,7 @@
                 <GradientStop Color="Aqua" Offset="1"/>
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
+        <converter:DateToStringConverter x:Key="dateConverter"/>
     </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1"
             Opacity="50"
@@ -156,8 +158,9 @@
                            Foreground="Black"/>
                     <DatePicker   Margin="20,0,20,0"
                            FontSize="13"
-                           Width="200"
-                           SelectedDate="{Binding OpenDate, UpdateSourceTrigger=PropertyChanged}"
+                           Focusable="False"
+                           Width="150"
+                           SelectedDate="{Binding OpenDate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource dateConverter}}"
                            materialDesign:HintAssist.Hint="Data otwarcia"/>
                     <TextBlock Text="NIP"
                            Margin="20,5,5,5"

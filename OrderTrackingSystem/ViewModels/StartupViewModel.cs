@@ -95,7 +95,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                 }
