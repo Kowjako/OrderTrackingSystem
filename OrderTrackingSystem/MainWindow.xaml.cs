@@ -19,7 +19,30 @@ namespace OrderTrackingSystem
     {
         private bool isMenuExpanded;
 
-        public bool IsAppForClient { get; set; } = true;
+        private bool _isAppForClient = true;
+        public bool IsAppForClient
+        {
+            get => _isAppForClient;
+            set
+            {
+                _isAppForClient = value;
+                if(_isAppForClient)
+                {
+                    ConfigMenu.Visibility = Visibility.Collapsed;
+                    SellerMenu.Visibility = Visibility.Collapsed;
+                    SellerData.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    accountMenu.Visibility = Visibility.Collapsed;
+                    trackingMenu.Visibility = Visibility.Collapsed;
+                    OrdersMenu.Visibility = Visibility.Collapsed;
+                    SendsMenu.Visibility = Visibility.Collapsed;
+                    MailboxMenu.Visibility = Visibility.Collapsed;
+                    ComplaintsMenu.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
 
         public MainWindow()
         {
