@@ -1,5 +1,8 @@
 ﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DataAccessLayer;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Services
 
         private readonly ConfigurationService ConfigurationService;
+        private readonly CustomerService CustomerService;
+        private readonly LocalizationService LocalizationService;
 
         #endregion
 
@@ -20,6 +25,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public string Login { get; set; }
         public string Password { get; set; }
+        public bool CreationForClient { get; set; }
+
+        public Localizations Localization { get; set; } = new Localizations();
+        public Customers NewCustomer { get; set; } = new Customers();
+        public Sellers NewSeller { get; set; } = new Sellers();
+
+        public string[] Credentials { get; set; } = new string[2];
 
         #endregion
 
@@ -28,6 +40,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public StartupViewModel()
         {
             ConfigurationService = new ConfigurationService();
+            CustomerService = new CustomerService();
+            LocalizationService = new LocalizationService();
         }
 
         #endregion
@@ -40,7 +54,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                   
+                    if(!string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password))
+                    {
+                        await ConfigurationService.MakeSessionForCredentials(Login, Password);
+                    }
                 }
                 catch (Exception)
                 {
@@ -54,7 +71,29 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
+                    bool isValidEntity = CreationForClient switch
+                    {
+                        true => ValidatorWrapper.ValidateWithResult(new CustomerValidator(), NewCustomer),
+                        false => ValidatorWrapper.ValidateWithResult(new SellerValidator(), NewSeller)
+                    };
 
+                    var msg = ValidatorWrapper.ErrorMessage;
+                    isValidEntity &= ValidatorWrapper.ValidateWithResult(new LocalizationValidatorDAL(), Localization);
+
+                    if(isValidEntity)
+                    {
+                        await LocalizationService.AddNewLocalization(Localization);
+                        if(CreationForClient)
+                        {
+                            /* po zapisaniu w localization jest przypisany id */
+                            await CustomerService.AddNewCustomer(NewCustomer, Localization.Id, Credentials.ToCredentials());
+                        }
+                        else
+                        {
+                            await CustomerService.AddNewSeller(NewSeller, Localization.Id, Credentials.ToCredentials());
+                        }
+                    }
+                    
                 }
                 catch (Exception)
                 {
