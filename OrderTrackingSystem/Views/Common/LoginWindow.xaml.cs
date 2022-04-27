@@ -14,7 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OrderTrackingSystem.Presentation.Views
+namespace OrderTrackingSystem.Presentation.Views.Common
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml

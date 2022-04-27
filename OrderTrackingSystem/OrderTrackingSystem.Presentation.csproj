@@ -91,14 +91,14 @@
     <Compile Include="CustomControls\Notifyer.xaml.cs">
       <DependentUpon>Notifyer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IComplaintsViewModel.cs" />
-    <Compile Include="Interfaces\ICurrentAccountViewModel.cs" />
-    <Compile Include="Interfaces\IMailboxViewModel.cs" />
-    <Compile Include="Interfaces\INotifyableViewModel.cs" />
-    <Compile Include="Interfaces\IOrdersViewModel.cs" />
-    <Compile Include="Interfaces\ISendsViewModel.cs" />
-    <Compile Include="Interfaces\ITrackingViewModel.cs" />
-    <Compile Include="Interfaces\RelayCommand.cs" />
+    <Compile Include="Interfaces\Customer\IComplaintsViewModel.cs" />
+    <Compile Include="Interfaces\Customer\ICurrentAccountViewModel.cs" />
+    <Compile Include="Interfaces\Customer\IMailboxViewModel.cs" />
+    <Compile Include="Interfaces\Common\INotifyableViewModel.cs" />
+    <Compile Include="Interfaces\Customer\IOrdersViewModel.cs" />
+    <Compile Include="Interfaces\Customer\ISendsViewModel.cs" />
+    <Compile Include="Interfaces\Customer\ITrackingViewModel.cs" />
+    <Compile Include="Interfaces\Common\RelayCommand.cs" />
     <Compile Include="Properties\Resources.en-GB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,36 +110,48 @@
       <DependentUpon>Resources.ru-RU.resx</DependentUpon>
     </Compile>
     <Compile Include="ValueConverter\ValueConverters.cs" />
-    <Compile Include="ViewModels\ComplaintsViewModel.cs" />
-    <Compile Include="ViewModels\CurrentAccountViewModel.cs" />
-    <Compile Include="ViewModels\MailboxViewModel.cs" />
-    <Compile Include="ViewModels\OrdersViewModel.cs" />
-    <Compile Include="ViewModels\SendsViewModel.cs" />
-    <Compile Include="ViewModels\StartupViewModel.cs" />
-    <Compile Include="ViewModels\TrackingViewModel.cs" />
-    <Compile Include="Views\ComplaintView.xaml.cs">
+    <Compile Include="ViewModels\Customer\ComplaintsViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CurrentAccountViewModel.cs" />
+    <Compile Include="ViewModels\Customer\MailboxViewModel.cs" />
+    <Compile Include="ViewModels\Customer\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SendsViewModel.cs" />
+    <Compile Include="ViewModels\Customer\StartupViewModel.cs" />
+    <Compile Include="ViewModels\Customer\TrackingViewModel.cs" />
+    <Compile Include="ViewModels\Seller\SellerAccountViewModel.cs" />
+    <Compile Include="ViewModels\Seller\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Seller\DesktopViewModel.cs" />
+    <Compile Include="Views\Customer\ComplaintView.xaml.cs">
       <DependentUpon>ComplaintView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CurrentAccountView.xaml.cs">
+    <Compile Include="Views\Customer\CurrentAccountView.xaml.cs">
       <DependentUpon>CurrentAccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
+    <Compile Include="Views\Common\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MailBoxView.xaml.cs">
+    <Compile Include="Views\Customer\MailBoxView.xaml.cs">
       <DependentUpon>MailBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrdersView.xaml.cs">
+    <Compile Include="Views\Customer\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SendsView.xaml.cs">
+    <Compile Include="Views\Customer\SendsView.xaml.cs">
       <DependentUpon>SendsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StartupScreenView.xaml.cs">
+    <Compile Include="Views\Common\StartupScreenView.xaml.cs">
       <DependentUpon>StartupScreenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TrackingView.xaml.cs">
+    <Compile Include="Views\Customer\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Seller\ConfigurationView.xaml.cs">
+      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Seller\DesktopView.xaml.cs">
+      <DependentUpon>DesktopView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Seller\SellerAccountView.xaml.cs">
+      <DependentUpon>SellerAccountView.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowExtension\WindowExtension.cs" />
     <Page Include="CustomControls\ComplaintProgress.xaml">
@@ -181,35 +193,47 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ComplaintView.xaml">
+    <Page Include="Views\Customer\ComplaintView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CurrentAccountView.xaml">
+    <Page Include="Views\Customer\CurrentAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginWindow.xaml">
+    <Page Include="Views\Common\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MailBoxView.xaml">
+    <Page Include="Views\Customer\MailBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrdersView.xaml">
+    <Page Include="Views\Customer\OrdersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SendsView.xaml">
+    <Page Include="Views\Customer\SendsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StartupScreenView.xaml">
+    <Page Include="Views\Common\StartupScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TrackingView.xaml">
+    <Page Include="Views\Customer\TrackingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Seller\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Seller\DesktopView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Seller\SellerAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,6 +334,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\Seller\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />

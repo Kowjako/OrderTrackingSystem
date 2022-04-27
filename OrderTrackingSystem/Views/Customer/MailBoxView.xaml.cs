@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace OrderTrackingSystem.Presentation.Views
+namespace OrderTrackingSystem.Presentation.Views.Customer
 {
     /// <summary>
     /// Interaction logic for MailBoxView.xaml

@@ -3,7 +3,7 @@ using OrderTrackingSystem.ViewModels;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace OrderTrackingSystem.Views
+namespace OrderTrackingSystem.Views.Customer
 {
     /// <summary>
     /// Interaction logic for CustomerView.xaml

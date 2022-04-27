@@ -4,7 +4,7 @@ using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using System.Windows.Controls;
 
-namespace OrderTrackingSystem.Presentation.Views
+namespace OrderTrackingSystem.Presentation.Views.Customer
 {
     /// <summary>
     /// Interaction logic for SendsView.xaml

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OrderTrackingSystem.Presentation.Views
+namespace OrderTrackingSystem.Presentation.Views.Seller
 {
     /// <summary>
-    /// Interaction logic for StartupScreenView.xaml
+    /// Interaction logic for DesktopView.xaml
     /// </summary>
-    public partial class StartupScreenView : UserControl
+    public partial class DesktopView : UserControl
     {
-        public StartupScreenView()
+        public DesktopView()
         {
             InitializeComponent();
         }

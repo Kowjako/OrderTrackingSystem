@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OrderTrackingSystem.Presentation.Views
+namespace OrderTrackingSystem.Presentation.Views.Customer
 {
     /// <summary>
     /// Interaction logic for ComplaintView.xaml
