@@ -19,5 +19,10 @@ namespace OrderTrackingSystem.Logic.HelperClasses
         {
             return valuesToCheck.Contains(item);
         }
+
+        public static (string login, string password) ToCredentials(this string[] arr)
+        {
+            return (arr[0], arr[1]);
+        }
     }
 }
