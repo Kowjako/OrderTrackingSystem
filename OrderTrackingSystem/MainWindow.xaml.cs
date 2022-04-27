@@ -18,6 +18,9 @@ namespace OrderTrackingSystem
     public partial class MainWindow : Window
     {
         private bool isMenuExpanded;
+
+        public bool IsAppForClient { get; set; } = true;
+
         public MainWindow()
         {
             InitializeComponent();

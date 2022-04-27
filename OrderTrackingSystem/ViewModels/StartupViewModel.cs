@@ -57,12 +57,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if(!string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password))
                     {
-                        var loginSuccess = await ConfigurationService.MakeSessionForCredentials(Login, Password);
-                        if(loginSuccess)
+                        var result = await ConfigurationService.MakeSessionForCredentials(Login, Password);
+                        if(result.isSuccess)
                         {
                             var mainWindow = new MainWindow();
+                            mainWindow.IsAppForClient = result.accType;
                             mainWindow.Show();
-                            Application.Current.Windows[0].Close();
+                            Application.Current.Windows[0].Close(); /* zamykamy okno logowania */
                         }
                     }
                 }

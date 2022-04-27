@@ -52,7 +52,7 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task<bool> MakeSessionForCredentials(string login, string password)
+        public async Task<(bool isSuccess, bool accType)> MakeSessionForCredentials(string login, string password)
         {
             var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
             (string login, string password, bool accType, int accountId) fetchedData = (string.Empty, string.Empty, false, 0);
@@ -90,7 +90,7 @@ namespace OrderTrackingSystem.Logic.Services
                             sqlCommand2.Parameters.Add(sqlParameterAccountId);
                             sqlCommand2.Parameters.Add(sqlParameterIsClient);
                             await sqlCommand2.ExecuteNonQueryAsync();
-                            return true;
+                            return (true, fetchedData.accType);
                         }
                     }
                     else
