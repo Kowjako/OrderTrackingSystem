@@ -141,7 +141,6 @@
                 </TabItem>
                 <!-- TODO: Add Views + ViewModels for Seller-->
                 <TabItem x:Name="ConfigMenu"
-                PreviewMouseLeftButtonDown=""
                 Header="{materialDesign:PackIcon Kind=Account, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
@@ -150,7 +149,6 @@
                     </TextBlock>
                 </TabItem>
                 <TabItem x:Name="SellerMenu" 
-                PreviewMouseLeftButtonDown=""
                 Header="{materialDesign:PackIcon Kind=Apps, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
@@ -159,7 +157,6 @@
                     </TextBlock>
                 </TabItem>
                 <TabItem x:Name="SellerData" 
-                PreviewMouseLeftButtonDown=""
                 Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
