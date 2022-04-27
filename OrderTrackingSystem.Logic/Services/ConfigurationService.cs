@@ -55,10 +55,10 @@ namespace OrderTrackingSystem.Logic.Services
         public async Task MakeSessionForCredentials(string login, string password)
         {
             var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
-            (string login, string password, bool accType) fetchedData = (string.Empty, string.Empty, false);
+            (string login, string password, bool accType, int accountId) fetchedData = (string.Empty, string.Empty, false, 0);
             using (var sqlConnection = new SqlConnection(connectionString))
             {
-                using (var sqlCommand = new SqlCommand("SELECT Login, Password, AccountType FROM Users WHERE login = @login", sqlConnection))
+                using (var sqlCommand = new SqlCommand("SELECT Login, Password, AccountType, AccountId FROM Users WHERE login = @login", sqlConnection))
                 {
                     var sqlParameter = new SqlParameter("@login", login);
                     sqlCommand.Parameters.Add(sqlParameter);
@@ -67,14 +67,30 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         while (await sqlReader.ReadAsync())
                         {
-                            fetchedData = (sqlReader.GetValue(0).ToString(), sqlReader.GetValue(1).ToString(), bool.Parse(sqlReader.GetValue(2).ToString()));
+                            fetchedData = (sqlReader.GetValue(0).ToString(), 
+                                           sqlReader.GetValue(1).ToString(), 
+                                           bool.Parse(sqlReader.GetValue(2).ToString()),
+                                           int.Parse(sqlReader.GetValue(3).ToString()));
                         }                       
                     }
 
                     /* Dane do logowania poprawne zakładamy sesję */
-                    if(Cryptography.DecryptFromRSA(fetchedData.password).Equals(password))
+                    if (Cryptography.DecryptFromRSA(fetchedData.password).Equals(password))
                     {
-
+                        using (var sqlCommand1 = new SqlCommand("DELETE FROM Session", sqlConnection))
+                        {
+                            /* Czyszczenie aktualnej sesji */
+                            await sqlCommand1.ExecuteNonQueryAsync();
+                        }
+                        /* Zakladanie sesji */
+                        using (var sqlCommand2 = new SqlCommand("INSERT INTO Session (AccountId, IsClient) VALUES (@AccountId, @IsClient)", sqlConnection))
+                        {
+                            var sqlParameterAccountId = new SqlParameter("@AccountId", fetchedData.accountId);
+                            var sqlParameterIsClient = new SqlParameter("@IsClient", fetchedData.accType);
+                            sqlCommand2.Parameters.Add(sqlParameterAccountId);
+                            sqlCommand2.Parameters.Add(sqlParameterIsClient);
+                            await sqlCommand2.ExecuteNonQueryAsync();
+                        }
                     }
                     else
                     {

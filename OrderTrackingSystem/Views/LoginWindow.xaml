@@ -95,6 +95,7 @@
                              materialDesign:ButtonAssist.CornerRadius="10">
                         </Button>
                         <Button
+                             Command="{Binding LoginCmd}"
                              Grid.Column="0"
                              HorizontalAlignment="Left"
                              Margin="0,20,0,0"

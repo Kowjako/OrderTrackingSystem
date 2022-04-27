@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d580a1229ee4423fae37ae87fa17aa8c" Name="Diagram1">
+      <Diagram DiagramId="47ccbe0a6b124099b4dc9242e7c6c763" Name="Diagram1">
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintDefinitions" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintFolders" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.ComplaintRelations" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
@@ -22,9 +22,9 @@
         <EntityTypeShape EntityType="OrderTrackingSystemModel.SellCarts" Width="1.5" PointX="10.5" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Sellers" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Sells" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Users" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderTrackingSystemModel.Vouchers" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderTrackingSystemModel.Session" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Session" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Users" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintRelations_ComplaintId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__ComplaintStates_ComplaintDefinitionId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Orders_ComplaintDefinitionId" ManuallyRouted="false" />

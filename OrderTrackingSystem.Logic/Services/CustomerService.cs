@@ -143,6 +143,7 @@ namespace OrderTrackingSystem.Logic.Services
 
                 var user = new Users()
                 {
+                    AccountId = customer.Id,
                     Login = credentials.login,
                     Password = encryptedPassword,
                     AccountType = true
@@ -164,6 +165,7 @@ namespace OrderTrackingSystem.Logic.Services
 
                 var user = new Users()
                 {
+                    AccountId = seller.Id,
                     Login = credentials.login,
                     Password = encryptedPassword,
                     AccountType = false

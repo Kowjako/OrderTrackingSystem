@@ -28,7 +28,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses
                 var byteData = Convert.FromBase64String(data); /* wracamy z postaci base64 do tablicy bajtow */
                 rsa.FromXmlString(privateKey.ToString()); /* inicjalizacja kluczem */
                 var decryptedData = rsa.Decrypt(byteData, false);
-                return decryptedData.ToString();
+                return Encoding.UTF8.GetString(decryptedData);
             }
         }
     }

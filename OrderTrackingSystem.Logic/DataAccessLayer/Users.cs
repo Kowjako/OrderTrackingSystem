@@ -18,5 +18,6 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public string Login { get; set; }
         public string Password { get; set; }
         public bool AccountType { get; set; }
+        public int Id { get; set; }
     }
 }

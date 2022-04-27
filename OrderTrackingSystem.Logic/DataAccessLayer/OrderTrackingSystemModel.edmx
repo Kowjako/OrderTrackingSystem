@@ -193,14 +193,21 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <Property Name="AccountId" Type="int" Nullable="false" />
           <Property Name="IsClient" Type="bit" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OrderTrackingSystem.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="AccountId" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="AccountId" Type="int" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AccountType" Type="bit" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Vouchers">
           <Key>
@@ -557,13 +564,21 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <EntitySet Name="SellCarts" EntityType="Self.SellCarts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sells" EntityType="Self.Sells" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vouchers" EntityType="Self.Vouchers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Session" EntityType="Self.Session" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Session].[AccountId] AS [AccountId], 
     [Session].[IsClient] AS [IsClient]
     FROM [dbo].[Session] AS [Session]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Users].[AccountId] AS [AccountId], 
+    [Users].[Login] AS [Login], 
+    [Users].[Password] AS [Password], 
+    [Users].[AccountType] AS [AccountType], 
+    [Users].[Id] AS [Id]
+    FROM [dbo].[Users] AS [Users]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__ComplaintFolders_ParentComplainFolderId" Association="Self.FK__ComplaintFolders_ParentComplainFolderId">
             <End Role="ComplaintFolders" EntitySet="ComplaintFolders" />
@@ -898,15 +913,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <NavigationProperty Name="Customers1" Relationship="Self.FK__Sells_SellerId" FromRole="Sells" ToRole="Customers" />
           <NavigationProperty Name="SellCarts" Relationship="Self.FK__SellCarts_SellId" FromRole="Sells" ToRole="SellCarts" />
         </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="AccountId" />
-          </Key>
-          <Property Name="AccountId" Type="Int32" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AccountType" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="Vouchers">
           <Key>
             <PropertyRef Name="Id" />
@@ -926,6 +932,20 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           </Key>
           <Property Name="AccountId" Type="Int32" Nullable="false" />
           <Property Name="IsClient" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccountType" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK__ComplaintRelations_ComplaintId">
           <End Role="ComplaintDefinitions" Type="Self.ComplaintDefinitions" Multiplicity="1">
@@ -1271,9 +1291,9 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <EntitySet Name="SellCarts" EntityType="Self.SellCarts" />
           <EntitySet Name="Sellers" EntityType="Self.Sellers" />
           <EntitySet Name="Sells" EntityType="Self.Sells" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="Vouchers" EntityType="Self.Vouchers" />
           <EntitySet Name="Session" EntityType="Self.Session" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
           <AssociationSet Name="FK__ComplaintRelations_ComplaintId" Association="Self.FK__ComplaintRelations_ComplaintId">
             <End Role="ComplaintDefinitions" EntitySet="ComplaintDefinitions" />
             <End Role="ComplaintRelations" EntitySet="ComplaintRelations" />
@@ -1576,16 +1596,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Vouchers">
             <EntityTypeMapping TypeName="OrderTrackingSystemModel.Vouchers">
               <MappingFragment StoreEntitySet="Vouchers">
@@ -1603,6 +1613,17 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
               <MappingFragment StoreEntitySet="Session">
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
                 <ScalarProperty Name="IsClient" ColumnName="IsClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
