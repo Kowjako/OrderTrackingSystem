@@ -139,8 +139,8 @@
                     <TextBlock>
                     </TextBlock>
                 </TabItem>
-                <TabItem x:Name="ConfigMenu"
-                PreviewMouseLeftButtonDown="ConfigMenu_PreviewMouseLeftButtonDown"
+                <TabItem x:Name="SellerData"
+                PreviewMouseLeftButtonDown="SellerData_PreviewMouseLeftButtonDown"
                 Header="{materialDesign:PackIcon Kind=Account, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
@@ -157,8 +157,8 @@
                     <TextBlock>
                     </TextBlock>
                 </TabItem>
-                <TabItem x:Name="SellerData" 
-                PreviewMouseLeftButtonDown="SellerData_PreviewMouseLeftButtonDown"
+                <TabItem x:Name="ConfigMenu" 
+                PreviewMouseLeftButtonDown="ConfigMenu_PreviewMouseLeftButtonDown"
                 Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
