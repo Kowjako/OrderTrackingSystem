@@ -214,6 +214,51 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adres firmy.
+        /// </summary>
+        public static string CompanyAddress {
+            get {
+                return ResourceManager.GetString("CompanyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reklamacje klientów.
+        /// </summary>
+        public static string CompanyComplaints {
+            get {
+                return ResourceManager.GetString("CompanyComplaints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szczegóły firmy.
+        /// </summary>
+        public static string CompanyDetails {
+            get {
+                return ResourceManager.GetString("CompanyDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwa.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zamówienia klientów.
+        /// </summary>
+        public static string CompanyOrders {
+            get {
+                return ResourceManager.GetString("CompanyOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rezygnacja.
         /// </summary>
         public static string Complaint {
@@ -718,6 +763,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data otwarcia.
+        /// </summary>
+        public static string OpenDate {
+            get {
+                return ResourceManager.GetString("OpenDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rozmiar przesyłki.
         /// </summary>
         public static string ParcelSize {
@@ -1020,6 +1074,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Surname {
             get {
                 return ResourceManager.GetString("Surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NIP.
+        /// </summary>
+        public static string TIN {
+            get {
+                return ResourceManager.GetString("TIN", resourceCulture);
             }
         }
         

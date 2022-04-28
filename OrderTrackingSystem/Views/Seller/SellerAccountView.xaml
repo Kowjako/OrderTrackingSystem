@@ -3,10 +3,220 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views.Seller"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="738" d:DesignWidth="1000">
+    <Grid x:Name="contentGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="100" MaxHeight="100"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="DeepPink">
+            <TextBlock Text="{x:Static res:Resources.CompanyDetails}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="17"
+                       Foreground="Black"/>
+        </Border>
+        <GridSplitter Grid.Row="1"
+                      Grid.Column="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Background="Black"
+                      Height="4"
+                      />
+        <GridSplitter Grid.Row="2"
+                      Grid.Column="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Background="Black"
+                      Height="4"
+                      />
+        <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
+            <StackPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
+                <GroupBox Header="{x:Static res:Resources.Data}"
+                Padding="10"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                    <StackPanel>
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.OpenDate}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Surname, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.TIN}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Age, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Number}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Number, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Email}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Email, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <GroupBox Header="{x:Static res:Resources.LoginData}"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBox
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        FontSize="15"
+                        Margin="0,0,0,0"
+                        x:Name="NameTextBox"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.Login}">
+                    </TextBox>
+                    <PasswordBox
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        FontSize="15"
+                        Margin="0,5,0,0"
+                        x:Name="PasswordTextBox"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.Password}">
+                    </PasswordBox>
+                </Grid>
+            </GroupBox>
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Command="{Binding SaveCommand}"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="{x:Static res:Resources.Save}" />
+            </DockPanel>
+
+        </DockPanel>
+
+        <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+            <TextBlock Text="{x:Static res:Resources.CompanyAddress}"
+                       Foreground="Black"
+                       FontSize="17"
+                       DockPanel.Dock="Top"
+                       Margin="10,10,10,5"
+                       FontFamily="Arial"/>
+            <TextBlock Text="{x:Static res:Resources.ToEdit}"
+                       Foreground="Black"
+                       FontSize="10"
+                       DockPanel.Dock="Top"
+                       Margin="10,0,0,5"
+                       FontFamily="Arial"/>
+            <DataGrid x:Name="dgLocalization" Background="White" 
+                      Foreground="Black"
+                      CanUserAddRows="False"
+                      SelectionUnit="Cell"
+                      HorizontalScrollBarVisibility="Disabled"
+                      AutoGeneratingColumn="dgLocalization_AutoGeneratingColumn"
+                      ColumnWidth="*"
+                      ItemsSource="{Binding Localization, UpdateSourceTrigger=PropertyChanged}"
+                      Margin="5">
+            </DataGrid>
+        </DockPanel>
+        <DockPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="1">
+            <TextBlock Text="{x:Static res:Resources.CompanyOrders}"
+                       Foreground="Black"
+                       FontSize="17"
+                       DockPanel.Dock="Top"
+                       Margin="10,5,10,5"
+                       FontFamily="Arial"/>
+            <TextBlock Text="{x:Static res:Resources.ReadOnly}"
+                       Foreground="Black"
+                       FontSize="10"
+                       DockPanel.Dock="Top"
+                       Margin="10,0,0,5"
+                       FontFamily="Arial"/>
+            <DataGrid Background="White" 
+                      x:Name="ordersGrid"
+                      AutoGeneratingColumn="dgLocalization_AutoGeneratingColumn"
+                      Foreground="Black"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Hidden"
+                      ItemsSource="{Binding Orders}"
+                      Margin="5"/>
+        </DockPanel>
+        <DockPanel Grid.Column="1" Grid.Row="3" Grid.RowSpan="1">
+            <TextBlock Text="{x:Static res:Resources.CompanyComplaints}"
+                       Foreground="Black"
+                       DockPanel.Dock="Top"
+                       FontSize="17"
+                       Margin="10,5,10,5"
+                       FontFamily="Arial"/>
+            <TextBlock Text="{x:Static res:Resources.ReadOnly}"
+                       Foreground="Black"
+                       FontSize="10"
+                       DockPanel.Dock="Top"
+                       Margin="10,0,0,5"
+                       FontFamily="Arial"/>
+            <DataGrid Background="White"
+                      VerticalScrollBarVisibility="Auto"
+                      x:Name="sellsGrid"
+                      DockPanel.Dock="Top"
+                      Foreground="Black"
+                      ItemsSource="{Binding Sells}"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Hidden"
+                      CanUserAddRows="False"
+                      ColumnWidth="*"
+                      AutoGeneratingColumn="dgLocalization_AutoGeneratingColumn"
+                      Margin="5"/>
+        </DockPanel>
     </Grid>
 </UserControl>

@@ -168,6 +168,21 @@
   <data name="ClearCart" xml:space="preserve">
     <value>Clear cart</value>
   </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Company address</value>
+  </data>
+  <data name="CompanyComplaints" xml:space="preserve">
+    <value>Clients complaints</value>
+  </data>
+  <data name="CompanyDetails" xml:space="preserve">
+    <value>Company details</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="CompanyOrders" xml:space="preserve">
+    <value>Clients orders</value>
+  </data>
   <data name="Complaint" xml:space="preserve">
     <value>Complaint</value>
   </data>
@@ -336,6 +351,9 @@
   <data name="OnlySent" xml:space="preserve">
     <value>Only sent</value>
   </data>
+  <data name="OpenDate" xml:space="preserve">
+    <value>Open date</value>
+  </data>
   <data name="ParcelSize" xml:space="preserve">
     <value>Parcel size</value>
   </data>
@@ -437,6 +455,9 @@
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Surname</value>
+  </data>
+  <data name="TIN" xml:space="preserve">
+    <value>TIN</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>

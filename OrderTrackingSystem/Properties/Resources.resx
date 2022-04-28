@@ -168,6 +168,21 @@
   <data name="ClearCart" xml:space="preserve">
     <value>Wyczyść koszyk</value>
   </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Adres firmy</value>
+  </data>
+  <data name="CompanyComplaints" xml:space="preserve">
+    <value>Reklamacje klientów</value>
+  </data>
+  <data name="CompanyDetails" xml:space="preserve">
+    <value>Szczegóły firmy</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="CompanyOrders" xml:space="preserve">
+    <value>Zamówienia klientów</value>
+  </data>
   <data name="Complaint" xml:space="preserve">
     <value>Rezygnacja</value>
   </data>
@@ -336,6 +351,9 @@
   <data name="OnlySent" xml:space="preserve">
     <value>Tylko wysłane</value>
   </data>
+  <data name="OpenDate" xml:space="preserve">
+    <value>Data otwarcia</value>
+  </data>
   <data name="ParcelSize" xml:space="preserve">
     <value>Rozmiar przesyłki</value>
   </data>
@@ -437,6 +455,9 @@
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Nazwisko</value>
+  </data>
+  <data name="TIN" xml:space="preserve">
+    <value>NIP</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Temat</value>

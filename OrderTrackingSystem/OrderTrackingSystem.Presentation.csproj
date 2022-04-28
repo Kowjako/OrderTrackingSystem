@@ -99,6 +99,9 @@
     <Compile Include="Interfaces\Customer\ISendsViewModel.cs" />
     <Compile Include="Interfaces\Customer\ITrackingViewModel.cs" />
     <Compile Include="Interfaces\Common\RelayCommand.cs" />
+    <Compile Include="Interfaces\Seller\IConfigurationViewModel.cs" />
+    <Compile Include="Interfaces\Seller\IDesktopViewModel.cs" />
+    <Compile Include="Interfaces\Seller\ISellerAccountViewModel.cs" />
     <Compile Include="Properties\Resources.en-GB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -335,9 +338,7 @@
   <ItemGroup>
     <Resource Include="Images\clock.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\Seller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
