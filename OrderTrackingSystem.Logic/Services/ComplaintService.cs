@@ -285,6 +285,27 @@ namespace OrderTrackingSystem.Logic.Services
                 await dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<List<ComplaintsDTO>> GetComplaintsForSeller(int sellerId)
+        {
+            using(var dbContext = new OrderTrackingSystemEntities())
+            {
+                var query = from complaint in dbContext.ComplaintStates
+                            join order in dbContext.Orders on
+                            complaint.OrderId equals order.Id
+                            where order.SellerId == sellerId
+                            select new ComplaintsDTO()
+                            {
+                                OrderNumber = order.Number,
+                                State = complaint.State.ToString(),
+                                Date = complaint.Date.Value.ToString(),
+                                StateId = complaint.State,
+                                EndDate = complaint.EndDate
+                            };
+
+                return await query.AsNoTracking().ToListAsync();
+            }
+        }
     }
 }
 

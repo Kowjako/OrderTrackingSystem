@@ -19,6 +19,16 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task<Sellers> GetCurrentSeller()
+        {
+            var configrationService = new ConfigurationService();
+            var sessionId = await configrationService.GetCurrentSessionId();
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                return await dbContext.Sellers.FindAsync(sessionId);
+            }
+        }
+
         public async Task UpdateCustomer(Customers customer)
         {
             using(var dbContext = new OrderTrackingSystemEntities())

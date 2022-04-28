@@ -103,5 +103,35 @@ namespace OrderTrackingSystem.Logic.Services
                 return await orderQuery.AsNoTracking().ToListAsync();
             }
         }
+
+        public async Task<List<OrderDTO>> GetOrdersFromCompany(int sellerId)
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var seller = await dbContext.Sellers.FindAsync(sellerId);
+
+                var orderQuery = from order in dbContext.Orders
+                                 let valueQuery = (from cart in dbContext.OrderCarts
+                                                   from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
+                                                   where cart.OrderId == order.Id
+                                                   select cart.Amount * prodcut.PriceBrutto).Sum()
+                                 where order.SellerId == sellerId
+                                 select new Tuple<Orders, decimal>(order, valueQuery);
+
+                var ordersDAL = await orderQuery.AsNoTracking().ToListAsync();
+
+                /* To DTO */
+                var ordersDTO = ordersDAL.Select(p => new OrderDTO
+                {
+                    Numer = p.Item1.Number,
+                    Oplata = EnumConverter.GetNameById<PayType>(p.Item1.PayType),
+                    Sklep = seller.Name,
+                    Dostawa = EnumConverter.GetNameById<DeliveryType>(p.Item1.DeliveryType),
+                    Rezygnacja = p.Item1.ComplaintDefinitionId != null ? "Tak" : "Nie",
+                    Kwota = string.Format("{0:0.00 zł}", p.Item2)
+                });
+                return ordersDTO.ToList(); 
+            }
+        }
     }
 }
