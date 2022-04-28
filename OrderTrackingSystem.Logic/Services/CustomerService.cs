@@ -7,7 +7,7 @@ using OrderTrackingSystem.Logic.HelperClasses;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class CustomerService : IService<Customers>
+    public class CustomerService : CRUDManager, IService<Customers>
     {
         public async Task<Customers> GetCurrentCustomer()
         {
@@ -31,11 +31,12 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task UpdateCustomer(Customers customer)
         {
-            using(var dbContext = new OrderTrackingSystemEntities())
-            {
-                dbContext.Entry(customer).State = System.Data.Entity.EntityState.Modified;
-                await dbContext.SaveChangesAsync();
-            }
+            await base.UpdateEntity(customer);
+        }
+
+        public async Task UpdateSeller(Sellers seller)
+        {
+            await base.UpdateEntity(seller);
         }
 
         public async Task<CustomerDTO> GetCustomer(int customerId)
@@ -147,8 +148,7 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 customer.LocalizationId = localizationId;
-                dbContext.Customers.Add(customer);
-                await dbContext.SaveChangesAsync();
+                await base.AddEntity(customer);
 
                 var encryptedPassword = Cryptography.EncryptWithRSA(credentials.password);
 
@@ -159,9 +159,8 @@ namespace OrderTrackingSystem.Logic.Services
                     Password = encryptedPassword,
                     AccountType = true
                 };
-                dbContext.Users.Add(user);
 
-                await dbContext.SaveChangesAsync();
+                await base.AddEntity(user);
             }
         }
 
@@ -170,8 +169,7 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 seller.LocalizationId = localizationId;
-                dbContext.Sellers.Add(seller);
-                await dbContext.SaveChangesAsync();
+                await base.AddEntity(seller);
 
                 var encryptedPassword = Cryptography.EncryptWithRSA(credentials.password);
 
@@ -183,9 +181,7 @@ namespace OrderTrackingSystem.Logic.Services
                     AccountType = false
                 };
 
-                dbContext.Users.Add(user);
-
-                await dbContext.SaveChangesAsync();
+                await base.AddEntity(user);
             }
         }
     }

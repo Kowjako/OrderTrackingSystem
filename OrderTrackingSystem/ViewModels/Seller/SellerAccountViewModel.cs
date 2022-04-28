@@ -1,6 +1,8 @@
-﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using System;
@@ -61,6 +63,52 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             ClientComplaints = await ComplaintService.GetComplaintsForSeller(CurrentSeller.Id);
             OnManyPropertyChanged(new[] { nameof(CurrentSeller), nameof(ClientOrders), nameof(ClientComplaints), nameof(Localizations) });
         }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _saveCommand;
+
+        public RelayCommand SaveCommand =>
+            _saveCommand ?? (_saveCommand = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    bool result = ValidatorWrapper.ValidateWithResult(new SellerValidator(), CurrentSeller);
+                    result &= ValidatorWrapper.ValidateWithResult(new LocalizationValidator(), Localizations[0]);
+                    if (result)
+                    {
+                        /* Update customer */
+                        await CustomerService.UpdateSeller(CurrentSeller);
+
+                        /* Update localization */
+                        var currentLocalization = Localizations[0];
+
+                        var localization = new Localizations
+                        {
+                            Id = currentLocalization.Id,
+                            City = currentLocalization.Miasto,
+                            Country = currentLocalization.Kraj,
+                            Street = currentLocalization.Ulica,
+                            Flat = (byte)currentLocalization.Mieszkanie,
+                            House = (byte)currentLocalization.Budynek,
+                            ZipCode = currentLocalization.Kod
+                        };
+                        await LocalizationService.UpdateLocalization(localization);
+                        OnSuccess?.Invoke("Zmiany zostały zapisane");
+                    }
+                    else
+                    {
+                        OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                    }
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
+                }
+            }));
+
 
         #endregion
 

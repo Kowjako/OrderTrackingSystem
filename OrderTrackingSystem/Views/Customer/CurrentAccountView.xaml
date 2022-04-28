@@ -146,7 +146,7 @@
             <DockPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Bottom" LastChildFill="False">
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                     <Image Height="30" 
-                       Source="../Images/balance.png"
+                       Source="../../Images/balance.png"
                        Margin="5"/>
                     <TextBlock Text="{Binding Balance, StringFormat ={}{0:f2} zł}"
                            Margin="5"

@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Services\ComplaintService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\CRUDManager.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
