@@ -116,19 +116,19 @@ namespace OrderTrackingSystem.Logic.Services
                                                    where cart.OrderId == order.Id
                                                    select cart.Amount * prodcut.PriceBrutto).Sum()
                                  where order.SellerId == sellerId
-                                 select new Tuple<Orders, decimal>(order, valueQuery);
+                                 select new { Order = order, Value = valueQuery };
 
                 var ordersDAL = await orderQuery.AsNoTracking().ToListAsync();
 
                 /* To DTO */
                 var ordersDTO = ordersDAL.Select(p => new OrderDTO
                 {
-                    Numer = p.Item1.Number,
-                    Oplata = EnumConverter.GetNameById<PayType>(p.Item1.PayType),
+                    Numer = p.Order.Number,
+                    Oplata = EnumConverter.GetNameById<PayType>(p.Order.PayType),
                     Sklep = seller.Name,
-                    Dostawa = EnumConverter.GetNameById<DeliveryType>(p.Item1.DeliveryType),
-                    Rezygnacja = p.Item1.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                    Kwota = string.Format("{0:0.00 zł}", p.Item2)
+                    Dostawa = EnumConverter.GetNameById<DeliveryType>(p.Order.DeliveryType),
+                    Rezygnacja = p.Order.ComplaintDefinitionId != null ? "Tak" : "Nie",
+                    Kwota = string.Format("{0:0.00 zł}", p.Value)
                 });
                 return ordersDTO.ToList(); 
             }
