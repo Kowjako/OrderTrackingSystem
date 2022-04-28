@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Presentation.CustomControls;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.ViewModels;
+using OrderTrackingSystem.Presentation.ViewModels.Seller;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using OrderTrackingSystem.ViewModels;
 using System;
@@ -128,6 +129,30 @@ namespace OrderTrackingSystem
             AttachEventsToViewModel(viewModel);
             DataContext = viewModel;
         }
+
+
+        private void ConfigMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = new ConfigurationViewModel();
+            AttachEventsToViewModel(viewModel);
+            DataContext = viewModel;
+
+        }
+
+        private void SellerMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = new DesktopViewModel();
+            AttachEventsToViewModel(viewModel);
+            DataContext = viewModel;
+        }
+
+        private void SellerData_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = new SellerAccountViewModel();
+            AttachEventsToViewModel(viewModel);
+            DataContext = viewModel;
+        }
+
         #endregion
 
         #region Generic viewmodel methods
@@ -171,5 +196,6 @@ namespace OrderTrackingSystem
         }
 
         #endregion
+
     }
 }
