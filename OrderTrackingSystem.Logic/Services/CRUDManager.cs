@@ -19,7 +19,7 @@ namespace OrderTrackingSystem.Logic.Services
         }
 
         public async virtual Task DeleteEntity<T>(T entity) where T : class
-        {
+        { 
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 dbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
