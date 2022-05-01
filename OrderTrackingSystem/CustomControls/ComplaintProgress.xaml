@@ -10,35 +10,28 @@
              d:DesignHeight="80" d:DesignWidth="500">
     <UserControl.Resources>
         <converters:IntToVisibilityConverter x:Key="iToVConverter"/>
-        <!-- Control template dla zaznaczonego checkbox-->
-        <ControlTemplate x:Key="stateDone" TargetType="{x:Type CheckBox}">
-            <Border Width="30"
+        <!-- Styl dla zaznaczonego checkbox -->
+        <Style x:Key="checked" TargetType="{x:Type CheckBox}">
+            <Style.Setters>
+                <Setter Property="BorderBrush" Value="#1CB164"/>
+                <Setter Property="Background" Value="#1CB164"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <!-- Control template dla zaznaczonego checkbox-->
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Border Width="30"
                     Height="30"
                     Margin="5"
                     Background="{TemplateBinding BorderBrush}"
                     CornerRadius="10"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}">
-                <Image Margin="5"
+                                <Image Margin="5"
                        Source="../Images/complaintOK.png"/>
-            </Border>
-        </ControlTemplate>
-        <!-- Control template dla odznaczonego checkbox-->
-        <ControlTemplate x:Key="stateUndone" TargetType="{x:Type CheckBox}">
-            <Border Width="30"
-                    Height="30"
-                    Margin="5"
-                    Background="{TemplateBinding Background}"
-                    CornerRadius="10"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="1">
-            </Border>
-        </ControlTemplate>
-        <!-- Styl dla zaznaczonego checkbox -->
-        <Style x:Key="checked" TargetType="{x:Type CheckBox}">
-            <Style.Setters>
-                <Setter Property="BorderBrush" Value="#1CB164"/>
-                <Setter Property="Background" Value="#1CB164"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style.Setters>
         </Style>
         <!-- Styl dla odznaczonego checkbox -->
@@ -46,6 +39,21 @@
             <Style.Setters>
                 <Setter Property="BorderBrush" Value="Gray"/>
                 <Setter Property="Background" Value="Snow"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <!-- Control template dla odznaczonego checkbox-->
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Border Width="30"
+                    Height="30"
+                    Margin="5"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="10"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1">
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style.Setters>
         </Style>
         <Style x:Key="lineNotDone" TargetType="{x:Type Rectangle}">
@@ -71,21 +79,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <CheckBox Template="{StaticResource stateDone}" 
-                  Grid.Column="0" 
+        <CheckBox Grid.Column="0" 
                   x:Name="cb1"
                   Style="{StaticResource checked}"
                   IsChecked="True">
         </CheckBox>
-        <CheckBox Template="{StaticResource stateUndone}" 
-                  Grid.Column="2"
+        <CheckBox Grid.Column="2"
                   x:Name="cb2"
                   Style="{StaticResource unchecked}"
                   IsChecked="True">
 
         </CheckBox>
-        <CheckBox Template="{StaticResource stateUndone}" 
-                  Grid.Column="4"
+        <CheckBox Grid.Column="4"
                   x:Name="cb3"
                   Style="{StaticResource unchecked}"
                   IsChecked="True">

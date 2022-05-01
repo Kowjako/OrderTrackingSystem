@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderTrackingSystem.Presentation.WindowExtension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,11 @@ namespace OrderTrackingSystem.Presentation.Views.Seller
         {
             InitializeComponent();
         }
+
+        private void elementGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DisplayNameBinder.SetDisplayNameIfExists(e);
+        }
+
     }
 }
