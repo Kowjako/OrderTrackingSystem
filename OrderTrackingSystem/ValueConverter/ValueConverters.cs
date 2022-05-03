@@ -97,4 +97,19 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
             return value as DateTime?;
         }
     }
+
+    [ValueConversion(typeof(object), typeof(Visibility))]
+    public class NullToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value switch
+        {
+            null => Visibility.Collapsed,
+            _ => Visibility.Visible
+        };
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
 }
