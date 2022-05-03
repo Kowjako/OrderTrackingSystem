@@ -99,7 +99,6 @@
     <Compile Include="Interfaces\Customer\ISendsViewModel.cs" />
     <Compile Include="Interfaces\Customer\ITrackingViewModel.cs" />
     <Compile Include="Interfaces\Common\RelayCommand.cs" />
-    <Compile Include="Interfaces\Seller\IConfigurationViewModel.cs" />
     <Compile Include="Interfaces\Seller\IDesktopViewModel.cs" />
     <Compile Include="Interfaces\Seller\ISellerAccountViewModel.cs" />
     <Compile Include="Properties\Resources.en-GB.Designer.cs">
@@ -121,7 +120,6 @@
     <Compile Include="ViewModels\Customer\StartupViewModel.cs" />
     <Compile Include="ViewModels\Customer\TrackingViewModel.cs" />
     <Compile Include="ViewModels\Seller\SellerAccountViewModel.cs" />
-    <Compile Include="ViewModels\Seller\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Seller\DesktopViewModel.cs" />
     <Compile Include="Views\Customer\ComplaintView.xaml.cs">
       <DependentUpon>ComplaintView.xaml</DependentUpon>
@@ -146,9 +144,6 @@
     </Compile>
     <Compile Include="Views\Customer\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Seller\ConfigurationView.xaml.cs">
-      <DependentUpon>ConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Seller\DesktopView.xaml.cs">
       <DependentUpon>DesktopView.xaml</DependentUpon>
@@ -225,10 +220,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\TrackingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Seller\ConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

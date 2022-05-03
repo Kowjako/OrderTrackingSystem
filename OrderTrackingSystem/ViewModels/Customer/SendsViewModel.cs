@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
@@ -230,7 +231,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
                     if(SelectedSubCategory != null)
                     {
-                        ProductsList = ProductsList.Where(p => p.SubCategoryId == SelectedSubCategory.Id).ToList();
+                        /* Ustawiamy ID grupy glownej i jej grup podrzednych */
+                        var list = SelectedSubCategory.Children.Select(p => p.Id).ToList();
+                        list.Add(SelectedSubCategory.Id);
+                        ProductsList = ProductsList.Where(p => ((int)p.CategoryId).In(list.ToArray())).ToList();
                     }
                     OnPropertyChanged(nameof(ProductsList));
                 }

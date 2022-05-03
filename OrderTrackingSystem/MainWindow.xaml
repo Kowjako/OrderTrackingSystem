@@ -157,15 +157,6 @@
                     <TextBlock>
                     </TextBlock>
                 </TabItem>
-                <TabItem x:Name="ConfigMenu" 
-                PreviewMouseLeftButtonDown="ConfigMenu_PreviewMouseLeftButtonDown"
-                Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
-                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
-                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
-                ToolTip="Konfiguracja">
-                    <TextBlock>
-                    </TextBlock>
-                </TabItem>
             </TabControl>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ContentControl x:Name="mainControl"

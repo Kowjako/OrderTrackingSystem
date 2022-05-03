@@ -32,7 +32,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Kategoria = product.Category.ToString(),
                                 Sprzedawca = sellerQuery.Name,
                                 SellerId = sellerQuery.Id,
-                                SubCategoryId = product.SubCateogryId.Value
+                                CategoryId = product.Category
                             };
 
                 var productsList = await query.ToListAsync();

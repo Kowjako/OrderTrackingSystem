@@ -116,6 +116,31 @@
                     />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="Dodaj produkt"
+                Margin="5"
+                DataContext="{Binding CurrentMail}"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
             <DockPanel DockPanel.Dock="Bottom">
                 <Button
                     DockPanel.Dock="Bottom"
@@ -125,7 +150,7 @@
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Command="{Binding SaveCommand}"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Zmień status" />
                 <Button
@@ -136,7 +161,7 @@
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Command="{Binding SaveCommand}"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Wyslij wiadomość" />
                 <Button
@@ -147,7 +172,7 @@
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
                     Command="{Binding SaveCommand}"
-                    Margin="7"
+                    Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Zaakceptuj reklamację" />
             </DockPanel>

@@ -29,7 +29,6 @@ namespace OrderTrackingSystem
                 _isAppForClient = value;
                 if(_isAppForClient)
                 {
-                    ConfigMenu.Visibility = Visibility.Collapsed;
                     SellerMenu.Visibility = Visibility.Collapsed;
                     SellerData.Visibility = Visibility.Collapsed;
                 }
@@ -128,15 +127,6 @@ namespace OrderTrackingSystem
             var viewModel = new ComplaintsViewModel();
             AttachEventsToViewModel(viewModel);
             DataContext = viewModel;
-        }
-
-
-        private void ConfigMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var viewModel = new ConfigurationViewModel();
-            AttachEventsToViewModel(viewModel);
-            DataContext = viewModel;
-
         }
 
         private void SellerMenu_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

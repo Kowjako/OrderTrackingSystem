@@ -41,9 +41,6 @@
             <DataTemplate DataType="{x:Type viewmodelsP:StartupViewModel}">
                 <viewsC:StartupScreenView DataContext="{Binding}"/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodelsS:ConfigurationViewModel}">
-                <viewsS:ConfigurationView DataContext="{Binding}"/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodelsS:DesktopViewModel}">
                 <viewsS:DesktopView DataContext="{Binding}"/>
             </DataTemplate>

@@ -24,6 +24,6 @@ namespace OrderTrackingSystem.Logic.DTO
         [Browsable(false)]
         public int SellerId { get; set; }
         [Browsable(false)]
-        public int SubCategoryId { get; set; }
+        public byte CategoryId { get; set; }
     }
 }
