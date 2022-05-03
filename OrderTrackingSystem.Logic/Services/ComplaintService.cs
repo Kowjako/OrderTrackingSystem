@@ -303,7 +303,13 @@ namespace OrderTrackingSystem.Logic.Services
                                 EndDate = complaint.EndDate
                             };
 
-                return await query.AsNoTracking().ToListAsync();
+                var preparedList = await query.AsNoTracking().ToListAsync();
+                preparedList.ForEach(p =>
+                    {
+                        p.Date = DateTime.Parse(p.Date).ToShortDateString();
+                        p.State = EnumConverter.GetNameById<ComplaintState>(int.Parse(p.State));
+                    });
+                return preparedList;
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert; /* Assert bedzie uzywany z XUnit */
-using static OrderTrackingSystem.Tests.Tested;
 
 namespace OrderTrackingSystem.Tests
 {

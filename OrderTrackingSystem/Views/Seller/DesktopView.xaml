@@ -46,12 +46,34 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                </Grid>
+                <StackPanel>
+                    <TextBlock FontWeight="DemiBold"
+                               Margin="0 0 0 5">
+                        <Run Text="Numer przesyłki: "/>
+                        <Run Text="RQ421516521">
+                            <Run.Foreground>
+                                <LinearGradientBrush StartPoint="0.35 0.35" EndPoint="0.55 0.55" SpreadMethod="Repeat">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="MediumSlateBlue" Offset="0.5"/>
+                                        <GradientStop Color="Red" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Run.Foreground>
+                        </Run>
+                    </TextBlock>
+                    <ComboBox DockPanel.Dock="Top"
+                        x:Name="voucherBox"
+                        ItemsSource="{Binding VouchersList}"
+                        DisplayMemberPath="Number"
+                        SelectedItem="{Binding SelectedVoucher}"
+                        materialDesign:HintAssist.Background="LightPink"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                        Grid.Row="1"
+                        Padding="5,10,10,10"
+                        materialDesign:HintAssist.Hint="Wybierz status"
+                        IsEditable="False">
+                    </ComboBox>
+                </StackPanel>
             </GroupBox>
             <GroupBox Header="Wyślij wiadomość"
                 Margin="5"
@@ -92,7 +114,7 @@
                     Command="{Binding SaveCommand}"
                     Margin="7"
                     VerticalAlignment="Bottom"
-                    Content="{x:Static res:Resources.Save}" />
+                    Content="Zmień status" />
             </DockPanel>
         </DockPanel>
         <DockPanel  Grid.Column="1"
