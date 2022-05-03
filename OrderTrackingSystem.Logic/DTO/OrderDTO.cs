@@ -19,6 +19,9 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Sklep { get; set; }
 
         [Browsable(false)]
+        public int CurrentOrderState { get; set; }
+
+        [Browsable(false)]
         public int PickupId { get; set; }
         [Browsable(false)]
         public int SellerId { get; set; }
