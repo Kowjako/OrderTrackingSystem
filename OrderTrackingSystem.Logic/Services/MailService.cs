@@ -143,6 +143,115 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task<List<MailDTO>> GetReceivedMailsForSeller(int sellerId)
+        {
+            /* Zakładamy że wyszukujemy dla sprzedawcy */
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var customer = await dbContext.Sellers.Where(c => c.Id == sellerId).FirstAsync();
+
+                var query = from mail in dbContext.Mails
+                            where mail.ReceiverId == sellerId && mail.MailRelation == 2
+                            select new MailDTO
+                            {
+                                Id = mail.Id,
+                                Caption = mail.Caption,
+                                Content = mail.Content,
+                                Date = mail.Date.ToString(),
+                                Odbiorca = customer.Name,
+                                SellerId = mail.SenderId,
+                                OdbiorcaMail = customer.Email,
+                                ReceiverId = mail.ReceiverId,
+                                MailRelation = mail.MailRelation.Value
+                            };
+
+                var firstStageList = await query.AsNoTracking().ToListAsync();
+
+                /* Podpinamy zamówienia  */
+                await firstStageList.ForEachAsync(async p =>
+                {
+                    var relationQuery = from relation in dbContext.MailOrderRelations
+                                        join order in dbContext.Orders
+                                        on relation.OrderId equals order.Id
+                                        where relation.MailId == p.Id
+                                        select order.Number;
+
+                    p.RelatedOrders = await relationQuery.AsNoTracking().ToArrayAsync();
+                });
+
+                await firstStageList.ForEachAsync(async p =>
+                {
+                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
+                    switch (p.MailRelation)
+                    {
+                        case (byte)MailDirectionType.CustomerToSeller:
+                            var receiverCus = await dbContext.Customers.FindAsync(p.SellerId);
+                            p.Nadawca = receiverCus.Name + " " + receiverCus.Surname;
+                            p.NadawcaMail = receiverCus.Email;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+                return firstStageList;
+            }
+        }
+
+        public async Task<List<MailDTO>> GetSendMailsForSeller(int sellerId)
+        {
+            /* Zakładamy że wyszukujemy dla customer'a */
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                var customer = await dbContext.Sellers.Where(c => c.Id == sellerId).FirstAsync();
+
+                var query = from mail in dbContext.Mails
+                            where mail.SenderId == sellerId && mail.MailRelation == 3
+                            select new MailDTO
+                            {
+                                Id = mail.Id,
+                                Caption = mail.Caption,
+                                Content = mail.Content,
+                                Date = mail.Date.ToString(),
+                                Nadawca = customer.Name,
+                                NadawcaMail = customer.Email,
+                                SellerId = mail.SenderId,
+                                ReceiverId = mail.ReceiverId,
+                                MailRelation = mail.MailRelation.Value,
+                            };
+                var firstStageList = await query.AsNoTracking().ToListAsync();
+
+                /* Podpinamy zamówienia */
+                await firstStageList.ForEachAsync(async p =>
+                {
+                    var relationQuery = from relation in dbContext.MailOrderRelations
+                                        join order in dbContext.Orders
+                                        on relation.OrderId equals order.Id
+                                        where relation.MailId == p.Id
+                                        select order.Number;
+
+                    p.RelatedOrders = await relationQuery.AsNoTracking().ToArrayAsync();
+                });
+
+                await firstStageList.ForEachAsync(async p =>
+                {
+                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
+                    switch (p.MailRelation)
+                    {
+                        case (byte)MailDirectionType.SellerToCustomer:
+                            var receiverCus = await dbContext.Customers.FindAsync(p.ReceiverId);
+                            p.Odbiorca = receiverCus.Name + " " + receiverCus.Surname;
+                            p.OdbiorcaMail = receiverCus.Email;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+                return firstStageList;
+            }
+        }
+
         public async Task SendMail(MailDTO mail, string[] relatedOrders = null)
         {
             var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };

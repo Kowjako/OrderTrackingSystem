@@ -28,8 +28,12 @@ namespace OrderTrackingSystem.Logic.Services
                                               where cart.OrderId == order.Id
                                               select cart.Amount * prodcut.PriceBrutto).Sum()
                             let sellerQuery = (from seller in dbContext.Sellers
-                                              where seller.Id == order.SellerId
-                                              select seller.Name).ToList()
+                                               where seller.Id == order.SellerId
+                                               select seller.Name).ToList()
+                            let stateQuery = (from orderState in dbContext.OrderStates
+                                              where orderState.OrderId == order.Id
+                                              orderby orderState.Date descending
+                                              select orderState.Id).FirstAsync()
                             select new OrderDTO
                             {
                                 /*PayTypeEnumConverter.GetNameById(order.Id)*/
@@ -38,7 +42,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Sklep = sellerQuery.First(),
                                 Dostawa = EnumConverter.GetNameById<DeliveryType>(order.DeliveryType),
                                 Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                                Kwota = string.Format("{0:0.00 zł}", valueQuery)
+                                Kwota = string.Format("{0:0.00 zł}", valueQuery),
+                                CurrentOrderState = stateQuery.Result
                             };
 
                 return query.ToList();

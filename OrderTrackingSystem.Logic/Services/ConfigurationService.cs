@@ -150,5 +150,22 @@ namespace OrderTrackingSystem.Logic.Services
                 _ => (string.Empty, string.Empty)
             };
         }
+
+        public static List<Tuple<string, OrderState>> GetAllStates()
+        {
+            return new List<Tuple<string, OrderState>>()
+            {
+                new Tuple<string, OrderState>(Properties.Resources.PrepatedBySeller, OrderState.PrepatedBySeller),
+                new Tuple<string, OrderState>(Properties.Resources.GetFromSeller, OrderState.GetFromSeller),
+                new Tuple<string, OrderState>(Properties.Resources.GetByLocal, OrderState.GetByLocal),
+                new Tuple<string, OrderState>(Properties.Resources.SentFromLocal, OrderState.SentFromLocal),
+                new Tuple<string, OrderState>(Properties.Resources.ToDelivery, OrderState.ToDelivery),
+                new Tuple<string, OrderState>(Properties.Resources.ReadyToPickup, OrderState.ReadyToPickup),
+                new Tuple<string, OrderState>(Properties.Resources.Getted, OrderState.Getted),
+                new Tuple<string, OrderState>(Properties.Resources.ComplaintSet,OrderState.ComplaintSet),
+                new Tuple<string, OrderState>(Properties.Resources.ComplaintResolved, OrderState.ComplaintResolved),
+                new Tuple<string, OrderState>(Properties.Resources.ReturnToSeller, OrderState.ReturnToSeller)
+            };
+        }
     }
 }
