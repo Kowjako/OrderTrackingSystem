@@ -66,6 +66,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         public List<MailDTO> SentMessages { get; set; }
         public List<MailDTO> ReceivedMessages { get; set; }
+        public MailDTO CurrentMail { get; set; }
         public List<OrderDTO> CustomersOrder { get; set; }
         public List<ComplaintsDTO> CustomersComplaint { get; set; }
         public List<Tuple<string, OrderState, int>> ParcelAvailableStates { get; set; } = new List<Tuple<string, OrderState, int>>();

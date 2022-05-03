@@ -74,12 +74,13 @@
             </GroupBox>
             <GroupBox Header="Wyślij wiadomość"
                 Margin="5"
+                DataContext="{Binding CurrentMail}"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
-                <TextBox
+                    <TextBox
                     Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
@@ -90,7 +91,7 @@
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Title}"
                     />
-                <TextBox
+                    <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
                     MinHeight="40"
@@ -109,25 +110,11 @@
                     TextWrapping="Wrap"
                     Padding="7,8,0,0"
                     FontSize="15"
-                    Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding OdbiorcaMail, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Receiver}"
                     />
                 </StackPanel>
-            </GroupBox>
-            <GroupBox Header="Zarządzaj reklamacjami"
-                Margin="5"
-                DockPanel.Dock="Top"
-                materialDesign:ColorZoneAssist.Mode="Custom"
-                materialDesign:ColorZoneAssist.Background="Black"
-                materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                </Grid>
             </GroupBox>
             <DockPanel DockPanel.Dock="Bottom">
                 <Button
@@ -141,6 +128,28 @@
                     Margin="7"
                     VerticalAlignment="Bottom"
                     Content="Zmień status" />
+                <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Command="{Binding SaveCommand}"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Wyslij wiadomość" />
+                <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Command="{Binding SaveCommand}"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="Zaakceptuj reklamację" />
             </DockPanel>
         </DockPanel>
         <DockPanel  Grid.Column="1"
