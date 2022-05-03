@@ -1,8 +1,10 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,15 +15,25 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public enum OrderState
     {
+        [Display(Name = "PrepatedBySeller", ResourceType = typeof(Properties.Resources))]
         PrepatedBySeller = 0,
+        [Display(Name = "GetFromSeller", ResourceType = typeof(Properties.Resources))]
         GetFromSeller = 1,
+        [Display(Name = "GetByLocal", ResourceType = typeof(Properties.Resources))]
         GetByLocal = 2,
+        [Display(Name = "SentFromLocal", ResourceType = typeof(Properties.Resources))]
         SentFromLocal = 3,
+        [Display(Name = "ToDelivery", ResourceType = typeof(Properties.Resources))]
         ToDelivery = 4,
+        [Display(Name = "ReadyToPickup", ResourceType = typeof(Properties.Resources))]
         ReadyToPickup = 5,
+        [Display(Name = "Getted", ResourceType = typeof(Properties.Resources))]
         Getted = 6,
+        [Display(Name = "ComplaintSet", ResourceType = typeof(Properties.Resources))]
         ComplaintSet = 7,
+        [Display(Name = "ComplaintResolved", ResourceType = typeof(Properties.Resources))]
         ComplaintResolved = 8,
+        [Display(Name = "ReturnToSeller", ResourceType = typeof(Properties.Resources))]
         ReturnToSeller = 9
     }
 
@@ -151,21 +163,12 @@ namespace OrderTrackingSystem.Logic.Services
             };
         }
 
-        public static List<Tuple<string, OrderState>> GetAllStates()
+        public static IEnumerable<Tuple<string, OrderState>> GetAllStates()
         {
-            return new List<Tuple<string, OrderState>>()
+            foreach(var state in Enum.GetValues(typeof(OrderState)))
             {
-                new Tuple<string, OrderState>(Properties.Resources.PrepatedBySeller, OrderState.PrepatedBySeller),
-                new Tuple<string, OrderState>(Properties.Resources.GetFromSeller, OrderState.GetFromSeller),
-                new Tuple<string, OrderState>(Properties.Resources.GetByLocal, OrderState.GetByLocal),
-                new Tuple<string, OrderState>(Properties.Resources.SentFromLocal, OrderState.SentFromLocal),
-                new Tuple<string, OrderState>(Properties.Resources.ToDelivery, OrderState.ToDelivery),
-                new Tuple<string, OrderState>(Properties.Resources.ReadyToPickup, OrderState.ReadyToPickup),
-                new Tuple<string, OrderState>(Properties.Resources.Getted, OrderState.Getted),
-                new Tuple<string, OrderState>(Properties.Resources.ComplaintSet,OrderState.ComplaintSet),
-                new Tuple<string, OrderState>(Properties.Resources.ComplaintResolved, OrderState.ComplaintResolved),
-                new Tuple<string, OrderState>(Properties.Resources.ReturnToSeller, OrderState.ReturnToSeller)
-            };
+                yield return new Tuple<string, OrderState>(EnumConverter.GetNameByIdLocalized<OrderState>((int)state), (OrderState)state);
+            }
         }
     }
 }
