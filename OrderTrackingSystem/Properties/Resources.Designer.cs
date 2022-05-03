@@ -1114,7 +1114,7 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anuluj reklamację.
+        ///   Looks up a localized string similar to Zakończ reklamację.
         /// </summary>
         public static string UndoComplaint {
             get {

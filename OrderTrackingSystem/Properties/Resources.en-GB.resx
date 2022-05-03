@@ -469,7 +469,7 @@
     <value>Parcel tracking</value>
   </data>
   <data name="UndoComplaint" xml:space="preserve">
-    <value>Undo complaints</value>
+    <value>Finish complaint</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>TAX</value>

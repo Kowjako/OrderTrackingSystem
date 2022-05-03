@@ -469,7 +469,7 @@
     <value>Tracking przesyłek</value>
   </data>
   <data name="UndoComplaint" xml:space="preserve">
-    <value>Anuluj reklamację</value>
+    <value>Zakończ reklamację</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>VAT</value>

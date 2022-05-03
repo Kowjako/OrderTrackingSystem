@@ -469,7 +469,7 @@
     <value>Трекинг посылок</value>
   </data>
   <data name="UndoComplaint" xml:space="preserve">
-    <value>Аннулировать жалобу</value>
+    <value>Завершить жалобу</value>
   </data>
   <data name="VAT" xml:space="preserve">
     <value>Налог</value>
