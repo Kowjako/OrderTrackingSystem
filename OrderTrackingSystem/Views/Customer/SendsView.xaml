@@ -155,15 +155,6 @@
                     </Button>
                 </Grid>
             </GroupBox>
-            <GroupBox
-                Header="{x:Static res:Resources.Sorting}"
-                Margin="5"
-                DockPanel.Dock="Top"
-                materialDesign:ColorZoneAssist.Mode="Custom"
-                materialDesign:ColorZoneAssist.Background="Black"
-                materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel/>
-            </GroupBox>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
