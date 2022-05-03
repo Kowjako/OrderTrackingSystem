@@ -42,6 +42,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Bindable objects
 
+        public Action ShowProgressBar;
+
         public List<TrackableItemDTO> Items { get; set; } = new List<TrackableItemDTO>();
         public ObservableCollection<ParcelStateDTO> ParcelStates { get; set; } = new ObservableCollection<ParcelStateDTO>();
 
@@ -172,6 +174,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         /* Load current selected parcel states */
                         ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
                         OnPropertyChanged(nameof(ParcelStates));
+                        ShowProgressBar?.Invoke();
                     }
                     else
                     {
