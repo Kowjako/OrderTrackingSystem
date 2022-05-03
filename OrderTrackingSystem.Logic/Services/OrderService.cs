@@ -32,8 +32,7 @@ namespace OrderTrackingSystem.Logic.Services
                                                select seller.Name).ToList()
                             let stateQuery = (from orderState in dbContext.OrderStates
                                               where orderState.OrderId == order.Id
-                                              orderby orderState.Date descending
-                                              select orderState.Id).FirstAsync()
+                                              select orderState.State).MaxAsync() /* najpozniejszy status */
                             select new OrderDTO
                             {
                                 /*PayTypeEnumConverter.GetNameById(order.Id)*/
@@ -120,8 +119,11 @@ namespace OrderTrackingSystem.Logic.Services
                                                    from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                                    where cart.OrderId == order.Id
                                                    select cart.Amount * prodcut.PriceBrutto).Sum()
+                                 let stateQuery = (from orderState in dbContext.OrderStates
+                                                   where orderState.OrderId == order.Id
+                                                   select orderState.State).Max() /* najpozniejszy status */
                                  where order.SellerId == sellerId
-                                 select new { Order = order, Value = valueQuery };
+                                 select new { Order = order, Value = valueQuery, State = stateQuery };
 
                 var ordersDAL = await orderQuery.AsNoTracking().ToListAsync();
 
@@ -133,7 +135,8 @@ namespace OrderTrackingSystem.Logic.Services
                     Sklep = seller.Name,
                     Dostawa = EnumConverter.GetNameById<DeliveryType>(p.Order.DeliveryType),
                     Rezygnacja = p.Order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                    Kwota = string.Format("{0:0.00 zł}", p.Value)
+                    Kwota = string.Format("{0:0.00 zł}", p.Value),
+                    CurrentOrderState = p.State
                 });
                 return ordersDTO.ToList(); 
             }
