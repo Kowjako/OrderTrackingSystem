@@ -1,42 +1,44 @@
 ﻿using EnumsNET;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace OrderTrackingSystem.Logic.EnumMappers
 {
     public enum PayType
     {
-        [Description("Gotówka")]
+        [Display(Name = "Gotówka")]
         Cash = 0,
-        [Description("Apple Pay")]
+        [Display(Name = "Apple Pay")]
         ApplePay = 1,
-        [Description("Karta")]
+        [Display(Name = "Karta")]
         Card = 2,
-        [Description("BLIK")]
+        [Display(Name = "BLIK")]
         BLIK = 3
     }
 
     public enum DeliveryType
     {
-        [Description("Kurier DPD")]
+        [Display(Name = "Kurier DPD")]
         Courier = 0,
-        [Description("Poczta")]
+        [Display(Name = "Poczta")]
         Post = 1,
-        [Description("Odbiór osobisty")]
+        [Display(Name = "Odbiór osobisty")]
         Takeself = 2,
-        [Description("Paczkomat")]
+        [Display(Name = "Paczkomat")]
         Paczkomat = 3
     }
 
     public enum ProductType
     {
-        [Description("Tabletki")]
+        [Display(Name = "Tabletki")]
         Pill = 0,
-        [Description("Krem")]
+        [Display(Name = "Krem")]
         Cream = 1,
-        [Description("Syrop")]
+        [Display(Name = "Syrop")]
         Syrup = 2,
-        [Description("Aerozol")]
+        [Display(Name = "Aerozol")]
         Spray = 3
     }
 
@@ -52,13 +54,13 @@ namespace OrderTrackingSystem.Logic.EnumMappers
 
     public enum ComplaintState
     {
-        [Description("Anulowana")]
+        [Display(Name = "Anulowana")]
         Cancelled = 0,
-        [Description("Założenie reklamacji")]
+        [Display(Name = "Założenie reklamacji")]
         ComplaintCreate = 1,
-        [Description("Decyzja sprzedawcy")]
+        [Display(Name = "Decyzja sprzedawcy")]
         SellerDecision = 2,
-        [Description("Rozwiązanie reklamacji")]
+        [Display(Name = "Rozwiązanie reklamacji")]
         ComplaintSolved = 3
     }
 
@@ -67,7 +69,12 @@ namespace OrderTrackingSystem.Logic.EnumMappers
         /* Generyczna metoda do konwersji z Id na Description */
         public static string GetNameById<T>(int id) where T : struct, Enum
         {
-            return ((T)(object)id).AsString(EnumFormat.Description);
+            return ((T)(object)id).AsString(EnumFormat.DisplayName);
+        }
+
+        public static string GetNameByIdLocalized<T>(int id) where T : struct, Enum
+        {
+            return Properties.Resources.ResourceManager.GetString(((T)(object)id).AsString(EnumFormat.Name), CultureInfo.CurrentCulture);
         }
     }
 
