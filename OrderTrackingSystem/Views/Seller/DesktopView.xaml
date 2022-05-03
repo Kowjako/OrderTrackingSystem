@@ -3,12 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views.Seller"
+             xmlns:converter="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              x:Name="desktopView"
              mc:Ignorable="d" 
+             Loaded="desktopView_Loaded"
              d:DesignHeight="738" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converter:NullToVisibilityConverter x:Key="ntvConverter"/>
+    </UserControl.Resources>
     <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -48,23 +52,16 @@
                 materialDesign:ColorZoneAssist.Foreground="White">
                 <StackPanel>
                     <TextBlock FontWeight="DemiBold"
-                               Margin="0 0 0 5">
+                               FontSize="12.5"
+                               Visibility="{Binding SelectedOrder, Converter={StaticResource ntvConverter}}"
+                               Margin="0 0 0 10">
                         <Run Text="Numer przesyłki: "/>
-                        <Run Text="RQ421516521">
-                            <Run.Foreground>
-                                <LinearGradientBrush StartPoint="0.35 0.35" EndPoint="0.55 0.55" SpreadMethod="Repeat">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="MediumSlateBlue" Offset="0.5"/>
-                                        <GradientStop Color="Red" Offset="1"/>
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Run.Foreground>
-                        </Run>
+                        <Run Text="{Binding SelectedOrder.Numer}" Foreground="RoyalBlue"/>
                     </TextBlock>
                     <ComboBox DockPanel.Dock="Top"
                         x:Name="voucherBox"
-                        ItemsSource="{Binding VouchersList}"
-                        DisplayMemberPath="Number"
+                        ItemsSource="{Binding ParcelAvailableStates}"
+                        DisplayMemberPath="Item1"
                         SelectedItem="{Binding SelectedVoucher}"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
@@ -132,10 +129,10 @@
                       CanUserAddRows="False"
                       ColumnWidth="*"
                       IsReadOnly="True"
+                      SelectedItem="{Binding SelectedOrder}"
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
-                      SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding ProductsList}"
+                      ItemsSource="{Binding CustomersOrder}"
                       AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
                       Margin="0,0,5,5"/>
         </DockPanel>
@@ -156,8 +153,7 @@
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
-                      SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding ProductsList}"
+                      ItemsSource="{Binding CustomersComplaint}"
                       AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"
                       Margin="0,0,5,5"/>
         </DockPanel>
@@ -172,7 +168,6 @@
             <DataGrid x:Name="sentGrid" 
                       Margin="0,0,5,5"
                       CanUserAddRows="False"
-                      SelectedItem="{Binding SelectedMail}"
                       ItemsSource="{Binding SentMessages}"
                       ColumnWidth="*"
                       IsReadOnly="True"
@@ -191,8 +186,7 @@
             <DataGrid 
                       Margin="0,0,5,5"
                       CanUserAddRows="False"
-                      SelectedItem="{Binding SelectedMail}"
-                      ItemsSource="{Binding SentMessages}"
+                      ItemsSource="{Binding ReceivedMessages}"
                       ColumnWidth="*"
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Disabled"
