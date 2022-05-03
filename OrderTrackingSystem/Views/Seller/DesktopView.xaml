@@ -62,7 +62,7 @@
                         x:Name="voucherBox"
                         ItemsSource="{Binding ParcelAvailableStates}"
                         DisplayMemberPath="Item1"
-                        SelectedItem="{Binding SelectedVoucher}"
+                        SelectedItem="{Binding SelectedState, UpdateSourceTrigger=PropertyChanged}"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
@@ -78,13 +78,42 @@
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                </Grid>
+                <StackPanel>
+                <TextBox
+                    Margin="0,0,0,10"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    VerticalAlignment="Top"
+                    MinHeight="40"
+                    Padding="7,8,0,0"
+                    FontSize="15"
+                    Text="{Binding Caption, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Background="LightPink"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Title}"
+                    />
+                <TextBox
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    VerticalAlignment="Top"
+                    MinHeight="40"
+                    Margin="0,0,0,10"
+                    TextWrapping="Wrap"
+                    Padding="7,8,0,0"
+                    FontSize="15"
+                    Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Background="LightPink"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Content}"
+                    />
+                    <TextBox
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    VerticalAlignment="Top"
+                    MinHeight="40"
+                    TextWrapping="Wrap"
+                    Padding="7,8,0,0"
+                    FontSize="15"
+                    Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Background="LightPink"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Receiver}"
+                    />
+                </StackPanel>
             </GroupBox>
             <GroupBox Header="Zarządzaj reklamacjami"
                 Margin="5"

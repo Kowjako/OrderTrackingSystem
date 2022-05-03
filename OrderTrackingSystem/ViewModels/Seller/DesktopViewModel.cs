@@ -1,14 +1,14 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using EnumConverter = OrderTrackingSystem.Logic.EnumMappers.EnumConverter;
 
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
@@ -47,6 +47,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         private Sellers CurrentSeller { get; set; }
 
+        private void SetAvailableStates()
+        {
+            var context = new FSMContext((OrderState)SelectedOrder.CurrentOrderState); /* ustawiamy obecny stan automatu */
+            ParcelAvailableStates.Clear();
+            foreach (var state in context.State.GetNextStates())
+            {
+                ParcelAvailableStates.Add(new Tuple<string, OrderState, int>
+                                         (EnumConverter.GetNameById<OrderState>((int)state.Item1), state.Item1, state.Item2));
+                ParcelAvailableStates = new List<Tuple<string, OrderState, int>>(ParcelAvailableStates);
+            }
+            OnPropertyChanged(nameof(ParcelAvailableStates));
+        }
+
         #endregion
 
         #region Bindable properties
@@ -55,7 +68,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public List<MailDTO> ReceivedMessages { get; set; }
         public List<OrderDTO> CustomersOrder { get; set; }
         public List<ComplaintsDTO> CustomersComplaint { get; set; }
-        public List<Tuple<string, OrderState>> ParcelAvailableStates { get; set; }
+        public List<Tuple<string, OrderState, int>> ParcelAvailableStates { get; set; } = new List<Tuple<string, OrderState, int>>();
+        public Tuple<string, OrderState, int> SelectedState { get; set; }
 
         private OrderDTO _selectedOrder;
         public OrderDTO SelectedOrder
@@ -65,7 +79,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             {
                 _selectedOrder = value;
                 OnPropertyChanged(nameof(SelectedOrder));
-                SetAvailableStates(SelectedOrder.CurrentOrderState);
+                SetAvailableStates();
             }
         }
 
@@ -76,7 +90,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public async Task SetInitializeProperties()
         {
             CurrentSeller = await CustomerService.GetCurrentSeller();
-            ParcelAvailableStates = new List<Tuple<string, OrderState>>(ConfigurationService.GetAllStates());
             CustomersOrder = await OrderService.GetOrdersFromCompany(CurrentSeller.Id);
             CustomersComplaint = await ComplaintService.GetComplaintsForSeller(CurrentSeller.Id);
             ReceivedMessages = await MailService.GetReceivedMailsForSeller(CurrentSeller.Id);
