@@ -33,9 +33,10 @@
                       Background="Black"/>
         <ctrls:ExtensibleViewPanel Grid.Column="0" 
                                    Grid.RowSpan="4"
+                                   Caption="Vovka"
                                    Grid.Row="0">
             <ctrls:ExtensibleViewPanel.ViewContent>
-                <StackPanel Background="Red">
+                <StackPanel Background="LightPink">
                     
                 </StackPanel>
             </ctrls:ExtensibleViewPanel.ViewContent>

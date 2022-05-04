@@ -16,31 +16,25 @@ using System.Windows.Shapes;
 
 namespace OrderTrackingSystem.Presentation.CustomControls
 {
-    /// <summary>
-    /// Interaction logic for ExtensibleViewPanel.xaml
-    /// </summary>
-    public partial class ExtensibleViewPanel : UserControl, INotifyPropertyChanged
+    public partial class ExtensibleViewPanel : UserControl
     {
         #region Dependency properties
 
+        /* DP to set panel header name */
         public string Caption
         {
             get { return (string)GetValue(CaptionProperty); }
-            set
-            {
-                SetValue(CaptionProperty, value);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Caption)));
-            }
+            set { SetValue(CaptionProperty, value); }
         }
 
         public static readonly DependencyProperty CaptionProperty =
             DependencyProperty.Register("Caption",
                 typeof(string),
                 typeof(ExtensibleViewPanel),
-                new FrameworkPropertyMetadata("Hello"));
+                new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender));
 
 
-
+        /* DP to set panel content */
         public object ViewContent
         {
             get { return (object)GetValue(ViewContentProperty); }
@@ -52,18 +46,14 @@ namespace OrderTrackingSystem.Presentation.CustomControls
             DependencyProperty.Register("ViewContent", 
                 typeof(object), 
                 typeof(ExtensibleViewPanel), 
-                new PropertyMetadata(null));
+                new FrameworkPropertyMetadata(default(object), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender));
 
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
         public ExtensibleViewPanel()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

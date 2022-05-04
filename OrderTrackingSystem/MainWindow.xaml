@@ -157,6 +157,15 @@
                     <TextBlock>
                     </TextBlock>
                 </TabItem>
+                <TabItem x:Name="DevelopTab" 
+                PreviewMouseLeftButtonDown="DevelopTab_PreviewMouseLeftButtonDown"
+                Header="{materialDesign:PackIcon Kind=Apps, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                ToolTip="Pulpit">
+                    <TextBlock>
+                    </TextBlock>
+                </TabItem>
             </TabControl>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ContentControl x:Name="mainControl"

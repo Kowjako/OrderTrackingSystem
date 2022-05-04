@@ -143,6 +143,12 @@ namespace OrderTrackingSystem
             DataContext = viewModel;
         }
 
+        private void DevelopTab_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var vm = new DevelopedViewModel();
+            DataContext = vm;
+        }
+
         #endregion
 
         #region Generic viewmodel methods
@@ -187,5 +193,6 @@ namespace OrderTrackingSystem
 
         #endregion
 
+        
     }
 }
