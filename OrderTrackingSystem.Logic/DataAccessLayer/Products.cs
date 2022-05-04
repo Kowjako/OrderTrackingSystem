@@ -26,15 +26,13 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public decimal PriceNetto { get; set; }
         public byte VAT { get; set; }
         public decimal PriceBrutto { get; set; }
-        public byte Category { get; set; }
+        public int Category { get; set; }
         public decimal Weight { get; set; }
         public byte Discount { get; set; }
         public int SellerId { get; set; }
-        public Nullable<int> SubCateogryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderCarts> OrderCarts { get; set; }
-        public virtual ProductCategories ProductCategories { get; set; }
         public virtual Sellers Sellers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SellCarts> SellCarts { get; set; }

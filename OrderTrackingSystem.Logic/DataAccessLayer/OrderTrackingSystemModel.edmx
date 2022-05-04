@@ -145,11 +145,10 @@
           <Property Name="PriceNetto" Type="smallmoney" Nullable="false" />
           <Property Name="VAT" Type="tinyint" Nullable="false" />
           <Property Name="PriceBrutto" Type="smallmoney" Nullable="false" />
-          <Property Name="Category" Type="tinyint" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
           <Property Name="Weight" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="Discount" Type="tinyint" Nullable="false" />
           <Property Name="SellerId" Type="int" Nullable="false" />
-          <Property Name="SubCateogryId" Type="int" />
         </EntityType>
         <EntityType Name="SellCarts">
           <Key>
@@ -450,18 +449,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products_SubCateogryId">
-          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Products" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="SubCateogryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__SellCarts_ProductId">
           <End Role="Products" Type="Self.Products" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -636,10 +623,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           </AssociationSet>
           <AssociationSet Name="FK__Products_SellerId" Association="Self.FK__Products_SellerId">
             <End Role="Sellers" EntitySet="Sellers" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Products_SubCateogryId" Association="Self.FK__Products_SubCateogryId">
-            <End Role="ProductCategories" EntitySet="ProductCategories" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK__SellCarts_ProductId" Association="Self.FK__SellCarts_ProductId">
@@ -838,7 +821,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <Property Name="ParentCategoryId" Type="Int32" />
           <NavigationProperty Name="ProductCategories1" Relationship="Self.FK__ProductCategories_ParentCateogoryId" FromRole="ProductCategories" ToRole="ProductCategories1" />
           <NavigationProperty Name="ProductCategories2" Relationship="Self.FK__ProductCategories_ParentCateogoryId" FromRole="ProductCategories1" ToRole="ProductCategories" />
-          <NavigationProperty Name="Products" Relationship="Self.FK__Products_SubCateogryId" FromRole="ProductCategories" ToRole="Products" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -849,13 +831,11 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <Property Name="PriceNetto" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="VAT" Type="Byte" Nullable="false" />
           <Property Name="PriceBrutto" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
-          <Property Name="Category" Type="Byte" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="Discount" Type="Byte" Nullable="false" />
           <Property Name="SellerId" Type="Int32" Nullable="false" />
-          <Property Name="SubCateogryId" Type="Int32" />
           <NavigationProperty Name="OrderCarts" Relationship="Self.FK__OrderCarts_ProductId" FromRole="Products" ToRole="OrderCarts" />
-          <NavigationProperty Name="ProductCategories" Relationship="Self.FK__Products_SubCateogryId" FromRole="Products" ToRole="ProductCategories" />
           <NavigationProperty Name="Sellers" Relationship="Self.FK__Products_SellerId" FromRole="Products" ToRole="Sellers" />
           <NavigationProperty Name="SellCarts" Relationship="Self.FK__SellCarts_ProductId" FromRole="Products" ToRole="SellCarts" />
         </EntityType>
@@ -1203,18 +1183,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Products_SubCateogryId">
-          <End Role="ProductCategories" Type="Self.ProductCategories" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Products" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductCategories">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="SubCateogryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Products_SellerId">
           <End Role="Sellers" Type="Self.Sellers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1359,10 +1327,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <AssociationSet Name="FK__ProductCategories_ParentCateogoryId" Association="Self.FK__ProductCategories_ParentCateogoryId">
             <End Role="ProductCategories" EntitySet="ProductCategories" />
             <End Role="ProductCategories1" EntitySet="ProductCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Products_SubCateogryId" Association="Self.FK__Products_SubCateogryId">
-            <End Role="ProductCategories" EntitySet="ProductCategories" />
-            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK__Products_SellerId" Association="Self.FK__Products_SellerId">
             <End Role="Sellers" EntitySet="Sellers" />
@@ -1539,7 +1503,6 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="SellerId" ColumnName="SellerId" />
-                <ScalarProperty Name="SubCateogryId" ColumnName="SubCateogryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

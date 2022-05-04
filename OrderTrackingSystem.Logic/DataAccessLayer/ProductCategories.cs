@@ -18,7 +18,6 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public ProductCategories()
         {
             this.ProductCategories1 = new HashSet<ProductCategories>();
-            this.Products = new HashSet<Products>();
         }
     
         public int Id { get; set; }
@@ -28,7 +27,5 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductCategories> ProductCategories1 { get; set; }
         public virtual ProductCategories ProductCategories2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
     }
 }
