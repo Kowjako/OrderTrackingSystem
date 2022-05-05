@@ -28,30 +28,30 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="titleBox" 
-                       Text="{Binding BoxName, Mode=OneWay}"
+                       Text="{Binding BoxName, RelativeSource={RelativeSource AncestorType=UserControl}}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="20"
                        FontWeight="DemiBold"/>
             <Image x:Name="boxImage"
                    RenderOptions.BitmapScalingMode="Fant"
-                   Width="{Binding Path=ImageSize, Mode=OneWay}"
-                   Height="{Binding Path=ImageSize, Mode=OneWay}"
+                   Width="{Binding Path=ImageSize, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   Height="{Binding Path=ImageSize, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    Grid.Row="1"
-                   Source="{Binding Path=ImagePath, Mode=OneWay}"/>
+                   Source="{Binding Path=ImagePath, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             <TextBlock x:Name="sizeBox"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextWrapping="NoWrap"
                        Grid.Row="2"
-                       Text="{Binding BoxSize, Mode=OneWay, StringFormat={}{0} cm}"
+                       Text="{Binding BoxSize, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat={}{0} cm}"
                        FontSize="15"/>
             <TextBlock x:Name="priceBox"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontWeight="ExtraBold"
                        Grid.Row="3"
-                       Text="{Binding BoxPrice, Mode=OneWay, StringFormat={}{0} zł}"
+                       Text="{Binding BoxPrice, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat={}{0} zł}"
                        FontSize="25"/>
             <CheckBox x:Name="selectedBox"
                       Width="30"

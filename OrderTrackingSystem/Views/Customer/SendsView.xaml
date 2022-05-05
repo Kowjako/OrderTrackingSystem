@@ -306,8 +306,8 @@
                 <DockPanel x:Name="boxPanel"
                            DockPanel.Dock="Bottom" LastChildFill="False"
                            purchaseElement:PurchaseElement.BoxChanged="boxPanel_BoxChanged">
-                    <purchaseElement:PurchaseElement BoxSizeSelector="Small"
-                                                 Width="150"   
+                        <purchaseElement:PurchaseElement BoxSizeSelector="Small"
+                                                 Width="150"
                                                  DockPanel.Dock="Left"
                                                  Height="310"
                                                  Margin="0,0,0,0"/>

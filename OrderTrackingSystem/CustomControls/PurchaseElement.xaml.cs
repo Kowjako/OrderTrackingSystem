@@ -1,20 +1,11 @@
 ﻿using OrderTrackingSystem.CustomControls.Classes;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace OrderTrackingSystem.CustomControls
 {
@@ -29,21 +20,19 @@ namespace OrderTrackingSystem.CustomControls
 
         /* Used to set UI Control property */
         public static readonly DependencyProperty boxSize =
-            DependencyProperty.Register(nameof(BoxSizeSelector), typeof(BoxSize),
-            typeof(PurchaseElement), new PropertyMetadata());
+            DependencyProperty.Register(nameof(BoxSizeSelector), 
+            typeof(BoxSize),
+            typeof(PurchaseElement), 
+            new FrameworkPropertyMetadata(Classes.BoxSize.Small, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(Callback)));
 
         internal BoxSize BoxSizeSelector
         {
-            get => (BoxSize)GetValue(boxSize);
-            set
-            {
-                SetValue(boxSize, value);
-                OnPropertyChanged(nameof(ImageSize)); 
-                OnPropertyChanged(nameof(ImagePath));
-                OnPropertyChanged(nameof(BoxName));
-                OnPropertyChanged(nameof(BoxSize));
-                OnPropertyChanged(nameof(BoxPrice));
-            }
+            get { return (BoxSize)GetValue(boxSize); }
+            set { SetValue(boxSize, value); }
+        }
+
+        private static void Callback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
 
         }
 
@@ -81,9 +70,7 @@ namespace OrderTrackingSystem.CustomControls
         public PurchaseElement()
         {
             InitializeComponent();
-            OnPropertyChanged(nameof(BoxName));
             AllElements.Add(this);
-            DataContext = this;
         }
 
         public int ImageSize => BoxImageSizes[BoxSizeSelector];

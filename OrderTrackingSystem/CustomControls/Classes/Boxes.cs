@@ -2,7 +2,7 @@
 
 namespace OrderTrackingSystem.CustomControls.Classes
 {
-    enum BoxSize
+    public enum BoxSize
     {
         Small = 1,
         Medium = 2,
