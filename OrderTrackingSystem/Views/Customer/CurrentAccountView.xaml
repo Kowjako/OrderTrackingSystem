@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Loaded="main_Loaded"
              x:Name="main"
-             d:DesignHeight="738" d:DesignWidth="1050.5"
+             d:DesignHeight="950" d:DesignWidth="1200"
              Background="White">
     <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>

@@ -9,7 +9,7 @@
              x:Name="desktopView"
              mc:Ignorable="d" 
              Loaded="desktopView_Loaded"
-             d:DesignHeight="738" d:DesignWidth="1000">
+             d:DesignHeight="950" d:DesignWidth="1000">
     <UserControl.Resources>
         <converter:NullToVisibilityConverter x:Key="ntvConverter"/>
     </UserControl.Resources>
@@ -128,16 +128,76 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                     <StackPanel Grid.Column="0">
                         <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
-                    materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
-                    Margin="0 0 0 5"
-                    FontSize="15"
+                    Margin="0 0 5 5"
+                    FontSize="12"
                     Text="{Binding Name, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Cena netto"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 5 5"
+                    FontSize="12"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="VAT"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 5 5"
+                    FontSize="12"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Waga"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="12"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="Zniżka"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="12"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox materialDesign:HintAssist.Hint="Kategoria"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                        <Button Margin="0 5 0 0"
+                                Background="LimeGreen"
+                                BorderBrush="LimeGreen">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="PlusCircleOutline" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="0 0 15 0"
+                                                             Height="20"
+                                                             Width="20"
+                                                             Grid.Column="0" />
+                                    <TextBlock Text="Załaduj obrazek" Grid.Column="1"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -175,6 +235,17 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="Zaakceptuj reklamację" />
+                <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Command="{Binding SaveCommand}"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                    Content="Dodaj produkt" />
             </DockPanel>
         </DockPanel>
         <DockPanel  Grid.Column="1"

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace OrderTrackingSystem.Presentation.CustomControls
 {
-    public partial class ExtensibleViewPanel : UserControl
+    public partial class ExtensibleViewPanel : ContentControl
     {
         #region Dependency properties
 
