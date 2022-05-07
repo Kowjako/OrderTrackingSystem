@@ -18,12 +18,6 @@ namespace OrderTrackingSystem.Presentation.Views.Customer
             InitializeComponent();
         }
 
-        private void btnShowProgress_Click(object sender, RoutedEventArgs e)
-        {
-            if ((DataContext as TrackingViewModel).SelectedItem !=null &&
-                !(DataContext as TrackingViewModel).SelectedItem.IsOrder) return;         
-        }
-
         private void elementGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
@@ -42,23 +36,6 @@ namespace OrderTrackingSystem.Presentation.Views.Customer
             };
         }
 
-        private void hideProgress_Click(object sender, RoutedEventArgs e)
-        {
-            var trackerAnimation = new DoubleAnimation();
-            trackerAnimation.From = 340;
-            trackerAnimation.To = 0;
-            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
-            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
-            tracker.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
-
-            var gridAnimation = new ThicknessAnimation();
-            gridAnimation.From = new Thickness(0, 0, 340, 0);
-            gridAnimation.To = new Thickness(0, 0, 0, 0);
-            gridAnimation.Duration = TimeSpan.FromSeconds(2);
-            gridAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
-            elementGrid.BeginAnimation(MarginProperty, gridAnimation);
-        }
-
         private async void trackView_Loaded(object sender, RoutedEventArgs e)
         {
             elementGrid.MaxHeight = elementGrid.ActualHeight;
@@ -69,14 +46,14 @@ namespace OrderTrackingSystem.Presentation.Views.Customer
         private void ShowBar()
         {
             var trackerAnimation = new DoubleAnimation();
-            trackerAnimation.From = 0;
+            //trackerAnimation.From = 0;
             trackerAnimation.To = 340;
             trackerAnimation.Duration = TimeSpan.FromSeconds(1);
             trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
             tracker.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
 
             var gridAnimation = new ThicknessAnimation();
-            gridAnimation.From = new Thickness(0, 0, 0, 0);
+            //gridAnimation.From = new Thickness(0, 0, 0, 0);
             gridAnimation.To = new Thickness(0, 0, 340, 0);
             gridAnimation.Duration = TimeSpan.FromSeconds(1);
             gridAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };

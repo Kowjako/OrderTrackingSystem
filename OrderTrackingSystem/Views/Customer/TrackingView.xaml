@@ -236,10 +236,10 @@
                     Command="{Binding ShowProgress}"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Click="btnShowProgress_Click"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="{x:Static res:Resources.ShowProgress}" />
+                    Content="{x:Static res:Resources.ShowProgress}">
+            </Button>
         </DockPanel>
         <DockPanel Grid.Column="1"
                     Grid.RowSpan="4"
@@ -283,8 +283,32 @@
                     Background="Maroon"
                     BorderBrush="Maroon"
                     x:Name="hideProgress"
-                    Click="hideProgress_Click"
-                    Content="{x:Static res:Resources.HideProgress}"/>
+                    Content="{x:Static res:Resources.HideProgress}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard BeginTime="0:0:.5" TargetName="tracker" TargetProperty="Width">
+                                    <DoubleAnimation From="340" To="0" Duration="0:0:1">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                            <BeginStoryboard>
+                                <Storyboard BeginTime="0:0:.5" TargetName="elementGrid" TargetProperty="Margin">
+                                    <ThicknessAnimation From="0 0 340 0" To="0 0 0 0" Duration="0:0:1">
+                                        <ThicknessAnimation.EasingFunction>
+                                            <CircleEase EasingMode="EaseInOut"/>
+                                        </ThicknessAnimation.EasingFunction>
+                                    </ThicknessAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
         </DockPanel>
     </Grid>
 </UserControl>
