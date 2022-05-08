@@ -72,6 +72,24 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public List<Tuple<string, OrderState, int>> ParcelAvailableStates { get; set; } = new List<Tuple<string, OrderState, int>>();
         public Tuple<string, OrderState, int> SelectedState { get; set; }
 
+        public DesignerSerializationVisibility SplitterVisibility { get; set; } = DesignerSerializationVisibility.Hidden;
+        public double ActualMailHeight { get; set; } = 0;
+
+        private MailDTO _selectedMail;
+        public MailDTO SelectedMail
+        {
+            get => _selectedMail;
+            set
+            {
+                _selectedMail = value;
+                OnPropertyChanged(nameof(SelectedMail));
+                ActualMailHeight = double.NaN; /* equals to Height = Auto */
+                SplitterVisibility = DesignerSerializationVisibility.Visible;
+                OnPropertyChanged(nameof(ActualMailHeight));
+                OnPropertyChanged(nameof(SplitterVisibility));
+            }
+        }
+
         private OrderDTO _selectedOrder;
         public OrderDTO SelectedOrder
         {

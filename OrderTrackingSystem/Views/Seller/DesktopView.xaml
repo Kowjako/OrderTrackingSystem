@@ -6,12 +6,13 @@
              xmlns:converter="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
-             x:Name="desktopView"
+             x:Name="desktopView"           
              mc:Ignorable="d" 
              Loaded="desktopView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1000">
     <UserControl.Resources>
         <converter:NullToVisibilityConverter x:Key="ntvConverter"/>
+        <converter:BoolToVisibilityConverter x:Key="btvConverter"/>
     </UserControl.Resources>
     <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>
@@ -22,8 +23,9 @@
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="100" MaxHeight="100"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
             <TextBlock Text="Pulpit"
@@ -43,7 +45,14 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Background="Black"/>
-        <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
+        <GridSplitter Grid.Row="3"
+                      Visibility="{Binding SplitterVisibility}"
+                      Grid.ColumnSpan="2"
+                      Grid.Column="1" Height="4"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Background="Black"/>
+        <DockPanel Grid.Column="0" Grid.RowSpan="4" Grid.Row="1" Background="LightPink">
             <GroupBox Header="Zmień status przesyłki"
                 Margin="5"
                 DockPanel.Dock="Top"
@@ -302,6 +311,7 @@
             <DataGrid x:Name="sentGrid" 
                       Margin="0,0,5,5"
                       CanUserAddRows="False"
+                      SelectedItem="{Binding SelectedMain, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding SentMessages}"
                       ColumnWidth="*"
                       IsReadOnly="True"
@@ -320,12 +330,95 @@
             <DataGrid 
                       Margin="0,0,5,5"
                       CanUserAddRows="False"
+                      SelectedItem="{Binding SelectedMail, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding ReceivedMessages}"
                       ColumnWidth="*"
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Disabled"
                       AutoGeneratingColumn="elementGrid_AutoGeneratingColumn"/>
+        </DockPanel>
+        <DockPanel Grid.Column="1"
+                   Grid.Row="4"
+                   Height="{Binding ActualMailHeight}"
+                   LastChildFill="True"
+                   Grid.ColumnSpan="2">
+            <DockPanel DataContext="{Binding SelectedMail}"
+                       LastChildFill="True">
+                <TextBlock Text="{x:Static res:Resources.MailView}"
+                       Foreground="Black"
+                       DockPanel.Dock="Top"
+                       FontSize="17"
+                       Margin="10,10,10,0"
+                       FontFamily="Arial"/>
+                <TextBlock DockPanel.Dock="Top"
+                       Foreground="Black"
+                       FontSize="17"
+                       FontWeight="Bold"
+                       Text="{Binding Caption}"
+                       Margin="10,10,10,10"
+                       FontFamily="Arial"/>
+                <TextBlock DockPanel.Dock="Top"
+                       Text="{Binding NadawcaData, StringFormat={x:Static res:Resources.MailFrom}}"
+                       Margin="10,0,10,5"
+                       FontSize="13"
+                       Foreground="Black"/>
+                <TextBlock DockPanel.Dock="Top"
+                       Text="{Binding OdbiorcaData, StringFormat={x:Static res:Resources.MailTo}}"
+                       Margin="10,0,10,5"
+                       FontSize="13"
+                       Foreground="Black"/>
+                <TextBlock DockPanel.Dock="Top"
+                       Foreground="Black"
+                       FontSize="17"
+                       Visibility="{Binding HasRelatedOrders, Converter={StaticResource btvConverter}}"
+                       Text="{x:Static res:Resources.LinkedOrders}"
+                       Margin="10,10,10,10"
+                       FontFamily="Arial"/>
+
+                <!-- Use ItemsControl to define container and item template -->
+                <ItemsControl x:Name="links" 
+                          ItemsSource="{Binding RelatedOrders}" 
+                          DockPanel.Dock="Top">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- {Binding} means binding directly to object
+                        because we have string[] and it hasn't own
+                        properties-->
+                            <materialDesign:Chip 
+                                    Margin="10,0,10,10"
+                                    IconBackground="{DynamicResource PrimaryHueDarkBrush}"
+                                    IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                    Content="{Binding}">
+                                <materialDesign:Chip.Icon>
+                                    <materialDesign:PackIcon Kind="Link"/>
+                                </materialDesign:Chip.Icon>
+                            </materialDesign:Chip>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock DockPanel.Dock="Top"
+                       Foreground="Black"
+                       FontSize="17"
+                       Text="{x:Static res:Resources.MailContent}"
+                       Margin="10,10,10,5"
+                       FontFamily="Arial"/>
+                <TextBox
+                Text="{Binding Content}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                AcceptsReturn="True"
+                Margin="10"
+                FontSize="15"
+                IsReadOnly="True"
+                DockPanel.Dock="Left"
+                VerticalScrollBarVisibility="Auto"/>
+            </DockPanel>
         </DockPanel>
     </Grid>
 </UserControl>
