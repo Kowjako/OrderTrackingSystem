@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
@@ -21,9 +24,23 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Discount", ResourceType = typeof(Properties.Resources))]
         public string Rabat { get; set; }
 
+        //[Display(Name = "Obrazek")]
+        //public string Image { get; set; } = @"C:\Users\123\Desktop\nurofen.jpg";// BitmapFromUri(new Uri());
+
         [Browsable(false)]
         public int SellerId { get; set; }
         [Browsable(false)]
         public int CategoryId { get; set; }
+
+        //private static BitmapImage BitmapFromUri(Uri source)
+        //{
+        //    var bitmap = new BitmapImage();
+        //    bitmap.BeginInit();
+        //    bitmap.UriSource = source;
+        //    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        //    bitmap.EndInit();
+        //    bitmap.Freeze();
+        //    return bitmap;
+        //}
     }
 }

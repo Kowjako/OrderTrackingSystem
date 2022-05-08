@@ -2,7 +2,10 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace OrderTrackingSystem.Presentation.WindowExtension
 {
@@ -21,6 +24,36 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
             {
                 e.Column.Header = displayName;
             }
+
+            ///* Set overrided celltemplate for image */
+            //if(e.PropertyName.Equals("Image"))
+            //{
+            //    /* Tworzymy styl dla komorki */
+            //    var style = new Style();
+            //    style.TargetType = typeof(DataGridCell);
+
+            //    /* Tworzymy Image do wrzucenia do Content */
+            //    FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(Image));
+            //    factory1.SetValue(Image.HeightProperty, 80.0);
+            //    factory1.SetValue(Image.WidthProperty, 120.0);
+            //    factory1.SetValue(Image.StretchProperty, Stretch.Fill);
+            //    Binding b1 = new Binding("Image");
+            //    b1.Mode = BindingMode.TwoWay;
+            //    b1.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            //    factory1.SetValue(Image.SourceProperty, b1);
+            //    DataTemplate cellTemplate1 = new DataTemplate();
+            //    cellTemplate1.VisualTree = factory1;
+            //    style.Setters.Add(new Setter(DataGridCell.ContentTemplateProperty, cellTemplate1));
+
+            //    var trigger = new Trigger();
+            //    trigger.Property = DataGridCell.IsSelectedProperty;
+            //    trigger.Value = true;
+            //    trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(222,222,222))));
+            //    trigger.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
+            //    style.Triggers.Add(trigger);
+
+            //    e.Column.CellStyle = style;
+            //}
         }
 
         private static string GetPropertyDisplayName(object descriptor)
