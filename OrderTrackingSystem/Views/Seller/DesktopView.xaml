@@ -28,7 +28,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="Pulpit"
+            <TextBlock Text="{x:Static res:Resources.Desktop}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="17"
@@ -53,7 +53,7 @@
                       VerticalAlignment="Bottom"
                       Background="Black"/>
         <DockPanel Grid.Column="0" Grid.RowSpan="4" Grid.Row="1" Background="LightPink">
-            <GroupBox Header="Zmień status przesyłki"
+            <GroupBox Header="{x:Static res:Resources.ChangeParcelState}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
@@ -64,7 +64,7 @@
                                FontSize="12.5"
                                Visibility="{Binding SelectedOrder, Converter={StaticResource ntvConverter}}"
                                Margin="0 0 0 10">
-                        <Run Text="Numer przesyłki: "/>
+                        <Run Text="{x:Static res:Resources.ParcelNumber}"/>
                         <Run Text="{Binding SelectedOrder.Numer}" Foreground="RoyalBlue"/>
                     </TextBlock>
                     <ComboBox DockPanel.Dock="Top"
@@ -76,12 +76,12 @@
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
                         Grid.Row="1"
                         Padding="5,10,10,10"
-                        materialDesign:HintAssist.Hint="Wybierz status"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectState}"
                         IsEditable="False">
                     </ComboBox>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Wyślij wiadomość"
+            <GroupBox Header="{x:Static res:Resources.SendMessage}"
                 Margin="5"
                 DataContext="{Binding CurrentMail}"
                 DockPanel.Dock="Top"
@@ -125,7 +125,7 @@
                     />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Dodaj produkt"
+            <GroupBox Header="{x:Static res:Resources.AddProduct}"
                 Margin="5"
                 DataContext="{Binding CurrentProduct}"
                 DockPanel.Dock="Top"
@@ -151,7 +151,7 @@
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Cena netto"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.PriceNetto}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
                     FontSize="12"
@@ -159,7 +159,7 @@
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="VAT"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.VAT}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
                     FontSize="12"
@@ -169,7 +169,7 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Waga"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Weight}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
                     FontSize="12"
@@ -177,7 +177,7 @@
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
-                    materialDesign:HintAssist.Hint="Zniżka"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Discount}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
                     FontSize="12"
@@ -186,7 +186,7 @@
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <!-- Set DataContext to RelativeSource, cause we have DataContext
                         for our GroupBox but we need DataContext as ViewModel-->
-                        <ComboBox materialDesign:HintAssist.Hint="Kategoria"
+                        <ComboBox materialDesign:HintAssist.Hint="{x:Static res:Resources.Category}"
                                   DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   ItemsSource="{Binding ProductCategories}"
                                   SelectedValue="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
@@ -227,7 +227,7 @@
                     Command="{Binding SaveCommand}"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Zmień status" />
+                    Content="{x:Static res:Resources.ChangeState}" />
                 <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -238,7 +238,7 @@
                     Command="{Binding SaveCommand}"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Wyslij wiadomość" />
+                    Content="{x:Static res:Resources.SendMessageAction}" />
                 <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -249,7 +249,7 @@
                     Command="{Binding SaveCommand}"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Zaakceptuj reklamację" />
+                    Content="{x:Static res:Resources.ApproveComplaint}" />
                 <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -260,14 +260,14 @@
                     Command="{Binding SaveCommand}"
                     Margin="5"
                     VerticalAlignment="Bottom"
-                    Content="Dodaj produkt" />
+                    Content="{x:Static res:Resources.AddProductAction}" />
             </DockPanel>
         </DockPanel>
         <DockPanel  Grid.Column="1"
                     Grid.RowSpan="3"
                     LastChildFill="True"
                     Grid.Row="0">
-            <TextBlock Text="Zamówienia klientów"
+            <TextBlock Text="{x:Static res:Resources.ClientsOrders}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
@@ -289,7 +289,7 @@
                     Grid.RowSpan="3"
                     LastChildFill="True"
                     Grid.Row="0">
-            <TextBlock Text="Reklamacje klientów"
+            <TextBlock Text="{x:Static res:Resources.ClientsComplaints}"
                        Foreground="Black"
                        FontSize="17"
                        Margin="10,10,10,5"
@@ -327,7 +327,7 @@
         </DockPanel>
         <DockPanel Grid.Column="2"
                     Grid.Row="3">
-            <TextBlock Text="Wiadomości odebrane"
+            <TextBlock Text="{x:Static res:Resources.SentMails}"
                        Foreground="Black"
                        FontSize="17"
                        DockPanel.Dock="Top"
