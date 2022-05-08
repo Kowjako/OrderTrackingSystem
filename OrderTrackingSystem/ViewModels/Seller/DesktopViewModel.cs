@@ -28,7 +28,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         private readonly ComplaintService ComplaintService;
         private readonly OrderService OrderService;
         private readonly CustomerService CustomerService;
-
+        private readonly ProductService ProductService;
         #endregion
 
         #region Ctor
@@ -39,6 +39,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             ComplaintService = new ComplaintService();
             OrderService = new OrderService();
             CustomerService = new CustomerService();
+            ProductService = new ProductService();
         }
 
         #endregion
@@ -71,6 +72,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public List<ComplaintsDTO> CustomersComplaint { get; set; }
         public List<Tuple<string, OrderState, int>> ParcelAvailableStates { get; set; } = new List<Tuple<string, OrderState, int>>();
         public Tuple<string, OrderState, int> SelectedState { get; set; }
+        
+        public Products CurrentProduct { get; set; }
+        public List<CategoryDTO> ProductCategories { get; set; }
+        public CategoryDTO SelectedCategory { get; set; }
 
         public DesignerSerializationVisibility SplitterVisibility { get; set; } = DesignerSerializationVisibility.Hidden;
         public double ActualMailHeight { get; set; } = 0;
@@ -113,8 +118,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             CustomersComplaint = await ComplaintService.GetComplaintsForSeller(CurrentSeller.Id);
             ReceivedMessages = await MailService.GetReceivedMailsForSeller(CurrentSeller.Id);
             SentMessages = await MailService.GetSendMailsForSeller(CurrentSeller.Id);
+            ProductCategories = await ProductService.GetProductSubCategories();
             OnManyPropertyChanged(new[] {nameof(ParcelAvailableStates), nameof(CustomersOrder), nameof(CustomersComplaint),
-                                         nameof(ReceivedMessages), nameof(SentMessages)});
+                                         nameof(ReceivedMessages), nameof(SentMessages), nameof(ProductCategories)});
         }
 
         #endregion

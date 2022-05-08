@@ -127,7 +127,7 @@
             </GroupBox>
             <GroupBox Header="Dodaj produkt"
                 Margin="5"
-                DataContext="{Binding CurrentMail}"
+                DataContext="{Binding CurrentProduct}"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
@@ -155,7 +155,7 @@
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
                     FontSize="12"
-                    Text="{Binding Name, 
+                    Text="{Binding PriceNetto, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
@@ -163,7 +163,7 @@
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
                     FontSize="12"
-                    Text="{Binding Name, 
+                    Text="{Binding VAT, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
@@ -173,7 +173,7 @@
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
                     FontSize="12"
-                    Text="{Binding Name, 
+                    Text="{Binding Weight, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox DockPanel.Dock="Top"
@@ -181,10 +181,16 @@
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
                     FontSize="12"
-                    Text="{Binding Name, 
+                    Text="{Binding Discount, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <ComboBox materialDesign:HintAssist.Hint="Kategoria"/>
+                        <!-- Set DataContext to RelativeSource, cause we have DataContext
+                        for our GroupBox but we need DataContext as ViewModel-->
+                        <ComboBox materialDesign:HintAssist.Hint="Kategoria"
+                                  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                  ItemsSource="{Binding ProductCategories}"
+                                  SelectedValue="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
+                                  DisplayMemberPath="Name"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="0"
                                 Grid.ColumnSpan="2">

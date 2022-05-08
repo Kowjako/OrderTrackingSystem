@@ -133,5 +133,14 @@ namespace OrderTrackingSystem.Logic.Services
                 return categoryListDTO.Where(p => p.ParentId == null).ToList();
             }
         }
+
+        public async Task<List<CategoryDTO>> GetProductSubCategories()
+        {
+            var parentsList = await GetProductCategories();
+            parentsList.ForEach(p => p.Children.ForEach(x => x.Name = string.Format("{0} - {1}", p.Name, x.Name)));
+            var outputList = Enumerable.Empty<CategoryDTO>();
+            parentsList.ForEach(p => outputList = outputList.Union(p.Children));
+            return outputList.ToList();
+        }
     }
 }
