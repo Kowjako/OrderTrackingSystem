@@ -385,7 +385,7 @@
     <value>Дата открытия</value>
   </data>
   <data name="ParcelNumber" xml:space="preserve">
-    <value>Номер посылки: {0}</value>
+    <value>Номер посылки:</value>
   </data>
   <data name="ParcelSize" xml:space="preserve">
     <value>Размер посылки</value>

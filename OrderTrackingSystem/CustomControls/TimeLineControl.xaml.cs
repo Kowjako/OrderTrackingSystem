@@ -133,8 +133,8 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 mainContrainer.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
 
                 Height += COMPONENT_HEIGHT;
-                InvalidateVisual();
             }
+            InvalidateVisual();
         }
 
         private void DrawConnector(int row, int column, bool lastNode = false)
