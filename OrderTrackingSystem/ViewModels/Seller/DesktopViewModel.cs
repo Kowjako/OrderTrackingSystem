@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using EnumConverter = OrderTrackingSystem.Logic.EnumMappers.EnumConverter;
 
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
@@ -72,12 +74,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public List<ComplaintsDTO> CustomersComplaint { get; set; }
         public List<Tuple<string, OrderState, int>> ParcelAvailableStates { get; set; } = new List<Tuple<string, OrderState, int>>();
         public Tuple<string, OrderState, int> SelectedState { get; set; }
-        
-        public Products CurrentProduct { get; set; }
+
+        public Products CurrentProduct { get; set; } = new Products();
         public List<CategoryDTO> ProductCategories { get; set; }
         public CategoryDTO SelectedCategory { get; set; }
 
-        public DesignerSerializationVisibility SplitterVisibility { get; set; } = DesignerSerializationVisibility.Hidden;
+        public Visibility SplitterVisibility { get; set; } = Visibility.Hidden;
         public double ActualMailHeight { get; set; } = 0;
 
         private MailDTO _selectedMail;
@@ -89,7 +91,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 _selectedMail = value;
                 OnPropertyChanged(nameof(SelectedMail));
                 ActualMailHeight = double.NaN; /* equals to Height = Auto */
-                SplitterVisibility = DesignerSerializationVisibility.Visible;
+                SplitterVisibility = Visibility.Visible;
                 OnPropertyChanged(nameof(ActualMailHeight));
                 OnPropertyChanged(nameof(SplitterVisibility));
             }
@@ -122,6 +124,27 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             OnManyPropertyChanged(new[] {nameof(ParcelAvailableStates), nameof(CustomersOrder), nameof(CustomersComplaint),
                                          nameof(ReceivedMessages), nameof(SentMessages), nameof(ProductCategories)});
         }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _addProduct;
+
+        public RelayCommand AddProduct =>
+            _addProduct ?? (_addProduct = new RelayCommand(async obj =>
+            {
+                try
+                {
+                    CurrentProduct.Category = SelectedCategory.Id;
+                    CurrentProduct.SellerId = CurrentSeller.Id;
+                    await ProductService.SaveNewProduct(CurrentProduct);
+                }
+                catch (Exception)
+                {
+                    OnFailure?.Invoke("Błąd podczas dodawania produktu");
+                }
+            }));
 
         #endregion
 

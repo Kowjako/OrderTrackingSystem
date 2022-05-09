@@ -13,6 +13,8 @@
     <UserControl.Resources>
         <converter:NullToVisibilityConverter x:Key="ntvConverter"/>
         <converter:BoolToVisibilityConverter x:Key="btvConverter"/>
+        <converter:DecimalToStringConverter x:Key="dtsConverter"/>
+        <converter:ByteToStringConverter x:Key="btsConverter"/>
     </UserControl.Resources>
     <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>
@@ -157,13 +159,15 @@
                     FontSize="12"
                     Text="{Binding PriceNetto, 
                                    Mode=TwoWay, 
-                                   UpdateSourceTrigger=PropertyChanged}" />
+                                   Converter={StaticResource dtsConverter},
+                                   UpdateSourceTrigger=LostFocus}" />
                         <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.VAT}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
                     FontSize="12"
                     Text="{Binding VAT, 
+                                   Converter={StaticResource btsConverter},
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
@@ -175,14 +179,16 @@
                     FontSize="12"
                     Text="{Binding Weight, 
                                    Mode=TwoWay, 
-                                   UpdateSourceTrigger=PropertyChanged}" />
+                                   Converter={StaticResource dtsConverter},
+                                   UpdateSourceTrigger=LostFocus}" />
                         <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Discount}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
                     FontSize="12"
                     Text="{Binding Discount, 
-                                   Mode=TwoWay, 
+                                   Mode=TwoWay,
+                                   Converter={StaticResource btsConverter},
                                    UpdateSourceTrigger=PropertyChanged}" />
                         <!-- Set DataContext to RelativeSource, cause we have DataContext
                         for our GroupBox but we need DataContext as ViewModel-->
@@ -257,7 +263,7 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Command="{Binding SaveCommand}"
+                    Command="{Binding AddProduct}"
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddProductAction}" />
@@ -327,7 +333,7 @@
         </DockPanel>
         <DockPanel Grid.Column="2"
                     Grid.Row="3">
-            <TextBlock Text="{x:Static res:Resources.SentMails}"
+            <TextBlock Text="{x:Static res:Resources.ReceivedMails}"
                        Foreground="Black"
                        FontSize="17"
                        DockPanel.Dock="Top"
