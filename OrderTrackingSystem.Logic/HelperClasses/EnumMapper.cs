@@ -30,18 +30,6 @@ namespace OrderTrackingSystem.Logic.EnumMappers
         Paczkomat = 3
     }
 
-    public enum ProductType
-    {
-        [Display(Name = "Tabletki")]
-        Pill = 0,
-        [Display(Name = "Krem")]
-        Cream = 1,
-        [Display(Name = "Syrop")]
-        Syrup = 2,
-        [Display(Name = "Aerozol")]
-        Spray = 3
-    }
-
     public enum MailDirectionType
     {
         [Description("Customer-Customer")]

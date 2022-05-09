@@ -2,6 +2,7 @@
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class ProductService : IService<ProductService>
+    public class ProductService : CRUDManager, IService<ProductService>
     {
         private CustomerService CustomerService => new CustomerService();
 
@@ -22,6 +23,8 @@ namespace OrderTrackingSystem.Logic.Services
                             let sellerQuery = (from seller in dbContext.Sellers
                                                where seller.Id == product.SellerId
                                                select seller).FirstOrDefault()
+                            join productCategories in dbContext.ProductCategories
+                            on product.Category equals productCategories.Id
                             select new ProductDTO
                             {
                                 Id = product.Id,
@@ -29,9 +32,9 @@ namespace OrderTrackingSystem.Logic.Services
                                 Netto = product.PriceNetto.ToString(),
                                 Rabat = product.Discount.ToString(),
                                 VAT = product.VAT.ToString(),
-                                Kategoria = product.Category.ToString(),
                                 Sprzedawca = sellerQuery.Name,
                                 SellerId = sellerQuery.Id,
+                                Kategoria = productCategories.Title,
                                 CategoryId = product.Category
                             };
 
@@ -43,7 +46,6 @@ namespace OrderTrackingSystem.Logic.Services
                     p.Netto = string.Format("{0:0.00} zł", p.Netto);
                     p.Rabat = string.Format("{0} %", p.Rabat);
                     p.VAT = string.Format("{0} %", p.VAT);
-                    p.Kategoria = EnumConverter.GetNameById<ProductType>(byte.Parse(p.Kategoria));
                 });
                 return productsList;
             }
@@ -141,6 +143,12 @@ namespace OrderTrackingSystem.Logic.Services
             var outputList = Enumerable.Empty<CategoryDTO>();
             parentsList.ForEach(p => outputList = outputList.Union(p.Children));
             return outputList.ToList();
+        }
+
+        public async Task SaveNewProduct(Products product)
+        {
+            product.PriceBrutto = Math.Round(product.PriceNetto + product.PriceNetto * product.VAT / 100.0m, 2, MidpointRounding.ToEven);
+            await AddEntity(product);
         }
     }
 }
