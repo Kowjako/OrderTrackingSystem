@@ -89,9 +89,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public async Task SetInitializeProperties()
         {
             ComplaintFolderList = await ComplaintService.GetComplaintFolders();
-            ComplaintsList = await ComplaintService.GetComplaints();
+            ComplaintsList = await ComplaintService.GetComplaints(1); //TODO: zrobic dla zalogowanego nabywcy
             ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
-            AllComplaintFolderList = await ComplaintService.GetComplaintFoldersAll();
+            AllComplaintFolderList = await ComplaintService.GetComplaintFoldersWithoutComposing();
             OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });
         }
 

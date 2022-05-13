@@ -2,6 +2,7 @@
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,34 +13,19 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class ComplaintService
+    public class ComplaintService : IComplaintService
     {
         public async Task<List<ComplaintFolderDTO>> GetComplaintFolders()
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
-            {
-                var query = from folder in dbContext.ComplaintFolders
-                            orderby folder.ParentComplaintFolderId
-                            select folder;
-                var folderList = await query.ToListAsync();
+            var folderListDTO = await GetComplaintFoldersWithoutComposing();
 
-                var folderListDTO = folderList.Select(p =>
-                new ComplaintFolderDTO
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Children = new List<ComplaintFolderDTO>(),
-                    ParentId = p.ParentComplaintFolderId
-                }).ToList();
+            /* Rekurencyjne wypelnianie drzewa */
+            RecursiveTreeFiller<ComplaintFolderDTO>.FillTreeRecursive(folderListDTO);
 
-                /* Rekurencyjne wypelnianie drzewa */
-                RecursiveTreeFiller<ComplaintFolderDTO>.FillTreeRecursive(folderListDTO);
-
-                return folderListDTO.Where(p => p.ParentId == null).ToList();
-            }
+            return folderListDTO.Where(p => p.ParentId == null).ToList();
         }
 
-        public async Task<List<ComplaintFolderDTO>> GetComplaintFoldersAll()
+        public async Task<List<ComplaintFolderDTO>> GetComplaintFoldersWithoutComposing()
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
@@ -55,14 +41,13 @@ namespace OrderTrackingSystem.Logic.Services
                         Name = p.Name,
                         Children = new List<ComplaintFolderDTO>(),
                         ParentId = p.ParentComplaintFolderId
-
                     }
                 );
                 return outputDTO.ToList();
             }
         }
 
-        public async Task<List<ComplaintsDTO>> GetComplaints()
+        public async Task<List<ComplaintsDTO>> GetComplaints(int customerId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
