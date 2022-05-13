@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class TrackerService : IService<TrackerService>
+    public class TrackerService
     {
         private ConfigurationService ConfigurationService => new ConfigurationService();
 

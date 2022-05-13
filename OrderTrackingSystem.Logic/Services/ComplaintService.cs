@@ -47,13 +47,14 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task<List<ComplaintsDTO>> GetComplaints(int customerId)
+        public async Task<List<ComplaintsDTO>> GetComplaintsForCustomer(int customerId)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
                             complaint.OrderId equals order.Id
+                            where order.CustomerId == customerId
                             select new ComplaintsDTO()
                             {
                                 OrderNumber = order.Number,

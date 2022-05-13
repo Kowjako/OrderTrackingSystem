@@ -16,7 +16,7 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class MailService : IService<MailService>
+    public class MailService
     {
         private OrderService OrderService => new OrderService();
         private SellService SellService => new SellService();

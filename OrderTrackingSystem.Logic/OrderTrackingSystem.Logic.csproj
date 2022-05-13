@@ -187,7 +187,10 @@
     <Compile Include="Services\CRUDManager.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\Interfaces\IComplaintService.cs" />
-    <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\Interfaces\IConfigurationService.cs" />
+    <Compile Include="Services\Interfaces\ICustomerService.cs" />
+    <Compile Include="Services\Interfaces\ILocalizationService.cs" />
+    <Compile Include="Services\Interfaces\IMailService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\OrderService.cs" />

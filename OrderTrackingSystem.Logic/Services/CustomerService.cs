@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
 using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class CustomerService : CRUDManager, IService<Customers>
+    public class CustomerService : CRUDManager, ICustomerService
     {
         public async Task<Customers> GetCurrentCustomer()
         {

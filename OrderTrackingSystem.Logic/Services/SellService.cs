@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,9 +10,10 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class SellService : IService<SellService>
+    public class SellService
     {
         private ProductService ProductService => new ProductService();
+        private IConfigurationService ConfigurationService = new ConfigurationService();
 
         public async Task<List<SellDTO>> GetSellsForCustomer(int customerId)
         {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class ProductService : CRUDManager, IService<ProductService>
+    public class ProductService : CRUDManager
     {
         private CustomerService CustomerService => new CustomerService();
 

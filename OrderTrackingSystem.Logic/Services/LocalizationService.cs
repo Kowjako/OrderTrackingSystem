@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
 using System;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class LocalizationService : IService<Localizations>
+    public class LocalizationService : CRUDManager, ILocalizationService
     {
         public async Task<LocalizationDTO> GetLocalizationById(int id)
         {
@@ -31,27 +32,12 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task UpdateLocalization(Localizations localization)
         {
-            using(var dbContext = new OrderTrackingSystemEntities())
-            {
-                try
-                {
-                    dbContext.Entry(localization).State = EntityState.Modified;
-                    await dbContext.SaveChangesAsync();
-                }
-                catch(Exception ex)
-                {
-                    throw ex;
-                }
-            }
+            await base.UpdateEntity(localization);
         }
 
         public async Task AddNewLocalization(Localizations localization)
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
-            {
-                dbContext.Localizations.Add(localization);
-                await dbContext.SaveChangesAsync();
-            }
+            await base.AddEntity(localization);
         }
     }
 }

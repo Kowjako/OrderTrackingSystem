@@ -24,7 +24,7 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// Metoda zwracająca wszystkie reklamacje dla danego nabywcy
         /// </summary>
         /// <param name="customerId">Id użytkownika którego reklamacje chcemy pobrać</param>
-        Task<List<ComplaintsDTO>> GetComplaints(int customerId);
+        Task<List<ComplaintsDTO>> GetComplaintsForCustomer(int customerId);
         /// <summary>
         /// Metoda ktora zwraca definicje wzorców reklamacyjnych
         /// </summary>
@@ -40,32 +40,27 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// </summary>
         /// <param name="name">Nazwa nowego folderu</param>
         /// <param name="parentFolder">Folder nadrzędny w którym ma być umieszczony nowy folder</param>
-        /// <returns></returns>
         Task AddNewFolder(string name, ComplaintFolderDTO parentFolder);
         /// <summary>
         /// Metoda usuwa folder, oraz jeżeli istnieją folderu podrzędne, te foldery również są usuwane
         /// </summary>
         /// <param name="complaintFolder">Folder który ma być usunięty</param>
-        /// <returns></returns>
         Task DeleteWithAncestor(ComplaintFolderDTO complaintFolder);
         /// <summary>
         /// Metoda usuwa folder, a wszystkie folderu podrzędne przenosi do rodzica usuwanego folderu
         /// </summary>
         /// <param name="complaintFolder">Folder do usunięcia</param>
-        /// <returns></returns>
         Task DeleteAndMoveToAncestor(ComplaintFolderDTO complaintFolder);
         /// <summary>
         /// Metoda tworzącą nową reklamację na podstawie zamówienia
         /// </summary>
         /// <param name="complaintDefinitionId">Wzorzec na podstawie którego wygenerowana reklamacja</param>
         /// <param name="orderId">ID zamówienia</param>
-        /// <returns></returns>
         Task RegisterNewComplaint(int complaintDefinitionId, int orderId);
         /// <summary>
         /// Metoda zwracająca reklamacje zgłoszone dla danego sprzedawcy
         /// </summary>
         /// <param name="sellerId">ID sprzedawcy</param>
-        /// <returns></returns>
         Task<List<ComplaintsDTO>> GetComplaintsForSeller(int sellerId);
     }
 }

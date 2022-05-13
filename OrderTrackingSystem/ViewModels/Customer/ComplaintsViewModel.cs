@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
     {
         #region Services
 
-        public ComplaintService ComplaintService;
+        public IComplaintService ComplaintService;
 
         #endregion
 
@@ -89,7 +90,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public async Task SetInitializeProperties()
         {
             ComplaintFolderList = await ComplaintService.GetComplaintFolders();
-            ComplaintsList = await ComplaintService.GetComplaints(1); //TODO: zrobic dla zalogowanego nabywcy
+            ComplaintsList = await ComplaintService.GetComplaintsForCustomer(1); //TODO: zrobic dla zalogowanego nabywcy
             ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
             AllComplaintFolderList = await ComplaintService.GetComplaintFoldersWithoutComposing();
             OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });

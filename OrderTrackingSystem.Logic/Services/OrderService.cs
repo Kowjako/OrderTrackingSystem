@@ -7,13 +7,15 @@ using OrderTrackingSystem.Logic.EnumMappers;
 using System.Data.Entity;
 using System;
 using System.Transactions;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class OrderService : IService<OrderService>
+    public class OrderService
     {
         private ProductService ProductService => new ProductService();
         private CustomerService CustomerService => new CustomerService();
+        private IConfigurationService ConfigurationService => new ConfigurationService();
 
         public async Task<List<OrderDTO>> GetOrdersForCustomer(int customerId)
         {

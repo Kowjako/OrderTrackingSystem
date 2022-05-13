@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderTrackingSystem.Logic.Services
+namespace OrderTrackingSystem.Logic.Services.Interfaces
 {
-    public interface IService<T>  { }
+    public interface IMailService
+    {
+    }
 }

@@ -2,6 +2,7 @@
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,7 +38,7 @@ namespace OrderTrackingSystem.Logic.Services
         ReturnToSeller = 9
     }
 
-    public class ConfigurationService : IService<ConfigurationService>
+    public class ConfigurationService : IConfigurationService
     {
         private static readonly char[] CharArray = 
         {
@@ -135,7 +136,7 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public static string GenerateElementNumber()
+        public string GenerateElementNumber()
         {
             var randomizer = new Random();
             return CharArray[randomizer.Next(0, 12)].ToString() +
@@ -144,7 +145,7 @@ namespace OrderTrackingSystem.Logic.Services
         }
 
         /* Using new tuple */
-        public static (string name, string description) GetStatusDetails(OrderState state)
+        public (string name, string description) GetStatusDetails(OrderState state)
         {
             /* Switch expression C# 8.0 - mozna bylo i od razu => state switch*/
             return state switch
@@ -163,7 +164,7 @@ namespace OrderTrackingSystem.Logic.Services
             };
         }
 
-        public static IEnumerable<Tuple<string, OrderState>> GetAllStates()
+        public IEnumerable<Tuple<string, OrderState>> GetAllStates()
         {
             foreach(var state in Enum.GetValues(typeof(OrderState)))
             {
