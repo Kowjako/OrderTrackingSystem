@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\OrderTrackingSystem.Logic.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -191,6 +192,10 @@
     <Compile Include="Services\Interfaces\ICustomerService.cs" />
     <Compile Include="Services\Interfaces\ILocalizationService.cs" />
     <Compile Include="Services\Interfaces\IMailService.cs" />
+    <Compile Include="Services\Interfaces\IOrderService.cs" />
+    <Compile Include="Services\Interfaces\IProductService.cs" />
+    <Compile Include="Services\Interfaces\ISellService.cs" />
+    <Compile Include="Services\Interfaces\ITrackerService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\OrderService.cs" />

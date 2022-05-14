@@ -11,14 +11,11 @@ namespace OrderTrackingSystem.Logic.Validators
         public static bool IsValid => Result.IsValid;
         public static string ErrorMessage => GenerateErrorMessage();
 
-        public static void Validate<T>(AbstractValidator<T> validator, T obj)
-        {
-            Result = validator.Validate(obj);
-        }
+        public static void Validate<T>(AbstractValidator<T> validator, T obj) => Result = validator.Validate(obj);
 
         public static bool ValidateWithResult<T>(AbstractValidator<T> validator, T obj)
         {
-            Result = validator.Validate(obj);
+            Validate(validator,obj);
             return IsValid;
         }
 
