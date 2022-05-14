@@ -10,7 +10,7 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class SellService
+    public class SellService : ISellService
     {
         private ProductService ProductService => new ProductService();
         private IConfigurationService ConfigurationService = new ConfigurationService();

@@ -2,6 +2,7 @@
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,12 +12,13 @@ using System.Transactions;
 
 /*
  * Używamy ForEachAsync bo użycie zwyklego ForEach z delegatem Action
- * powoduje wyjatki bo async ze zwracanym typem void jest niebezpieczne
+ * powoduje wyjatki bo async ze zwracanym typem void nie oznacza ze to
+ * sie wykona w przyszlosci
  */
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class MailService
+    public class MailService : IMailService
     {
         private OrderService OrderService => new OrderService();
         private SellService SellService => new SellService();

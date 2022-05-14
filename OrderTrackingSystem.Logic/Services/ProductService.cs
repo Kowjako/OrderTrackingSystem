@@ -1,17 +1,16 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
-using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class ProductService : CRUDManager
+    public class ProductService : CRUDManager, IProductService
     {
         private CustomerService CustomerService => new CustomerService();
 

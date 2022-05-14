@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class TrackerService
+    public class TrackerService : ITrackerService
     {
         private ConfigurationService ConfigurationService => new ConfigurationService();
 

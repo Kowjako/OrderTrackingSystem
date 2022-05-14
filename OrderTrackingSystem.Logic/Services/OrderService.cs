@@ -11,7 +11,7 @@ using OrderTrackingSystem.Logic.Services.Interfaces;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private ProductService ProductService => new ProductService();
         private CustomerService CustomerService => new CustomerService();
