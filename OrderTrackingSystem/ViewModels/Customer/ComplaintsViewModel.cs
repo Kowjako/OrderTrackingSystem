@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
@@ -17,6 +18,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Services
 
         public IComplaintService ComplaintService;
+        public ICustomerService CustomerService;
 
         #endregion
 
@@ -25,6 +27,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public event Action<string> OnSuccess;
         public event Action<string> OnFailure;
         public event Action<string> OnWarning;
+
+        #endregion
+
+        #region Private members
+
+        private Customers CurrentCustomer;
 
         #endregion
 
@@ -81,6 +89,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public ComplaintsViewModel()
         {
             ComplaintService = new ComplaintService();
+            CustomerService = new CustomerService();
         }
 
         #endregion
@@ -89,8 +98,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public async Task SetInitializeProperties()
         {
+            CurrentCustomer = await CustomerService.GetCurrentCustomer();
             ComplaintFolderList = await ComplaintService.GetComplaintFolders();
-            ComplaintsList = await ComplaintService.GetComplaintsForCustomer(1); //TODO: zrobic dla zalogowanego nabywcy
+            ComplaintsList = await ComplaintService.GetComplaintsForCustomer(CurrentCustomer.Id); //TODO: zrobic dla zalogowanego nabywcy
             ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
             AllComplaintFolderList = await ComplaintService.GetComplaintFoldersWithoutComposing();
             OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });

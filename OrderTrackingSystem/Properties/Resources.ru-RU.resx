@@ -243,6 +243,9 @@
   <data name="ComplaintViews" xml:space="preserve">
     <value>Шаблоны жалоб</value>
   </data>
+  <data name="ComplaintWasResolved" xml:space="preserve">
+    <value>Жалоба подтверждена продацвом [АВТОМАТИЧЕСКАЯ]</value>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Конфигурация</value>
   </data>

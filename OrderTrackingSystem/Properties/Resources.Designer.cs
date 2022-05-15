@@ -439,6 +439,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reklamacja została zaakceptowana [AUTOMATYCZNA].
+        /// </summary>
+        public static string ComplaintWasResolved {
+            get {
+                return ResourceManager.GetString("ComplaintWasResolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Konfiguracja.
         /// </summary>
         public static string Configuration {

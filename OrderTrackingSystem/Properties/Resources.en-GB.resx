@@ -243,6 +243,9 @@
   <data name="ComplaintViews" xml:space="preserve">
     <value>Complaint templates</value>
   </data>
+  <data name="ComplaintWasResolved" xml:space="preserve">
+    <value>Complaint was accepted by seller [AUTOMATIC]</value>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Configuration</value>
   </data>

@@ -243,6 +243,9 @@
   <data name="ComplaintViews" xml:space="preserve">
     <value>Wzorce reklamacyjne</value>
   </data>
+  <data name="ComplaintWasResolved" xml:space="preserve">
+    <value>Reklamacja została zaakceptowana [AUTOMATYCZNA]</value>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Konfiguracja</value>
   </data>

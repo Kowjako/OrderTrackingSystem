@@ -13,8 +13,10 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class ComplaintService : IComplaintService
+    public class ComplaintService : CRUDManager, IComplaintService
     {
+        private IMailService MailService => new MailService();
+
         public async Task<List<ComplaintFolderDTO>> GetComplaintFolders()
         {
             var folderListDTO = await GetComplaintFoldersWithoutComposing();
@@ -57,12 +59,14 @@ namespace OrderTrackingSystem.Logic.Services
                             where order.CustomerId == customerId
                             select new ComplaintsDTO()
                             {
+                                Id = complaint.Id,
                                 OrderNumber = order.Number,
                                 State = complaint.State.ToString(),
                                 Date = complaint.Date.Value.ToString(),
                                 StateId = complaint.State,
                                 SolutionDate = complaint.SolutionDate,
-                                EndDate = complaint.EndDate
+                                EndDate = complaint.EndDate,
+                                OrderId = order.Id
                             };
                 var stagedList = await query.ToListAsync();
                 stagedList.ForEach(p =>
@@ -282,11 +286,13 @@ namespace OrderTrackingSystem.Logic.Services
                             where order.SellerId == sellerId
                             select new ComplaintsDTO()
                             {
+                                Id = complaint.Id,
                                 OrderNumber = order.Number,
                                 State = complaint.State.ToString(),
                                 Date = complaint.Date.Value.ToString(),
                                 StateId = complaint.State,
-                                EndDate = complaint.EndDate
+                                EndDate = complaint.EndDate,
+                                OrderId = order.Id
                             };
 
                 var preparedList = await query.AsNoTracking().ToListAsync();
@@ -296,6 +302,38 @@ namespace OrderTrackingSystem.Logic.Services
                         p.State = EnumConverter.GetNameById<ComplaintState>(int.Parse(p.State));
                     });
                 return preparedList;
+            }
+        }
+
+        public async Task UpdateComplaintState(ComplaintStates entity, int sellerId)
+        {
+            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+            using(var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                await base.UpdateEntity(entity, entity => entity.SolutionDate); /* Zapisywanie zmodyfikowanej encji */
+
+                var customerId = 0;
+                string sellerName = string.Empty;
+                using (var dbContext = new OrderTrackingSystemEntities())
+                {
+                    customerId = dbContext.Customers.FirstOrDefault(p => p.Orders.Any(x => x.Id == entity.OrderId)).Id;
+                    sellerName = dbContext.Sellers.FirstOrDefault(p => p.Id == sellerId).Name;
+                    dbContext.ComplaintStates.Attach(entity);
+                    await dbContext.Entry(entity).Reference(x => x.Orders).LoadAsync(); /* ładujemy zamówienie dla danej reklamacji */
+                }
+
+                var message = new Mails
+                {
+                    Caption = Properties.Resources.ComplaintWasResolved,
+                    Content = string.Format(Properties.Resources.ComplaintResolvedTemplate, entity.Orders.Number, sellerName),
+                    Date = DateTime.Now,
+                    SenderId = sellerId,
+                    ReceiverId = customerId,
+                    MailRelation = (int)MailDirectionType.SellerToCustomer
+                };
+
+                await MailService.AddNewMail(message);
+                scope.Complete();
             }
         }
     }
