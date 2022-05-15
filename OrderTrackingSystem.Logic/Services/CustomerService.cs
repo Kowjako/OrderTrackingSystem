@@ -185,5 +185,16 @@ namespace OrderTrackingSystem.Logic.Services
                 await base.AddEntity(user);
             }
         }
+
+        public async Task<CustomerDTO> GetCustomerByMail(string email)
+        {
+            var customer = await base.GetEntity<Customers>(p => p.Email.Equals(email));
+            return new CustomerDTO
+            {
+                Id = customer.Id,
+                Nazwa = customer.Name,
+                Email = customer.Email,
+            };
+        }
     }
 }

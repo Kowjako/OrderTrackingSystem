@@ -40,6 +40,11 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <returns></returns>
         Task<CustomerDTO> GetCustomerByName(string name);
         /// <summary>
+        /// Zwraca nabywcę określonego poprzez email
+        /// </summary>
+        /// <param name="email">Email nabywcy</param>
+        Task<CustomerDTO> GetCustomerByMail(string email);
+        /// <summary>
         /// Zwraca dane sprzedawcy określonego poprzez nazwę
         /// </summary>
         /// <param name="name">Nazwa sklepu (sprzedawcy)</param>

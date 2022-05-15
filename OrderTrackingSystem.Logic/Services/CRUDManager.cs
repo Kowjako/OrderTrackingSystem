@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -71,6 +72,19 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 dbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Added;
                 await dbContext.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Zwraca encję wykorzystując selektor, przykładowo może to być Id encji
+        /// </summary>
+        /// <typeparam name="T">Typ encji</typeparam>
+        /// <param name="selector">Selektor do wyboru encji</param>
+        protected async virtual Task<T> GetEntity<T>(Expression<Func<T, bool>> selector) where T : class
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                return await dbContext.Set<T>().FirstOrDefaultAsync(selector);
             }
         }
     }

@@ -62,5 +62,11 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// </summary>
         /// <param name="sellerId">ID sprzedawcy</param>
         Task<List<ComplaintsDTO>> GetComplaintsForSeller(int sellerId);
+        /// <summary>
+        /// Metoda służy do zatwierdzania reklamacji, robi się poprzez ustawienie SolutionDate
+        /// </summary>
+        /// <param name="entity">Encja reklamacji która została zatwierdzona</param>
+        /// <param name="sellerId">Id sprzedawcy zatwierdzającego reklamację</param>
+        Task UpdateComplaintState(ComplaintStates entity, int sellerId);
     }
 }
