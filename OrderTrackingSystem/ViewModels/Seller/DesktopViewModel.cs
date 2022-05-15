@@ -34,6 +34,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         private readonly IOrderService OrderService;
         private readonly ICustomerService CustomerService;
         private readonly IProductService ProductService;
+        private readonly ITrackerService TrackerService;
+
         #endregion
 
         #region Ctor
@@ -45,6 +47,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             OrderService = new OrderService();
             CustomerService = new CustomerService();
             ProductService = new ProductService();
+            TrackerService = new TrackerService();
         }
 
         #endregion
@@ -55,6 +58,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         private void SetAvailableStates()
         {
+            //TODO : stan zrobic sortowany po dacie
             var context = new FSMContext((OrderState)SelectedOrder.CurrentOrderState); /* ustawiamy obecny stan automatu */
             ParcelAvailableStates.Clear();
             foreach (var state in context.State.GetNextStates())
@@ -203,6 +207,21 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 else
                 {
                     OnWarning.Invoke(ValidatorWrapper.ErrorMessage);
+                }
+            }));
+
+        private RelayCommand _changeParcelState;
+        public RelayCommand ChangeParcelState =>
+            _changeParcelState ?? (_changeParcelState = new RelayCommand(async obj =>
+            {
+                if(SelectedOrder != null)
+                {
+                    await TrackerService.AddNewStateForOrder(SelectedOrder.Id, SelectedState.Item2);
+                    OnSuccess?.Invoke("Status przesyłki został zmieniony");
+                }
+                else
+                {
+                    OnWarning?.Invoke("Należy wybrać zamówienie");
                 }
             }));
 

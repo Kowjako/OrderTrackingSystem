@@ -20,7 +20,8 @@ namespace OrderTrackingSystem.Logic.DTO
 
         [Browsable(false)]
         public int CurrentOrderState { get; set; }
-
+        [Browsable(false)]
+        public int Id { get; set; }
         [Browsable(false)]
         public int PickupId { get; set; }
         [Browsable(false)]

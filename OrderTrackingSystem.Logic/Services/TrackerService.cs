@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class TrackerService : ITrackerService
+    public class TrackerService : CRUDManager, ITrackerService
     {
         private ConfigurationService ConfigurationService => new ConfigurationService();
 
@@ -107,9 +107,7 @@ namespace OrderTrackingSystem.Logic.Services
                     Date = DateTime.Now
                 };
 
-                dbContext.Entry(orderStateDAL).State = EntityState.Added;
-                dbContext.OrderStates.Add(orderStateDAL);
-                await dbContext.SaveChangesAsync();
+                await base.AddEntity(orderStateDAL);
             }
         }
 

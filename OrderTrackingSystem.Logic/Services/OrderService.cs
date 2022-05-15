@@ -122,7 +122,8 @@ namespace OrderTrackingSystem.Logic.Services
                                                    select cart.Amount * prodcut.PriceBrutto).Sum()
                                  let stateQuery = (from orderState in dbContext.OrderStates
                                                    where orderState.OrderId == order.Id
-                                                   select orderState.State).Max() /* najpozniejszy status */
+                                                   orderby orderState.Date descending
+                                                   select orderState.State).FirstOrDefault() /* najpozniejszy status */
                                  where order.SellerId == sellerId
                                  select new { Order = order, Value = valueQuery, State = stateQuery };
 
@@ -131,6 +132,7 @@ namespace OrderTrackingSystem.Logic.Services
                 /* To DTO */
                 var ordersDTO = ordersDAL.Select(p => new OrderDTO
                 {
+                    Id = p.Order.Id,
                     Numer = p.Order.Number,
                     Oplata = EnumConverter.GetNameById<PayType>(p.Order.PayType),
                     Sklep = seller.Name,
