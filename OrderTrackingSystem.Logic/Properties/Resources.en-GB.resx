@@ -150,6 +150,9 @@
   <data name="ComplaintResolvedDesc" xml:space="preserve">
     <value>Complaint was resolved</value>
   </data>
+  <data name="ComplaintResolvedTemplate" xml:space="preserve">
+    <value>Hello, i've accepted your complaint for order {0}. Close please this complaint. Best regards, {1}.</value>
+  </data>
   <data name="ComplaintSet" xml:space="preserve">
     <value>Make complaint</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="ComplaintSetHeader" xml:space="preserve">
     <value>New complaint was registered</value>
+  </data>
+  <data name="ComplaintWasResolved" xml:space="preserve">
+    <value>Complaint was accepted by seller [AUTOMATIC]</value>
   </data>
   <data name="Content" xml:space="preserve">
     <value>Content</value>

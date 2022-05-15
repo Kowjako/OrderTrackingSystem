@@ -150,6 +150,9 @@
   <data name="ComplaintResolvedDesc" xml:space="preserve">
     <value>Жалоба решена</value>
   </data>
+  <data name="ComplaintResolvedTemplate" xml:space="preserve">
+    <value>Здравствуйте, принял жалобу относительно заказа {0}. Прошу о закрытие жалобы. С уважением, {1}.</value>
+  </data>
   <data name="ComplaintSet" xml:space="preserve">
     <value>Создание жалобы</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="ComplaintSetHeader" xml:space="preserve">
     <value>Зарегистрирована новая жалоба</value>
+  </data>
+  <data name="ComplaintWasResolved" xml:space="preserve">
+    <value>Жалоба подтверждена продацвом [АВТОМАТИЧЕСКАЯ]</value>
   </data>
   <data name="Content" xml:space="preserve">
     <value>Содержание</value>

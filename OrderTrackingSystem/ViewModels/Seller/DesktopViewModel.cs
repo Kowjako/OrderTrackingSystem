@@ -3,6 +3,7 @@ using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using System;
@@ -138,12 +139,42 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     CurrentProduct.Category = SelectedCategory.Id;
                     CurrentProduct.SellerId = CurrentSeller.Id;
-                    await ProductService.SaveNewProduct(CurrentProduct);
+                    if(ValidatorWrapper.ValidateWithResult(new ProductValidator(), CurrentProduct))
+                    {
+                        await ProductService.SaveNewProduct(CurrentProduct);
+                        OnSuccess?.Invoke("Produkt pomyślnie dodany");
+                    }
+                    else
+                    {
+                        OnWarning?.Invoke(ValidatorWrapper.ErrorMessage);
+                    }
                 }
                 catch (Exception)
                 {
                     OnFailure?.Invoke("Błąd podczas dodawania produktu");
                 }
+            }));
+
+        private RelayCommand _approveComplaint;
+        public RelayCommand ApproveComplaint =>
+            _approveComplaint ?? (_approveComplaint = new RelayCommand(async obj =>
+            {
+                if(obj is null)
+                {
+                    OnWarning?.Invoke("Należy zaznaczyć reklamację");
+                    return;
+                }
+
+                var complaintDTO = obj as ComplaintsDTO;
+                var complaint = new ComplaintStates
+                {
+                    Id = complaintDTO.Id,
+                    SolutionDate = DateTime.Now,
+                    State = (byte)complaintDTO.StateId,
+                    OrderId = complaintDTO.OrderId
+                };
+
+                await ComplaintService.UpdateComplaintState(complaint, CurrentSeller.Id);
             }));
 
         #endregion

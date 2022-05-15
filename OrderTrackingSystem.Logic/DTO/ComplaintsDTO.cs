@@ -16,7 +16,11 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Date { get; set; }
 
         [Browsable(false)]
+        public int Id { get; set; }
+        [Browsable(false)]
         public int StateId { get; set; }
+        [Browsable(false)]
+        public int OrderId { get; set; }
         [Browsable(false)]
         public DateTime? SolutionDate { get; set; }
         [Browsable(false)]

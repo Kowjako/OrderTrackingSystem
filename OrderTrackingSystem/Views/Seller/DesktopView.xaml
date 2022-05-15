@@ -252,7 +252,8 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Command="{Binding SaveCommand}"
+                    Command="{Binding ApproveComplaint}"
+                    CommandParameter="{Binding ElementName=complaintGrid, Path=SelectedItem}"
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ApproveComplaint}" />
@@ -301,9 +302,9 @@
                        Margin="10,10,10,5"
                        DockPanel.Dock="Top"
                        FontFamily="Arial"/>
-            <DataGrid 
-                      VerticalContentAlignment="Top"
+            <DataGrid VerticalContentAlignment="Top"
                       CanUserAddRows="False"
+                      x:Name="complaintGrid"
                       ColumnWidth="*"
                       IsReadOnly="True"
                       HorizontalScrollBarVisibility="Disabled"
@@ -323,7 +324,7 @@
             <DataGrid x:Name="sentGrid" 
                       Margin="0,0,5,5"
                       CanUserAddRows="False"
-                      SelectedItem="{Binding SelectedMain, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedMail, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding SentMessages}"
                       ColumnWidth="*"
                       IsReadOnly="True"

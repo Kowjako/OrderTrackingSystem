@@ -160,6 +160,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Witam, zaakceptowałem reklamacje dotyczącą zamówienia {0}. Proszę o zamknięcie reklamacji. Pozdrawiam {1}..
+        /// </summary>
+        public static string ComplaintResolvedTemplate {
+            get {
+                return ResourceManager.GetString("ComplaintResolvedTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Założona reklamacja.
         /// </summary>
         public static string ComplaintSet {
@@ -183,6 +192,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string ComplaintSetHeader {
             get {
                 return ResourceManager.GetString("ComplaintSetHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reklamacja została zaakceptowana [AUTOMATYCZNA].
+        /// </summary>
+        public static string ComplaintWasResolved {
+            get {
+                return ResourceManager.GetString("ComplaintWasResolved", resourceCulture);
             }
         }
         

@@ -150,6 +150,9 @@
   <data name="ComplaintResolvedDesc" xml:space="preserve">
     <value>Reklamacja została pomyślnie rozwiązana, przesyłka jest w drodze</value>
   </data>
+  <data name="ComplaintResolvedTemplate" xml:space="preserve">
+    <value>Witam, zaakceptowałem reklamacje dotyczącą zamówienia {0}. Proszę o zamknięcie reklamacji. Pozdrawiam {1}.</value>
+  </data>
   <data name="ComplaintSet" xml:space="preserve">
     <value>Założona reklamacja</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="ComplaintSetHeader" xml:space="preserve">
     <value>Zarejestrowana nowa reklamacja</value>
+  </data>
+  <data name="ComplaintWasResolved" xml:space="preserve">
+    <value>Reklamacja została zaakceptowana [AUTOMATYCZNA]</value>
   </data>
   <data name="Content" xml:space="preserve">
     <value>Treść</value>
