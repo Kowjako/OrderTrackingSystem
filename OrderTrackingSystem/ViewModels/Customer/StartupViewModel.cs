@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
@@ -25,7 +26,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         #region Bindable properties
 
         public string Login { get; set; }
-        public string Password { get; set; }
         public bool CreationForClient { get; set; }
 
         public Localizations Localization { get; set; } = new Localizations();
@@ -55,9 +55,10 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if(!string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password))
+                    var passwordBox = obj as PasswordBox;
+                    if(!string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(passwordBox.Password))
                     {
-                        var result = await ConfigurationService.MakeSessionForCredentials(Login, Password);
+                        var result = await ConfigurationService.MakeSessionForCredentials(Login, passwordBox.Password);
                         if(result.isSuccess)
                         {
                             var mainWindow = new MainWindow();
