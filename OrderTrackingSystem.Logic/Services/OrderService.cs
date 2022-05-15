@@ -58,7 +58,6 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
-
                     var orderDAL = new Orders
                     {
                         Number = ConfigurationService.GenerateElementNumber(),

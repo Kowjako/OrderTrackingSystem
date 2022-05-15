@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.DTO;
+﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+using OrderTrackingSystem.Logic.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,5 +50,10 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <param name="sellerId">Id nadawcy</param>
         /// <param name="orderId">Id przesyłki</param>
         Task SendComplaintMessage(int receiverId, int sellerId, int orderId);
+        /// <summary>
+        /// Dodaje nową wiadomośc do bazy
+        /// </summary>
+        /// <param name="entity">Nowa encja wiadomości</param>
+        Task AddNewMail(Mails entity);
     }
 }

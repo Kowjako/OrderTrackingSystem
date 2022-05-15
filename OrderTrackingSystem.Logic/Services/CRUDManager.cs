@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,23 @@ namespace OrderTrackingSystem.Logic.Services
             using(var dbContext = new OrderTrackingSystemEntities())
             {
                 dbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Modyfikuje wybraną właściowość encji
+        /// </summary>
+        /// <typeparam name="T">Typ encji</typeparam>
+        /// <typeparam name="V">Typ modyfikowanej właściwości</typeparam>
+        /// <param name="entity">Encja</param>
+        /// <param name="propertyToUpdate">Lambda która wybiera zmodyfikowany parametr</param>
+        protected async virtual Task UpdateEntity<T, V>(T entity, Expression<Func<T, V>> propertyToUpdate) where T : class
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                dbContext.Set<T>().Attach(entity);
+                dbContext.Entry(entity).Property(propertyToUpdate).IsModified = true;
                 await dbContext.SaveChangesAsync();
             }
         }

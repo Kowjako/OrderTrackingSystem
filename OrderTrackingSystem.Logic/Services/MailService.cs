@@ -18,7 +18,7 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Logic.Services
 {
-    public class MailService : IMailService
+    public class MailService : CRUDManager, IMailService
     {
         private OrderService OrderService => new OrderService();
         private SellService SellService => new SellService();
@@ -132,7 +132,7 @@ namespace OrderTrackingSystem.Logic.Services
                             p.NadawcaMail = receiverCus.Email;
                             break;
                         case (byte)MailDirectionType.SellerToCustomer:
-                            var receiverSeller = await dbContext.Sellers.FindAsync(p.ReceiverId);
+                            var receiverSeller = await dbContext.Sellers.FindAsync(p.SellerId);
                             p.Nadawca = receiverSeller.Name;
                             p.NadawcaMail = receiverSeller.Email;
                             break;
@@ -339,6 +339,11 @@ namespace OrderTrackingSystem.Logic.Services
                 dbContext.Mails.Add(mailDAL);
                 await dbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task AddNewMail(Mails mail)
+        {
+           await base.AddEntity(mail);
         }
     }
 }
