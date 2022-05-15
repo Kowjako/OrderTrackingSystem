@@ -207,6 +207,7 @@
     <Compile Include="Validators\CustomerValidator.cs" />
     <Compile Include="Validators\LocalizationValidator.cs" />
     <Compile Include="Validators\MailValidator.cs" />
+    <Compile Include="Validators\OrderValidator.cs" />
     <Compile Include="Validators\ProductValidator.cs" />
     <Compile Include="Validators\SellerValidator.cs" />
     <Compile Include="Validators\ValidatorWrapper.cs" />

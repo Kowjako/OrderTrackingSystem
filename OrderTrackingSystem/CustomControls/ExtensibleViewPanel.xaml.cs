@@ -4,7 +4,7 @@ using System.Windows.Markup;
 
 namespace OrderTrackingSystem.Presentation.CustomControls
 {
-    public partial class ExtensibleViewPanel : ContentControl, INameScope
+    public partial class ExtensibleViewPanel : ContentControl
     {
         #region Dependency properties
 

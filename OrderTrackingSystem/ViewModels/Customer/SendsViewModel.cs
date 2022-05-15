@@ -169,23 +169,22 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     {
                         var existingProduct = ProductsInCart.First(x => x.Nazwa.Equals(SelectedProduct.Nazwa));
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount = (int.Parse(existingProduct.Amount) + CurrentProductAmount).ToString();
+                        existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
                     {
-                        var price = decimal.Parse(SelectedProduct.Netto.Substring(0, SelectedProduct.Netto.IndexOf(" ")), CultureInfo.InvariantCulture);
-                        var discount = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture);
-                        var priceWithDiscount = price - price * discount / 100;
+                        var priceWithDiscount = SelectedProduct.Netto - (SelectedProduct.Netto * SelectedProduct.Rabat / 100);
                         ProductsInCart.Add(new CartProductDTO()
                         {
                             Id = SelectedProduct.Id,
                             Nazwa = SelectedProduct.Nazwa,
-                            Cena = priceWithDiscount.ToString(),
-                            Amount = CurrentProductAmount.ToString(),
-                            Rabat = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture)
+                            Cena = priceWithDiscount,
+                            Amount = CurrentProductAmount,
+                            Rabat = SelectedProduct.Rabat
                         });
                     }
+
                     CurrentProductAmount = 0;
                     RecalculateCartPrice();
                     OnPropertyChanged(nameof(CurrentProductAmount));
@@ -204,29 +203,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 try
                 {
                     ProductsList = AllProductsList;
-                    if(MinPrice == 0m)
+
+                    if (MaxPrice == 0m)
                     {
-                        if (MaxPrice != 0m)
-                        ProductsList = ProductsList.Where(p => decimal.Parse(p.Netto
-                                                   .Substring(0, p.Netto.IndexOf(" ")), CultureInfo.InvariantCulture) <= MaxPrice)
-                                                   .ToList();
+                        ProductsList = ProductsList.Where(p => p.Netto >= MinPrice).ToList();
                     }
                     else
                     {
-                        if(MaxPrice == 0m)
-                        {
-                            ProductsList = ProductsList.Where(p => decimal.Parse(p.Netto
-                                                                               .Substring(0, p.Netto.IndexOf(" ")), CultureInfo.InvariantCulture) >= MinPrice)
-                                                                               .ToList();
-                        }
-                        else
-                        {
-                            ProductsList = ProductsList.Where(p => decimal.Parse(p.Netto
-                                                                          .Substring(0, p.Netto.IndexOf(" ")), CultureInfo.InvariantCulture) >= MinPrice &&
-                                                                   decimal.Parse(p.Netto
-                                                                          .Substring(0, p.Netto.IndexOf(" ")), CultureInfo.InvariantCulture) <= MaxPrice)
-                                                                          .ToList();
-                        }
+                        ProductsList = ProductsList.Where(p => p.Netto >= MinPrice && p.Netto <= MaxPrice).ToList();
                     }
 
                     if(SelectedSubCategory != null)
@@ -234,7 +218,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         /* Ustawiamy ID grupy glownej i jej grup podrzednych */
                         var list = SelectedSubCategory.Children.Select(p => p.Id).ToList();
                         list.Add(SelectedSubCategory.Id);
-                        ProductsList = ProductsList.Where(p => ((int)p.CategoryId).In(list.ToArray())).ToList();
+                        ProductsList = ProductsList.Where(p => p.CategoryId.In(list.ToArray())).ToList();
                     }
                     OnPropertyChanged(nameof(ProductsList));
                 }

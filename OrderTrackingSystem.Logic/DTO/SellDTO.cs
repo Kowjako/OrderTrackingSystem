@@ -14,7 +14,7 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Receiver", ResourceType = typeof(Properties.Resources))]
         public string Odbiorca { get; set; }
         [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
-        public string Kwota { get; set; }
+        public decimal Kwota { get; set; }
 
         [Browsable(false)]
         public int CustomerId { get; set; }

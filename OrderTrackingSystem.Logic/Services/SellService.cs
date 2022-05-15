@@ -37,7 +37,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Data = sells.SellingDate.ToShortDateString(),
                                 Dni = sells.PickupDays.ToString(),
                                 Odbiorca = receiverQuery.First(),
-                                Kwota = string.Format("{0:0.00 zł}", valueQuery)
+                                Kwota = valueQuery
                             };
 
                 return query.ToList();

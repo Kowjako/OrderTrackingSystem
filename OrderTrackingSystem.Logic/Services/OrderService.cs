@@ -43,7 +43,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Sklep = sellerQuery.First(),
                                 Dostawa = EnumConverter.GetNameById<DeliveryType>(order.DeliveryType),
                                 Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                                Kwota = string.Format("{0:0.00 zł}", valueQuery),
+                                Kwota = valueQuery,
                                 CurrentOrderState = stateQuery.Result
                             };
 
@@ -138,7 +138,7 @@ namespace OrderTrackingSystem.Logic.Services
                     Sklep = seller.Name,
                     Dostawa = EnumConverter.GetNameById<DeliveryType>(p.Order.DeliveryType),
                     Rezygnacja = p.Order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                    Kwota = string.Format("{0:0.00 zł}", p.Value),
+                    Kwota = p.Value,
                     CurrentOrderState = p.State
                 });
                 return ordersDTO.ToList(); 

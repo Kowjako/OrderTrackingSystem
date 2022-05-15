@@ -11,9 +11,9 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
         public string Nazwa { get; set; }
         [Display(Name = "Price", ResourceType = typeof(Properties.Resources))]
-        public string Cena { get; set; }
+        public decimal Cena { get; set; }
         [Display(Name = "Amount", ResourceType = typeof(Properties.Resources))]
-        public string Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [Browsable(false)]
         public decimal Rabat { get; set; }

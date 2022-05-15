@@ -14,7 +14,7 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Complaint", ResourceType = typeof(Properties.Resources))]
         public string Rezygnacja { get; set; }
         [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
-        public string Kwota { get; set; }
+        public decimal Kwota { get; set; }
         [Display(Name = "Shop", ResourceType = typeof(Properties.Resources))]
         public string Sklep { get; set; }
 
@@ -28,5 +28,10 @@ namespace OrderTrackingSystem.Logic.DTO
         public int SellerId { get; set; }
         [Browsable(false)]
         public int CustomerId { get; set; }
+
+        [Browsable(false)]
+        public PickupDTO PickupDTO { get; set; }
+        [Browsable(false)]
+        public BindingList<CartProductDTO> CartProducts { get; set; }
     }
 }

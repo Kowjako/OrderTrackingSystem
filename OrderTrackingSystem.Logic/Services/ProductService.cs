@@ -28,8 +28,8 @@ namespace OrderTrackingSystem.Logic.Services
                             {
                                 Id = product.Id,
                                 Nazwa = product.Name,
-                                Netto = product.PriceNetto.ToString(),
-                                Rabat = product.Discount.ToString(),
+                                Netto = product.PriceNetto,
+                                Rabat = product.Discount,
                                 VAT = product.VAT.ToString(),
                                 Sprzedawca = sellerQuery.Name,
                                 SellerId = sellerQuery.Id,
@@ -37,16 +37,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 CategoryId = product.Category
                             };
 
-                var productsList = await query.ToListAsync();
-
-                /* Formatowanie przed zwracaniem listy */
-                productsList.ForEach(p =>
-                {
-                    p.Netto = string.Format("{0:0.00} zł", p.Netto);
-                    p.Rabat = string.Format("{0} %", p.Rabat);
-                    p.VAT = string.Format("{0} %", p.VAT);
-                });
-                return productsList;
+                return await query.ToListAsync();
             }
         }
 
@@ -58,7 +49,7 @@ namespace OrderTrackingSystem.Logic.Services
                 {
                     var orderCart = new OrderCarts
                     {
-                        Amount = short.Parse(product.Amount),
+                        Amount = decimal.ToInt16(product.Amount),
                         ProductId = product.Id,
                         OrderId = orderId
                     };
@@ -78,7 +69,7 @@ namespace OrderTrackingSystem.Logic.Services
                 {
                     var sellCart = new SellCarts
                     {
-                        Amount = byte.Parse(product.Amount),
+                        Amount = decimal.ToByte(product.Amount),
                         ProductId = product.Id,
                         SellId = sellId
                     };
@@ -95,7 +86,7 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var query = from voucher in dbContext.Vouchers
-                            where voucher.CustomerId == customer.Id
+                            where voucher.CustomerId == customer.Id && voucher.Value != 0 /* Zwracamy tylko bony mające kwotę */
                             select new VoucherDTO
                             {
                                 Id = voucher.Id,
@@ -105,8 +96,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 ExpireDate = voucher.ExpireDate
                             };
 
-                /* Zwracamy tylko bony mające kwotę */
-                return await query.Where(p => p.Value != 0).ToListAsync();
+                return await query.ToListAsync();
             }
         }
 

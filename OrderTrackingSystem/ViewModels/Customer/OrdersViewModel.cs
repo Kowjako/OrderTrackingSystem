@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             var finalPriceNetto = 0.0m;
             foreach(var product in ProductsInCart)
             {
-                var amount = int.Parse(product.Amount);
-                var price = decimal.Parse(product.Cena.Replace(',','.'), CultureInfo.InvariantCulture);
+                var amount = product.Amount;
+                var price = product.Cena;
                 finalPriceNetto += amount * price;
             }
             TotalPriceNetto = finalPriceNetto;
@@ -177,21 +178,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     {
                         var existingProduct = ProductsInCart.First(x => x.Nazwa.Equals(SelectedProduct.Nazwa));
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount = (int.Parse(existingProduct.Amount) + CurrentProductAmount).ToString();
+                        existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
                     {
-                        var price = decimal.Parse(SelectedProduct.Netto.Substring(0, SelectedProduct.Netto.IndexOf(" ")), CultureInfo.InvariantCulture);
-                        var discount = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture);
-                        var priceWithDiscount = price - price * discount / 100;
+                        var priceWithDiscount = SelectedProduct.Netto - (SelectedProduct.Netto * SelectedProduct.Rabat / 100);
                         ProductsInCart.Add(new CartProductDTO()
                         {
                             Id = SelectedProduct.Id,
                             Nazwa = SelectedProduct.Nazwa,
-                            Cena = priceWithDiscount.ToString(),
-                            Amount = CurrentProductAmount.ToString(),
-                            Rabat = decimal.Parse(SelectedProduct.Rabat.Substring(0, SelectedProduct.Rabat.IndexOf(" ")), CultureInfo.InvariantCulture)
+                            Cena = priceWithDiscount,
+                            Amount = CurrentProductAmount,
+                            Rabat = SelectedProduct.Rabat
                         });
                         SelectedSellerId = SelectedProduct.SellerId;
                         ProductsList = AllProductsList.Where(p => p.SellerId == SelectedSellerId).ToList();
@@ -270,75 +269,63 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    decimal valueToMinusFromBalance = 0.0m;
-                    /* 1 - Zapis zamówienia */
-                    if (SelectedPickup == null)
+                    CurrentOrder.PickupDTO = SelectedPickup;
+                    CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
+                    CurrentOrder.CartProducts = ProductsInCart;
+                    CurrentOrder.PickupId = SelectedPickup.Id;
+                    CurrentOrder.SellerId = SelectedSellerId;
+                    CurrentOrder.CustomerId = CurrentCustomer.Id;
+
+                    if(ValidatorWrapper.ValidateWithResult(new OrderValidator(), CurrentOrder))
                     {
-                        OnWarning?.Invoke("Należy wybrać punkt odbioru");
-                        return;
-                    }
-                    if (SelectedDeliveryType == -1)
-                    {
-                        OnWarning?.Invoke("Należy wybrać typ dostawy");
-                        return;
-                    }
-                    if (int.Parse(CurrentOrder.Oplata) == -1)
-                    {
-                        OnWarning?.Invoke("Należy wybrać typ opłaty");
-                        return;
-                    }
-                    if (ProductsInCart.Count == 0)
-                    {
-                        OnWarning?.Invoke("Należy dodać produkt do koszyka");
-                        return;
-                    }
-                    /* Został wybrany bon */
-                    if(SelectedVoucher != null)
-                    {
-                        if(IsVoucherFullChecked)
+                        decimal valueToMinusFromBalance = 0.0m;
+
+                        /* Został wybrany bon */
+                        if (SelectedVoucher != null)
                         {
-                            if(FullPrice < SelectedVoucher.Value)
+                            if (IsVoucherFullChecked)
                             {
-                                SelectedVoucher.Value -= FullPrice;
-                            }
-                            else
-                            {
-                                /* Obliczamy kwote co musimy odjac z glownego konta */
-                                valueToMinusFromBalance = FullPrice - SelectedVoucher.Value;
-                                /* Rozliczamy bon w calosci */
-                                SelectedVoucher.Value = 0;
-                            }
-                        }
-                        else
-                        {
-                            if(VoucherValueToMinus > SelectedVoucher.Value)
-                            {
-                                OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota bonu");
-                                return;
-                            }
-                            else
-                            {
-                                if(VoucherValueToMinus > FullPrice)
+                                if (FullPrice < SelectedVoucher.Value)
                                 {
-                                    OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota zamówienia");
+                                    SelectedVoucher.Value -= FullPrice;
+                                }
+                                else
+                                {
+                                    /* Obliczamy kwote co musimy odjac z glownego konta */
+                                    valueToMinusFromBalance = FullPrice - SelectedVoucher.Value;
+                                    /* Rozliczamy bon w calosci */
+                                    SelectedVoucher.Value = 0;
+                                }
+                            }
+                            else
+                            {
+                                if (VoucherValueToMinus > SelectedVoucher.Value)
+                                {
+                                    OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota bonu");
                                     return;
                                 }
                                 else
                                 {
-                                    SelectedVoucher.Value -= FullPrice;
-                                    valueToMinusFromBalance = FullPrice - VoucherValueToMinus;
+                                    if (VoucherValueToMinus > FullPrice)
+                                    {
+                                        OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota zamówienia");
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        SelectedVoucher.Value -= FullPrice;
+                                        valueToMinusFromBalance = FullPrice - VoucherValueToMinus;
+                                    }
                                 }
                             }
                         }
+                        await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList(), valueToMinusFromBalance, SelectedVoucher ?? null);
+                        OnSuccess?.Invoke("Zamówienie zostało utworzone");
                     }
-
-                    CurrentOrder.PickupId = SelectedPickup.Id;
-                    CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
-                    CurrentOrder.SellerId = SelectedSellerId;
-                    CurrentOrder.CustomerId = CurrentCustomer.Id;
-
-                    await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList(), valueToMinusFromBalance, SelectedVoucher ?? null);
-                    OnSuccess?.Invoke("Zamówienie zostało utworzone");
+                    else
+                    {
+                        OnWarning?.Invoke(ValidatorWrapper.ErrorMessage);
+                    }
                 }
                 catch(Exception)
                 {
