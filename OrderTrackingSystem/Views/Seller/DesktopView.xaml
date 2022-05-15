@@ -241,7 +241,7 @@
                     BorderBrush="Maroon"
                     Foreground="White"
                     materialDesign:RippleAssist.Feedback="#DD000000"
-                    Command="{Binding SaveCommand}"
+                    Command="{Binding SendMessage}"
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.SendMessageAction}" />

@@ -1,8 +1,10 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
@@ -27,11 +29,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         #region Services
 
-        private readonly MailService MailService;
-        private readonly ComplaintService ComplaintService;
-        private readonly OrderService OrderService;
-        private readonly CustomerService CustomerService;
-        private readonly ProductService ProductService;
+        private readonly IMailService MailService;
+        private readonly IComplaintService ComplaintService;
+        private readonly IOrderService OrderService;
+        private readonly ICustomerService CustomerService;
+        private readonly IProductService ProductService;
         #endregion
 
         #region Ctor
@@ -70,7 +72,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         public List<MailDTO> SentMessages { get; set; }
         public List<MailDTO> ReceivedMessages { get; set; }
-        public MailDTO CurrentMail { get; set; }
+        public MailDTO CurrentMail { get; set; } = new MailDTO();
         public List<OrderDTO> CustomersOrder { get; set; }
         public List<ComplaintsDTO> CustomersComplaint { get; set; }
         public List<Tuple<string, OrderState, int>> ParcelAvailableStates { get; set; } = new List<Tuple<string, OrderState, int>>();
@@ -175,6 +177,33 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 };
 
                 await ComplaintService.UpdateComplaintState(complaint, CurrentSeller.Id);
+                OnSuccess?.Invoke("Reklamacja została zatwierdzona");
+            }));
+
+        private RelayCommand _sendMessage;
+        public RelayCommand SendMessage =>
+            _sendMessage ?? (_sendMessage = new RelayCommand(async obj =>
+            {
+                if (ValidatorWrapper.ValidateWithResult(new MailValidator(), CurrentMail))
+                {
+                    var customer = await CustomerService.GetCustomerByMail(CurrentMail.OdbiorcaMail);
+                    var mail = new Mails()
+                    {
+                        Caption = CurrentMail.Caption,
+                        Content = CurrentMail.Content,
+                        Date = DateTime.Now,
+                        MailRelation = (int)MailDirectionType.SellerToCustomer,
+                        SenderId = CurrentSeller.Id,
+                        ReceiverId = customer.Id
+                    };
+
+                    await MailService.AddNewMail(mail);
+                    OnSuccess?.Invoke("Wiadomość została wysłana");
+                }
+                else
+                {
+                    OnWarning.Invoke(ValidatorWrapper.ErrorMessage);
+                }
             }));
 
         #endregion
