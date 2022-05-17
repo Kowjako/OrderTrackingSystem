@@ -1,6 +1,9 @@
-﻿using System;
+﻿using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +28,8 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 e.Column.Header = displayName;
             }
 
+            var x = CheckCustomAttributes(e.PropertyDescriptor);
+            Debug.WriteLine(x);
             ///* Set overrided celltemplate for image */
             //if(e.PropertyName.Equals("Image"))
             //{
@@ -81,6 +86,19 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                             return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentCulture);
                         }
                     }
+                }
+            }
+            return null;
+        }
+
+        private static string CheckCustomAttributes(object descriptor)
+        {
+            if (descriptor is PropertyDescriptor pi && pi != null)
+            {
+                var attribute = pi.Attributes[typeof(UKAttribute)] as UKAttribute;
+                if (attribute != null)
+                {
+                    return attribute.GetStringFormat();
                 }
             }
             return null;
