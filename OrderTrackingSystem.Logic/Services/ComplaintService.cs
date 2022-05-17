@@ -336,6 +336,12 @@ namespace OrderTrackingSystem.Logic.Services
                 scope.Complete();
             }
         }
+
+        public async Task CloseComplaint(ComplaintStates entity)
+        {
+            entity.EndDate = DateTime.Now;
+            await base.UpdateEntity(entity, entity => entity.EndDate);
+        }
     }
 }
 

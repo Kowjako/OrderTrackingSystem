@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace OrderTrackingSystem.Logic.DTO
@@ -13,6 +14,8 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Dostawa { get; set; }
         [Display(Name = "Complaint", ResourceType = typeof(Properties.Resources))]
         public string Rezygnacja { get; set; }
+
+        [Money(2)]
         [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
         public decimal Kwota { get; set; }
         [Display(Name = "Shop", ResourceType = typeof(Properties.Resources))]

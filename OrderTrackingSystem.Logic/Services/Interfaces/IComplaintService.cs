@@ -68,5 +68,11 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <param name="entity">Encja reklamacji która została zatwierdzona</param>
         /// <param name="sellerId">Id sprzedawcy zatwierdzającego reklamację</param>
         Task UpdateComplaintState(ComplaintStates entity, int sellerId);
+        /// <summary>
+        /// Metoda służy do zamknięcia reklamacji poprzez nabywcę
+        /// </summary>
+        /// <param name="entity">Encja reklamacji</param>
+        /// <returns></returns>
+        Task CloseComplaint(ComplaintStates entity);
     }
 }

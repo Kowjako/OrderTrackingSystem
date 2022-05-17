@@ -65,7 +65,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddComplaintToFolder}" />
-            <Button
+            <Button Command="{Binding CloseComplaint}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Media;
@@ -13,24 +14,32 @@ namespace OrderTrackingSystem.Logic.DTO
 
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
         public string Nazwa { get; set; }
+
+        [Money(2)]
         [Display(Name = "Netto", ResourceType = typeof(Properties.Resources))]
         public decimal Netto { get; set; }
+
+        [Percentage]
         [Display(Name = "VAT", ResourceType = typeof(Properties.Resources))]
         public string VAT { get; set; }
+
         [Display(Name = "Seller", ResourceType = typeof(Properties.Resources))]
         public string Sprzedawca { get; set; }
+
         [Display(Name = "Category", ResourceType = typeof(Properties.Resources))]
         public string Kategoria { get; set; }
+
+        [Percentage]
         [Display(Name = "Discount", ResourceType = typeof(Properties.Resources))]
         public decimal Rabat { get; set; }
-
-        //[Display(Name = "Obrazek")]
-        //public string Image { get; set; } = @"C:\Users\123\Desktop\nurofen.jpg";// BitmapFromUri(new Uri());
 
         [Browsable(false)]
         public int SellerId { get; set; }
         [Browsable(false)]
         public int CategoryId { get; set; }
+
+        //[Display(Name = "Obrazek")]
+        //public string Image { get; set; } = @"C:\Users\123\Desktop\nurofen.jpg";// BitmapFromUri(new Uri());
 
         //private static BitmapImage BitmapFromUri(Uri source)
         //{

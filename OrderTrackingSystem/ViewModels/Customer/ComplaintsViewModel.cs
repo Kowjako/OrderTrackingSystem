@@ -172,6 +172,21 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
             }));
 
+        private RelayCommand _closeComplaint;
+        public RelayCommand CloseComplaint =>
+            _closeComplaint ?? (_closeComplaint = new RelayCommand(async obj =>
+            {
+                if(SelectedComplaint.SolutionDate.HasValue)
+                {
+                    var complaintDAL = new ComplaintStates() { Id = SelectedComplaint.Id };
+                    await ComplaintService.CloseComplaint(complaintDAL);
+                    OnSuccess?.Invoke("Reklamacja pomyślnie zamknięta");
+                }
+                else
+                {
+                    OnWarning?.Invoke("Reklamacja musi najpierw być zatwierdzona poprzez sprzedawcę");
+                }
+            }));
         #endregion
     }
 }

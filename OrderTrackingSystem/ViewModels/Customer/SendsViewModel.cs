@@ -23,8 +23,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             var finalPriceNetto = 0.0m;
             foreach (var product in ProductsInCart)
             {
-                var amount = int.Parse(product.Amount);
-                var price = decimal.Parse(product.Cena.Replace(',', '.'), CultureInfo.InvariantCulture);
+                var amount = product.Amount;
+                var price = product.Cena;
                 finalPriceNetto += amount * price;
             }
             TotalPriceNetto = finalPriceNetto;
