@@ -37,7 +37,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date.ToString(),
+                                Date = mail.Date,
                                 Nadawca = customer.Name + " " + customer.Surname,
                                 NadawcaMail = customer.Email,
                                 SellerId = mail.SenderId,
@@ -62,7 +62,6 @@ namespace OrderTrackingSystem.Logic.Services
                 /* Skoro szukamy dla customera nie rozpatrywamy relacji SellerToCustomer */
                 await firstStageList.ForEachAsync(async p =>
                 {
-                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
                     switch (p.MailRelation)
                     {
                         case (byte)MailDirectionType.CustomerToCustomer:
@@ -98,7 +97,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date.ToString(),
+                                Date = mail.Date,
                                 Odbiorca = customer.Name + " " + customer.Surname,
                                 SellerId = mail.SenderId,
                                 OdbiorcaMail = customer.Email,
@@ -123,7 +122,6 @@ namespace OrderTrackingSystem.Logic.Services
                 /* Nie rozpatrywamy relacji CustomerToSeller bo customer nie może być sellerem */
                 await firstStageList.ForEachAsync(async p =>
                 {
-                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
                     switch (p.MailRelation)
                     {
                         case (byte)MailDirectionType.CustomerToCustomer:
@@ -159,7 +157,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date.ToString(),
+                                Date = mail.Date,
                                 Odbiorca = customer.Name,
                                 SellerId = mail.SenderId,
                                 OdbiorcaMail = customer.Email,
@@ -183,7 +181,6 @@ namespace OrderTrackingSystem.Logic.Services
 
                 await firstStageList.ForEachAsync(async p =>
                 {
-                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
                     switch (p.MailRelation)
                     {
                         case (byte)MailDirectionType.CustomerToSeller:
@@ -214,7 +211,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date.ToString(),
+                                Date = mail.Date,
                                 Nadawca = customer.Name,
                                 NadawcaMail = customer.Email,
                                 SellerId = mail.SenderId,
@@ -237,7 +234,6 @@ namespace OrderTrackingSystem.Logic.Services
 
                 await firstStageList.ForEachAsync(async p =>
                 {
-                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
                     switch (p.MailRelation)
                     {
                         case (byte)MailDirectionType.SellerToCustomer:

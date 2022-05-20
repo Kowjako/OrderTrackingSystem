@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OrderTrackingSystem.Logic.Validators
 {
-    public class ValidatorWrapper
+    public static class ValidatorWrapper
     {
         private static ValidationResult Result;
         public static bool IsValid => Result.IsValid;

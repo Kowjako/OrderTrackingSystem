@@ -62,7 +62,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = complaint.Id,
                                 OrderNumber = order.Number,
                                 State = complaint.State.ToString(),
-                                Date = complaint.Date.Value.ToString(),
+                                Date = complaint.Date.Value,
                                 StateId = complaint.State,
                                 SolutionDate = complaint.SolutionDate,
                                 EndDate = complaint.EndDate,
@@ -72,7 +72,6 @@ namespace OrderTrackingSystem.Logic.Services
                 stagedList.ForEach(p =>
                 {
                     p.State = EnumConverter.GetNameById<ComplaintState>(int.Parse(p.State));
-                    p.Date = DateTime.Parse(p.Date).ToShortDateString();
                 });
                 return stagedList;
             }
@@ -289,7 +288,7 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = complaint.Id,
                                 OrderNumber = order.Number,
                                 State = complaint.State.ToString(),
-                                Date = complaint.Date.Value.ToString(),
+                                Date = complaint.Date.Value,
                                 StateId = complaint.State,
                                 EndDate = complaint.EndDate,
                                 OrderId = order.Id
@@ -298,7 +297,6 @@ namespace OrderTrackingSystem.Logic.Services
                 var preparedList = await query.AsNoTracking().ToListAsync();
                 preparedList.ForEach(p =>
                     {
-                        p.Date = DateTime.Parse(p.Date).ToShortDateString();
                         p.State = EnumConverter.GetNameById<ComplaintState>(int.Parse(p.State));
                     });
                 return preparedList;

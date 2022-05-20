@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace OrderTrackingSystem.Logic.DTO
@@ -10,14 +12,18 @@ namespace OrderTrackingSystem.Logic.DTO
 
         [Display(Name = "Number", ResourceType = typeof(Properties.Resources))]
         public string Numer { get; set; }
+
+        [ShortDateField]
         [Display(Name = "CreateDate", ResourceType = typeof(Properties.Resources))]
-        public string Data { get; set; }
+        public DateTime Data { get; set; }
         [Display(Name = "Buyer", ResourceType = typeof(Properties.Resources))]
         public string Nabywca { get; set; }
         [Display(Name = "Seller", ResourceType = typeof(Properties.Resources))]
         public string Sprzedawca { get; set; }
+
+        [MoneyField(2)]
         [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
-        public string Kwota { get; set; }
+        public decimal Kwota { get; set; }
 
         [Browsable(false)]
         public bool IsOrder { get; set; }

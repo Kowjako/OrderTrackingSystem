@@ -34,7 +34,7 @@ namespace OrderTrackingSystem.Logic.Services
                             select new SellDTO
                             {
                                 Numer = sells.Number,
-                                Data = sells.SellingDate.ToShortDateString(),
+                                Data = sells.SellingDate,
                                 Dni = sells.PickupDays.ToString(),
                                 Odbiorca = receiverQuery.First(),
                                 Kwota = valueQuery

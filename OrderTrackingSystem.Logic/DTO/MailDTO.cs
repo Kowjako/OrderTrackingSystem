@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,8 +18,10 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Content { get; set; }
         [Display(Name = "Sender", ResourceType = typeof(Properties.Resources))]
         public string Nadawca { get; set; }
+
+        [LongDateField]
         [Display(Name = "SendDate", ResourceType = typeof(Properties.Resources))]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Display(Name = "Receiver", ResourceType = typeof(Properties.Resources))]
         public string Odbiorca { get; set; }
 

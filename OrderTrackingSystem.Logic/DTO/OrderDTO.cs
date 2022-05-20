@@ -15,7 +15,7 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Complaint", ResourceType = typeof(Properties.Resources))]
         public string Rezygnacja { get; set; }
 
-        [Money(2)]
+        [MoneyField(2)]
         [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
         public decimal Kwota { get; set; }
         [Display(Name = "Shop", ResourceType = typeof(Properties.Resources))]

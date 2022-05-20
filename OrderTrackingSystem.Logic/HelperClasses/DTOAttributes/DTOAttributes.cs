@@ -16,10 +16,10 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class Money : UKAttribute
+    public class MoneyField : UKAttribute
     {
         public int decimalPlaces { get; private set; }
-        public Money(int decimalPlaces)
+        public MoneyField(int decimalPlaces)
         {
             this.decimalPlaces = decimalPlaces;
         }
@@ -31,7 +31,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class Percentage : UKAttribute
+    public class PercentageField : UKAttribute
     {
         public override string GetStringFormat()
         {
@@ -40,10 +40,10 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class Amount : UKAttribute
+    public class AmountField : UKAttribute
     {
         public int decimalPlaces { get; private set; }
-        public Amount(int decimalPlaces)
+        public AmountField(int decimalPlaces)
         {
             this.decimalPlaces = decimalPlaces;
         }
@@ -51,6 +51,24 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
         public override string GetStringFormat()
         {
             return $"F{decimalPlaces}";
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ShortDateField : UKAttribute
+    {
+        public override string GetStringFormat()
+        {
+            return $"dd-MM-yyyy";
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class LongDateField : UKAttribute
+    {
+        public override string GetStringFormat()
+        {
+            return $"dd-MM-yyyy hh:mm:ss";
         }
     }
 }

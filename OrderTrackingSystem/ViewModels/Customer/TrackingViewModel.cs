@@ -124,8 +124,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
                     if(StartDate != EndDate)
                     {
-                        Items = Items.Where(p => DateTime.Parse(p.Data) < EndDate && 
-                                                 DateTime.Parse(p.Data) > StartDate).ToList();
+                        Items = Items.Where(p => p.Data < EndDate && 
+                                                 p.Data > StartDate).ToList();
                     }
                     OnPropertyChanged(nameof(Items));
                 }

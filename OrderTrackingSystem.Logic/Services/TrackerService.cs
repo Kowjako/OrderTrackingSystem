@@ -35,10 +35,10 @@ namespace OrderTrackingSystem.Logic.Services
                                  {
                                      Id = order.Id,
                                      Numer = order.Number,
-                                     Data = order.OrderDate.Value.ToShortDateString(),
+                                     Data = order.OrderDate.Value,
                                      Nabywca = customer.Name + " " + customer.Surname,
                                      Sprzedawca = sellerQuery.First().Name,
-                                     Kwota = string.Format("{0:0.00 zł}", valueQuery),
+                                     Kwota = valueQuery,
                                      IsOrder = true,
                                      CustomerId = customer.Id,
                                      SellerId = sellerQuery.First().Id
@@ -58,10 +58,10 @@ namespace OrderTrackingSystem.Logic.Services
                                  {
                                      Id = sells.Id,
                                      Numer = sells.Number,
-                                     Data = sells.SellingDate.ToShortDateString(),
+                                     Data = sells.SellingDate,
                                      Nabywca = receiverQuery.First().Name + " " + receiverQuery.First().Surname,
                                      Sprzedawca = customer.Name + " " + customer.Surname,
-                                     Kwota = string.Format("{0:0.00 zł}", valueQuery),
+                                     Kwota = valueQuery,
                                      IsOrder = false,
                                      CustomerId = receiverQuery.First().Id,
                                      SellerId = customer.Id

@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,8 +13,10 @@ namespace OrderTrackingSystem.Logic.DTO
         public string OrderNumber { get; set; }
         [Display(Name = "State", ResourceType = typeof(Properties.Resources))]
         public string State { get; set; }
+
+        [LongDateField]
         [Display(Name = "Date", ResourceType = typeof(Properties.Resources))]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         [Browsable(false)]
         public int Id { get; set; }
@@ -26,7 +29,7 @@ namespace OrderTrackingSystem.Logic.DTO
         [Browsable(false)]
         public DateTime? EndDate { get; set; }
         [Browsable(false)]
-        public List<DateTime?> ComplaintStateDates => new List<DateTime?> { DateTime.Parse(Date), SolutionDate, EndDate };
+        public List<DateTime?> ComplaintStateDates => new List<DateTime?> { Date, SolutionDate, EndDate };
     }
 
     public class ComplaintFolderDTO : IComposite<ComplaintFolderDTO>

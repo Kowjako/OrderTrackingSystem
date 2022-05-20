@@ -166,13 +166,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         switch (SelectedFilterMsgType)
                         {
                             case 0:
-                                SentMessages = SentMessages.Where(p => DateTime.Parse(p.Date) <= DateTo &&
-                                                                       DateTime.Parse(p.Date) >= DateFrom).ToList();
+                                SentMessages = SentMessages.Where(p => p.Date <= DateTo &&
+                                                                       p.Date >= DateFrom).ToList();
                                 OnPropertyChanged(nameof(SentMessages));
                                 break;
                             case 1:
-                                ReceivedMessages = SentMessages.Where(p => DateTime.Parse(p.Date) <= DateTo &&
-                                                                       DateTime.Parse(p.Date) >= DateFrom).ToList();
+                                ReceivedMessages = SentMessages.Where(p => p.Date <= DateTo &&
+                                                                           p.Date >= DateFrom).ToList();
                                 OnPropertyChanged(nameof(ReceivedMessages));
                                 break;
                             default:

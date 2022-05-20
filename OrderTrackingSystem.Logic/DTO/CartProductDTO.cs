@@ -12,15 +12,15 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
         public string Nazwa { get; set; }
 
-        [Money(2)]
+        [MoneyField(2)]
         [Display(Name = "Price", ResourceType = typeof(Properties.Resources))]
         public decimal Cena { get; set; }
 
-        [Amount(2)]
+        [AmountField(2)]
         [Display(Name = "Amount", ResourceType = typeof(Properties.Resources))]
         public decimal Amount { get; set; }
 
-        [Percentage]
+        [PercentageField]
         [Browsable(false)]
         public decimal Rabat { get; set; }
     }

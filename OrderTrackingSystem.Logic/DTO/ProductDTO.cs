@@ -15,11 +15,11 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
         public string Nazwa { get; set; }
 
-        [Money(2)]
+        [MoneyField(2)]
         [Display(Name = "Netto", ResourceType = typeof(Properties.Resources))]
         public decimal Netto { get; set; }
 
-        [Percentage]
+        [PercentageField]
         [Display(Name = "VAT", ResourceType = typeof(Properties.Resources))]
         public string VAT { get; set; }
 
@@ -29,7 +29,7 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Category", ResourceType = typeof(Properties.Resources))]
         public string Kategoria { get; set; }
 
-        [Percentage]
+        [PercentageField]
         [Display(Name = "Discount", ResourceType = typeof(Properties.Resources))]
         public decimal Rabat { get; set; }
 
