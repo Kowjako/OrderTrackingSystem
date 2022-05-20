@@ -28,8 +28,14 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 e.Column.Header = displayName;
             }
 
-            var x = CheckCustomAttributes(e.PropertyDescriptor);
-            Debug.WriteLine(x);
+            if(e.Column is DataGridBoundColumn dgbc && dgbc != null)
+            {
+                var binding = dgbc.Binding;
+                if(binding != null && binding.StringFormat == null)
+                {
+                    binding.StringFormat = CheckCustomAttributes(e.PropertyDescriptor);
+                }
+            }
             ///* Set overrided celltemplate for image */
             //if(e.PropertyName.Equals("Image"))
             //{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
 
         public override string GetStringFormat()
         {
-            return $"C{decimalPlaces}";
+            return "{0:C}";
         }
     }
 
@@ -34,7 +35,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     {
         public override string GetStringFormat()
         {
-            return "P2";
+            return "{0} %";
         }
     }
 
