@@ -213,6 +213,9 @@
   <data name="House" xml:space="preserve">
     <value>Budynek</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Obrazek</value>
+  </data>
   <data name="MailAutomaticSetComplaint" xml:space="preserve">
     <value>Witam, złożyłem reklamację na swoje zamówienie pod numerem {0}. Pozdrawiam {1}.</value>
   </data>

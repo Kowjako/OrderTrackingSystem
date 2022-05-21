@@ -349,6 +349,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Obrazek.
+        /// </summary>
+        public static string Image {
+            get {
+                return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Witam, złożyłem reklamację na swoje zamówienie pod numerem {0}. Pozdrawiam {1}..
         /// </summary>
         public static string MailAutomaticSetComplaint {

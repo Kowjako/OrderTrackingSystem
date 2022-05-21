@@ -170,6 +170,7 @@
     <Compile Include="HelperClasses\DTOAttributes\DTOAttributes.cs" />
     <Compile Include="HelperClasses\EnumMapper.cs" />
     <Compile Include="HelperClasses\Extensions.cs" />
+    <Compile Include="HelperClasses\ImageDataHelper.cs" />
     <Compile Include="HelperClasses\ParcelStateFSM.cs" />
     <Compile Include="HelperClasses\RecursiveTreeFiller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

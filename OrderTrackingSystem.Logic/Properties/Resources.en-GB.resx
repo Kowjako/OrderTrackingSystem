@@ -213,6 +213,9 @@
   <data name="House" xml:space="preserve">
     <value>House</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
   <data name="MailAutomaticSetComplaint" xml:space="preserve">
     <value>Hello, i found a complaint to my order {0}. Best wishes {1}.</value>
   </data>

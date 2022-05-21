@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+﻿using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,10 @@ namespace OrderTrackingSystem.Logic.DTO
     #pragma warning disable CS1591
     public sealed class ProductDTO
     {
+        [ImageField(PropertyName = nameof(Image))]
+        [Display(Name = "Image", ResourceType = typeof(Properties.Resources))]
+        public ImageSource Image => ImageDataHelper.GetImageFromBytes(ImageData);
+
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
         public string Name { get; set; }
 
@@ -46,10 +51,6 @@ namespace OrderTrackingSystem.Logic.DTO
         public byte[] ImageData { get; set; }
 
         #endregion
-
-        //[Display(Name = "Obrazek")]
-        //public string Image { get; set; } = @"C:\Users\123\Desktop\nurofen.jpg";// BitmapFromUri(new Uri());
-
         //private static BitmapImage BitmapFromUri(Uri source)
         //{
         //    var bitmap = new BitmapImage();

@@ -44,35 +44,49 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 style.Setters.Add(new Setter(DataGridCell.MarginProperty, new Thickness(15, 0, 0, 0)));
                 e.Column.CellStyle = style;
             }
-            ///* Set overrided celltemplate for image */
-            //if(e.PropertyName.Equals("Image"))
-            //{
-            //    /* Tworzymy styl dla komorki */
-            //    var style = new Style();
-            //    style.TargetType = typeof(DataGridCell);
 
-            //    /* Tworzymy Image do wrzucenia do Content */
-            //    FrameworkElementFactory factory1 = new FrameworkElementFactory(typeof(Image));
-            //    factory1.SetValue(Image.HeightProperty, 80.0);
-            //    factory1.SetValue(Image.WidthProperty, 120.0);
-            //    factory1.SetValue(Image.StretchProperty, Stretch.Fill);
-            //    Binding b1 = new Binding("Image");
-            //    b1.Mode = BindingMode.TwoWay;
-            //    b1.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            //    factory1.SetValue(Image.SourceProperty, b1);
-            //    DataTemplate cellTemplate1 = new DataTemplate();
-            //    cellTemplate1.VisualTree = factory1;
-            //    style.Setters.Add(new Setter(DataGridCell.ContentTemplateProperty, cellTemplate1));
+            if(CheckCustomAttributes(e.PropertyDescriptor) is string s && !string.IsNullOrEmpty(s) &&  s.Equals("Image"))
+            {
+                /* Tworzymy styl */
+                var style = new Style { TargetType = typeof(DataGridCell) };
+                var frameworkElementFactory = new FrameworkElementFactory(typeof(Image));
+                frameworkElementFactory.SetValue(Image.HeightProperty, 60.0);
+                frameworkElementFactory.SetValue(Image.WidthProperty, 100.0);
+                frameworkElementFactory.SetValue(Image.StretchProperty, Stretch.Fill);
 
-            //    var trigger = new Trigger();
-            //    trigger.Property = DataGridCell.IsSelectedProperty;
-            //    trigger.Value = true;
-            //    trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(222,222,222))));
-            //    trigger.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
-            //    style.Triggers.Add(trigger);
+                /* Wiązanie danych do DTO */
+                var binding = new Binding("Image");
+                binding.Mode = BindingMode.OneWay;
+                frameworkElementFactory.SetValue(Image.SourceProperty, binding);
 
-            //    e.Column.CellStyle = style;
-            //}
+                var dataTemplate = new DataTemplate();
+                dataTemplate.VisualTree = frameworkElementFactory;
+
+                /* Tworzenie triggerów */
+                var trigger = new Trigger();
+                trigger.Property = DataGridCell.IsSelectedProperty;
+                trigger.Value = true;
+                trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
+                trigger.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
+
+                var trigger1 = new Trigger();
+                trigger1.Property = DataGridCell.IsFocusedProperty;
+                trigger1.Value = true;
+                trigger1.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Colors.Black)));
+
+                var trigger2 = new Trigger();
+                trigger2.Property = DataGridCell.IsMouseOverProperty;
+                trigger2.Value = true;
+                trigger2.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(240, 240, 240))));
+
+                /* Wypełnianie stylu */
+                style.Setters.Add(new Setter(DataGridCell.ContentTemplateProperty, dataTemplate));
+                style.Triggers.Add(trigger);
+                style.Triggers.Add(trigger1);
+                style.Triggers.Add(trigger2);
+
+                e.Column.CellStyle = style;
+            }
         }
 
         private static string GetPropertyDisplayName(object descriptor)
@@ -106,9 +120,14 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
         {
             if (descriptor is PropertyDescriptor pi && pi != null)
             {
-                if (pi.Attributes[typeof(UKAttribute)] is UKAttribute attribute && attribute != null)
+                if (pi.Attributes[typeof(UKAttribute)] is UKFormatAttribute fattribute && fattribute != null)
                 {
-                    return attribute.GetStringFormat();
+                    return fattribute.GetStringFormat();
+                }
+
+                if(pi.Attributes[typeof(UKAttribute)] is UKAttribute attribute && attribute != null)
+                {
+                    return attribute.PropertyName;
                 }
             }
             return null;

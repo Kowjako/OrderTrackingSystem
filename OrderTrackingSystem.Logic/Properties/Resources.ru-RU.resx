@@ -213,6 +213,9 @@
   <data name="House" xml:space="preserve">
     <value>Дом</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
   <data name="MailAutomaticSetComplaint" xml:space="preserve">
     <value>Здравствуйте, создал жалобу на заказ под номером {0}. С уважением {1}.</value>
   </data>

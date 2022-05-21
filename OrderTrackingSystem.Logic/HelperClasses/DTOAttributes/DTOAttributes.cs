@@ -12,11 +12,16 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     /// </summary>
     public abstract class UKAttribute : Attribute
     {
+        public virtual string PropertyName { get; set; } = string.Empty;
+    }
+
+    public abstract class UKFormatAttribute : UKAttribute
+    {
         public abstract string GetStringFormat();
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class MoneyField : UKAttribute
+    public class MoneyField : UKFormatAttribute
     {
         public int decimalPlaces { get; private set; }
         public MoneyField(int decimalPlaces)
@@ -31,7 +36,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class PercentageField : UKAttribute
+    public class PercentageField : UKFormatAttribute
     {
         public override string GetStringFormat()
         {
@@ -40,7 +45,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class AmountField : UKAttribute
+    public class AmountField : UKFormatAttribute
     {
         public int decimalPlaces { get; private set; }
         public AmountField(int decimalPlaces)
@@ -55,7 +60,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class ShortDateField : UKAttribute
+    public class ShortDateField : UKFormatAttribute
     {
         public override string GetStringFormat()
         {
@@ -64,12 +69,18 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class LongDateField : UKAttribute
+    public class LongDateField : UKFormatAttribute
     {
         public override string GetStringFormat()
         {
             return $"dd-MM-yyyy hh:mm:ss";
         }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ImageField : UKAttribute
+    {
+        public override string PropertyName { get; set; }
     }
 
 }
