@@ -13,8 +13,8 @@ namespace OrderTrackingSystem.Logic.Validators
         public OrderValidator()
         {
             RuleFor(x => x.PickupDTO).NotNull().WithMessage("Należy dodać punkt odbioru");
-            RuleFor(x => x.Dostawa).NotEqual("-1").WithMessage("Należy wybrać typ dostawy");
-            RuleFor(x => x.Oplata).NotEqual("-1").WithMessage("Należy wybrać typ opłaty");
+            RuleFor(x => x.DeliveryType).NotEqual("-1").WithMessage("Należy wybrać typ dostawy");
+            RuleFor(x => x.PayType).NotEqual("-1").WithMessage("Należy wybrać typ opłaty");
             RuleForEach(x => x.CartProducts).SetValidator(new CartProductValidator());
         }
     }
@@ -24,8 +24,8 @@ namespace OrderTrackingSystem.Logic.Validators
         public CartProductValidator()
         {
             RuleFor(x => x.Amount).GreaterThan(0).WithMessage("Ilość produktu musi być większa od zera");
-            RuleFor(x => x.Cena).GreaterThan(0).WithMessage("Cena musi być większa od zera");
-            RuleFor(x => x.Rabat).GreaterThanOrEqualTo(0).WithMessage("Rabat nie może być ujemny");
+            RuleFor(x => x.Price).GreaterThan(0).WithMessage("Cena musi być większa od zera");
+            RuleFor(x => x.Discount).GreaterThanOrEqualTo(0).WithMessage("Rabat nie może być ujemny");
         }
     }
 }

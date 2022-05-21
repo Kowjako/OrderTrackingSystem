@@ -21,7 +21,6 @@ namespace OrderTrackingSystem.Logic.Services
     public class MailService : CRUDManager, IMailService
     {
         private OrderService OrderService => new OrderService();
-        private SellService SellService => new SellService();
 
         public async Task<List<MailDTO>> GetSendMailsForCustomer(int senderId)
         {
@@ -37,8 +36,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date,
-                                Nadawca = customer.Name + " " + customer.Surname,
+                                SendDate = mail.Date,
+                                Sender = customer.Name + " " + customer.Surname,
                                 NadawcaMail = customer.Email,
                                 SellerId = mail.SenderId,
                                 ReceiverId = mail.ReceiverId,
@@ -66,12 +65,12 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         case (byte)MailDirectionType.CustomerToCustomer:
                             var receiverCus = await dbContext.Customers.FindAsync(p.ReceiverId);
-                            p.Odbiorca = receiverCus.Name + " " + receiverCus.Surname;
+                            p.Receiver = receiverCus.Name + " " + receiverCus.Surname;
                             p.OdbiorcaMail = receiverCus.Email;
                             break;
                         case (byte)MailDirectionType.CustomerToSeller:
                             var receiverSeller = await dbContext.Sellers.FindAsync(p.ReceiverId);
-                            p.Odbiorca = receiverSeller.Name;
+                            p.Receiver = receiverSeller.Name;
                             p.OdbiorcaMail = receiverSeller.Email;
                             break;
                         default:
@@ -97,8 +96,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date,
-                                Odbiorca = customer.Name + " " + customer.Surname,
+                                SendDate = mail.Date,
+                                Receiver = customer.Name + " " + customer.Surname,
                                 SellerId = mail.SenderId,
                                 OdbiorcaMail = customer.Email,
                                 ReceiverId = mail.ReceiverId,
@@ -126,12 +125,12 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         case (byte)MailDirectionType.CustomerToCustomer:
                             var receiverCus = await dbContext.Customers.FindAsync(p.SellerId);
-                            p.Nadawca = receiverCus.Name + " " + receiverCus.Surname;
+                            p.Sender = receiverCus.Name + " " + receiverCus.Surname;
                             p.NadawcaMail = receiverCus.Email;
                             break;
                         case (byte)MailDirectionType.SellerToCustomer:
                             var receiverSeller = await dbContext.Sellers.FindAsync(p.SellerId);
-                            p.Nadawca = receiverSeller.Name;
+                            p.Sender = receiverSeller.Name;
                             p.NadawcaMail = receiverSeller.Email;
                             break;
                         default:
@@ -157,8 +156,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date,
-                                Odbiorca = customer.Name,
+                                SendDate = mail.Date,
+                                Receiver = customer.Name,
                                 SellerId = mail.SenderId,
                                 OdbiorcaMail = customer.Email,
                                 ReceiverId = mail.ReceiverId,
@@ -185,7 +184,7 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         case (byte)MailDirectionType.CustomerToSeller:
                             var receiverCus = await dbContext.Customers.FindAsync(p.SellerId);
-                            p.Nadawca = receiverCus.Name + " " + receiverCus.Surname;
+                            p.Sender = receiverCus.Name + " " + receiverCus.Surname;
                             p.NadawcaMail = receiverCus.Email;
                             break;
                         default:
@@ -211,8 +210,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Id = mail.Id,
                                 Caption = mail.Caption,
                                 Content = mail.Content,
-                                Date = mail.Date,
-                                Nadawca = customer.Name,
+                                SendDate = mail.Date,
+                                Sender = customer.Name,
                                 NadawcaMail = customer.Email,
                                 SellerId = mail.SenderId,
                                 ReceiverId = mail.ReceiverId,
@@ -238,7 +237,7 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         case (byte)MailDirectionType.SellerToCustomer:
                             var receiverCus = await dbContext.Customers.FindAsync(p.ReceiverId);
-                            p.Odbiorca = receiverCus.Name + " " + receiverCus.Surname;
+                            p.Receiver = receiverCus.Name + " " + receiverCus.Surname;
                             p.OdbiorcaMail = receiverCus.Email;
                             break;
                         default:

@@ -5,28 +5,33 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
+    #pragma warning disable CS1591
     public sealed class SellDTO
     {
         [Display(Name= "Number", ResourceType = typeof(Properties.Resources))]
-        public string Numer { get; set; }
+        public string Number { get; set; }
 
         [ShortDateField]
         [Display(Name = "SendDate", ResourceType = typeof(Properties.Resources))]
-        public DateTime Data { get; set; }
+        public DateTime Date { get; set; }
+
         [Display(Name = "DaysToGet", ResourceType = typeof(Properties.Resources))]
-        public string Dni { get; set; }
+        public int PickupDays { get; set; }
+
         [Display(Name = "Receiver", ResourceType = typeof(Properties.Resources))]
-        public string Odbiorca { get; set; }
+        public string Receiver { get; set; }
 
         [MoneyField(2)]
         [Display(Name = "Value", ResourceType = typeof(Properties.Resources))]
-        public decimal Kwota { get; set; }
+        public decimal Value { get; set; }
+
+        #region Non-browsable
 
         [Browsable(false)]
         public int CustomerId { get; set; }
         [Browsable(false)]
         public int SellerId { get; set; }
-        [Browsable(false)]
-        public int? PickupDays { get; set; }
+
+        #endregion
     }
 }

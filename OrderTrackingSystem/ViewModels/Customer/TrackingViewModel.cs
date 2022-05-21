@@ -124,8 +124,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
                     if(StartDate != EndDate)
                     {
-                        Items = Items.Where(p => p.Data < EndDate && 
-                                                 p.Data > StartDate).ToList();
+                        Items = Items.Where(p => p.Date < EndDate && 
+                                                 p.Date > StartDate).ToList();
                     }
                     OnPropertyChanged(nameof(Items));
                 }
@@ -143,12 +143,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (!string.IsNullOrEmpty(obj as string))
                     {
-                        if(!Items.Any(p => p.Numer.Equals(obj as string)))
+                        if(!Items.Any(p => p.Number.Equals(obj as string)))
                         {
                             OnWarning("Nie ma elementu o takim numerze");
                             return;
                         }
-                        Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Numer.Equals(obj as string)) };
+                        Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Number.Equals(obj as string)) };
                         OnPropertyChanged(nameof(Items));
                     }
                     else
@@ -217,7 +217,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         OnWarning("Rezygnację można złożyć tylko na zamówienia.");
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                     OnFailure("Błąd podczas założenia reklamacji");
                 }

@@ -126,9 +126,9 @@ namespace OrderTrackingSystem.Logic.Services
                             {
                                 Id = pickup.Id,
                                 Capacity = pickup.Capacity.ToString(),
-                                Adres = localizationQuery.Street + " " +
+                                Address = localizationQuery.Street + " " +
                                         localizationQuery.House,
-                                MiastoKod = localizationQuery.City + ", " +
+                                CityWithCode = localizationQuery.City + ", " +
                                             localizationQuery.ZipCode,
                                 WorkTime = pickup.WorkHours
                             };

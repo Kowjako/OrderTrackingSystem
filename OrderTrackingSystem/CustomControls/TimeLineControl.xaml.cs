@@ -166,7 +166,7 @@ namespace OrderTrackingSystem.CustomControls.TimeLineBar
                 var actualNode = TimeLineNodes.ElementAt(i);
                 DrawEllipseWithNumber(3 * i, 0);
                 PlaceTitle(3 * i, 1, actualNode.Name);
-                PlaceDateTime(3 * i + 1, 1, actualNode.Data);
+                PlaceDateTime(3 * i + 1, 1, actualNode.Date);
                 PlaceDescription(3 * i + 2, 1, actualNode.Description);
                 /* Skip drawing connector for leaf */
                 if (i == NodeCount - 1)

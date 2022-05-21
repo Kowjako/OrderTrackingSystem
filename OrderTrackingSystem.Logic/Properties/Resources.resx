@@ -225,6 +225,9 @@
   <data name="Netto" xml:space="preserve">
     <value>Netto</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Nie</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
   </data>
@@ -302,6 +305,9 @@
   </data>
   <data name="WorkTime" xml:space="preserve">
     <value>Czas pracy</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Kod pocztowy</value>

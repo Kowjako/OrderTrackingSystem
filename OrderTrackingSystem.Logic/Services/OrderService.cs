@@ -38,12 +38,12 @@ namespace OrderTrackingSystem.Logic.Services
                             select new OrderDTO
                             {
                                 /*PayTypeEnumConverter.GetNameById(order.Id)*/
-                                Numer = order.Number,
-                                Oplata = EnumConverter.GetNameById<PayType>(order.PayType),
-                                Sklep = sellerQuery.First(),
-                                Dostawa = EnumConverter.GetNameById<DeliveryType>(order.DeliveryType),
-                                Rezygnacja = order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                                Kwota = valueQuery,
+                                Number = order.Number,
+                                PayType = EnumConverter.GetNameById<PayType>(order.PayType),
+                                Seller = sellerQuery.First(),
+                                DeliveryType = EnumConverter.GetNameById<DeliveryType>(order.DeliveryType),
+                                IsComplaint = order.ComplaintDefinitionId != null,
+                                Value = valueQuery,
                                 CurrentOrderState = stateQuery.Result
                             };
 
@@ -62,8 +62,8 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         Number = ConfigurationService.GenerateElementNumber(),
                         CustomerId = order.CustomerId,
-                        PayType = byte.Parse(order.Oplata),
-                        DeliveryType = byte.Parse(order.Dostawa),
+                        PayType = byte.Parse(order.PayType),
+                        DeliveryType = byte.Parse(order.DeliveryType),
                         PickupId = order.PickupId,
                         SellerId = order.SellerId,
                         OrderDate = DateTime.Now,
@@ -133,12 +133,12 @@ namespace OrderTrackingSystem.Logic.Services
                 var ordersDTO = ordersDAL.Select(p => new OrderDTO
                 {
                     Id = p.Order.Id,
-                    Numer = p.Order.Number,
-                    Oplata = EnumConverter.GetNameById<PayType>(p.Order.PayType),
-                    Sklep = seller.Name,
-                    Dostawa = EnumConverter.GetNameById<DeliveryType>(p.Order.DeliveryType),
-                    Rezygnacja = p.Order.ComplaintDefinitionId != null ? "Tak" : "Nie",
-                    Kwota = p.Value,
+                    Number = p.Order.Number,
+                    PayType = EnumConverter.GetNameById<PayType>(p.Order.PayType),
+                    Seller = seller.Name,
+                    DeliveryType = EnumConverter.GetNameById<DeliveryType>(p.Order.DeliveryType),
+                    IsComplaint = p.Order.ComplaintDefinitionId != null,
+                    Value = p.Value,
                     CurrentOrderState = p.State
                 });
                 return ordersDTO.ToList(); 

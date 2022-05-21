@@ -41,7 +41,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             foreach(var product in ProductsInCart)
             {
                 var amount = product.Amount;
-                var price = product.Cena;
+                var price = product.Price;
                 finalPriceNetto += amount * price;
             }
             TotalPriceNetto = finalPriceNetto;
@@ -174,23 +174,23 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if (ProductsInCart.Any(x => x.Nazwa.Equals(SelectedProduct.Nazwa)))
+                    if (ProductsInCart.Any(x => x.Name.Equals(SelectedProduct.Name)))
                     {
-                        var existingProduct = ProductsInCart.First(x => x.Nazwa.Equals(SelectedProduct.Nazwa));
+                        var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
                         existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
                     {
-                        var priceWithDiscount = SelectedProduct.Netto - (SelectedProduct.Netto * SelectedProduct.Rabat / 100);
+                        var priceWithDiscount = SelectedProduct.PriceNetto - (SelectedProduct.PriceNetto * SelectedProduct.Discount / 100);
                         ProductsInCart.Add(new CartProductDTO()
                         {
                             Id = SelectedProduct.Id,
-                            Nazwa = SelectedProduct.Nazwa,
-                            Cena = priceWithDiscount,
+                            Name = SelectedProduct.Name,
+                            Price = priceWithDiscount,
                             Amount = CurrentProductAmount,
-                            Rabat = SelectedProduct.Rabat
+                            Discount = SelectedProduct.Discount
                         });
                         SelectedSellerId = SelectedProduct.SellerId;
                         ProductsList = AllProductsList.Where(p => p.SellerId == SelectedSellerId).ToList();
@@ -215,12 +215,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (!string.IsNullOrEmpty(obj as string))
                     {
-                        if (!ProductsList.Any(p => p.Sprzedawca.Equals(obj as string)))
+                        if (!ProductsList.Any(p => p.Seller.Equals(obj as string)))
                         {
                             OnWarning("Nie ma sprzedawcy o takiej nazwie");
                             return;
                         }
-                        ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Sprzedawca.Equals(obj as string)));
+                        ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Seller.Equals(obj as string)));
                         OnPropertyChanged(nameof(ProductsList));
                     }
                     else
@@ -270,7 +270,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 try
                 {
                     CurrentOrder.PickupDTO = SelectedPickup;
-                    CurrentOrder.Dostawa = SelectedDeliveryType.ToString();
+                    CurrentOrder.DeliveryType = SelectedDeliveryType.ToString();
                     CurrentOrder.CartProducts = ProductsInCart;
                     CurrentOrder.PickupId = SelectedPickup.Id;
                     CurrentOrder.SellerId = SelectedSellerId;

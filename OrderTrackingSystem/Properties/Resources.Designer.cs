@@ -592,7 +592,7 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data ważności: {0}.
+        ///   Looks up a localized string similar to Data ważności: {0:dd/MM/yyyy}.
         /// </summary>
         public static string ExpireDate {
             get {

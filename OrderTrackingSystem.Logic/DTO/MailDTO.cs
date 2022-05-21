@@ -7,32 +7,38 @@ using System.Linq;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
-    public class MailDTO
+    #pragma warning disable CS1591
+    public sealed class MailDTO
     {
-        [Browsable(false)]
-        public int Id { get; set; }
-
         [Display(Name = "Caption", ResourceType = typeof(Properties.Resources))]
         public string Caption { get; set; }
+
         [Display(Name = "Content", ResourceType = typeof(Properties.Resources))]
         public string Content { get; set; }
+
         [Display(Name = "Sender", ResourceType = typeof(Properties.Resources))]
-        public string Nadawca { get; set; }
+        public string Sender { get; set; }
 
         [LongDateField]
         [Display(Name = "SendDate", ResourceType = typeof(Properties.Resources))]
-        public DateTime Date { get; set; }
+        public DateTime SendDate { get; set; }
+
         [Display(Name = "Receiver", ResourceType = typeof(Properties.Resources))]
-        public string Odbiorca { get; set; }
+        public string Receiver { get; set; }
+    
+        #region Non-browsable
+
+        [Browsable(false)]
+        public int Id { get; set; }
 
         [Browsable(false)]
         public string NadawcaMail { get; set; }
         [Browsable(false)]
         public string OdbiorcaMail { get; set; }
         [Browsable(false)]
-        public string NadawcaData => string.Format("{0} ({1})", Nadawca, NadawcaMail);
+        public string NadawcaData => string.Format("{0} ({1})", Sender, NadawcaMail);
         [Browsable(false)]
-        public string OdbiorcaData => string.Format("{0} ({1})", Odbiorca, OdbiorcaMail);
+        public string OdbiorcaData => string.Format("{0} ({1})", Receiver, OdbiorcaMail);
 
         [Browsable(false)]
         public string[] RelatedOrders { get; set; }
@@ -45,5 +51,8 @@ namespace OrderTrackingSystem.Logic.DTO
 
         [Browsable(false)]
         public bool HasRelatedOrders => RelatedOrders.Any();
+
+        #endregion
+
     }
 }

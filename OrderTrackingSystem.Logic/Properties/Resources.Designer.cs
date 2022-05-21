@@ -385,6 +385,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Numer.
         /// </summary>
         public static string Number {
@@ -615,6 +624,15 @@ namespace OrderTrackingSystem.Logic.Properties {
         public static string WorkTime {
             get {
                 return ResourceManager.GetString("WorkTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tak.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

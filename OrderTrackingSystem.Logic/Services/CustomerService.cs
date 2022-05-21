@@ -53,14 +53,14 @@ namespace OrderTrackingSystem.Logic.Services
                         select new CustomerDTO
                         {
                             Id = customer.Id,
-                            Nazwa = customer.Name + " " + customer.Surname,
-                            Adres = loc.Street + " " +
+                            Name = customer.Name + " " + customer.Surname,
+                            Address = loc.Street + " " +
                                     loc.House + ", " +
                                     loc.Flat,
                             Email = customer.Email,
-                            MiastoKod = loc.City + ", " +
+                            CityWithCode = loc.City + ", " +
                                         loc.ZipCode,
-                            Numer = customer.Number
+                            Number = customer.Number
                         };
                 return await query.FirstOrDefaultAsync();
             }
@@ -80,14 +80,14 @@ namespace OrderTrackingSystem.Logic.Services
                         select new CustomerDTO
                         {
                             Id = customer.Id,
-                            Nazwa = customer.Name + " " + customer.Surname,
-                            Adres = loc.Street + " " +
+                            Name = customer.Name + " " + customer.Surname,
+                            Address = loc.Street + " " +
                                     loc.House + ", " +
                                     loc.Flat,
                             Email = customer.Email,
-                            MiastoKod = loc.City + ", " +
+                            CityWithCode = loc.City + ", " +
                                         loc.ZipCode,
-                            Numer = customer.Number
+                            Number = customer.Number
                         };
                 return await query.FirstOrDefaultAsync();
             }
@@ -106,14 +106,14 @@ namespace OrderTrackingSystem.Logic.Services
                         select new CustomerDTO
                         {
                             Id = seller.Id,
-                            Nazwa = seller.Name,
-                            Adres = loc.Street + " " +
+                            Name = seller.Name,
+                            Address = loc.Street + " " +
                                     loc.House + ", " +
                                     loc.Flat,
                             Email = seller.Email,
-                            MiastoKod = loc.City + ", " +
+                            CityWithCode = loc.City + ", " +
                                         loc.ZipCode,
-                            Numer = seller.Number
+                            Number = seller.Number
                         };
                 return await query.FirstOrDefaultAsync();
             }
@@ -131,14 +131,14 @@ namespace OrderTrackingSystem.Logic.Services
 
                         select new CustomerDTO
                         {
-                            Nazwa = seller.Name,
-                            Adres = loc.Street + " " +
+                            Name = seller.Name,
+                            Address = loc.Street + " " +
                                     loc.House + ", " +
                                     loc.Flat,
                             Email = seller.Email,
-                            MiastoKod = loc.City + ", " +
+                            CityWithCode = loc.City + ", " +
                                         loc.ZipCode,
-                            Numer = seller.Number
+                            Number = seller.Number
                         };
                 return await query.FirstOrDefaultAsync();
             }
@@ -192,7 +192,7 @@ namespace OrderTrackingSystem.Logic.Services
             return new CustomerDTO
             {
                 Id = customer.Id,
-                Nazwa = customer.Name,
+                Name = customer.Name,
                 Email = customer.Email,
             };
         }

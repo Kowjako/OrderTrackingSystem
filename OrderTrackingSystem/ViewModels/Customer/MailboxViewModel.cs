@@ -92,12 +92,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public void OnLinkToOrderAdded()
         {
-            if(RelatedToCurrentMailOrders.Any(i => i.Equals(SelectedOrder.Numer)))
+            if(RelatedToCurrentMailOrders.Any(i => i.Equals(SelectedOrder.Number)))
             {
                 OnWarning?.Invoke("Zamówienie o podanym numerze już dołączone");
                 return;
             }
-            if(SelectedOrder == null || string.IsNullOrEmpty(SelectedOrder.Numer))
+            if(SelectedOrder == null || string.IsNullOrEmpty(SelectedOrder.Number))
             {
                 OnFailure?.Invoke("Nie można dołączyć pustego zamówienia");
                 return;
@@ -108,7 +108,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 return;
             }
 
-            RelatedToCurrentMailOrders.Add(SelectedOrder.Numer);
+            RelatedToCurrentMailOrders.Add(SelectedOrder.Number);
             RelatedToCurrentMailOrders = new ObservableCollection<string>(RelatedToCurrentMailOrders);
             OnPropertyChanged(nameof(RelatedToCurrentMailOrders));
         }
@@ -157,7 +157,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
-            _filterCommand ?? (_filterCommand = new RelayCommand(async obj =>
+            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
             {
                 try
                 {
@@ -166,13 +166,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         switch (SelectedFilterMsgType)
                         {
                             case 0:
-                                SentMessages = SentMessages.Where(p => p.Date <= DateTo &&
-                                                                       p.Date >= DateFrom).ToList();
+                                SentMessages = SentMessages.Where(p => p.SendDate <= DateTo &&
+                                                                       p.SendDate >= DateFrom).ToList();
                                 OnPropertyChanged(nameof(SentMessages));
                                 break;
                             case 1:
-                                ReceivedMessages = SentMessages.Where(p => p.Date <= DateTo &&
-                                                                           p.Date >= DateFrom).ToList();
+                                ReceivedMessages = SentMessages.Where(p => p.SendDate <= DateTo &&
+                                                                           p.SendDate >= DateFrom).ToList();
                                 OnPropertyChanged(nameof(ReceivedMessages));
                                 break;
                             default:

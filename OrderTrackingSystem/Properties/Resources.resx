@@ -295,7 +295,7 @@
     <value>Wyjdź</value>
   </data>
   <data name="ExpireDate" xml:space="preserve">
-    <value>Data ważności: {0}</value>
+    <value>Data ważności: {0:dd/MM/yyyy}</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Odfiltruj</value>

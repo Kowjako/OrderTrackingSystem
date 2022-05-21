@@ -76,4 +76,21 @@ SELECT @ComplaintId = ComplaintId FROM DELETED
 DELETE FROM ComplaintDefinitions WHERE ID = @ComplaintId
 GO
 
+/* Trigger ustawiający na zamówienie że była założona reklamacja
+po tym jak użytkownik doda reklamację */
+IF OBJECT_ID('TR__ComplaintStates_OnInsert', 'TR') IS NOT NULL
+DROP TRIGGER TR__ComplaintStates_OnInsert
+GO
+
+CREATE TRIGGER TR__ComplaintStates_OnInsert
+ON ComplaintStates
+AFTER INSERT
+AS
+
+DECLARE @OrderId INT = (SELECT OrderId FROM INSERTED);
+DECLARE @ComplaintDefinitionId INT = (SELECT ComplaintDefinitionId FROM INSERTED);
+
+UPDATE Orders SET ComplaintDefinitionId = @ComplaintDefinitionId WHERE Id = @OrderId
+GO
+
 COMMIT TRAN

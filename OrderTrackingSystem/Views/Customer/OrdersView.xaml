@@ -84,13 +84,13 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBlock FontWeight="DemiBold"
-                               Text="{Binding Nazwa}"/>
+                               Text="{Binding Name}"/>
                     <TextBlock Foreground="DarkGreen"
-                               Text="{Binding Adres}"/>
-                    <TextBlock Text="{Binding MiastoKod}"/>
+                               Text="{Binding Address}"/>
+                    <TextBlock Text="{Binding CityWithCode}"/>
                     <TextBlock Text="{Binding Email}"/>
                     <TextBlock Foreground="Maroon"
-                               Text="{Binding Numer}"/>
+                               Text="{Binding Number}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
@@ -110,9 +110,9 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBlock FontWeight="DemiBold"
-                               Text="{Binding Adres}"/>
+                               Text="{Binding Address}"/>
                     <TextBlock Foreground="DarkGreen"
-                               Text="{Binding MiastoKod}"/>
+                               Text="{Binding CityWithCode}"/>
                     <TextBlock Text="{Binding Capacity, StringFormat=Pojemność: {0:d}}"/>
                     <TextBlock Foreground="Maroon"
                                Text="{Binding WorkTime, StringFormat=Czas pracy: {0:d}}"/>
@@ -238,7 +238,7 @@
                                                              VerticalAlignment="Center"
                                                              Width="20"
                                                              Height="20"/>
-                                    <TextBlock Text="{Binding ExpireDateString, StringFormat={x:Static res:Resources.ExpireDate}}" 
+                                    <TextBlock Text="{Binding ExpireDate, StringFormat={x:Static res:Resources.ExpireDate}}" 
                                                Grid.Column="1"
                                                FontSize="14"
                                                VerticalAlignment="Center"

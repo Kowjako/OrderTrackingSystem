@@ -88,12 +88,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                         var localization = new Localizations
                         {
                             Id = currentLocalization.Id,
-                            City = currentLocalization.Miasto,
-                            Country = currentLocalization.Kraj,
-                            Street = currentLocalization.Ulica,
-                            Flat = (byte)currentLocalization.Mieszkanie,
-                            House = (byte)currentLocalization.Budynek,
-                            ZipCode = currentLocalization.Kod
+                            City = currentLocalization.City,
+                            Country = currentLocalization.Country,
+                            Street = currentLocalization.Street,
+                            Flat = (byte)currentLocalization.Apartment,
+                            House = (byte)currentLocalization.House,
+                            ZipCode = currentLocalization.ZipCode
                         };
                         await LocalizationService.UpdateLocalization(localization);
                         OnSuccess?.Invoke("Zmiany zostały zapisane");

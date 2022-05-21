@@ -33,11 +33,11 @@ namespace OrderTrackingSystem.Logic.Services
                                                 select receiver.Name + " " + receiver.Surname).ToList()
                             select new SellDTO
                             {
-                                Numer = sells.Number,
-                                Data = sells.SellingDate,
-                                Dni = sells.PickupDays.ToString(),
-                                Odbiorca = receiverQuery.First(),
-                                Kwota = valueQuery
+                                Number = sells.Number,
+                                Date = sells.SellingDate,
+                                PickupDays = sells.PickupDays.Value,
+                                Receiver = receiverQuery.First(),
+                                Value = valueQuery
                             };
 
                 return query.ToList();
@@ -57,7 +57,7 @@ namespace OrderTrackingSystem.Logic.Services
                         SellingDate = DateTime.Now,
                         CustomerId = order.CustomerId,
                         SellerId = order.SellerId,
-                        PickupDays = order.PickupDays == 0 ? 5 : order.PickupDays.Value
+                        PickupDays = order.PickupDays == 0 ? 5 : order.PickupDays
                     };
                     dbContext.Sells.Add(sellDAL);
                     /* Zapisujemy wysyłkę */
@@ -65,7 +65,7 @@ namespace OrderTrackingSystem.Logic.Services
                     /* Zapisujemy subelementy */
                     await ProductService.SaveSellProductsForCart(products, sellDAL.Id);
                     /* Ustawiamy numer po dodaniu do bazy */
-                    order.Numer = sellDAL.Number;
+                    order.Number = sellDAL.Number;
                 }
                 transactionScope.Complete();
             }

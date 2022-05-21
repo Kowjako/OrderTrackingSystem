@@ -34,11 +34,11 @@ namespace OrderTrackingSystem.Logic.Services
                                  select new TrackableItemDTO()
                                  {
                                      Id = order.Id,
-                                     Numer = order.Number,
-                                     Data = order.OrderDate.Value,
-                                     Nabywca = customer.Name + " " + customer.Surname,
-                                     Sprzedawca = sellerQuery.First().Name,
-                                     Kwota = valueQuery,
+                                     Number = order.Number,
+                                     Date = order.OrderDate.Value,
+                                     Customer = customer.Name + " " + customer.Surname,
+                                     Seller = sellerQuery.First().Name,
+                                     Value = valueQuery,
                                      IsOrder = true,
                                      CustomerId = customer.Id,
                                      SellerId = sellerQuery.First().Id
@@ -57,11 +57,11 @@ namespace OrderTrackingSystem.Logic.Services
                                  select new TrackableItemDTO()
                                  {
                                      Id = sells.Id,
-                                     Numer = sells.Number,
-                                     Data = sells.SellingDate,
-                                     Nabywca = receiverQuery.First().Name + " " + receiverQuery.First().Surname,
-                                     Sprzedawca = customer.Name + " " + customer.Surname,
-                                     Kwota = valueQuery,
+                                     Number = sells.Number,
+                                     Date = sells.SellingDate,
+                                     Seller = receiverQuery.First().Name + " " + receiverQuery.First().Surname,
+                                     Customer = customer.Name + " " + customer.Surname,
+                                     Value = valueQuery,
                                      IsOrder = false,
                                      CustomerId = receiverQuery.First().Id,
                                      SellerId = customer.Id
@@ -89,7 +89,7 @@ namespace OrderTrackingSystem.Logic.Services
                     StateId = p.State,
                     Name = ConfigurationService.GetStatusDetails((OrderState)p.State).name,
                     Description = ConfigurationService.GetStatusDetails((OrderState)p.State).description,
-                    Data = p.Date
+                    Date = p.Date
                 }).ToList();
                 return ParcelStates;
             }

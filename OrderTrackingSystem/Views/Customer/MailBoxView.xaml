@@ -154,13 +154,13 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBlock FontWeight="DemiBold"
-                               Text="{Binding Nazwa}"/>
+                               Text="{Binding Name}"/>
                     <TextBlock Foreground="DarkGreen"
-                               Text="{Binding Adres}"/>
-                    <TextBlock Text="{Binding MiastoKod}"/>
+                               Text="{Binding Address}"/>
+                    <TextBlock Text="{Binding CityWithCode}"/>
                     <TextBlock Text="{Binding Email}"/>
                     <TextBlock Foreground="Maroon"
-                               Text="{Binding Numer}"/>
+                               Text="{Binding Number}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox
@@ -200,7 +200,7 @@
                                              Margin="0,0,0,10"/>
                     <ComboBox
                         ItemsSource="{Binding CustomerOrders}"
-                        DisplayMemberPath="Numer"
+                        DisplayMemberPath="Number"
                         SelectedItem="{Binding SelectedOrder}"
                         materialDesign:HintAssist.Background="LightPink"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}"

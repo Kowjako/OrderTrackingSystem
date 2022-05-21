@@ -27,13 +27,13 @@ namespace OrderTrackingSystem.Logic.Services
                             select new ProductDTO
                             {
                                 Id = product.Id,
-                                Nazwa = product.Name,
-                                Netto = product.PriceNetto,
-                                Rabat = product.Discount,
-                                VAT = product.VAT.ToString(),
-                                Sprzedawca = sellerQuery.Name,
+                                Name = product.Name,
+                                PriceNetto = product.PriceNetto,
+                                Discount = product.Discount,
+                                TAX = product.VAT.ToString(),
+                                Seller = sellerQuery.Name,
                                 SellerId = sellerQuery.Id,
-                                Kategoria = productCategories.Title,
+                                Category = productCategories.Title,
                                 CategoryId = product.Category
                             };
 

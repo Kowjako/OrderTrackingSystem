@@ -24,7 +24,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             foreach (var product in ProductsInCart)
             {
                 var amount = product.Amount;
-                var price = product.Cena;
+                var price = product.Price;
                 finalPriceNetto += amount * price;
             }
             TotalPriceNetto = finalPriceNetto;
@@ -165,23 +165,23 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if (ProductsInCart.Any(x => x.Nazwa.Equals(SelectedProduct.Nazwa)))
+                    if (ProductsInCart.Any(x => x.Name.Equals(SelectedProduct.Name)))
                     {
-                        var existingProduct = ProductsInCart.First(x => x.Nazwa.Equals(SelectedProduct.Nazwa));
+                        var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
                         existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
                     {
-                        var priceWithDiscount = SelectedProduct.Netto - (SelectedProduct.Netto * SelectedProduct.Rabat / 100);
+                        var priceWithDiscount = SelectedProduct.PriceNetto - (SelectedProduct.PriceNetto * SelectedProduct.Discount / 100);
                         ProductsInCart.Add(new CartProductDTO()
                         {
                             Id = SelectedProduct.Id,
-                            Nazwa = SelectedProduct.Nazwa,
-                            Cena = priceWithDiscount,
+                            Name = SelectedProduct.Name,
+                            Price = priceWithDiscount,
                             Amount = CurrentProductAmount,
-                            Rabat = SelectedProduct.Rabat
+                            Discount = SelectedProduct.Discount
                         });
                     }
 
@@ -206,11 +206,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
                     if (MaxPrice == 0m)
                     {
-                        ProductsList = ProductsList.Where(p => p.Netto >= MinPrice).ToList();
+                        ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice).ToList();
                     }
                     else
                     {
-                        ProductsList = ProductsList.Where(p => p.Netto >= MinPrice && p.Netto <= MaxPrice).ToList();
+                        ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice && p.PriceNetto <= MaxPrice).ToList();
                     }
 
                     if(SelectedSubCategory != null)
@@ -258,11 +258,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     await SellService.SaveSell(currentSell, ProductsInCart.ToList());
                     if(SendAutomaticMail)
                     {
-                        await MailService.GenerateAutomaticMessageAfterSend(CurrentReceiver.Id, CurrentSeller.Id, currentSell.Numer);
+                        await MailService.GenerateAutomaticMessageAfterSend(CurrentReceiver.Id, CurrentSeller.Id, currentSell.Number);
                     }
                     OnSuccess?.Invoke("Wysyłka została utworzona");
                 }
-                catch (Exception ex)
+                catch
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wysyłki");
                 }

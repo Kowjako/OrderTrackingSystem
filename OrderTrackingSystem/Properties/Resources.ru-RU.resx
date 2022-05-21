@@ -295,7 +295,7 @@
     <value>Выход</value>
   </data>
   <data name="ExpireDate" xml:space="preserve">
-    <value>Годен до: {0}</value>
+    <value>Годен до: {0:dd/MM/yyyy}</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Фильтрация</value>

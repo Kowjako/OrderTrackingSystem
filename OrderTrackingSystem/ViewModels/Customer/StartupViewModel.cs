@@ -58,11 +58,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     var passwordBox = obj as PasswordBox;
                     if(!string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(passwordBox.Password))
                     {
-                        var result = await ConfigurationService.MakeSessionForCredentials(Login, passwordBox.Password);
-                        if(result.isSuccess)
+                        (bool isSuccess, bool accType) = await ConfigurationService.MakeSessionForCredentials(Login, passwordBox.Password);
+                        if(isSuccess)
                         {
-                            var mainWindow = new MainWindow();
-                            mainWindow.IsAppForClient = result.accType;
+                            var mainWindow = new MainWindow()
+                            {
+                                IsAppForClient = accType
+                            };
                             mainWindow.Show();
                             Application.Current.Windows[0].Close(); /* zamykamy okno logowania */
                         }
@@ -104,7 +106,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     
                 }
-                catch (Exception ex)
+                catch
                 {
 
                 }

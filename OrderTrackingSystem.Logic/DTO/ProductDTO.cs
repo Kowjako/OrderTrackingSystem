@@ -7,36 +7,42 @@ using System.Windows.Media.Imaging;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
+    #pragma warning disable CS1591
     public sealed class ProductDTO
     {
-        [Browsable(false)]
-        public int Id { get; set; }
-
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]
-        public string Nazwa { get; set; }
+        public string Name { get; set; }
 
         [MoneyField(2)]
         [Display(Name = "Netto", ResourceType = typeof(Properties.Resources))]
-        public decimal Netto { get; set; }
+        public decimal PriceNetto { get; set; }
 
         [PercentageField]
         [Display(Name = "VAT", ResourceType = typeof(Properties.Resources))]
-        public string VAT { get; set; }
+        public string TAX { get; set; }
 
         [Display(Name = "Seller", ResourceType = typeof(Properties.Resources))]
-        public string Sprzedawca { get; set; }
+        public string Seller { get; set; }
 
         [Display(Name = "Category", ResourceType = typeof(Properties.Resources))]
-        public string Kategoria { get; set; }
+        public string Category { get; set; }
 
         [PercentageField]
         [Display(Name = "Discount", ResourceType = typeof(Properties.Resources))]
-        public decimal Rabat { get; set; }
+        public decimal Discount { get; set; }
+
+        #region Non-browsable
+
+        [Browsable(false)]
+        public int Id { get; set; }
 
         [Browsable(false)]
         public int SellerId { get; set; }
+
         [Browsable(false)]
         public int CategoryId { get; set; }
+
+        #endregion
 
         //[Display(Name = "Obrazek")]
         //public string Image { get; set; } = @"C:\Users\123\Desktop\nurofen.jpg";// BitmapFromUri(new Uri());

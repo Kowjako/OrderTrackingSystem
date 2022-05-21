@@ -225,6 +225,9 @@
   <data name="Netto" xml:space="preserve">
     <value>Нетто</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Номер</value>
   </data>
@@ -302,6 +305,9 @@
   </data>
   <data name="WorkTime" xml:space="preserve">
     <value>Время работы</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Почтовый код</value>

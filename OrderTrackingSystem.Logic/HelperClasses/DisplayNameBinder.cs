@@ -36,6 +36,14 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                     binding.StringFormat = CheckCustomAttributes(e.PropertyDescriptor);
                 }
             }
+
+            if (e.Column is DataGridCheckBoxColumn)
+            {
+                var style = new Style { TargetType = typeof(DataGridCell) };
+                style.Setters.Add(new Setter(DataGridCell.HorizontalAlignmentProperty, HorizontalAlignment.Left));
+                style.Setters.Add(new Setter(DataGridCell.MarginProperty, new Thickness(15, 0, 0, 0)));
+                e.Column.CellStyle = style;
+            }
             ///* Set overrided celltemplate for image */
             //if(e.PropertyName.Equals("Image"))
             //{
@@ -69,11 +77,9 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
 
         private static string GetPropertyDisplayName(object descriptor)
         {
-            var pd = descriptor as PropertyDescriptor;
-            if (pd != null)
+            if (descriptor is PropertyDescriptor pd && pd != null)
             {
-                DisplayAttribute dn = pd.Attributes[typeof(DisplayAttribute)] as DisplayAttribute;
-                if (dn != null)
+                if (pd.Attributes[typeof(DisplayAttribute)] is  DisplayAttribute dn && dn != null)
                 {
                     return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentCulture);
                 }
@@ -83,11 +89,10 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 var pi = descriptor as PropertyInfo;
                 if (pi != null)
                 {
-                    Object[] attributes = pi.GetCustomAttributes(typeof(DisplayAttribute), true);
+                    var attributes = pi.GetCustomAttributes(typeof(DisplayAttribute), true);
                     for (int i = 0; i < attributes.Length; ++i)
                     {
-                        DisplayAttribute dn = attributes[i] as DisplayAttribute;
-                        if (dn != null)
+                        if (attributes[i] is DisplayAttribute dn && dn != null)
                         {
                             return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentCulture);
                         }
@@ -101,8 +106,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
         {
             if (descriptor is PropertyDescriptor pi && pi != null)
             {
-                var attribute = pi.Attributes[typeof(UKAttribute)] as UKAttribute;
-                if (attribute != null)
+                if (pi.Attributes[typeof(UKAttribute)] is UKAttribute attribute && attribute != null)
                 {
                     return attribute.GetStringFormat();
                 }

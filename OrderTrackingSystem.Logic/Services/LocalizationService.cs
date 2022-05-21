@@ -19,12 +19,12 @@ namespace OrderTrackingSystem.Logic.Services
                             select new LocalizationDTO()
                             {
                                 Id = localization.Id,
-                                Kraj = localization.Country,
-                                Miasto = localization.City,
-                                Ulica = localization.Street,
-                                Budynek = localization.House,
-                                Mieszkanie = localization.Flat,
-                                Kod = localization.ZipCode
+                                Country = localization.Country,
+                                City = localization.City,
+                                Street = localization.Street,
+                                House = localization.House,
+                                Apartment = localization.Flat,
+                                ZipCode = localization.ZipCode
                             };
                 return await query.AsNoTracking().FirstAsync();
             }
