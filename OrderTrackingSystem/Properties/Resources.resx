@@ -333,6 +333,9 @@
   <data name="Links" xml:space="preserve">
     <value>Linki</value>
   </data>
+  <data name="LoadImage" xml:space="preserve">
+    <value>Załaduj obrazek</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>

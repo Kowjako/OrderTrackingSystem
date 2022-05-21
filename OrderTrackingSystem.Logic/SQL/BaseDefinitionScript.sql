@@ -402,4 +402,9 @@ GO
 ALTER TABLE Products
 ADD CONSTRAINT FK__Products_CategoryId FOREIGN KEY (Category) REFERENCES ProductCategories(Id)
 GO
+
+ALTER TABLE Products
+ADD ImageData VARBINARY(MAX)
+GO
+
 COMMIT TRAN

@@ -149,6 +149,7 @@
           <Property Name="Weight" Type="decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="Discount" Type="tinyint" Nullable="false" />
           <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="SellCarts">
           <Key>
@@ -835,6 +836,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <Property Name="Weight" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
           <Property Name="Discount" Type="Byte" Nullable="false" />
           <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="OrderCarts" Relationship="Self.FK__OrderCarts_ProductId" FromRole="Products" ToRole="OrderCarts" />
           <NavigationProperty Name="Sellers" Relationship="Self.FK__Products_SellerId" FromRole="Products" ToRole="Sellers" />
           <NavigationProperty Name="SellCarts" Relationship="Self.FK__SellCarts_ProductId" FromRole="Products" ToRole="SellCarts" />
@@ -1503,6 +1505,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

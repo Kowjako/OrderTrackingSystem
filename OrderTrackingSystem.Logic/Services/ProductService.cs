@@ -34,7 +34,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Seller = sellerQuery.Name,
                                 SellerId = sellerQuery.Id,
                                 Category = productCategories.Title,
-                                CategoryId = product.Category
+                                CategoryId = product.Category,
+                                ImageData = product.ImageData
                             };
 
                 return await query.ToListAsync();

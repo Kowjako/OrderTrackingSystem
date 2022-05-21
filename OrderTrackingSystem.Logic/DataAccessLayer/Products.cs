@@ -30,6 +30,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public decimal Weight { get; set; }
         public byte Discount { get; set; }
         public int SellerId { get; set; }
+        public byte[] ImageData { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderCarts> OrderCarts { get; set; }

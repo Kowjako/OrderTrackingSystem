@@ -200,7 +200,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="0"
                                 Grid.ColumnSpan="2">
-                        <!--<Button Margin="0 5 0 0"
+                        <Button Margin="0 5 0 0"
                                 Background="LimeGreen"
                                 BorderBrush="LimeGreen">
                             <Button.Content>
@@ -215,10 +215,10 @@
                                                              Height="20"
                                                              Width="20"
                                                              Grid.Column="0" />
-                                    <TextBlock Text="Załaduj obrazek" Grid.Column="1"/>
+                                    <TextBlock Text="{x:Static res:Resources.LoadImage}" Grid.Column="1"/>
                                 </Grid>
                             </Button.Content>
-                        </Button> -->
+                        </Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>

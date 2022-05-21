@@ -42,6 +42,9 @@ namespace OrderTrackingSystem.Logic.DTO
         [Browsable(false)]
         public int CategoryId { get; set; }
 
+        [Browsable(false)]
+        public byte[] ImageData { get; set; }
+
         #endregion
 
         //[Display(Name = "Obrazek")]
