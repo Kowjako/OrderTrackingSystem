@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+﻿using OrderTrackingSystem.Logic.DTO.Pagination;
+using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OrderTrackingSystem.Logic.DTO
 {
     #pragma warning disable CS1591
-    public sealed class SellDTO
+    public sealed class SellDTO : IPagedEntity
     {
         [Display(Name= "Number", ResourceType = typeof(Properties.Resources))]
         public string Number { get; set; }
@@ -31,6 +32,13 @@ namespace OrderTrackingSystem.Logic.DTO
         public int CustomerId { get; set; }
         [Browsable(false)]
         public int SellerId { get; set; }
+
+        #endregion
+
+        #region IPagedEntity implementation
+
+        [Browsable(false)]
+        public int RowNumber { get; set; }
 
         #endregion
     }

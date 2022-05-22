@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OrderTrackingSystem.Logic.DTO
 {
     #pragma warning disable CS1591
-    public sealed class OrderDTO
+    public sealed class OrderDTO : IPagedEntity
     {
         [Display(Name = "Number", ResourceType = typeof(Properties.Resources))]
         public string Number { get; set; }
@@ -48,6 +48,13 @@ namespace OrderTrackingSystem.Logic.DTO
 
         [Browsable(false)]
         public BindingList<CartProductDTO> CartProducts { get; set; }
+
+        #endregion
+
+        #region IPagedEntity implementation
+
+        [Browsable(false)]
+        public int RowNumber { get; set; }
 
         #endregion
     }

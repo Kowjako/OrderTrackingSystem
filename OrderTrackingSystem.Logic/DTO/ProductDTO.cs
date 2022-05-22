@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.HelperClasses;
+﻿using OrderTrackingSystem.Logic.DTO.Pagination;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Windows.Media.Imaging;
 namespace OrderTrackingSystem.Logic.DTO
 {
     #pragma warning disable CS1591
-    public sealed class ProductDTO
+    public sealed class ProductDTO : IPagedEntity
     {
         [ImageField(PropertyName = nameof(Image))]
         [Display(Name = "Image", ResourceType = typeof(Properties.Resources))]
@@ -51,15 +52,12 @@ namespace OrderTrackingSystem.Logic.DTO
         public byte[] ImageData { get; set; }
 
         #endregion
-        //private static BitmapImage BitmapFromUri(Uri source)
-        //{
-        //    var bitmap = new BitmapImage();
-        //    bitmap.BeginInit();
-        //    bitmap.UriSource = source;
-        //    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-        //    bitmap.EndInit();
-        //    bitmap.Freeze();
-        //    return bitmap;
-        //}
+
+        #region IPagedEntity
+
+        [Browsable(false)]
+        public int RowNumber { get; set; }
+
+        #endregion
     }
 }

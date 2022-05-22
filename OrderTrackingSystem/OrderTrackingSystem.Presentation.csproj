@@ -94,6 +94,7 @@
     <Compile Include="CustomControls\Notifyer.xaml.cs">
       <DependentUpon>Notifyer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\UKDataGrid.cs" />
     <Compile Include="Interfaces\Customer\IComplaintsViewModel.cs" />
     <Compile Include="Interfaces\Customer\ICurrentAccountViewModel.cs" />
     <Compile Include="Interfaces\Customer\IMailboxViewModel.cs" />

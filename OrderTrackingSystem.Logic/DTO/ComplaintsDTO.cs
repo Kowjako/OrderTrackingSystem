@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.HelperClasses;
+﻿using OrderTrackingSystem.Logic.DTO.Pagination;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OrderTrackingSystem.Logic.DTO
 {
     #pragma warning disable CS1591
-    public sealed class ComplaintsDTO
+    public sealed class ComplaintsDTO : IPagedEntity
     {
         [Display(Name = "Order", ResourceType = typeof(Properties.Resources))]
         public string OrderNumber { get; set; }
@@ -42,9 +43,16 @@ namespace OrderTrackingSystem.Logic.DTO
 
         #endregion
 
+        #region IPagedEntity implementation
+
+        [Browsable(false)]
+        public int RowNumber { get; set; }
+
+        #endregion
+
     }
 
-    #pragma warning disable CS1591
+#pragma warning disable CS1591
     public class ComplaintFolderDTO : IComposite<ComplaintFolderDTO>
     {
         
