@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.DTO.Pagination;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace OrderTrackingSystem.Logic.Services
                                  };
 
                 /* Union dwóch kolekcji */
-                return orderQuery.Union(sendsQuery).ToList();
+                return Paginator.GetPaginatedList(orderQuery.Union(sendsQuery)).ToList();
             }
         }
 

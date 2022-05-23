@@ -1,4 +1,5 @@
-﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+﻿using OrderTrackingSystem.Logic.DTO.Pagination;
+using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 

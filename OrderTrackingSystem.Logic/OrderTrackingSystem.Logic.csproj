@@ -160,6 +160,7 @@
     <Compile Include="DTO\MailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\Pagination\IPagedEntity.cs" />
+    <Compile Include="DTO\Pagination\Paginator.cs" />
     <Compile Include="DTO\ParcelStateDTO.cs" />
     <Compile Include="DTO\PickupDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
