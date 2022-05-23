@@ -15,7 +15,7 @@ namespace OrderTrackingSystem.Logic.Services
     {
         private ConfigurationService ConfigurationService => new ConfigurationService();
 
-        public async Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId)
+        public async Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId, int pageNumber = 0)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
@@ -68,8 +68,8 @@ namespace OrderTrackingSystem.Logic.Services
                                      SellerId = customer.Id
                                  };
 
-                /* Union dwóch kolekcji */
-                return Paginator.GetPaginatedList(orderQuery.Union(sendsQuery)).ToList();
+                /* Union dwóch kolekcji + paginowanie - nasze zapytanie musi byc IQueryable! */
+                return Paginator.GetPaginatedList(orderQuery.Union(sendsQuery), pageNumber).ToList();
             }
         }
 
@@ -112,5 +112,9 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+        public async Task<List<TrackableItemDTO>> FetchNextPage(int customerId, int pageNumber)
+        {
+            return await GetItemsForCustomer(customerId, pageNumber);
+        }
     }
 }
