@@ -8,13 +8,9 @@ namespace OrderTrackingSystem.Logic.DTO.Pagination
 {
     public class Paginator
     {
-        public static IEnumerable<T> GetPaginatedList<T>(IEnumerable<T> list) where T : IPagedEntity
+        public static IEnumerable<T> GetPaginatedList<T>(IQueryable<T> list) where T : class, IPagedEntity
         {
-            return list.Select((record, idx) =>
-            {
-                record.RowNumber = idx++;
-                return record;
-            });
+            return list.OrderBy(x => x.Id).Skip(0).Take(10).ToList();
         }
     }
 }

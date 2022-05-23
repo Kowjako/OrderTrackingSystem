@@ -29,6 +29,8 @@ namespace OrderTrackingSystem.Logic.DTO
         #region Non-browsable
 
         [Browsable(false)]
+        public int Id { get; set; }
+        [Browsable(false)]
         public int CustomerId { get; set; }
         [Browsable(false)]
         public int SellerId { get; set; }
