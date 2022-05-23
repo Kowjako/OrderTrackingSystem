@@ -8,4 +8,4 @@ System śledzenia zamówień - moja praca dyplomowa, rozbudowany system do zarz�
 🛡️ ADO.NET  
 🛡️ Windows Presentation Foundation (WPF) + Material Design  
 🛡️ Fluent Validation  
-🛡️ xUnit  
+🛡️ xUnit + Moq  
