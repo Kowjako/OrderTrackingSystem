@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
-    #pragma warning disable CS1591
     public sealed class CartProductDTO
     {
         [Display(Name = "UniqueName", ResourceType = typeof(Properties.Resources))]

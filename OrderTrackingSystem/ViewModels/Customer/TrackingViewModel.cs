@@ -71,7 +71,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
-            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
+            _filterCommand ??= new RelayCommand(obj =>
             {
                 try
                 {
@@ -99,11 +99,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _findParcel;
         public RelayCommand FindParcel =>
-            _findParcel ?? (_findParcel = new RelayCommand(obj =>
+            _findParcel ??= new RelayCommand(obj =>
             {
                 if (!string.IsNullOrEmpty(obj as string))
                 {
@@ -119,11 +119,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnWarning("Numer nie może być pusty");
                 }
-            }));
+            });
 
         private RelayCommand _showProgress;
         public RelayCommand ShowProgress =>
-            _showProgress ?? (_showProgress = new RelayCommand(async obj =>
+            _showProgress ??= new RelayCommand(async obj =>
             {
                 if (SelectedItem.IsOrder)
                 {
@@ -136,11 +136,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnWarning("Progres można zobaczyć tylko dla zamówień");
                 }
-            }));
+            });
 
         private RelayCommand _makeComplaint;
         public RelayCommand MakeComplaint =>
-            _makeComplaint ?? (_makeComplaint = new RelayCommand(async obj =>
+            _makeComplaint ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -173,11 +173,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure("Błąd podczas założenia reklamacji");
                 }
-            }));
+            });
 
         private RelayCommand _confirmDelivery;
         public RelayCommand ConfirmDelivery =>
-            _confirmDelivery ?? (_confirmDelivery = new RelayCommand(async obj =>
+            _confirmDelivery ??= new RelayCommand(async obj =>
             {
                 if (SelectedItem.IsOrder)
                 {
@@ -196,7 +196,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnWarning("Potwierdzenie odbioru dostępne dla zamówionych elementów.");
                 }
-            }));
+            });
 
         #endregion
 

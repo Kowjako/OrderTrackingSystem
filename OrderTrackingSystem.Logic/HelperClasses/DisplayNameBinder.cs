@@ -45,7 +45,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 e.Column.CellStyle = style;
             }
 
-            if(CheckCustomAttributes(e.PropertyDescriptor) is string s && !string.IsNullOrEmpty(s) &&  s.Equals("Image"))
+            if (CheckCustomAttributes(e.PropertyDescriptor) is string s && !string.IsNullOrEmpty(s) && s.Equals("Image"))
             {
                 /* Tworzymy styl */
                 var style = new Style { TargetType = typeof(DataGridCell) };
@@ -55,28 +55,20 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 frameworkElementFactory.SetValue(Image.StretchProperty, Stretch.Fill);
 
                 /* Wiązanie danych do DTO */
-                var binding = new Binding("Image");
-                binding.Mode = BindingMode.OneWay;
+                var binding = new Binding("Image") { Mode = BindingMode.OneWay };
                 frameworkElementFactory.SetValue(Image.SourceProperty, binding);
 
-                var dataTemplate = new DataTemplate();
-                dataTemplate.VisualTree = frameworkElementFactory;
+                var dataTemplate = new DataTemplate() { VisualTree = frameworkElementFactory };
 
                 /* Tworzenie triggerów */
-                var trigger = new Trigger();
-                trigger.Property = DataGridCell.IsSelectedProperty;
-                trigger.Value = true;
+                var trigger = new Trigger() { Property = DataGridCell.IsSelectedProperty, Value = true };
                 trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
                 trigger.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
 
-                var trigger1 = new Trigger();
-                trigger1.Property = DataGridCell.IsFocusedProperty;
-                trigger1.Value = true;
+                var trigger1 = new Trigger() { Property = DataGridCell.IsFocusedProperty, Value = true };
                 trigger1.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Colors.Black)));
 
-                var trigger2 = new Trigger();
-                trigger2.Property = DataGridCell.IsMouseOverProperty;
-                trigger2.Value = true;
+                var trigger2 = new Trigger() { Property = DataGridCell.IsMouseOverProperty, Value = true };
                 trigger2.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(240, 240, 240))));
 
                 /* Wypełnianie stylu */

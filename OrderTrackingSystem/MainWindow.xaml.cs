@@ -58,6 +58,7 @@ namespace OrderTrackingSystem
             this.DragMove();
         }
 
+        #pragma warning disable IDE1006 
         private void exit_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
@@ -75,11 +76,13 @@ namespace OrderTrackingSystem
 
         private void menuExpander_Click(object sender, RoutedEventArgs e)
         {
-            var trackerAnimation = new DoubleAnimation();
-            trackerAnimation.From = isMenuExpanded ? 0 : 70;
-            trackerAnimation.To = isMenuExpanded ? 70 : 0;
-            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
-            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            var trackerAnimation = new DoubleAnimation()
+            {
+                From = isMenuExpanded ? 0 : 70,
+                To = isMenuExpanded ? 70 : 0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut }
+            };
             tabControl.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
             isMenuExpanded = !isMenuExpanded;
         }

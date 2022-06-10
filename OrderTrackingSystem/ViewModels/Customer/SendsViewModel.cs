@@ -73,7 +73,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand minusAmount;
         public RelayCommand MinusAmount =>
-            minusAmount ?? (minusAmount = new RelayCommand(obj =>
+            minusAmount ??= new RelayCommand(obj =>
             {
                 if (CurrentProductAmount == 0)
                 {
@@ -84,19 +84,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     CurrentProductAmount--;
                     OnPropertyChanged(nameof(CurrentProductAmount));
                 }
-            }));
+            });
 
         private RelayCommand plusAmount;
         public RelayCommand PlusAmount =>
-            plusAmount ?? (plusAmount = new RelayCommand(obj =>
+            plusAmount ??= new RelayCommand(obj =>
             {
                 CurrentProductAmount++;
                 OnPropertyChanged(nameof(CurrentProductAmount));
-            }));
+            });
 
         private RelayCommand _findReceiver;
         public RelayCommand FindReceiver =>
-            _findReceiver ?? (_findReceiver = new RelayCommand(async obj =>
+            _findReceiver ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -114,11 +114,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _addToCart;
         public RelayCommand AddToCart =>
-            _addToCart ?? (_addToCart = new RelayCommand(obj =>
+            _addToCart ??= new RelayCommand(obj =>
             {
                 try
                 {
@@ -126,7 +126,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     {
                         var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
+                        existingProduct.Amount += CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
@@ -151,11 +151,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się dodać do koszyka");
                 }
-            }));
+            });
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
-            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
+            _filterCommand ??= new RelayCommand(obj =>
             {
                 try
                 {
@@ -183,21 +183,21 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _clearCart;
         public RelayCommand ClearCart =>
-            _clearCart ?? (_clearCart = new RelayCommand(obj =>
+            _clearCart ??= new RelayCommand(obj =>
             {
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
                 OnPropertyChanged(nameof(ProductsInCart));
                 OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
-            }));
+            });
 
         private RelayCommand _acceptSend;
         public RelayCommand AcceptSell =>
-            _acceptSend ?? (_acceptSend = new RelayCommand(async obj =>
+            _acceptSend ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -207,10 +207,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         return;
                     }
 
-                    var currentSell = new SellDTO();
-                    currentSell.SellerId = CurrentSeller.Id;
-                    currentSell.CustomerId = CurrentReceiver.Id;
-                    currentSell.PickupDays = IsPickupDaysDefined ? PickupDays : 0;
+                    var currentSell = new SellDTO()
+                    {
+                        SellerId = CurrentSeller.Id,
+                        CustomerId = CurrentReceiver.Id,
+                        PickupDays = IsPickupDaysDefined ? PickupDays : 0
+                    };
 
                     await SellService.SaveSell(currentSell, ProductsInCart.ToList());
                     if(SendAutomaticMail)
@@ -223,7 +225,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wysyłki");
                 }
-            }));
+            });
 
         #endregion
 

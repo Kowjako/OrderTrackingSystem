@@ -16,11 +16,13 @@ namespace OrderTrackingSystem.Views.Customer
             InitializeComponent();
         }
 
+        #pragma warning disable IDE1006
         private void sellsGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             DisplayNameBinder.SetDisplayNameIfExists(e);
         }
 
+        #pragma warning disable IDE1006
         private async void main_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             sellsGrid.MaxHeight = sellsGrid.ActualHeight;

@@ -84,7 +84,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _addToCart;
         public RelayCommand AddToCart =>
-            _addToCart ?? (_addToCart = new RelayCommand(obj =>
+            _addToCart ??= new RelayCommand(obj =>
             {
                 try
                 {
@@ -92,7 +92,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     {
                         var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
+                        existingProduct.Amount += CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
@@ -118,12 +118,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się dodać do koszyka");
                 }
-            }));
+            });
 
 
         private RelayCommand _findSeller;
         public RelayCommand FindSeller =>
-            _findSeller ?? (_findSeller = new RelayCommand(obj =>
+            _findSeller ??= new RelayCommand(obj =>
             {
                 try
                 {
@@ -152,11 +152,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand minusAmount;
         public RelayCommand MinusAmount =>
-            minusAmount ?? (minusAmount = new RelayCommand(obj =>
+            minusAmount ??= new RelayCommand(obj =>
             {
                 if(CurrentProductAmount == 0)
                 {
@@ -167,19 +167,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     CurrentProductAmount--;
                     OnPropertyChanged(nameof(CurrentProductAmount));
                 }
-            }));
+            });
 
         private RelayCommand plusAmount;
         public RelayCommand PlusAmount =>
-            plusAmount ?? (plusAmount = new RelayCommand(obj =>
+            plusAmount ??= new RelayCommand(obj =>
             {
                 CurrentProductAmount++;
                 OnPropertyChanged(nameof(CurrentProductAmount));
-            }));
+            });
 
         private RelayCommand _acceptOrder;
         public RelayCommand AcceptOrder =>
-            _acceptOrder ?? (_acceptOrder = new RelayCommand(async obj =>
+            _acceptOrder ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -245,17 +245,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się zapisać zamówienia");
                 }
-            }));
+            });
 
         private RelayCommand _clearCart;
         public RelayCommand ClearCart =>
-            _clearCart ?? (_clearCart = new RelayCommand(obj =>
+            _clearCart ??= new RelayCommand(obj =>
             {
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
                 OnPropertyChanged(nameof(ProductsInCart));
                 OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
-            }));
+            });
         #endregion
 
         #region INotifyPropertyChanged implementation

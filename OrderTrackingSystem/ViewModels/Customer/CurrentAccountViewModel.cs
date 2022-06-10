@@ -77,7 +77,7 @@ namespace OrderTrackingSystem.ViewModels
         private RelayCommand _saveCommand;
 
         public RelayCommand SaveCommand =>
-            _saveCommand ?? (_saveCommand = new RelayCommand(async obj =>
+            _saveCommand ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -120,7 +120,7 @@ namespace OrderTrackingSystem.ViewModels
                 {
                     OnFailure?.Invoke("Błąd podczas aktualizacji danych");
                 }
-            }));
+            });
 
         #endregion
 

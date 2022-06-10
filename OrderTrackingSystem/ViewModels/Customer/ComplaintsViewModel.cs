@@ -82,7 +82,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _addTemplate;
         public RelayCommand AddTemplate =>
-            _addTemplate ?? (_addTemplate = new RelayCommand(async obj =>
+            _addTemplate ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -100,11 +100,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wzorca");
                 }
-            }));
+            });
 
         private RelayCommand _addFolder;
         public RelayCommand AddFolder =>
-            _addFolder ?? (_addFolder = new RelayCommand(async obj =>
+            _addFolder ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -115,11 +115,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wzorca");
                 }
-            }));
+            });
 
         private RelayCommand _removeFolder;
         public RelayCommand RemoveFolder =>
-            _removeFolder ?? (_removeFolder = new RelayCommand(async obj =>
+            _removeFolder ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -140,11 +140,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się zapisać wzorca");
                 }
-            }));
+            });
 
         private RelayCommand _closeComplaint;
         public RelayCommand CloseComplaint =>
-            _closeComplaint ?? (_closeComplaint = new RelayCommand(async obj =>
+            _closeComplaint ??= new RelayCommand(async obj =>
             {
                 if(SelectedComplaint.SolutionDate.HasValue)
                 {
@@ -156,7 +156,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnWarning?.Invoke("Reklamacja musi najpierw być zatwierdzona poprzez sprzedawcę");
                 }
-            }));
+            });
         #endregion
     }
 }

@@ -84,7 +84,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _findReceiver;
         public RelayCommand FindReceiver =>
-            _findReceiver ?? (_findReceiver = new RelayCommand(async obj =>
+            _findReceiver ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -118,11 +118,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
-            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
+            _filterCommand ??= new RelayCommand(obj =>
             {
                 try
                 {
@@ -153,11 +153,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _sendMessage;
         public RelayCommand SendMessage =>
-            _sendMessage ?? (_sendMessage = new RelayCommand(async obj =>
+            _sendMessage ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -179,7 +179,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     OnFailure?.Invoke("Nie udało się wykonać operacji");
                 }
-            }));
+            });
 
         #endregion
 

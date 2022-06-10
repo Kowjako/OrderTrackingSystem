@@ -51,7 +51,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _login;
         public RelayCommand LoginCmd =>
-            _login ?? (_login = new RelayCommand(async obj =>
+            _login ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -74,11 +74,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _createNewAccount;
         public RelayCommand CreateNewAccount =>
-            _createNewAccount ?? (_createNewAccount = new RelayCommand(async obj =>
+            _createNewAccount ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -110,7 +110,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         #endregion
     }

@@ -139,7 +139,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         private RelayCommand _addProduct;
 
         public RelayCommand AddProduct =>
-            _addProduct ?? (_addProduct = new RelayCommand(async obj =>
+            _addProduct ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -159,11 +159,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     OnFailure?.Invoke("Błąd podczas dodawania produktu");
                 }
-            }));
+            });
 
         private RelayCommand _approveComplaint;
         public RelayCommand ApproveComplaint =>
-            _approveComplaint ?? (_approveComplaint = new RelayCommand(async obj =>
+            _approveComplaint ??= new RelayCommand(async obj =>
             {
                 if(obj is null)
                 {
@@ -182,11 +182,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
                 await ComplaintService.UpdateComplaintState(complaint, CurrentSeller.Id);
                 OnSuccess?.Invoke("Reklamacja została zatwierdzona");
-            }));
+            });
 
         private RelayCommand _sendMessage;
         public RelayCommand SendMessage =>
-            _sendMessage ?? (_sendMessage = new RelayCommand(async obj =>
+            _sendMessage ??= new RelayCommand(async obj =>
             {
                 if (ValidatorWrapper.ValidateWithResult(new MailValidator(), CurrentMail))
                 {
@@ -208,11 +208,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     OnWarning.Invoke(ValidatorWrapper.ErrorMessage);
                 }
-            }));
+            });
 
         private RelayCommand _changeParcelState;
         public RelayCommand ChangeParcelState =>
-            _changeParcelState ?? (_changeParcelState = new RelayCommand(async obj =>
+            _changeParcelState ??= new RelayCommand(async obj =>
             {
                 if(SelectedOrder != null)
                 {
@@ -223,7 +223,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     OnWarning?.Invoke("Należy wybrać zamówienie");
                 }
-            }));
+            });
 
         #endregion
 
