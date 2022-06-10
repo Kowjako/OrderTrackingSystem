@@ -14,7 +14,7 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged
+    public partial class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 
@@ -37,40 +37,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public Customers CurrentCustomer { get; private set; }
         private List<TrackableItemDTO> CurrentItems { get; set; }
-
-        #endregion
-
-        #region Bindable objects
-
-        public Action ShowProgressBar;
-
-        public List<TrackableItemDTO> Items { get; set; } = new List<TrackableItemDTO>();
-        public ObservableCollection<ParcelStateDTO> ParcelStates { get; set; } = new ObservableCollection<ParcelStateDTO>();
-
-        private TrackableItemDTO _selectedItem;
-
-        public TrackableItemDTO SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                _selectedItem = value;
-                OnSelectedItemChanged();
-            }
-        }
-
-        public CustomerDTO Customer { get; set; }
-        public CustomerDTO Seller { get; set; }
-
-        /* Filtering bindings */
-        public DateTime StartDate { get; set; } = DateTime.Now;
-        public DateTime EndDate { get; set; } = DateTime.Now;
-        public int ItemsSelection { get; set; }
-
-        public List<ComplaintDefinitionDTO> ComplaintDefinitionsList { get; set; }
-        public ComplaintDefinitionDTO SelectedComplaint { get; set; }
-
-        public bool SentMessageWithComplaint { get; set; } = false;
 
         #endregion
 

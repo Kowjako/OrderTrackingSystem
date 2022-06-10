@@ -1,7 +1,8 @@
 ﻿using OrderTrackingSystem.Presentation.WindowExtension;
-using OrderTrackingSystem.ViewModels;
+using OrderTrackingSystem.Presentation;
 using System.Windows.Controls;
 using System.Windows.Data;
+using OrderTrackingSystem.ViewModels;
 
 namespace OrderTrackingSystem.Views.Customer
 {

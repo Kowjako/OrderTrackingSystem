@@ -118,10 +118,14 @@
     <Compile Include="ValueConverter\ValueConverters.cs" />
     <Compile Include="ViewModels\Customer\ComplaintsViewModel.cs" />
     <Compile Include="ViewModels\Customer\CurrentAccountViewModel.cs" />
+    <Compile Include="ViewModels\Customer\MailboxViewModel.Bindings.cs" />
     <Compile Include="ViewModels\Customer\MailboxViewModel.cs" />
+    <Compile Include="ViewModels\Customer\OrdersViewModel.Bindings.cs" />
     <Compile Include="ViewModels\Customer\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SendsViewModel.Bindings.cs" />
     <Compile Include="ViewModels\Customer\SendsViewModel.cs" />
     <Compile Include="ViewModels\Customer\StartupViewModel.cs" />
+    <Compile Include="ViewModels\Customer\TrackingViewModel.Bindings.cs" />
     <Compile Include="ViewModels\Customer\TrackingViewModel.cs" />
     <Compile Include="ViewModels\Seller\DevelopedViewModel.cs" />
     <Compile Include="ViewModels\Seller\SellerAccountViewModel.cs" />
@@ -279,6 +283,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="ViewModels\Customer\ComplaintsViewModel.Bindings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
