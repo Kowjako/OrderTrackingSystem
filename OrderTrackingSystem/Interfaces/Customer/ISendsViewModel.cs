@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    public interface ISendsViewModel
+    public interface ISendsViewModel : INotifyableViewModel
     {
         decimal TotalPriceNetto { get; set; }
         float BoxPrice { get; set; }

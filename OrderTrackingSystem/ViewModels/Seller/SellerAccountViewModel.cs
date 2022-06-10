@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
-    public class SellerAccountViewModel : ISellerAccountViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class SellerAccountViewModel : ISellerAccountViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 

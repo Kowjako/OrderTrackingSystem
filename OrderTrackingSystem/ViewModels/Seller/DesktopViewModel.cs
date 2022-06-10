@@ -17,7 +17,7 @@ using EnumConverter = OrderTrackingSystem.Logic.EnumMappers.EnumConverter;
 
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
-    public class DesktopViewModel : IDesktopViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class DesktopViewModel : IDesktopViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 

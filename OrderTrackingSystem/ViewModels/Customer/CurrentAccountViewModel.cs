@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.ViewModels
 {
-    public class CurrentAccountViewModel : ICurrentAccountViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class CurrentAccountViewModel : ICurrentAccountViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 

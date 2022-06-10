@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Interfaces
 {
-    public interface ICurrentAccountViewModel
+    public interface ICurrentAccountViewModel : INotifyableViewModel
     {
         Customers CurrentCustomer { get; set; }
         List<LocalizationDTO> Localization { get; set; }

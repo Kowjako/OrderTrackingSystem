@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    interface IMailboxViewModel
+    interface IMailboxViewModel : INotifyableViewModel
     {
         MailDTO OriginalMail { get; set; }
         CustomerDTO CurrentSender { get; set; }

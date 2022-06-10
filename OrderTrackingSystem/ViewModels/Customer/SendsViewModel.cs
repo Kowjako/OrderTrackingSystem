@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class SendsViewModel : ISendsViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class SendsViewModel : ISendsViewModel, INotifyPropertyChanged
     {
         #region Private methods
 

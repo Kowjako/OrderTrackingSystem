@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    public interface IOrdersViewModel
+    public interface IOrdersViewModel : INotifyableViewModel
     {
         PickupDTO SelectedPickup { get; set; }
         VoucherDTO SelectedVoucher { get; set; }

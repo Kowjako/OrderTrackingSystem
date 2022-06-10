@@ -14,7 +14,7 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged, INotifyableViewModel
+    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 
@@ -139,26 +139,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand FindParcel =>
             _findParcel ?? (_findParcel = new RelayCommand(obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
+                    if (!Items.Any(p => p.Number.Equals(obj as string)))
                     {
-                        if(!Items.Any(p => p.Number.Equals(obj as string)))
-                        {
-                            OnWarning("Nie ma elementu o takim numerze");
-                            return;
-                        }
-                        Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Number.Equals(obj as string)) };
-                        OnPropertyChanged(nameof(Items));
+                        OnWarning("Nie ma elementu o takim numerze");
+                        return;
                     }
-                    else
-                    {
-                        OnWarning("Numer nie może być pusty");
-                    }
+                    Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Number.Equals(obj as string)) };
+                    OnPropertyChanged(nameof(Items));
                 }
-                catch (Exception)
+                else
                 {
-
+                    OnWarning("Numer nie może być pusty");
                 }
             }));
 
@@ -166,23 +159,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand ShowProgress =>
             _showProgress ?? (_showProgress = new RelayCommand(async obj =>
             {
-                try
+                if (SelectedItem.IsOrder)
                 {
-                    if (SelectedItem.IsOrder)
-                    {
-                        var parcelId = SelectedItem.Id;
-                        /* Load current selected parcel states */
-                        ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
-                        OnPropertyChanged(nameof(ParcelStates));
-                    }
-                    else
-                    {
-                        OnWarning("Progres można zobaczyć tylko dla zamówień");
-                    }
+                    var parcelId = SelectedItem.Id;
+                    /* Load current selected parcel states */
+                    ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
+                    OnPropertyChanged(nameof(ParcelStates));
                 }
-                catch (Exception)
+                else
                 {
-
+                    OnWarning("Progres można zobaczyć tylko dla zamówień");
                 }
             }));
 

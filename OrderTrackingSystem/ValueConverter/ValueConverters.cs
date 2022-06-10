@@ -20,7 +20,7 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is string str && !string.IsNullOrEmpty(str))
+            if (value is string str && !string.IsNullOrEmpty(str))
             {
                 var dec = decimal.Parse(str, NumberStyles.Number ^ NumberStyles.AllowThousands);
                 return dec;

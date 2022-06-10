@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class MailboxViewModel : IMailboxViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class MailboxViewModel : IMailboxViewModel, INotifyPropertyChanged
     {
         #region Services
 

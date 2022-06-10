@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class OrdersViewModel : IOrdersViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class OrdersViewModel : IOrdersViewModel, INotifyPropertyChanged
     {
         #region INotifyableViewModel implementation
 

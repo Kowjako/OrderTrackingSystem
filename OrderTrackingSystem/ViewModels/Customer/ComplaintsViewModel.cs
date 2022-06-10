@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class ComplaintsViewModel : INotifyPropertyChanged, INotifyableViewModel
+    public class ComplaintsViewModel : IComplaintsViewModel, INotifyPropertyChanged
     {
         #region Services
 
