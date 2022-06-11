@@ -15,7 +15,5 @@ namespace OrderTrackingSystem.Logic.DTO
         public decimal RemainValue { get; set; }
 
         public DateTime ExpireDate { get; set; }
-
-        public string ValueString => Value + "/" + RemainValue + " zł";
     }
 }

@@ -54,6 +54,7 @@ namespace OrderTrackingSystem.Presentation.Views.Common
             logWindow.BeginAnimation(DockPanel.WidthProperty, gridAnimation);
         }
 
+        #pragma warning disable IDE1006
         private void closeBtn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();

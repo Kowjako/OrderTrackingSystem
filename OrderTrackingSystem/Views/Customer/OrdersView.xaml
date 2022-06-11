@@ -222,12 +222,19 @@
                                            Margin="10,10,5,0"
                                            Foreground="Maroon"/>
                                 <TextBlock Grid.Column="0" 
-                                       Text="{Binding ValueString}"
                                        FontSize="40" 
                                        Foreground="Indigo" 
                                        FontFamily="Times New Roman" 
                                        Margin="10,0,5,0"
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center">
+                                    <!-- Use Multibining to bind to many properties-->
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}/{1} zł">
+                                            <Binding Path="Value"/>
+                                            <Binding Path="RemainValue"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                                 <Grid Margin="10,5,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="25"/>
@@ -464,90 +471,67 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock" x:Key="tbStyleLeft">
+                        <Style.Setters>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="TextAlignment" Value="Left"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontSize" Value="17"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Margin" Value="10,10,10,5"/>
+                        </Style.Setters>
+                    </Style>
+                    <Style TargetType="TextBlock" x:Key="tbStyleRight" BasedOn="{StaticResource tbStyleLeft}">
+                        <Style.Setters>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style.Setters>
+                    </Style>
+                </Grid.Resources>
                 <StackPanel
                     Grid.Column="0">
                     <TextBlock
-                    HorizontalAlignment="Left"
+                    Style="{StaticResource tbStyleLeft}"
                     Text="{x:Static res:Resources.Netto}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Left"
+                    Style="{StaticResource tbStyleLeft}"
                     Text="{x:Static res:Resources.VAT}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Left"
+                    Style="{StaticResource tbStyleLeft}"
                     Text="{x:Static res:Resources.Brutto}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Left"
+                    Style="{StaticResource tbStyleLeft}"
                     Text="{x:Static res:Resources.Delivery}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Left"
+                    Style="{StaticResource tbStyleLeft}"
                     Text="{x:Static res:Resources.Sum}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBlock
-                    HorizontalAlignment="Right"
+                    Style="{StaticResource tbStyleRight}"
                     Text="{Binding TotalPriceNetto, StringFormat={}{0:f2} zł}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Right"
+                    Style="{StaticResource tbStyleRight}"
                     Text="{Binding VAT, StringFormat={}{0:f2} %}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Right"
+                    Style="{StaticResource tbStyleRight}"
                     Text="{Binding TotalPriceBrutto, StringFormat={}{0:f2} zł}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Right"
+                    Style="{StaticResource tbStyleRight}"
                     Text="{Binding DeliveryCost, StringFormat={}{0:f2} zł}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                     <TextBlock
-                    HorizontalAlignment="Right"
+                    Style="{StaticResource tbStyleRight}"
                     Text="{Binding FullPrice, StringFormat={}{0:f2} zł}"
-                    TextAlignment="Left"
-                    Foreground="Black"
-                    FontSize="17"
-                    Margin="10,10,10,5"
-                    FontFamily="Arial"/>
+                    />
                 </StackPanel>
             </Grid>
         </StackPanel>

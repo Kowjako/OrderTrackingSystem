@@ -110,6 +110,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         OnWarning?.Invoke("Pole odbiorca nie może być puste");
                     }
                 }
+                //TODO: dorobic catch na rozne wyjatki
                 catch (Exception ex)
                 {
 
