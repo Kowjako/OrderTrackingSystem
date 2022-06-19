@@ -44,5 +44,12 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// </summary>
         /// <param name="product">Nowa encja produktu</param>
         Task SaveNewProduct(Products product);
+        /// <summary>
+        /// Metoda dodaje nowy produkt do bazy danych
+        /// </summary>
+        /// <param name="product">Nowa encja produktu</param>
+        /// <param name="imageData">Tablica danych obrazku</param>
+        /// <returns></returns>
+        Task SaveNewProduct(Products product, byte[] imageData);
     }
 }

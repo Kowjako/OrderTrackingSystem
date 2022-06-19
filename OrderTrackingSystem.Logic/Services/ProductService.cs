@@ -140,5 +140,12 @@ namespace OrderTrackingSystem.Logic.Services
             product.PriceBrutto = Math.Round(product.PriceNetto + product.PriceNetto * product.VAT / 100.0m, 2, MidpointRounding.ToEven);
             await AddEntity(product);
         }
+
+        public async Task SaveNewProduct(Products product, byte[] imageData)
+        {
+            product.PriceBrutto = Math.Round(product.PriceNetto + product.PriceNetto * product.VAT / 100.0m, 2, MidpointRounding.ToEven);
+            product.ImageData = imageData;
+            await AddEntity(product);
+        }
     }
 }

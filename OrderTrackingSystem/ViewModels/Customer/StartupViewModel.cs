@@ -80,35 +80,27 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand CreateNewAccount =>
             _createNewAccount ??= new RelayCommand(async obj =>
             {
-                try
+                bool isValidEntity = CreationForClient switch
                 {
-                    bool isValidEntity = CreationForClient switch
-                    {
-                        true => ValidatorWrapper.ValidateWithResult(new CustomerValidator(), NewCustomer),
-                        false => ValidatorWrapper.ValidateWithResult(new SellerValidator(), NewSeller)
-                    };
+                    true => ValidatorWrapper.ValidateWithResult(new CustomerValidator(), NewCustomer),
+                    false => ValidatorWrapper.ValidateWithResult(new SellerValidator(), NewSeller)
+                };
 
-                    var msg = ValidatorWrapper.ErrorMessage;
-                    isValidEntity &= ValidatorWrapper.ValidateWithResult(new LocalizationValidatorDAL(), Localization);
+                var msg = ValidatorWrapper.ErrorMessage;
+                isValidEntity &= ValidatorWrapper.ValidateWithResult(new LocalizationValidatorDAL(), Localization);
 
-                    if(isValidEntity)
+                if (isValidEntity)
+                {
+                    await LocalizationService.AddNewLocalization(Localization);
+                    if (CreationForClient)
                     {
-                        await LocalizationService.AddNewLocalization(Localization);
-                        if(CreationForClient)
-                        {
-                            /* po zapisaniu w localization jest przypisany id */
-                            await CustomerService.AddNewCustomer(NewCustomer, Localization.Id, Credentials.ToCredentials());
-                        }
-                        else
-                        {
-                            await CustomerService.AddNewSeller(NewSeller, Localization.Id, Credentials.ToCredentials());
-                        }
+                        /* po zapisaniu w localization jest przypisany id */
+                        await CustomerService.AddNewCustomer(NewCustomer, Localization.Id, Credentials.ToCredentials());
                     }
-                    
-                }
-                catch
-                {
-
+                    else
+                    {
+                        await CustomerService.AddNewSeller(NewSeller, Localization.Id, Credentials.ToCredentials());
+                    }
                 }
             });
 

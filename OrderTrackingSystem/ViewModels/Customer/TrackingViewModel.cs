@@ -73,32 +73,25 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand FilterCommand =>
             _filterCommand ??= new RelayCommand(obj =>
             {
-                try
+                Items = CurrentItems;
+                switch (ItemsSelection)
                 {
-                    Items = CurrentItems;
-                    switch(ItemsSelection)
-                    {
-                        case 1:
-                            Items = Items.Where(p => p.IsOrder).ToList();
-                            break;
-                        case 2:
-                            Items = Items.Where(p => !p.IsOrder).ToList();
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if(StartDate != EndDate)
-                    {
-                        Items = Items.Where(p => p.Date < EndDate && 
-                                                 p.Date > StartDate).ToList();
-                    }
-                    OnPropertyChanged(nameof(Items));
+                    case 1:
+                        Items = Items.Where(p => p.IsOrder).ToList();
+                        break;
+                    case 2:
+                        Items = Items.Where(p => !p.IsOrder).ToList();
+                        break;
+                    default:
+                        break;
                 }
-                catch (Exception)
+
+                if (StartDate != EndDate)
                 {
-
+                    Items = Items.Where(p => p.Date < EndDate &&
+                                             p.Date > StartDate).ToList();
                 }
+                OnPropertyChanged(nameof(Items));
             });
 
         private RelayCommand _findParcel;
@@ -125,18 +118,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand ShowProgress =>
             _showProgress ??= new RelayCommand(async obj =>
             {
-                if (SelectedItem.IsOrder)
-                {
-                    var parcelId = SelectedItem.Id;
-                    /* Load current selected parcel states */
-                    ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
-                    OnPropertyChanged(nameof(ParcelStates));
-                }
-                else
-                {
-                    OnWarning("Progres można zobaczyć tylko dla zamówień");
-                }
-            });
+                var parcelId = SelectedItem.Id;
+                /* Load current selected parcel states */
+                ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
+                OnPropertyChanged(nameof(ParcelStates));
+            }, e => SelectedItem?.IsOrder ?? false);
 
         private RelayCommand _makeComplaint;
         public RelayCommand MakeComplaint =>
@@ -144,59 +130,45 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if (SelectedItem.IsOrder)
+                    var orderId = SelectedItem.Id;
+                    var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+                    using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                     {
-                        var orderId = SelectedItem.Id;
-                        var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-                        using(var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+                        /* Dodanie kolejnego statusu na zalozenie reklamacji */
+                        await TrackerService.AddNewStateForOrder(orderId, OrderState.ComplaintSet);
+                        /* Dodac reklamacje */
+                        await ComplaintService.RegisterNewComplaint(SelectedComplaint.Id, orderId);
+                        if (SentMessageWithComplaint)
                         {
-                            /* Dodanie kolejnego statusu na zalozenie reklamacji */
-                            await TrackerService.AddNewStateForOrder(orderId, OrderState.ComplaintSet);
-                            /* Dodac reklamacje */
-                            await ComplaintService.RegisterNewComplaint(SelectedComplaint.Id, orderId);
-                            if(SentMessageWithComplaint)
-                            {
-                                /* wysylamy automatyczne powiadomienie */
-                                var receiverId = SelectedItem.SellerId;
-                                await MailService.SendComplaintMessage(receiverId, SelectedItem.CustomerId, SelectedItem.Id);
-                            }
-                            transactionScope.Complete();
+                            /* wysylamy automatyczne powiadomienie */
+                            var receiverId = SelectedItem.SellerId;
+                            await MailService.SendComplaintMessage(receiverId, SelectedItem.CustomerId, SelectedItem.Id);
                         }
-                        OnSuccess("Reklamacja założona poprawnie");
+                        transactionScope.Complete();
                     }
-                    else
-                    {
-                        OnWarning("Rezygnację można złożyć tylko na zamówienia.");
-                    }
+                    OnSuccess("Reklamacja założona poprawnie");
                 }
                 catch
                 {
                     OnFailure("Błąd podczas założenia reklamacji");
                 }
-            });
+            }, e => SelectedItem?.IsOrder ?? false);
 
         private RelayCommand _confirmDelivery;
         public RelayCommand ConfirmDelivery =>
             _confirmDelivery ??= new RelayCommand(async obj =>
             {
-                if (SelectedItem.IsOrder)
+                var parcelStates = await TrackerService.GetParcelState(SelectedItem.Id);
+                if (!parcelStates.Any(p => p.StateId == (int)OrderState.Getted))
                 {
-                    var parcelStates = await TrackerService.GetParcelState(SelectedItem.Id);
-                    if(!parcelStates.Any(p => p.StateId == (int)OrderState.Getted))
-                    {
-                        await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
-                        OnSuccess("Odbiór został potwierdzony.");
-                    }
-                    else
-                    {
-                        OnWarning("Przesyłka już jest odebrana.");
-                    } 
+                    await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
+                    OnSuccess("Odbiór został potwierdzony.");
                 }
                 else
                 {
-                    OnWarning("Potwierdzenie odbioru dostępne dla zamówionych elementów.");
+                    OnWarning("Przesyłka już jest odebrana.");
                 }
-            });
+            }, e => SelectedItem?.IsOrder ?? false);
 
         #endregion
 

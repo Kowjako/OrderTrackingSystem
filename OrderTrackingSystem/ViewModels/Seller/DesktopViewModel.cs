@@ -70,6 +70,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             OnPropertyChanged(nameof(ParcelAvailableStates));
         }
 
+        private byte[] _imageData;
+
         #endregion
 
         #region Bindable properties
@@ -143,11 +145,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             {
                 try
                 {
-                    CurrentProduct.Category = SelectedCategory.Id;
+                    CurrentProduct.Category = SelectedCategory?.Id ?? -1;
                     CurrentProduct.SellerId = CurrentSeller.Id;
                     if(ValidatorWrapper.ValidateWithResult(new ProductValidator(), CurrentProduct))
                     {
-                        await ProductService.SaveNewProduct(CurrentProduct);
+                        await ProductService.SaveNewProduct(CurrentProduct, _imageData);
                         OnSuccess?.Invoke("Produkt pomyślnie dodany");
                     }
                     else
@@ -224,6 +226,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                     OnWarning?.Invoke("Należy wybrać zamówienie");
                 }
             });
+
+        private RelayCommand _addPicture;
+        public RelayCommand AddPicture =>
+            _addPicture ?? (_addPicture = new RelayCommand(obj =>
+            {
+                _imageData = ImageDataHelper.LoadImage();
+            }));
 
         #endregion
 

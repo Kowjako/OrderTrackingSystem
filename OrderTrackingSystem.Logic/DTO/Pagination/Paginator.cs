@@ -8,7 +8,7 @@ namespace OrderTrackingSystem.Logic.DTO.Pagination
 {
     public class Paginator
     {
-        private const int PAGE_SIZE = 10;
+        private const int PAGE_SIZE = 100;
 
         public static IEnumerable<T> GetPaginatedList<T>(IQueryable<T> list, int pageNumber) where T : class, IPagedEntity
         {

@@ -138,7 +138,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać wzorca");
+                    OnFailure?.Invoke("Nie udało się usunąć folderów");
                 }
             });
 

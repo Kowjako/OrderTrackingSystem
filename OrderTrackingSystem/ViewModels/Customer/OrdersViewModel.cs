@@ -88,9 +88,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if (ProductsInCart.Any(x => x.Name.Equals(SelectedProduct.Name)))
+                    if (ProductsInCart.Any(x => x.Id == SelectedProduct.Id))
                     {
-                        var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
+                        var existingProduct = ProductsInCart.First(x => x.Id == SelectedProduct.Id);
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
                         existingProduct.Amount += CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
@@ -125,33 +125,25 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand FindSeller =>
             _findSeller ??= new RelayCommand(obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
+                    if (!ProductsList.Any(p => p.Seller.Equals(obj as string)))
                     {
-                        if (!ProductsList.Any(p => p.Seller.Equals(obj as string)))
-                        {
-                            OnWarning("Nie ma sprzedawcy o takiej nazwie");
-                            return;
-                        }
-                        ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Seller.Equals(obj as string)));
-                        OnPropertyChanged(nameof(ProductsList));
+                        OnWarning("Nie ma sprzedawcy o takiej nazwie");
+                        return;
                     }
-                    else
-                    {
-                        if (AllProductsList.Any())
-                        {
-                            ProductsList = AllProductsList;
-                            OnPropertyChanged(nameof(ProductsList));
-                            return;
-                        }
-                        OnWarning("Nazwa nie może być pusta");
-                    }
+                    ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Seller.Equals(obj as string)));
                 }
-                catch (Exception)
+                else
                 {
-
+                    if (AllProductsList.Any())
+                    {
+                        ProductsList = AllProductsList;
+                        return;
+                    }
+                    OnWarning("Nazwa nie może być pusta");
                 }
+                OnPropertyChanged(nameof(ProductsList));
             });
 
         private RelayCommand minusAmount;

@@ -129,22 +129,22 @@
             </GroupBox>
             <GroupBox Header="{x:Static res:Resources.AddProduct}"
                 Margin="5"
-                DataContext="{Binding CurrentProduct}"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <TextBox DockPanel.Dock="Top"
+                <StackPanel>
+                    <Grid DataContext="{Binding CurrentProduct}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
@@ -152,7 +152,7 @@
                     Text="{Binding Name, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.PriceNetto}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
@@ -161,7 +161,7 @@
                                    Mode=TwoWay, 
                                    Converter={StaticResource dtsConverter},
                                    UpdateSourceTrigger=LostFocus}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.VAT}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
@@ -170,9 +170,9 @@
                                    Converter={StaticResource btsConverter},
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <TextBox DockPanel.Dock="Top"
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Weight}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -181,7 +181,7 @@
                                    Mode=TwoWay, 
                                    Converter={StaticResource dtsConverter},
                                    UpdateSourceTrigger=LostFocus}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Discount}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -190,17 +190,19 @@
                                    Mode=TwoWay,
                                    Converter={StaticResource btsConverter},
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <!-- Set DataContext to RelativeSource, cause we have DataContext
+                            <!-- Set DataContext to RelativeSource, cause we have DataContext
                         for our GroupBox but we need DataContext as ViewModel-->
-                        <ComboBox materialDesign:HintAssist.Hint="{x:Static res:Resources.Category}"
+                            <ComboBox materialDesign:HintAssist.Hint="{x:Static res:Resources.Category}"
                                   DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   ItemsSource="{Binding ProductCategories}"
                                   SelectedValue="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
                                   DisplayMemberPath="Name"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                     <StackPanel Grid.Row="1" Grid.Column="0"
                                 Grid.ColumnSpan="2">
                         <Button Margin="0 5 0 0"
+                                Command="{Binding AddPicture}"
                                 Background="LimeGreen"
                                 BorderBrush="LimeGreen">
                             <Button.Content>
@@ -220,7 +222,7 @@
                             </Button.Content>
                         </Button>
                     </StackPanel>
-                </Grid>
+                </StackPanel>
             </GroupBox>
             <DockPanel DockPanel.Dock="Bottom">
                 <Button

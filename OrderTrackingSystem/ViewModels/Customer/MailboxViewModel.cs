@@ -86,37 +86,30 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand FindReceiver =>
             _findReceiver ??= new RelayCommand(async obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
+                    /* Sprawdzamy czy to customer */
+                    MailReceiver = await CustomerService.GetCustomerByName(obj as string);
+                    /* Sprawdzamy czy to sklep */
+                    if (MailReceiver == null)
                     {
-                        /* Sprawdzamy czy to customer */
-                        MailReceiver = await CustomerService.GetCustomerByName(obj as string);
-                        /* Sprawdzamy czy to sklep */
-                        if(MailReceiver == null)
+                        MailReceiver = await CustomerService.GetSellerByName(obj as string);
+                        if (MailReceiver == null)
                         {
-                            MailReceiver = await CustomerService.GetSellerByName(obj as string);
-                            if (MailReceiver == null)
-                            {
-                                OnWarning?.Invoke("Nie istnieje takiej osoby/sklepu");
-                                return;
-                            }
-                            MailDirection = MailDirectionType.CustomerToSeller;
+                            OnWarning?.Invoke("Nie istnieje takiej osoby/sklepu");
+                            return;
                         }
-                        else
-                        {
-                            MailDirection = MailDirectionType.CustomerToCustomer;
-                        }                        
-                        OnPropertyChanged(nameof(MailReceiver));
+                        MailDirection = MailDirectionType.CustomerToSeller;
                     }
                     else
                     {
-                        OnWarning?.Invoke("Nazwa nie może być pusta");
+                        MailDirection = MailDirectionType.CustomerToCustomer;
                     }
+                    OnPropertyChanged(nameof(MailReceiver));
                 }
-                catch (Exception)
+                else
                 {
-
+                    OnWarning?.Invoke("Nazwa nie może być pusta");
                 }
             });
 
@@ -124,34 +117,30 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand FilterCommand =>
             _filterCommand ??= new RelayCommand(obj =>
             {
-                try
+                if (DateFrom != DateTo && DateFrom < DateTo)
                 {
-                    if (DateFrom != DateTo && DateFrom < DateTo)
+                    Func<MailDTO, bool> filterCondition = (m) =>
                     {
-                        switch (SelectedFilterMsgType)
-                        {
-                            case 0:
-                                SentMessages = SentMessages.Where(p => p.SendDate <= DateTo &&
-                                                                       p.SendDate >= DateFrom).ToList();
-                                OnPropertyChanged(nameof(SentMessages));
-                                break;
-                            case 1:
-                                ReceivedMessages = SentMessages.Where(p => p.SendDate <= DateTo &&
-                                                                           p.SendDate >= DateFrom).ToList();
-                                OnPropertyChanged(nameof(ReceivedMessages));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
+                        return m.SendDate <= DateTo && m.SendDate >= DateFrom;
+                    };
+
+                    switch (SelectedFilterMsgType)
                     {
-                        OnWarning?.Invoke("Proszę ustawić różne daty, oraz data początkowa musi być mniejsza niż końcowa");
+                        case 0:
+                            SentMessages = SentMessages.Where(filterCondition).ToList();
+                            OnPropertyChanged(nameof(SentMessages));
+                            break;
+                        case 1:
+                            ReceivedMessages = SentMessages.Where(filterCondition).ToList();
+                            OnPropertyChanged(nameof(ReceivedMessages));
+                            break;
+                        default:
+                            break;
                     }
                 }
-                catch (Exception)
+                else
                 {
-
+                    OnWarning?.Invoke("Proszę ustawić różne daty, oraz data początkowa musi być mniejsza niż końcowa");
                 }
             });
 

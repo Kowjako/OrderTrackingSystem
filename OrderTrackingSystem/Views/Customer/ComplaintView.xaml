@@ -18,7 +18,7 @@
         <Style BasedOn="{StaticResource MaterialDesignRaisedAccentButton}" x:Key="defaultBtnStyle" TargetType="{x:Type ButtonBase}">
             <Style.Setters>
                 <Setter Property="Background" Value="Maroon"/>
-                <Setter Property="Background" Value="Maroon"/>
+                <Setter Property="BorderBrush" Value="Maroon"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>

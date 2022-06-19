@@ -98,22 +98,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand FindReceiver =>
             _findReceiver ??= new RelayCommand(async obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
-                    {
-                        CurrentReceiver = await CustomerService.GetCustomerByName(obj as string);
-                        OnPropertyChanged(nameof(CurrentReceiver));
-                    }
-                    else
-                    {
-                        OnWarning?.Invoke("Pole odbiorca nie może być puste");
-                    }
+                    CurrentReceiver = await CustomerService.GetCustomerByName(obj as string);
+                    OnPropertyChanged(nameof(CurrentReceiver));
                 }
-                //TODO: dorobic catch na rozne wyjatki
-                catch (Exception ex)
+                else
                 {
-
+                    OnWarning?.Invoke("Pole odbiorca nie może być puste");
                 }
             });
 
@@ -121,69 +113,55 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand AddToCart =>
             _addToCart ??= new RelayCommand(obj =>
             {
-                try
+                if (CurrentProductAmount == default(int)) return; 
+                if (ProductsInCart.Any(x => x.Id.Equals(SelectedProduct.Id)))
                 {
-                    if (ProductsInCart.Any(x => x.Name.Equals(SelectedProduct.Name)))
+                    var existingProduct = ProductsInCart.First(x => x.Id.Equals(SelectedProduct.Id));
+                    var elementIndex = ProductsInCart.IndexOf(existingProduct);
+                    existingProduct.Amount += CurrentProductAmount;
+                    ProductsInCart[elementIndex] = existingProduct;
+                }
+                else
+                {
+                    var priceWithDiscount = SelectedProduct.PriceNetto - (SelectedProduct.PriceNetto * SelectedProduct.Discount / 100);
+                    ProductsInCart.Add(new CartProductDTO()
                     {
-                        var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
-                        var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount += CurrentProductAmount;
-                        ProductsInCart[elementIndex] = existingProduct;
-                    }
-                    else
-                    {
-                        var priceWithDiscount = SelectedProduct.PriceNetto - (SelectedProduct.PriceNetto * SelectedProduct.Discount / 100);
-                        ProductsInCart.Add(new CartProductDTO()
-                        {
-                            Id = SelectedProduct.Id,
-                            Name = SelectedProduct.Name,
-                            Price = priceWithDiscount,
-                            Amount = CurrentProductAmount,
-                            Discount = SelectedProduct.Discount
-                        });
-                    }
+                        Id = SelectedProduct.Id,
+                        Name = SelectedProduct.Name,
+                        Price = priceWithDiscount,
+                        Amount = CurrentProductAmount,
+                        Discount = SelectedProduct.Discount
+                    });
+                }
 
-                    CurrentProductAmount = 0;
-                    RecalculateCartPrice();
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                    OnPropertyChanged(nameof(ProductsInCart));
-                }
-                catch (Exception ex)
-                {
-                    OnFailure?.Invoke("Nie udało się dodać do koszyka");
-                }
+                CurrentProductAmount = 0;
+                RecalculateCartPrice();
+                OnPropertyChanged(nameof(CurrentProductAmount));
+                OnPropertyChanged(nameof(ProductsInCart));
             });
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
             _filterCommand ??= new RelayCommand(obj =>
             {
-                try
+                ProductsList = AllProductsList;
+                if (MaxPrice == 0m)
                 {
-                    ProductsList = AllProductsList;
-
-                    if (MaxPrice == 0m)
-                    {
-                        ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice).ToList();
-                    }
-                    else
-                    {
-                        ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice && p.PriceNetto <= MaxPrice).ToList();
-                    }
-
-                    if(SelectedSubCategory != null)
-                    {
-                        /* Ustawiamy ID grupy glownej i jej grup podrzednych */
-                        var list = SelectedSubCategory.Children.Select(p => p.Id).ToList();
-                        list.Add(SelectedSubCategory.Id);
-                        ProductsList = ProductsList.Where(p => p.CategoryId.In(list.ToArray())).ToList();
-                    }
-                    OnPropertyChanged(nameof(ProductsList));
+                    ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice).ToList();
                 }
-                catch (Exception)
+                else
                 {
-
+                    ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice && p.PriceNetto <= MaxPrice).ToList();
                 }
+
+                if (SelectedSubCategory != null)
+                {
+                    /* Ustawiamy ID grupy glownej i jej grup podrzednych */
+                    var list = SelectedSubCategory.Children.Select(p => p.Id).ToList();
+                    list.Add(SelectedSubCategory.Id);
+                    ProductsList = ProductsList.Where(p => p.CategoryId.In(list.ToArray())).ToList();
+                }
+                OnPropertyChanged(nameof(ProductsList));
             });
 
         private RelayCommand _clearCart;
