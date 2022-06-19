@@ -32,6 +32,7 @@ namespace OrderTrackingSystem
                 {
                     SellerMenu.Visibility = Visibility.Collapsed;
                     SellerData.Visibility = Visibility.Collapsed;
+                    SellerProcess.Visibility = Visibility.Collapsed;
                 }
                 else
                 {

@@ -35,11 +35,114 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Background="Black"/>
-        <ctrls:ExtensibleViewPanel Grid.Column="0"
+        <ctrls:ExtensibleViewPanel_v2 Grid.Column="0"
                                    Grid.Row="0"
-                                   Caption="Vovka"
-                                   Grid.RowSpan="4"
-                                   />
+                                   CaptionV2="ViewModel"
+                                   Grid.RowSpan="4">
+                <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
+                    <StackPanel DataContext="{Binding CurrentSeller}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
+                        <GroupBox Header="{x:Static res:Resources.Data}"
+                Padding="10"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                            <StackPanel>
+                                <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Name, 
+                                   Mode=TwoWay, 
+                                   UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.OpenDate}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding OpenDate, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.TIN}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding TIN, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Number}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Number, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox DockPanel.Dock="Top"
+                    materialDesign:HintAssist.Hint="{x:Static res:Resources.Email}"
+                    materialDesign:HintAssist.IsFloating="True"
+                    materialDesign:HintAssist.FloatingScale="1"
+                    Margin="0 0 0 5"
+                    FontSize="15"
+                    Text="{Binding Email, 
+                                     Mode=TwoWay, 
+                                     UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <GroupBox Header="{x:Static res:Resources.LoginData}"
+                Margin="5"
+                DockPanel.Dock="Top"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBox
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        FontSize="15"
+                        Margin="0,0,0,0"
+                        x:Name="NameTextBox"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.Login}">
+                            </TextBox>
+                            <PasswordBox
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        FontSize="15"
+                        Margin="0,5,0,0"
+                        x:Name="PasswordTextBox"
+                        materialDesign:HintAssist.Hint="{x:Static res:Resources.Password}">
+                            </PasswordBox>
+                        </Grid>
+                    </GroupBox>
+                    <DockPanel DockPanel.Dock="Bottom">
+                        <Button
+                    DockPanel.Dock="Bottom"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Background="Maroon"
+                    BorderBrush="Maroon"
+                    Foreground="White"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Command="{Binding SaveCommand}"
+                    Margin="7"
+                    VerticalAlignment="Bottom"
+                    Content="{x:Static res:Resources.Save}" />
+                    </DockPanel>
+
+                </DockPanel>
+        </ctrls:ExtensibleViewPanel_v2>
         <DockPanel  Grid.Column="1"
                     Grid.RowSpan="3"
                     LastChildFill="True"

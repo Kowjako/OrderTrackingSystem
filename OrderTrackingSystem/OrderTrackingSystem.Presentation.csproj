@@ -85,9 +85,7 @@
     <Compile Include="CustomControls\ComplaintProgress.xaml.cs">
       <DependentUpon>ComplaintProgress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\ExtensibleViewPanel.xaml.cs">
-      <DependentUpon>ExtensibleViewPanel.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="CustomControls\ExtensibleViewPanel_v2.cs" />
     <Compile Include="CustomControls\MindMapControl.xaml.cs">
       <DependentUpon>MindMapControl.xaml</DependentUpon>
     </Compile>
@@ -169,10 +167,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControls\ExtensibleViewPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CustomControls\MindMapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -209,6 +203,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Styles\DefinedStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ExtensibleViewPanel_v2Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
