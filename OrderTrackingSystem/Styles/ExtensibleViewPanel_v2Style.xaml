@@ -30,27 +30,15 @@
                                         Text="{TemplateBinding CaptionV2}"/>
                                 <Button
                                         Grid.Column="2"
+                                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
                                         HorizontalAlignment="Right"
+                                        Background="SeaGreen"
+                                        BorderBrush="SeaGreen"
                                         VerticalAlignment="Bottom"
                                         Margin="5"
                                         Height="20"
                                         Width="20">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type ButtonBase}">
-                                            <Style.Setters>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type ButtonBase}">
-                                                            <Border CornerRadius="10"
-                                                                    BorderBrush="Maroon">
-                                                                <ContentPresenter Content="{TemplateBinding Content}"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style.Setters>
-                                        </Style>
-                                    </Button.Style>
+                                    <materialDesign:PackIcon Kind="ChevronRight" />
                                 </Button>
                             </Grid>
                         </Border>
