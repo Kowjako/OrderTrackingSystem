@@ -52,7 +52,7 @@ namespace OrderTrackingSystem.Logic.DTO
 
     }
 
-#pragma warning disable CS1591
+    #pragma warning disable CS1591
     public class ComplaintFolderDTO : IComposite<ComplaintFolderDTO>
     {
         

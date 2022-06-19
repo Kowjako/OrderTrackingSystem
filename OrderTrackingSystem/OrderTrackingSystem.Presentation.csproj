@@ -163,6 +163,7 @@
     <Compile Include="Views\Seller\TestForPanel.xaml.cs">
       <DependentUpon>TestForPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowExtension\DisplayNameBinder.cs" />
     <Compile Include="WindowExtension\WindowExtension.cs" />
     <Page Include="CustomControls\ComplaintProgress.xaml">
       <SubType>Designer</SubType>
@@ -207,6 +208,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles\DefinedStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Customer\ComplaintView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

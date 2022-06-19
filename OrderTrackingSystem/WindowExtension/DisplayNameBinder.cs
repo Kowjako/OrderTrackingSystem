@@ -47,36 +47,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
 
             if (CheckCustomAttributes(e.PropertyDescriptor) is string s && !string.IsNullOrEmpty(s) && s.Equals("Image"))
             {
-                /* Tworzymy styl */
-                var style = new Style { TargetType = typeof(DataGridCell) };
-                var frameworkElementFactory = new FrameworkElementFactory(typeof(Image));
-                frameworkElementFactory.SetValue(Image.HeightProperty, 60.0);
-                frameworkElementFactory.SetValue(Image.WidthProperty, 100.0);
-                frameworkElementFactory.SetValue(Image.StretchProperty, Stretch.Fill);
-
-                /* Wiązanie danych do DTO */
-                var binding = new Binding("Image") { Mode = BindingMode.OneWay };
-                frameworkElementFactory.SetValue(Image.SourceProperty, binding);
-
-                var dataTemplate = new DataTemplate() { VisualTree = frameworkElementFactory };
-
-                /* Tworzenie triggerów */
-                var trigger = new Trigger() { Property = DataGridCell.IsSelectedProperty, Value = true };
-                trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
-                trigger.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(222, 222, 222))));
-
-                var trigger1 = new Trigger() { Property = DataGridCell.IsFocusedProperty, Value = true };
-                trigger1.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new SolidColorBrush(Colors.Black)));
-
-                var trigger2 = new Trigger() { Property = DataGridCell.IsMouseOverProperty, Value = true };
-                trigger2.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new SolidColorBrush(Color.FromRgb(240, 240, 240))));
-
-                /* Wypełnianie stylu */
-                style.Setters.Add(new Setter(DataGridCell.ContentTemplateProperty, dataTemplate));
-                style.Triggers.Add(trigger);
-                style.Triggers.Add(trigger1);
-                style.Triggers.Add(trigger2);
-
+                var style = new ResourceDictionary() { Source = new Uri("/OrderTrackingSystem.Presentation;component/Styles/DefinedStyles.xaml", UriKind.RelativeOrAbsolute) }["imageCell"] as Style;
                 e.Column.CellStyle = style;
             }
         }
