@@ -39,9 +39,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
 
             if (e.Column is DataGridCheckBoxColumn)
             {
-                var style = new Style { TargetType = typeof(DataGridCell) };
-                style.Setters.Add(new Setter(DataGridCell.HorizontalAlignmentProperty, HorizontalAlignment.Left));
-                style.Setters.Add(new Setter(DataGridCell.MarginProperty, new Thickness(15, 0, 0, 0)));
+                var style = new ResourceDictionary() { Source = new Uri("/OrderTrackingSystem.Presentation;component/Styles/DefinedStyles.xaml", UriKind.RelativeOrAbsolute) }["checkBoxCell"] as Style;
                 e.Column.CellStyle = style;
             }
 

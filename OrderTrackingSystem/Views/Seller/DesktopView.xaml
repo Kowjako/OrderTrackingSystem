@@ -67,7 +67,7 @@
                                Visibility="{Binding SelectedOrder, Converter={StaticResource ntvConverter}}"
                                Margin="0 0 0 10">
                         <Run Text="{x:Static res:Resources.ParcelNumber}"/>
-                        <Run Text="{Binding SelectedOrder.Numer}" Foreground="RoyalBlue"/>
+                        <Run Text="{Binding SelectedOrder.Number}" Foreground="RoyalBlue"/>
                     </TextBlock>
                     <ComboBox DockPanel.Dock="Top"
                         x:Name="voucherBox"

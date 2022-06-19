@@ -20,14 +20,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
         List<VoucherDTO> VouchersList { get; set; }
         BindingList<CartProductDTO> ProductsInCart { get; set; }
 
-        Visibility VouchersVisibility { get; }
-        decimal TotalPriceNetto { get; set; }
-        decimal VAT { get; }
-        decimal TotalPriceBrutto { get; }
-        decimal DeliveryCost { get; }
-        decimal FullPrice { get; }
-        int SelectedDeliveryType { get; set; }
-
         Task SetInitializeProperties();
 
         RelayCommand AddToCart { get; }
