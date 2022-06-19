@@ -125,7 +125,6 @@
     <Compile Include="ViewModels\Customer\StartupViewModel.cs" />
     <Compile Include="ViewModels\Customer\TrackingViewModel.Bindings.cs" />
     <Compile Include="ViewModels\Customer\TrackingViewModel.cs" />
-    <Compile Include="ViewModels\Seller\DevelopedViewModel.cs" />
     <Compile Include="ViewModels\Seller\SellerAccountViewModel.cs" />
     <Compile Include="ViewModels\Seller\DesktopViewModel.cs" />
     <Compile Include="Views\Customer\ComplaintView.xaml.cs">
@@ -157,9 +156,6 @@
     </Compile>
     <Compile Include="Views\Seller\SellerAccountView.xaml.cs">
       <DependentUpon>SellerAccountView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Seller\TestForPanel.xaml.cs">
-      <DependentUpon>TestForPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowExtension\DisplayNameBinder.cs" />
     <Compile Include="WindowExtension\WindowExtension.cs" />
@@ -247,10 +243,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Seller\SellerAccountView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Seller\TestForPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

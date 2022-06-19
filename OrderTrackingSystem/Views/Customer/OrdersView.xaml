@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
+             xmlns:p="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              Loaded="ordersView_Loaded"
              x:Name="ordersView"
@@ -26,37 +27,35 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="{x:Static res:Resources.MakeOrder}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
-        <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+
+        <p:ExtensibleViewPanel_v2 Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.RowSpan="4"
+                                  CaptionV2="{x:Static res:Resources.MakeOrder}">
+            <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
-            <Border Grid.Column="2"
+                <Border Grid.Column="2"
                 DockPanel.Dock="Top"
                 Grid.Row="0"
                 Margin="5"
                 BorderBrush="Black"
                 BorderThickness="1">
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
                             Width="35" />
-                        <ColumnDefinition
+                            <ColumnDefinition
                             Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Button
+                        </Grid.ColumnDefinitions>
+                        <Button
                         Command="{Binding FindSeller}"
                         CommandParameter="{Binding ElementName=sellerBox, Path=Text}"
                         Style="{DynamicResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                             Kind="Search"
                             Opacity="1" />
-                    </Button>
-                    <TextBox
+                        </Button>
+                        <TextBox
                         x:Name="sellerBox"
                         FontSize="15"
                         VerticalAlignment="Center"
@@ -65,61 +64,61 @@
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.FindShop}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
-                </Grid>
-            </Border>
-            <GroupBox
+                    </Grid>
+                </Border>
+                <GroupBox
                 Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding CurrentCustomer}">
-                    <!-- Use this style inside this control -->
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Margin" Value="0,0,0,3"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock FontWeight="DemiBold"
+                    <StackPanel DataContext="{Binding CurrentCustomer}">
+                        <!-- Use this style inside this control -->
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontFamily" Value="Arial"/>
+                                <Setter Property="Margin" Value="0,0,0,3"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock FontWeight="DemiBold"
                                Text="{Binding Name}"/>
-                    <TextBlock Foreground="DarkGreen"
+                        <TextBlock Foreground="DarkGreen"
                                Text="{Binding Address}"/>
-                    <TextBlock Text="{Binding CityWithCode}"/>
-                    <TextBlock Text="{Binding Email}"/>
-                    <TextBlock Foreground="Maroon"
+                        <TextBlock Text="{Binding CityWithCode}"/>
+                        <TextBlock Text="{Binding Email}"/>
+                        <TextBlock Foreground="Maroon"
                                Text="{Binding Number}"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
                 Header="{x:Static res:Resources.DeliveryPoint}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding SelectedPickup}">
-                    <!-- Use this style inside this control -->
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Margin" Value="0,0,0,3"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock FontWeight="DemiBold"
+                    <StackPanel DataContext="{Binding SelectedPickup}">
+                        <!-- Use this style inside this control -->
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontFamily" Value="Arial"/>
+                                <Setter Property="Margin" Value="0,0,0,3"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock FontWeight="DemiBold"
                                Text="{Binding Address}"/>
-                    <TextBlock Foreground="DarkGreen"
+                        <TextBlock Foreground="DarkGreen"
                                Text="{Binding CityWithCode}"/>
-                    <TextBlock Text="{Binding Capacity, StringFormat=Pojemność: {0:d}}"/>
-                    <TextBlock Foreground="Maroon"
+                        <TextBlock Text="{Binding Capacity, StringFormat=Pojemność: {0:d}}"/>
+                        <TextBlock Foreground="Maroon"
                                Text="{Binding WorkTime, StringFormat=Czas pracy: {0:d}}"/>
 
-                </StackPanel>
-            </GroupBox>
-            <Button
+                    </StackPanel>
+                </GroupBox>
+                <Button
                     x:Name="btnAddToCart"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -131,7 +130,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddToCart}" />
-            <Button
+                <Button
                     Command="{Binding ClearCart}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -142,7 +141,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ClearCart}" />
-            <Button
+                <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -153,15 +152,15 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Accept}" />
-            <GroupBox
+                <GroupBox
                 Header="{x:Static res:Resources.Voucher}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <DockPanel LastChildFill="True">
-                    <ComboBox DockPanel.Dock="Top"
+                    <DockPanel LastChildFill="True">
+                        <ComboBox DockPanel.Dock="Top"
                         x:Name="voucherBox"
                         ItemsSource="{Binding VouchersList}"
                         DisplayMemberPath="Number"
@@ -172,8 +171,8 @@
                         Padding="5,10,10,10"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectBon}"
                         IsEditable="False">
-                    </ComboBox>
-                    <Border    CornerRadius="10"
+                        </ComboBox>
+                        <Border    CornerRadius="10"
                                Margin="0,10,0,0"
                                Height="120"
                                DockPanel.Dock="Top"
@@ -181,88 +180,88 @@
                                Background="Violet"
                                BorderThickness="1"
                                BorderBrush="Firebrick">
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=SelectedIndex, ElementName=voucherBox}" Value="-1">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=SelectedIndex, ElementName=voucherBox}" Value="-1">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
 
-                            </Style>
-                        </Border.Style>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2.5*"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Width="45" Height="70"
+                                </Style>
+                            </Border.Style>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.5*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Width="45" Height="70"
                               Grid.Column="2"
                               VerticalAlignment="Top"
                               HorizontalAlignment="Right"
                               Background="Yellow"
                               Margin="0,0,15,0">
-                                <Grid.Effect>
-                                    <DropShadowEffect BlurRadius="25" RenderingBias="Quality" 
+                                    <Grid.Effect>
+                                        <DropShadowEffect BlurRadius="25" RenderingBias="Quality" 
                                                   ShadowDepth="1"
                                                   Color="Chocolate"/>
-                                </Grid.Effect>
-                                <materialDesign:PackIcon Kind="TicketPercentOutline"
+                                    </Grid.Effect>
+                                    <materialDesign:PackIcon Kind="TicketPercentOutline"
                                                      Foreground="Black"
                                                      Width="35"
                                                      Height="40"
                                                      HorizontalAlignment="Center"
                                                      VerticalAlignment="Bottom"
                                                      Margin="0,0,0,5"/>
-                            </Grid>
-                            <StackPanel Grid.Column="0"
+                                </Grid>
+                                <StackPanel Grid.Column="0"
                                         DataContext="{Binding SelectedVoucher}">
-                                <TextBlock Text="{Binding Number, StringFormat={x:Static res:Resources.SingleVoucher}}" FontSize="20" 
+                                    <TextBlock Text="{Binding Number, StringFormat={x:Static res:Resources.SingleVoucher}}" FontSize="20" 
                                            FontFamily="Times New Roman" 
                                            Margin="10,10,5,0"
                                            Foreground="Maroon"/>
-                                <TextBlock Grid.Column="0" 
+                                    <TextBlock Grid.Column="0" 
                                        FontSize="40" 
                                        Foreground="Indigo" 
                                        FontFamily="Times New Roman" 
                                        Margin="10,0,5,0"
                                        VerticalAlignment="Center">
                                     <!-- Use Multibining to bind to many properties-->
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0}/{1} zł">
-                                            <Binding Path="Value"/>
-                                            <Binding Path="RemainValue"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <Grid Margin="10,5,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="25"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <materialDesign:PackIcon Kind="CalendarRange"
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}/{1} zł">
+                                                <Binding Path="Value"/>
+                                                <Binding Path="RemainValue"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <Grid Margin="10,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="CalendarRange"
                                                              Grid.Column="0"
                                                              VerticalAlignment="Center"
                                                              Width="20"
                                                              Height="20"/>
-                                    <TextBlock Text="{Binding ExpireDate, StringFormat={x:Static res:Resources.ExpireDate}}" 
+                                        <TextBlock Text="{Binding ExpireDate, StringFormat={x:Static res:Resources.ExpireDate}}" 
                                                Grid.Column="1"
                                                FontSize="14"
                                                VerticalAlignment="Center"
                                                FontFamily="Times New Roman"/>
-                                </Grid>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <CheckBox DockPanel.Dock="Bottom" 
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <CheckBox DockPanel.Dock="Bottom" 
                               Visibility="{Binding VouchersVisibility}"
                               IsChecked="{Binding IsVoucherFullChecked, UpdateSourceTrigger=PropertyChanged}"
                               x:Name="acceptFullVoucher"
                               Style="{StaticResource MaterialDesignDarkCheckBox}"  
                               Margin="0 5 0 0"
                               Content="{x:Static res:Resources.AcceptFullVoucher}"/>
-                    <!-- Używamy konwertera aby zamiast 0 wstawiać string.Empty -->
-                    <TextBox  DockPanel.Dock="Bottom" 
+                        <!-- Używamy konwertera aby zamiast 0 wstawiać string.Empty -->
+                        <TextBox  DockPanel.Dock="Bottom" 
                               Margin="0 5 0 0"
                               Visibility="{Binding VouchersVisibility}"
                               Text="{Binding VoucherValueToMinus, Converter={StaticResource dtsConverter}}"
@@ -271,23 +270,23 @@
                               IsEnabled ="{Binding ElementName=acceptFullVoucher,
                                                    Path=IsChecked,
                                                    Converter={StaticResource negativeConverter}}">
-                    </TextBox>
-                </DockPanel>
-            </GroupBox>
-            <GroupBox
+                        </TextBox>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox
                 Header="{x:Static res:Resources.ProductAmount}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="30"/>
-                    </Grid.ColumnDefinitions>
-                    <Button 
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <Button 
                     Command="{Binding MinusAmount}"
                     Grid.Column="0"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
@@ -297,28 +296,28 @@
                     Background="RoyalBlue"
                     BorderBrush="RoyalBlue"
                     >
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                         Kind="Minus"
                         Height="25"
                         Width="25" />
-                    </Button>
-                    <TextBox Grid.Column="1"
+                        </Button>
+                        <TextBox Grid.Column="1"
                          Margin="5,0,5,5"
                          Text="{Binding CurrentProductAmount, UpdateSourceTrigger=PropertyChanged}"
                          HorizontalContentAlignment="Center"
                          IsEnabled="False"
                          VerticalContentAlignment="Center">
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                            <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
-                    <Button
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <Button
                     Command="{Binding PlusAmount}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                     Height="30"
@@ -328,14 +327,16 @@
                     BorderBrush="Red"
                     BorderThickness="0"
                     Grid.Column="2">
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                         Kind="Plus"
                         Height="25"
                         Width="25" />
-                    </Button>
-                </Grid>
-            </GroupBox>
-        </DockPanel>
+                        </Button>
+                    </Grid>
+                </GroupBox>
+            </DockPanel>
+        </p:ExtensibleViewPanel_v2>
+
         <GridSplitter Grid.Row="2"
                       Grid.ColumnSpan="2"
                       Grid.Column="1" Height="4"

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:p="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              mc:Ignorable="d" 
              Loaded="main_Loaded"
@@ -21,38 +22,33 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="{x:Static res:Resources.AccountDetails}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
         <GridSplitter Grid.Row="1"
                       Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Background="Black"
-                      Height="4"
-                      />
+                      Height="4"/>
         <GridSplitter Grid.Row="2"
                       Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Background="Black"
-                      Height="4"
-                      />
-        <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
-            <StackPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
-                <GroupBox Header="{x:Static res:Resources.Data}"
+                      Height="4"/>
+        <p:ExtensibleViewPanel_v2 Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.RowSpan="4"
+                                  CaptionV2="{x:Static res:Resources.AccountDetails}">
+            <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
+                <StackPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
+                    <GroupBox Header="{x:Static res:Resources.Data}"
                 Padding="10"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                    <StackPanel>
-                        <TextBox DockPanel.Dock="Top"
+                        <StackPanel>
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Name}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -61,7 +57,7 @@
                     Text="{Binding Name, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Surname}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -70,7 +66,7 @@
                     Text="{Binding Surname, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Age}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -79,7 +75,7 @@
                     Text="{Binding Age, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Number}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -88,7 +84,7 @@
                     Text="{Binding Number, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Email}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -97,41 +93,41 @@
                     Text="{Binding Email, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-            <GroupBox Header="{x:Static res:Resources.LoginData}"
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                <GroupBox Header="{x:Static res:Resources.LoginData}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
+                    <Grid>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBox
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox
                         Grid.Column="1"
                         Grid.Row="0"
                         FontSize="15"
                         Margin="0,0,0,0"
                         x:Name="NameTextBox"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.Login}">
-                    </TextBox>
-                    <PasswordBox
+                        </TextBox>
+                        <PasswordBox
                         Grid.Column="1"
                         Grid.Row="1"
                         FontSize="15"
                         Margin="0,5,0,0"
                         x:Name="PasswordTextBox"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.Password}">
-                    </PasswordBox>
-                </Grid>
-            </GroupBox>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button
+                        </PasswordBox>
+                    </Grid>
+                </GroupBox>
+                <DockPanel DockPanel.Dock="Bottom">
+                    <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -142,22 +138,22 @@
                     Margin="7"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Save}" />
-            </DockPanel>
-            <DockPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Bottom" LastChildFill="False">
-                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                    <Image Height="30" 
+                </DockPanel>
+                <DockPanel DataContext="{Binding CurrentCustomer}" DockPanel.Dock="Bottom" LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                        <Image Height="30" 
                        Source="../../Images/balance.png"
                        Margin="5"/>
-                    <TextBlock Text="{Binding Balance, StringFormat ={}{0:f2} zł}"
+                        <TextBlock Text="{Binding Balance, StringFormat ={}{0:f2} zł}"
                            Margin="5"
                            FontWeight="SemiBold"
                            FontSize="15"
                            VerticalAlignment="Center"/>
-                </StackPanel>
+                    </StackPanel>
+                </DockPanel>
             </DockPanel>
-
-        </DockPanel>
-
+        </p:ExtensibleViewPanel_v2>
+        
         <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <TextBlock Text="{x:Static res:Resources.CustomerAddress}"
                        Foreground="Black"
