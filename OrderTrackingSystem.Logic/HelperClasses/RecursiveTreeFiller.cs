@@ -35,7 +35,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses
             }
             else
             {
-                /* Warunek wyjscia z rekurencji */
+                /* Wyjscie z rekurencji */
                 return;
             }
         }
