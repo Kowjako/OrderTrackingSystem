@@ -148,6 +148,13 @@ namespace OrderTrackingSystem
             DataContext = viewModel;
         }
 
+        private void SellerProcess_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = new SellerProcessesViewModel();
+            AttachEventsToViewModel(viewModel);
+            DataContext = viewModel;
+        }
+
         #endregion
 
         #region Generic viewmodel methods
@@ -190,8 +197,8 @@ namespace OrderTrackingSystem
             DataContext = new StartupViewModel();
         }
 
+
         #endregion
 
-        
     }
 }

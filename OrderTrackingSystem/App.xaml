@@ -49,6 +49,9 @@
             <DataTemplate DataType="{x:Type viewmodelsS:SellerAccountViewModel}">
                 <viewsS:SellerAccountView DataContext="{Binding}"/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodelsS:SellerProcessesViewModel}">
+                <viewsS:SellerProcesses DataContext="{Binding}"/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

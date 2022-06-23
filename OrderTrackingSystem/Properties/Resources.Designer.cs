@@ -1078,6 +1078,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Procesy sprzedawcy.
+        /// </summary>
+        public static string SellerProcesses {
+            get {
+                return ResourceManager.GetString("SellerProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wyślij automatyczną wiadomość.
         /// </summary>
         public static string SendAutomaticEmail {

@@ -158,7 +158,7 @@
                     </TextBlock>
                 </TabItem>
                 <TabItem x:Name="SellerProcess" 
-                PreviewMouseLeftButtonDown="SellerMenu_PreviewMouseLeftButtonDown"
+                PreviewMouseLeftButtonDown="SellerProcess_PreviewMouseLeftButtonDown"
                 Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"

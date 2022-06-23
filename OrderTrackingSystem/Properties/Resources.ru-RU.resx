@@ -456,6 +456,9 @@
   <data name="Seller" xml:space="preserve">
     <value>Продавец</value>
   </data>
+  <data name="SellerProcesses" xml:space="preserve">
+    <value>Процессы продавца</value>
+  </data>
   <data name="SendAutomaticEmail" xml:space="preserve">
     <value>Отправь автоматическое сообщение</value>
   </data>
