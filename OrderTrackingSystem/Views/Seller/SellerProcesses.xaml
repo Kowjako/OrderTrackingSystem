@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:panel="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
+             xmlns:dto="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="1000">
     <Grid>
@@ -28,7 +29,7 @@
 
         <DockPanel Grid.Row="0"
                    Grid.RowSpan="2"
-                   LastChildFill="False"
+                   LastChildFill="True"
                    Grid.Column="1">
             <TextBlock
                     Foreground="Black"
@@ -42,102 +43,93 @@
                     DockPanel.Dock="Top"
                     Margin="10,0,0,5"
                     Text="Możliwość zaznaczenia kilku na raz i uruchomienie"/>
-            <!--<ListBox>
+            <ListBox ItemsSource="{Binding SellerProcesses}"
+                     Padding="0">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate DataType="{x:Type dto:ProcessDTO}">
                         <Border BorderThickness="2"
-                                CornerRadius="10">
+                                HorizontalAlignment="Stretch"
+                        CornerRadius="10">
                             <Border.BorderBrush>
                                 <LinearGradientBrush>
                                     <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="Black" Offset="0.5"/>
-                                        <GradientStop Color="LightGray" Offset="1"/>
+                                        <GradientStop Color="Black" Offset="0.25"/>
+                                        <GradientStop Color="LightGray" Offset="0.5"/>
+                                        <GradientStop Color="Orange" Offset="0.75"/>
                                     </LinearGradientBrush.GradientStops>
                                 </LinearGradientBrush>
                             </Border.BorderBrush>
-                        
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
-            <Border BorderThickness="2" DockPanel.Dock="Top"
-                    Margin="10 20 10 5"
-                    CornerRadius="10">
-                <Border.BorderBrush>
-                    <LinearGradientBrush>
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Color="Black" Offset="0.25"/>
-                            <GradientStop Color="LightGray" Offset="0.5"/>
-                            <GradientStop Color="Orange" Offset="0.75"/>
-                        </LinearGradientBrush.GradientStops>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Width="50"
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Width="50"
                            Margin="5"
                            Grid.Column="0"
                            Height="50" 
                            Source="../../Images/gear.png"/>
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="Sprawdzanie terminowości dostarczania zamówień"
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Name}"
                                    FontSize="15"
                                    FontWeight="DemiBold"
                                    Margin="5 5 5 5"/>
-                        <!-- Zrobic multibinding -->
-                        <TextBlock Text="Ostatni raz uruchomiono: 10/11/2000 15:56"
+                                    <TextBlock
                                    FontSize="13"
                                    FontStyle="Italic"
-                                   Margin="5 0 5 0"/>
-                        <TextBlock Text="Opis: Gdy zostało mniej niż 2 dni do dostarczenia przesyłki jest wysyłana automatyczna wiadomość, gdy zamówienie przeterminowane - zamówienie się usuwa i klient dostaje zwrot"
-                                   FontSize="14"
-                                   TextWrapping="WrapWithOverflow"
-                                   Margin="5"/>
-                    </StackPanel>
-                    <CheckBox Grid.Column="2"
-                              Margin=" 0 0 20 0">
-                        <CheckBox.Template>
-                            <ControlTemplate>
-                                <Border Width="40"
+                                   Margin="5 0 5 0">
+                                        <Run Text="Ostatni raz uruchomiono: "/>
+                                        <Run Text="{Binding LastProcessDate}"/>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Description}"
+                                    FontSize="14"
+                                    TextWrapping="WrapWithOverflow"
+                                    Margin="5"/>
+                                </StackPanel>
+                                <CheckBox Grid.Column="2"
+                              Margin="10 0 20 0">
+                                    <CheckBox.Template>
+                                        <ControlTemplate>
+                                            <Border Width="40"
                                         Height="40"
                                         CornerRadius="20"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}">
-                                    <Ellipse Width="20"
+                                                <Ellipse Width="20"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
                                              Height="20"
                                              Fill="{TemplateBinding Background}"/>
-                                </Border>
-                            </ControlTemplate>
-                        </CheckBox.Template>
-                        <CheckBox.Style>
-                            <Style TargetType="{x:Type CheckBox}">
-                                <Setter Property="Background" Value="LightGray"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="BorderBrush" Value="Gray"/>
-                                <Setter Property="BorderThickness" Value="1.5"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Setter Property="Background" Value="ForestGreen"/>
-                                        <Setter Property="BorderBrush" Value="Black"/>
-                                        <Setter Property="BorderThickness" Value="2"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </CheckBox.Style>
-                    </CheckBox>
-                </Grid>
-            </Border>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </CheckBox.Template>
+                                    <CheckBox.Style>
+                                        <Style TargetType="{x:Type CheckBox}">
+                                            <Setter Property="Background" Value="LightGray"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="BorderBrush" Value="Gray"/>
+                                            <Setter Property="BorderThickness" Value="1.5"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter Property="Background" Value="ForestGreen"/>
+                                                    <Setter Property="BorderBrush" Value="Black"/>
+                                                    <Setter Property="BorderThickness" Value="2"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </DockPanel>
     </Grid>
 </UserControl>

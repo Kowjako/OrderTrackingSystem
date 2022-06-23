@@ -163,6 +163,7 @@
     <Compile Include="DTO\Pagination\Paginator.cs" />
     <Compile Include="DTO\ParcelStateDTO.cs" />
     <Compile Include="DTO\PickupDTO.cs" />
+    <Compile Include="DTO\ProcessDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="DTO\TrackableItemDTO.cs" />
