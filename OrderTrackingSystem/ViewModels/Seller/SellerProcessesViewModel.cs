@@ -21,12 +21,15 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         public SellerProcessesViewModel()
         {
-            SellerProcesses.Add(new ProcessDTO("Processes.CheckOrdersTermin")
+            for (var i = 0; i < 10; i++)
             {
-                Name = "Sprawdzanie terminowosci dostarczenia zamowien",
-                Description = "Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi",
-                LastProcessDate = DateTime.Now
-            });
+                SellerProcesses.Add(new ProcessDTO("Processes.CheckOrdersTermin")
+                {
+                    Name = "Sprawdzanie terminowosci dostarczenia zamowien",
+                    Description = "Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi",
+                    LastProcessDate = DateTime.Now
+                });
+            }
         }
 
         #endregion

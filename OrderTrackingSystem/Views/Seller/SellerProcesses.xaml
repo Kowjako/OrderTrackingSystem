@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:panel="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              xmlns:dto="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
@@ -26,7 +27,6 @@
                 
             </DockPanel>
         </panel:ExtensibleViewPanel_v2>
-
         <DockPanel Grid.Row="0"
                    Grid.RowSpan="2"
                    LastChildFill="True"
@@ -45,6 +45,12 @@
                     Text="Możliwość zaznaczenia kilku na raz i uruchomienie"/>
             <ListBox ItemsSource="{Binding SellerProcesses}"
                      Padding="0">
+                <ListBox.ItemContainerStyle>
+                    <!-- Using style inheritance-->
+                    <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel/>
