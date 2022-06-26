@@ -26,12 +26,12 @@ DROP PROCEDURE [Processes].[CheckOrdersTerminary]
 GO
 
 CREATE PROCEDURE [Processes].[CheckOrdersTerminary]
-@SellerId INT
 AS
 BEGIN
 BEGIN TRAN 
 	DECLARE @CustomersWithAmount TABLE (CustomerId INT, Amount SMALLMONEY, OrderNumbers NVARCHAR(MAX)); -- tablica zwrotow do klientow pieniedzy
 	DECLARE @ShouldStart BIT = 0;
+	DECLARE @SellerId INT = (SELECT AccountId FROM Session);
 
 	WITH OrderFromSellerToRemove (Id, CustomerId, OrderDate, Number) AS -- CTE zamowienia u danego sprzedawcy ktore jeszcze nie odebrane
 	(
@@ -45,7 +45,7 @@ BEGIN TRAN
 
 	IF @ShouldStart > 0
 	BEGIN
-		--1 - Obliczanie kwot do zwrotu klientom45
+		--1 - Obliczanie kwot do zwrotu klientom
 		INSERT INTO @CustomersWithAmount (CustomerId, Amount)
 		SELECT O.CustomerId, SUM(P.PriceBrutto * C.Amount) FROM OrderFromSellerToRemove O
 		INNER JOIN OrderCarts C ON C.OrderId = O.Id
@@ -75,7 +75,7 @@ BEGIN TRAN
 		@SellerId,
 		CWA.CustomerId,
 		3 -- Relacja seller -> customer
-		FROM @CustomersWithAmount CWAchi
+		FROM @CustomersWithAmount CWA
 
 		--5 - Usuniecie zamowien - automatycznie usuwane OrderCarts
 		DELETE FROM Orders WHERE Id IN (SELECT Id FROM OrderFromSellerToRemove)

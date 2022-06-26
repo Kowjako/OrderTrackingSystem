@@ -438,6 +438,9 @@
   <data name="Reply" xml:space="preserve">
     <value>Odpowiedz</value>
   </data>
+  <data name="RunProcesses" xml:space="preserve">
+    <value>Uruchom wybrane procesy</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
   </data>

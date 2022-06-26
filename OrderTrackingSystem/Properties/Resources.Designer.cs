@@ -1024,6 +1024,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uruchom wybrane procesy.
+        /// </summary>
+        public static string RunProcesses {
+            get {
+                return ResourceManager.GetString("RunProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zapisz.
         /// </summary>
         public static string Save {

@@ -11,12 +11,13 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Name { get; set; }
         public DateTime LastProcessDate { get; set; }
         public string Description { get; set; }
+        public bool IsSelectedToRun { get; set; }
+
+        public readonly string StoredProcedureFunction;
 
         public ProcessDTO(string procedure)
         {
             StoredProcedureFunction = procedure;
-        }
-
-        public readonly string StoredProcedureFunction;
+        }      
     }
 }
