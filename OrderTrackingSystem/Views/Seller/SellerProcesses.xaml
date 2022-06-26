@@ -8,6 +8,7 @@
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              xmlns:dto="clr-namespace:OrderTrackingSystem.Logic.DTO;assembly=OrderTrackingSystem.Logic"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
              d:DesignHeight="950" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -52,13 +53,13 @@
                     FontSize="17"
                     DockPanel.Dock="Top"
                     Margin="10,10,10,0"
-                    Text="Automatyczne procesy"/>
+                    Text="{x:Static res:Resources.AutoProcesses}"/>
             <TextBlock
                     Foreground="Black"
                     FontSize="12"
                     DockPanel.Dock="Top"
                     Margin="10,0,0,5"
-                    Text="Możliwość zaznaczenia kilku na raz i uruchomienie"/>
+                    Text="{x:Static res:Resources.CanSelectManyAndRun}"/>
             <ListBox ItemsSource="{Binding SellerProcesses}"
                      ScrollViewer.CanContentScroll="True"
                      Padding="0">
@@ -107,8 +108,8 @@
                                    FontSize="13"
                                    FontStyle="Italic"
                                    Margin="5 0 5 0">
-                                        <Run Text="Ostatni raz uruchomiono: "/>
-                                        <Run Text="{Binding LastProcessDate}"/>
+                                        <Run Text="{x:Static res:Resources.LastRunDate}"/>
+                                        <Run Text="{Binding LastProcessDate, TargetNullValue={x:Static res:Resources.UndefinedDate}}"/>
                                     </TextBlock>
                                     <TextBlock Text="{Binding Description}"
                                     FontSize="14"

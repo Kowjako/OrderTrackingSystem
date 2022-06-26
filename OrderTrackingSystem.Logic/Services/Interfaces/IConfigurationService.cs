@@ -39,5 +39,11 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// </summary>
         /// <returns>Zwraca krotkę: string - nazwa statusu, OrderState - status przedstawiony poprzez enum</returns>
         IEnumerable<Tuple<string, OrderState>> GetAllStates();
+
+        /// <summary>
+        /// Zwraca predefiniowane procesy dla sprzedawcy
+        /// </summary>
+        /// <returns>Lista predefiniowanych procesow</returns>
+        Task<List<ProcessDTO>> GetAutoProcesses();
     }
 }

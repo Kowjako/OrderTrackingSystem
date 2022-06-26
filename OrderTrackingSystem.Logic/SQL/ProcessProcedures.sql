@@ -14,11 +14,13 @@ BEGIN
 	DECLARE @SQL NVARCHAR(500);
 	SET @SQL = 'EXEC' + ' ' + @StoredProcedureName
 	EXEC @SQL
+
+	UPDATE Processes SET LastProcessDate = GETDATE() WHERE StoredProcedureName = @StoredProcedureName
 END
 ELSE
 	RAISERROR(2000, 1, 1, 'Stored procedure not found')
 END
-GO
+
 
 /** 2 - Procedura sprawdzajaca terminowosc dostarczania zamowien */
 IF OBJECT_ID ('[Processes].[CheckOrdersTerminary]' ,'P') IS NOT NULL

@@ -156,6 +156,9 @@
   <data name="ApproveComplaint" xml:space="preserve">
     <value>Approve complaint</value>
   </data>
+  <data name="AutoProcesses" xml:space="preserve">
+    <value>Automatic processes</value>
+  </data>
   <data name="AvailablePickups" xml:space="preserve">
     <value>Available delivery points</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Brutto" xml:space="preserve">
     <value>Brutto</value>
+  </data>
+  <data name="CanSelectManyAndRun" xml:space="preserve">
+    <value>Available to select many and run </value>
   </data>
   <data name="Cart" xml:space="preserve">
     <value>Cart</value>
@@ -323,6 +329,9 @@
   </data>
   <data name="Large" xml:space="preserve">
     <value>Large</value>
+  </data>
+  <data name="LastRunDate" xml:space="preserve">
+    <value>Last run date: </value>
   </data>
   <data name="LinkedOrders" xml:space="preserve">
     <value>Linked elements</value>
@@ -524,6 +533,9 @@
   </data>
   <data name="Tracking" xml:space="preserve">
     <value>Parcel tracking</value>
+  </data>
+  <data name="UndefinedDate" xml:space="preserve">
+    <value>Undefined date</value>
   </data>
   <data name="UndoComplaint" xml:space="preserve">
     <value>Finish complaint</value>

@@ -171,5 +171,19 @@ namespace OrderTrackingSystem.Logic.Services
                 yield return new Tuple<string, OrderState>(EnumConverter.GetNameByIdLocalized<OrderState>((int)state), (OrderState)state);
             }
         }
+
+        public async Task<List<ProcessDTO>> GetAutoProcesses()
+        {
+            using var context = new OrderTrackingSystemEntities();
+            var query = from process in context.Processes
+                        select new ProcessDTO
+                        {
+                            Name = process.Name,
+                            LastProcessDate = process.LastProcessDate,
+                            Description = process.Description,
+                            StoredProcedureFunction = process.StoredProcedureName
+                        };
+            return await query.ToListAsync();
+        }
     }
 }

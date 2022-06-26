@@ -178,6 +178,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatyczne procesy.
+        /// </summary>
+        public static string AutoProcesses {
+            get {
+                return ResourceManager.GetString("AutoProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dostępne punkty odbiory.
         /// </summary>
         public static string AvailablePickups {
@@ -210,6 +219,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Brutto {
             get {
                 return ResourceManager.GetString("Brutto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Możliwość zaznaczenia kilku na raz i uruchomienie.
+        /// </summary>
+        public static string CanSelectManyAndRun {
+            get {
+                return ResourceManager.GetString("CanSelectManyAndRun", resourceCulture);
             }
         }
         
@@ -678,6 +696,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Large {
             get {
                 return ResourceManager.GetString("Large", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ostatni raz uruchomiono: .
+        /// </summary>
+        public static string LastRunDate {
+            get {
+                return ResourceManager.GetString("LastRunDate", resourceCulture);
             }
         }
         
@@ -1281,6 +1308,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Tracking {
             get {
                 return ResourceManager.GetString("Tracking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieokreślona data.
+        /// </summary>
+        public static string UndefinedDate {
+            get {
+                return ResourceManager.GetString("UndefinedDate", resourceCulture);
             }
         }
         

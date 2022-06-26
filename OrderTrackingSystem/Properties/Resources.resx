@@ -156,6 +156,9 @@
   <data name="ApproveComplaint" xml:space="preserve">
     <value>Zaakceptuj reklamację</value>
   </data>
+  <data name="AutoProcesses" xml:space="preserve">
+    <value>Automatyczne procesy</value>
+  </data>
   <data name="AvailablePickups" xml:space="preserve">
     <value>Dostępne punkty odbiory</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Brutto" xml:space="preserve">
     <value>Kwota brutto</value>
+  </data>
+  <data name="CanSelectManyAndRun" xml:space="preserve">
+    <value>Możliwość zaznaczenia kilku na raz i uruchomienie</value>
   </data>
   <data name="Cart" xml:space="preserve">
     <value>Koszyk</value>
@@ -323,6 +329,9 @@
   </data>
   <data name="Large" xml:space="preserve">
     <value>Duża</value>
+  </data>
+  <data name="LastRunDate" xml:space="preserve">
+    <value>Ostatni raz uruchomiono: </value>
   </data>
   <data name="LinkedOrders" xml:space="preserve">
     <value>Powiązane elementy</value>
@@ -524,6 +533,9 @@
   </data>
   <data name="Tracking" xml:space="preserve">
     <value>Tracking przesyłek</value>
+  </data>
+  <data name="UndefinedDate" xml:space="preserve">
+    <value>Nieokreślona data</value>
   </data>
   <data name="UndoComplaint" xml:space="preserve">
     <value>Zakończ reklamację</value>

@@ -1,6 +1,8 @@
 ﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.HelperClasses;
+using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using System;
 using System.Collections.Generic;
@@ -19,16 +21,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         #endregion
 
+        #region Services
+
+        private readonly IConfigurationService ConfigurationService;
+
+        #endregion
+
         #region Ctor
 
         public SellerProcessesViewModel()
         {
-            SellerProcesses.Add(new ProcessDTO("Processes.CheckOrdersTermin")
-            {
-                Name = "Sprawdzanie terminowosci dostarczenia zamowien",
-                Description = "Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi",
-                LastProcessDate = DateTime.Now
-            });
+            ConfigurationService = new ConfigurationService();
         }
 
         #endregion
@@ -37,7 +40,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         public async Task SetInitializeProperties()
         {
-
+            SellerProcesses = await ConfigurationService.GetAutoProcesses();
+            OnPropertyChanged(nameof(SellerProcesses));
         }
 
         #endregion
