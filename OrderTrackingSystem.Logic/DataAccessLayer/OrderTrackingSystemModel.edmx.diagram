@@ -49,6 +49,7 @@
         <AssociationConnector Association="OrderTrackingSystemModel.FK__Products_SellerId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__SellCarts_ProductId" ManuallyRouted="false" />
         <AssociationConnector Association="OrderTrackingSystemModel.FK__SellCarts_SellId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OrderTrackingSystemModel.Processes" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

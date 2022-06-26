@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OrderTrackingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OrderTrackingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ComplaintDefinitions">
           <Key>
             <PropertyRef Name="Id" />
@@ -127,6 +127,16 @@
           <Property Name="Capacity" Type="smallint" Nullable="false" />
           <Property Name="LocalizationId" Type="int" Nullable="false" />
           <Property Name="WorkHours" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Processes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LastProcessDate" Type="smalldatetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StoredProcedureName" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductCategories">
           <Key>
@@ -307,7 +317,9 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__MailOrderRelations_OrderId">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="MailOrderRelations" Type="Self.MailOrderRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -541,6 +553,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStates" EntityType="Self.OrderStates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pickups" EntityType="Self.Pickups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Processes" EntityType="Self.Processes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellCarts" EntityType="Self.SellCarts" Schema="dbo" store:Type="Tables" />
@@ -651,8 +664,7 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
             <End Role="Vouchers" EntitySet="Vouchers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderTrackingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1342,7 +1354,18 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
             <End Role="Sells" EntitySet="Sells" />
             <End Role="SellCarts" EntitySet="SellCarts" />
           </AssociationSet>
+          <EntitySet Name="Processes" EntityType="OrderTrackingSystemModel.Processes" />
         </EntityContainer>
+        <EntityType Name="Processes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastProcessDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StoredProcedureName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1572,6 +1595,17 @@ warning 6002: The table/view 'OrderTrackingSystem.dbo.Session' does not have a p
               <MappingFragment StoreEntitySet="Session">
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
                 <ScalarProperty Name="IsClient" ColumnName="IsClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Processes">
+            <EntityTypeMapping TypeName="OrderTrackingSystemModel.Processes">
+              <MappingFragment StoreEntitySet="Processes">
+                <ScalarProperty Name="StoredProcedureName" ColumnName="StoredProcedureName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LastProcessDate" ColumnName="LastProcessDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

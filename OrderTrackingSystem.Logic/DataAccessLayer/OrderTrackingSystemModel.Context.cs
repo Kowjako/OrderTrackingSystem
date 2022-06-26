@@ -45,5 +45,6 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Vouchers> Vouchers { get; set; }
         public virtual DbSet<Session> Session { get; set; }
+        public virtual DbSet<Processes> Processes { get; set; }
     }
 }
