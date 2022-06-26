@@ -1,4 +1,6 @@
-﻿using OrderTrackingSystem.Logic.DTO;
+﻿using OrderTrackingSystem.Interfaces;
+using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using System;
 using System.Collections.Generic;
@@ -21,15 +23,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         public SellerProcessesViewModel()
         {
-            for (var i = 0; i < 10; i++)
+            SellerProcesses.Add(new ProcessDTO("Processes.CheckOrdersTermin")
             {
-                SellerProcesses.Add(new ProcessDTO("Processes.CheckOrdersTermin")
-                {
-                    Name = "Sprawdzanie terminowosci dostarczenia zamowien",
-                    Description = "Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi",
-                    LastProcessDate = DateTime.Now
-                });
-            }
+                Name = "Sprawdzanie terminowosci dostarczenia zamowien",
+                Description = "Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi",
+                LastProcessDate = DateTime.Now
+            });
         }
 
         #endregion
@@ -43,6 +42,20 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         #endregion
 
+        #region Commands
+
+        private RelayCommand _runProcesses;
+        public RelayCommand RunProcesses =>
+            _runProcesses ?? (_runProcesses = new RelayCommand(async obj =>
+            {
+                foreach(var process in SellerProcesses.Where(p => p.IsSelectedToRun))
+                {
+                    await ProcessRunner.RunProcedure(process.StoredProcedureFunction);
+                }
+            }, 
+            (obj) => SellerProcesses.Any(p => p.IsSelectedToRun)));
+
+        #endregion
 
         #region INotifyableViewModel implementation
 

@@ -15,6 +15,14 @@ namespace OrderTrackingSystem.Logic.HelperClasses
             }
         }
 
+        public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
+        {
+            foreach(var item in items)
+            {
+                action(item);
+            }
+        }
+
         public static bool In<T>(this T item, params T[] valuesToCheck)
         {
             return valuesToCheck.Contains(item);
