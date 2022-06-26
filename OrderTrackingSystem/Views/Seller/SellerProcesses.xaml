@@ -24,7 +24,23 @@
                                       Grid.RowSpan="2"
                                       CaptionV2="{x:Static res:Resources.SellerProcesses}">
             <DockPanel Background="LightPink">
-                
+                <DockPanel.Resources>
+                    <Style x:Key="standardBtn" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}"
+                               TargetType="{x:Type Button}">
+                        <Style.Setters>
+                            <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                            <Setter Property="Background" Value="Maroon"/>
+                            <Setter Property="BorderBrush" Value="Maroon"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="materialDesign:RippleAssist.Feedback" Value="#DD000000"/>
+                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            <Setter Property="Margin" Value="5"/>
+                        </Style.Setters>
+                    </Style>
+                </DockPanel.Resources>
+                <Button Style="{StaticResource standardBtn}"
+                        Command="{Binding RunProcesses}"
+                        Content="{x:Static res:Resources.RunProcesses}"/>
             </DockPanel>
         </panel:ExtensibleViewPanel_v2>
         <DockPanel Grid.Row="0"
@@ -44,9 +60,10 @@
                     Margin="10,0,0,5"
                     Text="Możliwość zaznaczenia kilku na raz i uruchomienie"/>
             <ListBox ItemsSource="{Binding SellerProcesses}"
+                     ScrollViewer.CanContentScroll="True"
                      Padding="0">
                 <ListBox.ItemContainerStyle>
-                    <!-- Using style inheritance-->
+                    <!-- Using style inheritance -->
                     <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListBoxItem}">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     </Style>
@@ -99,7 +116,8 @@
                                     Margin="5"/>
                                 </StackPanel>
                                 <CheckBox Grid.Column="2"
-                              Margin="10 0 20 0">
+                                          Margin="10 0 20 0"
+                                          IsChecked ="{Binding IsSelectedToRun, UpdateSourceTrigger=PropertyChanged}">
                                     <CheckBox.Template>
                                         <ControlTemplate>
                                             <Border Width="40"

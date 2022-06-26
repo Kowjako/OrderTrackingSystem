@@ -225,50 +225,36 @@
                     </StackPanel>
                 </GroupBox>
                 <DockPanel DockPanel.Dock="Bottom">
+                    <DockPanel.Resources>
+                        <Style x:Key="standardBtn" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}"
+                               TargetType="{x:Type Button}">
+                            <Style.Setters>
+                                <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                                <Setter Property="Background" Value="Maroon"/>
+                                <Setter Property="BorderBrush" Value="Maroon"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="materialDesign:RippleAssist.Feedback" Value="#DD000000"/>
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                <Setter Property="Margin" Value="5"/>
+                            </Style.Setters>
+                        </Style>
+                    </DockPanel.Resources>
                     <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding ChangeParcelState}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ChangeState}" />
                     <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding SendMessage}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.SendMessageAction}" />
                     <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding ApproveComplaint}"
                     CommandParameter="{Binding ElementName=complaintGrid, Path=SelectedItem}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ApproveComplaint}" />
                     <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding AddProduct}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddProductAction}" />
                 </DockPanel>
             </DockPanel>
