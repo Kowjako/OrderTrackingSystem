@@ -3,6 +3,7 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,16 +15,8 @@ using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public partial class OrdersViewModel : IOrdersViewModel, INotifyPropertyChanged
+    public partial class OrdersViewModel : BaseViewModel, IOrdersViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly ConfigurationService ConfigService;
@@ -67,7 +60,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         { 
             CurrentCustomer = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             PickupsList = await ConfigService.GetPickupPoints();
@@ -116,7 +109,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    OnFailure?.Invoke("Nie udało się dodać do koszyka");
+                    ShowError("Nie udało się dodać do koszyka");
                 }
             });
 
@@ -129,7 +122,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (!ProductsList.Any(p => p.Seller.Equals(obj as string)))
                     {
-                        OnWarning("Nie ma sprzedawcy o takiej nazwie");
+                        ShowWarning("Nie ma sprzedawcy o takiej nazwie");
                         return;
                     }
                     ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Seller.Equals(obj as string)));
@@ -141,7 +134,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         ProductsList = AllProductsList;
                         return;
                     }
-                    OnWarning("Nazwa nie może być pusta");
+                    ShowWarning("Nazwa nie może być pusta");
                 }
                 OnPropertyChanged(nameof(ProductsList));
             });
@@ -207,14 +200,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             {
                                 if (VoucherValueToMinus > SelectedVoucher.Value)
                                 {
-                                    OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota bonu");
+                                    ShowWarning("Kwota odliczalna nie może być większa niż kwota bonu");
                                     return;
                                 }
                                 else
                                 {
                                     if (VoucherValueToMinus > FullPrice)
                                     {
-                                        OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota zamówienia");
+                                        ShowWarning("Kwota odliczalna nie może być większa niż kwota zamówienia");
                                         return;
                                     }
                                     else
@@ -226,16 +219,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             }
                         }
                         await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList(), valueToMinusFromBalance, SelectedVoucher ?? null);
-                        OnSuccess?.Invoke("Zamówienie zostało utworzone");
+                        ShowSuccess("Zamówienie zostało utworzone");
                     }
                     else
                     {
-                        OnWarning?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch(Exception)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać zamówienia");
+                    ShowError("Nie udało się zapisać zamówienia");
                 }
             });
 
@@ -246,26 +239,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
                 OnPropertyChanged(nameof(ProductsInCart));
-                OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
+                ShowSuccess("Koszyk pomyślnie wyczyszczony");
             });
-        #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
-
         #endregion
 
     }

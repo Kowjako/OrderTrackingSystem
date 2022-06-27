@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    public interface ISendsViewModel : INotifyableViewModel
+    public interface ISendsViewModel
     {
         CategoryDTO SelectedSubCategory { get; set; }
         Customers CurrentSeller { get; }

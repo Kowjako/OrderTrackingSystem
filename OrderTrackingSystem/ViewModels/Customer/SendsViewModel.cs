@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public partial class SendsViewModel : ISendsViewModel, INotifyPropertyChanged
+    public partial class SendsViewModel : BaseViewModel, ISendsViewModel
     {
         #region Private methods
 
@@ -58,7 +59,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             AllProductsList = await ProductService.GetAllProducts();
             CurrentSeller = await CustomerService.GetCurrentCustomer();
@@ -105,7 +106,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
                 else
                 {
-                    OnWarning?.Invoke("Pole odbiorca nie może być puste");
+                    ShowWarning("Pole odbiorca nie może być puste");
                 }
             });
 
@@ -113,7 +114,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand AddToCart =>
             _addToCart ??= new RelayCommand(obj =>
             {
-                if (CurrentProductAmount == default(int)) return; 
+                if (CurrentProductAmount == default) return; 
                 if (ProductsInCart.Any(x => x.Id.Equals(SelectedProduct.Id)))
                 {
                     var existingProduct = ProductsInCart.First(x => x.Id.Equals(SelectedProduct.Id));
@@ -171,7 +172,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
                 OnPropertyChanged(nameof(ProductsInCart));
-                OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
+                ShowSuccess("Koszyk pomyślnie wyczyszczony");
             });
 
         private RelayCommand _acceptSend;
@@ -182,7 +183,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (ProductsInCart.Count == 0)
                     {
-                        OnWarning?.Invoke("Należy dodać produkt do koszyka");
+                        ShowWarning("Należy dodać produkt do koszyka");
                         return;
                     }
 
@@ -198,39 +199,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     {
                         await MailService.GenerateAutomaticMessageAfterSend(CurrentReceiver.Id, CurrentSeller.Id, currentSell.Number);
                     }
-                    OnSuccess?.Invoke("Wysyłka została utworzona");
+                    ShowSuccess("Wysyłka została utworzona");
                 }
                 catch
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać wysyłki");
+                    ShowError("Nie udało się zapisać wysyłki");
                 }
             });
-
-        #endregion
-
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
 
         #endregion
 

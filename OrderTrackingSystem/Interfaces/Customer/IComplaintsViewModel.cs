@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    interface IComplaintsViewModel : INotifyableViewModel
+    interface IComplaintsViewModel
     {
         List<ComplaintFolderDTO> ComplaintFolderList { get; set; }
         List<ComplaintsDTO> ComplaintsList { get; set; }

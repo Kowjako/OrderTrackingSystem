@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Interfaces
 {
-    public interface ICurrentAccountViewModel : INotifyableViewModel
+    public interface ICurrentAccountViewModel
     {
         Customers CurrentCustomer { get; set; }
         List<LocalizationDTO> Localization { get; set; }

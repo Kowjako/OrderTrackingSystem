@@ -3,6 +3,7 @@ using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,16 +15,8 @@ using System.Transactions;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public partial class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged
+    public partial class TrackingViewModel : BaseViewModel, ITrackingViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly TrackerService TrackerService;
@@ -53,7 +46,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             Items = await TrackerService.GetItemsForCustomer(CurrentCustomer.Id);
@@ -102,7 +95,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if (!Items.Any(p => p.Number.Equals(obj as string)))
                     {
-                        OnWarning("Nie ma elementu o takim numerze");
+                        ShowWarning("Nie ma elementu o takim numerze");
                         return;
                     }
                     Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Number.Equals(obj as string)) };
@@ -110,7 +103,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
                 else
                 {
-                    OnWarning("Numer nie może być pusty");
+                    ShowWarning("Numer nie może być pusty");
                 }
             });
 
@@ -146,11 +139,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         }
                         transactionScope.Complete();
                     }
-                    OnSuccess("Reklamacja założona poprawnie");
+                    ShowSuccess("Reklamacja założona poprawnie");
                 }
                 catch
                 {
-                    OnFailure("Błąd podczas założenia reklamacji");
+                    ShowError("Błąd podczas założenia reklamacji");
                 }
             }, e => SelectedItem?.IsOrder ?? false);
 
@@ -162,11 +155,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 if (!parcelStates.Any(p => p.StateId == (int)OrderState.Getted))
                 {
                     await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
-                    OnSuccess("Odbiór został potwierdzony.");
+                    ShowSuccess("Odbiór został potwierdzony.");
                 }
                 else
                 {
-                    OnWarning("Przesyłka już jest odebrana.");
+                    ShowWarning("Przesyłka już jest odebrana.");
                 }
             }, e => SelectedItem?.IsOrder ?? false);
 
@@ -191,25 +184,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 /* Update UI bindings */
                 OnPropertyChanged(nameof(Customer));
                 OnPropertyChanged(nameof(Seller));
-            }
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
             }
         }
 

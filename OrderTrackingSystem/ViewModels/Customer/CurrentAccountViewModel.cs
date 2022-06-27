@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,33 +16,8 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.ViewModels
 {
-    public class CurrentAccountViewModel : ICurrentAccountViewModel, INotifyPropertyChanged
+    public class CurrentAccountViewModel : BaseViewModel, ICurrentAccountViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
-        #region INotifyProeprtyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
-        #endregion
-
         #region Services
 
         private readonly CustomerService CustomerService;
@@ -104,21 +80,21 @@ namespace OrderTrackingSystem.ViewModels
                                 ZipCode = currentLocalization.ZipCode
                             };
                             await LocalizationService.UpdateLocalization(localization);
-                            OnSuccess?.Invoke("Zmiany zostały zapisane");
+                            ShowSuccess("Zmiany zostały zapisane");
                         }
                         else
                         {
-                            OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                            ShowError(ValidatorWrapper.ErrorMessage);
                         }
                     }
                     else
                     {
-                        OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowError(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
+                    ShowError("Błąd podczas aktualizacji danych");
                 }
             });
 
@@ -126,7 +102,7 @@ namespace OrderTrackingSystem.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             Localization = new List<LocalizationDTO> { await LocalizationService.GetLocalizationById(CurrentCustomer.LocalizationId) };

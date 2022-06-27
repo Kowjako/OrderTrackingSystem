@@ -27,7 +27,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             }
         }
 
-        public decimal VAT { get; } = 23;
+        public decimal VAT => 23;
         public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
         public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto + (decimal)BoxPrice;
 

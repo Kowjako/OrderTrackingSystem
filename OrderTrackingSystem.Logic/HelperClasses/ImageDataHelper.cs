@@ -38,7 +38,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses
                     }
                 }
             }
-            return default(byte[]);
+            return default;
         }
     }
 }

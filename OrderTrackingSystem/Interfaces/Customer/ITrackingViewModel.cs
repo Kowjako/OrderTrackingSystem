@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
-    public interface ITrackingViewModel : INotifyableViewModel
+    public interface ITrackingViewModel
     {
         List<TrackableItemDTO> Items { get; set; }
         ObservableCollection<ParcelStateDTO> ParcelStates { get; set; }

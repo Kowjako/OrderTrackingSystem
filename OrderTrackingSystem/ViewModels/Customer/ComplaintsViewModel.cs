@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public partial class ComplaintsViewModel : IComplaintsViewModel, INotifyPropertyChanged
+    public partial class ComplaintsViewModel : BaseViewModel, IComplaintsViewModel
     {
         #region Services
 
@@ -22,35 +23,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #endregion
 
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Private members
 
         private Customers CurrentCustomer;
-
-        #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
 
         #endregion
 
@@ -66,7 +41,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             ComplaintFolderList = await ComplaintService.GetComplaintFolders();
@@ -89,16 +64,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     if(SelectedFolder != null)
                     {
                         await ComplaintService.SaveComplaintTemplate(CurrentComplaint, SelectedFolder);
-                        OnSuccess?.Invoke("Wzorzec został zapisany");
+                        ShowSuccess("Wzorzec został zapisany");
                     }
                     else
                     {
-                        OnWarning?.Invoke("Należy wybrać katalog gdzie wzorzec umieścić");
+                        ShowWarning("Należy wybrać katalog gdzie wzorzec umieścić");
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać wzorca");
+                    ShowError("Nie udało się zapisać wzorca");
                 }
             });
 
@@ -109,11 +84,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 try
                 {
                     await ComplaintService.AddNewFolder(FolderToAddName, SelectedFolderToAdd);
-                    OnSuccess?.Invoke("Folder został dodany");
+                    ShowSuccess("Folder został dodany");
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać wzorca");
+                    ShowError("Nie udało się zapisać wzorca");
                 }
             });
 
@@ -134,11 +109,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         default:
                             break;
                     }
-                    OnSuccess?.Invoke("Folder usunięty pomyślnie");
+                    ShowSuccess("Folder usunięty pomyślnie");
                 }
                 catch (Exception ex)
                 {
-                    OnFailure?.Invoke("Nie udało się usunąć folderów");
+                    ShowError("Nie udało się usunąć folderów");
                 }
             });
 
@@ -150,11 +125,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     var complaintDAL = new ComplaintStates() { Id = SelectedComplaint.Id };
                     await ComplaintService.CloseComplaint(complaintDAL);
-                    OnSuccess?.Invoke("Reklamacja pomyślnie zamknięta");
+                    ShowSuccess("Reklamacja pomyślnie zamknięta");
                 }
                 else
                 {
-                    OnWarning?.Invoke("Reklamacja musi najpierw być zatwierdzona poprzez sprzedawcę");
+                    ShowWarning("Reklamacja musi najpierw być zatwierdzona poprzez sprzedawcę");
                 }
             });
         #endregion

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.Interfaces.Seller
 {
-    public interface ISellerAccountViewModel : INotifyableViewModel
+    public interface ISellerAccountViewModel
     {
     }
 }

@@ -8,6 +8,7 @@ using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,16 +18,8 @@ using EnumConverter = OrderTrackingSystem.Logic.EnumMappers.EnumConverter;
 
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
-    public class DesktopViewModel : IDesktopViewModel, INotifyPropertyChanged
+    public class DesktopViewModel : BaseViewModel, IDesktopViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly IMailService MailService;
@@ -122,7 +115,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentSeller = await CustomerService.GetCurrentSeller();
             CustomersOrder = await OrderService.GetOrdersFromCompany(CurrentSeller.Id);
@@ -150,16 +143,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                     if(ValidatorWrapper.ValidateWithResult(new ProductValidator(), CurrentProduct))
                     {
                         await ProductService.SaveNewProduct(CurrentProduct, _imageData);
-                        OnSuccess?.Invoke("Produkt pomyślnie dodany");
+                        ShowSuccess("Produkt pomyślnie dodany");
                     }
                     else
                     {
-                        OnWarning?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Błąd podczas dodawania produktu");
+                    ShowError("Błąd podczas dodawania produktu");
                 }
             });
 
@@ -169,7 +162,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             {
                 if(obj is null)
                 {
-                    OnWarning?.Invoke("Należy zaznaczyć reklamację");
+                    ShowWarning("Należy zaznaczyć reklamację");
                     return;
                 }
 
@@ -183,7 +176,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 };
 
                 await ComplaintService.UpdateComplaintState(complaint, CurrentSeller.Id);
-                OnSuccess?.Invoke("Reklamacja została zatwierdzona");
+                ShowSuccess("Reklamacja została zatwierdzona");
             });
 
         private RelayCommand _sendMessage;
@@ -204,11 +197,11 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                     };
 
                     await MailService.AddNewMail(mail);
-                    OnSuccess?.Invoke("Wiadomość została wysłana");
+                    ShowSuccess("Wiadomość została wysłana");
                 }
                 else
                 {
-                    OnWarning.Invoke(ValidatorWrapper.ErrorMessage);
+                    ShowWarning(ValidatorWrapper.ErrorMessage);
                 }
             });
 
@@ -219,38 +212,20 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 if(SelectedOrder != null)
                 {
                     await TrackerService.AddNewStateForOrder(SelectedOrder.Id, SelectedState.Item2);
-                    OnSuccess?.Invoke("Status przesyłki został zmieniony");
+                    ShowSuccess("Status przesyłki został zmieniony");
                 }
                 else
                 {
-                    OnWarning?.Invoke("Należy wybrać zamówienie");
+                    ShowWarning("Należy wybrać zamówienie");
                 }
             });
 
         private RelayCommand _addPicture;
         public RelayCommand AddPicture =>
-            _addPicture ?? (_addPicture = new RelayCommand(obj =>
+            _addPicture ??= new RelayCommand(obj =>
             {
                 _imageData = ImageDataHelper.LoadImage();
-            }));
-
-        #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+            });
 
         #endregion
 

@@ -6,6 +6,7 @@ using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public partial class MailboxViewModel : IMailboxViewModel, INotifyPropertyChanged
+    public partial class MailboxViewModel : BaseViewModel, IMailboxViewModel
     {
         #region Services
 
@@ -46,7 +47,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentSender = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             ReceivedMessages = await MailService.GetReceivedMailsForCustomer(CurrentSender.Id);
@@ -59,17 +60,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             if(RelatedToCurrentMailOrders.Any(i => i.Equals(SelectedOrder.Number)))
             {
-                OnWarning?.Invoke("Zamówienie o podanym numerze już dołączone");
+                ShowWarning("Zamówienie o podanym numerze już dołączone");
                 return;
             }
             if(SelectedOrder == null || string.IsNullOrEmpty(SelectedOrder.Number))
             {
-                OnFailure?.Invoke("Nie można dołączyć pustego zamówienia");
+                ShowWarning("Nie można dołączyć pustego zamówienia");
                 return;
             }
             if (RelatedToCurrentMailOrders.Count == 3)
             {
-                OnFailure?.Invoke("Maksymalnie można dołączyć 3 zamówienia");
+                ShowWarning("Maksymalnie można dołączyć 3 zamówienia");
                 return;
             }
 
@@ -96,7 +97,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         MailReceiver = await CustomerService.GetSellerByName(obj as string);
                         if (MailReceiver == null)
                         {
-                            OnWarning?.Invoke("Nie istnieje takiej osoby/sklepu");
+                            ShowWarning("Nie istnieje takiej osoby/sklepu");
                             return;
                         }
                         MailDirection = MailDirectionType.CustomerToSeller;
@@ -109,7 +110,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
                 else
                 {
-                    OnWarning?.Invoke("Nazwa nie może być pusta");
+                    ShowWarning("Nazwa nie może być pusta");
                 }
             });
 
@@ -119,11 +120,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 if (DateFrom != DateTo && DateFrom < DateTo)
                 {
-                    Func<MailDTO, bool> filterCondition = (m) =>
-                    {
-                        return m.SendDate <= DateTo && m.SendDate >= DateFrom;
-                    };
-
+                    //local function
+                    bool filterCondition(MailDTO m) => m.SendDate <= DateTo && m.SendDate >= DateFrom;
+                    
                     switch (SelectedFilterMsgType)
                     {
                         case 0:
@@ -140,7 +139,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 }
                 else
                 {
-                    OnWarning?.Invoke("Proszę ustawić różne daty, oraz data początkowa musi być mniejsza niż końcowa");
+                    ShowWarning("Proszę ustawić różne daty, oraz data początkowa musi być mniejsza niż końcowa");
                 }
             });
 
@@ -157,45 +156,18 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         OriginalMail.ReceiverId = MailReceiver.Id;
                         OriginalMail.MailRelation = (byte)MailDirection;
                         await MailService.SendMail(OriginalMail, RelatedToCurrentMailOrders.ToArray());
-                        OnSuccess?.Invoke("Wiadomość pomyślnie wysłana");
+                        ShowSuccess("Wiadomość pomyślnie wysłana");
                     }
                     else
                     {
-                        OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowError(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Nie udało się wykonać operacji");
+                    ShowError("Nie udało się wykonać operacji");
                 }
             });
-
-        #endregion
-
-
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
 
         #endregion
     }

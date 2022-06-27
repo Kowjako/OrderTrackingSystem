@@ -115,6 +115,7 @@
       <DependentUpon>Resources.ru-RU.resx</DependentUpon>
     </Compile>
     <Compile Include="ValueConverter\ValueConverters.cs" />
+    <Compile Include="ViewModels\Common\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\ComplaintsViewModel.cs" />
     <Compile Include="ViewModels\Customer\CurrentAccountViewModel.cs" />
     <Compile Include="ViewModels\Customer\MailboxViewModel.Bindings.cs" />

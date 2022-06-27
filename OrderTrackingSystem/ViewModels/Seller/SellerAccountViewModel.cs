@@ -5,6 +5,7 @@ using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,16 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
-    public class SellerAccountViewModel : ISellerAccountViewModel, INotifyPropertyChanged
+    public class SellerAccountViewModel : BaseViewModel, ISellerAccountViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly LocalizationService LocalizationService;
@@ -55,7 +48,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentSeller = await CustomerService.GetCurrentSeller();
             Localizations = new List<LocalizationDTO> { await LocalizationService.GetLocalizationById(CurrentSeller.LocalizationId) };
@@ -96,39 +89,20 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                             ZipCode = currentLocalization.ZipCode
                         };
                         await LocalizationService.UpdateLocalization(localization);
-                        OnSuccess?.Invoke("Zmiany zostały zapisane");
+                        ShowSuccess("Zmiany zostały zapisane");
                     }
                     else
                     {
-                        OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
+                    ShowError("Błąd podczas aktualizacji danych");
                 }
             });
 
 
         #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
-
-        #endregion
-
     }
 }
