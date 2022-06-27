@@ -1,14 +1,10 @@
-﻿using OrderTrackingSystem.Logic.HelperClasses;
-using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
+﻿using OrderTrackingSystem.Logic.HelperClasses.DTOAttributes;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
 
 namespace OrderTrackingSystem.Presentation.WindowExtension
 {

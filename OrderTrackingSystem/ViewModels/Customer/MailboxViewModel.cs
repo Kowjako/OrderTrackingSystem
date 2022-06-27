@@ -1,6 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using OrderTrackingSystem.Interfaces;
-using OrderTrackingSystem.Logic.DataAccessLayer;
+﻿using OrderTrackingSystem.Interfaces;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.Services;
@@ -8,12 +6,8 @@ using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
