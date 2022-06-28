@@ -5,6 +5,7 @@ using System.Linq;
 using System.Data.Entity;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -195,6 +196,16 @@ namespace OrderTrackingSystem.Logic.Services
                 Name = customer.Name,
                 Email = customer.Email,
             };
+        }
+
+        public async Task<List<CustomerDTO>> GetAllCustomers()
+        {
+            var dalEntities = await base.GetAllEntities<Customers>();
+            return dalEntities.Select(p => new CustomerDTO()
+            {
+                Name = p.Name + " " + p.Surname,
+                Email = p.Email,
+            }).ToList();
         }
     }
 }

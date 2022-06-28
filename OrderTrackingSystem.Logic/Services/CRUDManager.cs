@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -82,6 +83,14 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 return await dbContext.Set<T>().FirstOrDefaultAsync(selector);
+            }
+        }
+
+        protected async virtual Task<List<T>> GetAllEntities<T>() where T : class
+        {
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                return await dbContext.Set<T>().ToListAsync();
             }
         }
     }

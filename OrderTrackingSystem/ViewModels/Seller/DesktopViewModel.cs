@@ -7,6 +7,7 @@ using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.CustomControls;
+using OrderTrackingSystem.Presentation.CustomControls.Classes;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using OrderTrackingSystem.Presentation.ViewModels.Common;
 using OrderTrackingSystem.Presentation.WindowExtension;
@@ -61,6 +62,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 ParcelAvailableStates = new List<Tuple<string, OrderState, int>>(ParcelAvailableStates);
             }
             OnPropertyChanged(nameof(ParcelAvailableStates));
+        }
+
+        private CustomerSelectionViewModel _csViewModel;
+        private CustomerSelectionViewModel CSViewModel
+        {
+            get => _csViewModel ??= new CustomerSelectionViewModel();
         }
 
         private byte[] _imageData;
@@ -222,18 +229,27 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 
         private RelayCommand _addPicture;
         public RelayCommand AddPicture =>
-            _addPicture ??= new RelayCommand(obj =>
-            {
-                _imageData = ImageDataHelper.LoadImage();
-            });
+            _addPicture ??= new RelayCommand(obj => _imageData = ImageDataHelper.LoadImage());
 
         private RelayCommand _selectCustomers;
         public RelayCommand SelectCustomers =>
             _selectCustomers ??= new RelayCommand(obj =>
             {
-                new CustomerSelection().ShowControl();
+                if (!CSViewModel.HasData)
+                {
+                    CSViewModel.LoadData();
+                }
+                new CustomerSelection(CSViewModel).ShowControl();
             });
 
+
+        private RelayCommand _generateVouchers;
+        public RelayCommand GenerateVouchers =>
+            _generateVouchers ??= new RelayCommand(async obj =>
+            {
+                var customersForVoucher = CSViewModel.SelectedCustomers;
+
+            });
         #endregion
 
     }

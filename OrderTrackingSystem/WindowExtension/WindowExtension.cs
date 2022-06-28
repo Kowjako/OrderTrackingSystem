@@ -9,6 +9,8 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
     {
         /* Extension-method dla klasy Window dla uzycia Notifyer'a */
         public static Notifyer Notifyer = new Notifyer();
+        public static Window ActualPopupWindow = null;
+
         public static void WithNotifying<T>(this T window, NotifyType type, FrameworkElement mainContentControl, string msg) where T : ContentControl
         {
             Notifyer.ShowNotifyer(type, mainContentControl, msg);
@@ -26,11 +28,14 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                 Background = new SolidColorBrush(Colors.Transparent),
                 SizeToContent = SizeToContent.Manual,
                 ResizeMode = ResizeMode.NoResize,
-                Width = Application.Current.MainWindow.Width,
+                Width = Application.Current.MainWindow.Width, /* to pozwala zrobic kontrolke na wielkosc aplikacji i pokazac cien */
                 Height = Application.Current.MainWindow.Height
             };
             window.Owner = Application.Current.MainWindow;
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            ActualPopupWindow = window;
+
             window.ShowDialog();
         }
     }
