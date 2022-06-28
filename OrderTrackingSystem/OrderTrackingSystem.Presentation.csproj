@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControls\Classes\CustomerSelectionViewModel.cs" />
     <Compile Include="CustomControls\ComplaintProgress.xaml.cs">
       <DependentUpon>ComplaintProgress.xaml</DependentUpon>
     </Compile>
