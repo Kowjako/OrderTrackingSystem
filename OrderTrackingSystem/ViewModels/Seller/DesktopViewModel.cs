@@ -6,8 +6,10 @@ using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Logic.Validators;
+using OrderTrackingSystem.Presentation.CustomControls;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
 using OrderTrackingSystem.Presentation.ViewModels.Common;
+using OrderTrackingSystem.Presentation.WindowExtension;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -223,6 +225,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             _addPicture ??= new RelayCommand(obj =>
             {
                 _imageData = ImageDataHelper.LoadImage();
+            });
+
+        private RelayCommand _selectCustomers;
+        public RelayCommand SelectCustomers =>
+            _selectCustomers ??= new RelayCommand(obj =>
+            {
+                new CustomerSelection().ShowControl();
             });
 
         #endregion

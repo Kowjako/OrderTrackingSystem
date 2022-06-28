@@ -246,6 +246,7 @@
                             <CheckBox Padding="1"
                                   x:Name="cbGenerateSpecificCount"
                                   Grid.Column="0"
+                                  IsChecked="True"
                                   Grid.Row="0"
                                   Content="Generuj ilość: "/>
                             <TextBox HorizontalAlignment="Stretch"
@@ -274,7 +275,7 @@
                                  Padding="1"/>
                         </Grid>
                         <Button Margin="0 5 0 0"
-                                Command="{Binding AddPicture}"
+                                Command="{Binding SelectCustomers}"
                                 Background="CadetBlue"
                                 BorderBrush="CadetBlue">
                             <Button.Content>

@@ -85,6 +85,9 @@
     <Compile Include="CustomControls\ComplaintProgress.xaml.cs">
       <DependentUpon>ComplaintProgress.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\CustomerSelection.xaml.cs">
+      <DependentUpon>CustomerSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\ExtensibleViewPanel_v2.cs" />
     <Compile Include="CustomControls\MindMapControl.xaml.cs">
       <DependentUpon>MindMapControl.xaml</DependentUpon>
@@ -166,6 +169,10 @@
     <Compile Include="WindowExtension\DisplayNameBinder.cs" />
     <Compile Include="WindowExtension\WindowExtension.cs" />
     <Page Include="CustomControls\ComplaintProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\CustomerSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
