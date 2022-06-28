@@ -10,7 +10,7 @@
              x:Name="desktopView"           
              mc:Ignorable="d" 
              Loaded="desktopView_Loaded"
-             d:DesignHeight="950" d:DesignWidth="1000">
+             d:DesignHeight="1050" d:DesignWidth="1200">
     <UserControl.Resources>
         <converter:NullToVisibilityConverter x:Key="ntvConverter"/>
         <converter:BoolToVisibilityConverter x:Key="btvConverter"/>
@@ -224,6 +224,79 @@
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
+                
+                
+                <GroupBox Margin="5"
+                DockPanel.Dock="Top"
+                Header="Generowanie bonów"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                    <StackPanel>
+                        <Grid Grid.IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <CheckBox Padding="1"
+                                  x:Name="cbGenerateSpecificCount"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Content="Generuj ilość: "/>
+                            <TextBox HorizontalAlignment="Stretch"
+                                 Grid.Column="1"
+                                 IsEnabled="{Binding ElementName=cbGenerateSpecificCount, Path=IsChecked}"
+                                 Margin="0 0 0 5"
+                                 materialDesign:HintAssist.Hint="1"/>
+                            <TextBlock Text="Data ważności: "
+                                   Grid.Row="1"
+                                   Margin="0 5 0 5"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"/>
+                            <DatePicker Margin="0 0 0 0"
+                                    Grid.Row="1"
+                                    Focusable="False"
+                                    Grid.Column="1"
+                                    Padding="1"/>
+                            <TextBlock Text="Kwota: "
+                                   Grid.Row="2"
+                                   Margin="0 5 0 5"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"/>
+                            <TextBox Margin="0 0 0 2"
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Padding="1"/>
+                        </Grid>
+                        <Button Margin="0 5 0 0"
+                                Command="{Binding AddPicture}"
+                                Background="CadetBlue"
+                                BorderBrush="CadetBlue">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="PlusCircleOutline" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="0 0 15 0"
+                                                             Height="20"
+                                                             Width="20"
+                                                             Grid.Column="0" />
+                                    <TextBlock Text="Dodaj klientów" Grid.Column="1"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+                
+                
                 <DockPanel DockPanel.Dock="Bottom">
                     <DockPanel.Resources>
                         <Style x:Key="standardBtn" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -256,6 +329,10 @@
                     Style="{StaticResource standardBtn}"
                     Command="{Binding AddProduct}"
                     Content="{x:Static res:Resources.AddProductAction}" />
+                    <Button
+                    Style="{StaticResource standardBtn}"
+                    Command="{Binding AddProduct}"
+                    Content="Generuj bony"/>
                 </DockPanel>
             </DockPanel>
         </p:ExtensibleViewPanel_v2>

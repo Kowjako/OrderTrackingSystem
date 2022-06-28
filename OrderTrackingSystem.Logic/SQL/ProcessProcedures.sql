@@ -6,7 +6,9 @@ DROP PROCEDURE [Processes].[ProcessRunner_v2]
 GO
 
 CREATE PROCEDURE [Processes].[ProcessRunner_v2]
+(
 @StoredProcedureName NVARCHAR(255)
+)
 AS
 BEGIN
 IF EXISTS (SELECT 1 FROM sys.objects WHERE type = 'P' AND name = @StoredProcedureName)
