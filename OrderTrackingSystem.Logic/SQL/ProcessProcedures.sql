@@ -88,4 +88,64 @@ COMMIT TRAN
 END
 GO
 
+
+IF OBJECT_ID ('[Processes].[AcceptAllComplaints]' ,'P') IS NOT NULL
+DROP PROCEDURE [Processes].[AcceptAllComplaints]
+GO
+
+CREATE PROCEDURE [Processes].[AcceptAllComplaints]
+AS
+BEGIN
+BEGIN TRAN 
+	DECLARE @ShouldStart BIT = 0;
+	DECLARE @SellerId INT = (SELECT AccountId FROM Session);
+
+	WITH SellerComplaints (ComplaintId, OrderId, CustomerId, OrderNumber) AS
+	(
+		SELECT CS.Id, O.Id, CC.Id, O.Number FROM ComplaintStates CS
+		INNER JOIN Orders O ON CS.OrderId = O.Id
+		CROSS APPLY (SELECT Id FROM Customers C WHERE C.Id = O.CustomerId) CC
+		WHERE O.SellerId = @SellerId AND CS.State NOT IN (0,3) --anulowana lub ukonczona
+	),
+	AmounToReturn (CustomerId, Amount) AS
+	(
+		SELECT SC.CustomerId, SUM(P.PriceBrutto * OC.Amount) FROM SellerComplaints SC
+		INNER JOIN OrderCarts OC ON OC.OrderId = SC.OrderId
+		INNER JOIN Products P ON P.Id = OC.ProductId
+		GROUP BY SC.CustomerId
+	)
+	SELECT @ShouldStart = COUNT(*) FROM SellerComplaints
+
+	IF @ShouldStart > 0
+	BEGIN
+		-- 1 - zamkniecie reklamacji i zmiana statusu
+		UPDATE CS SET CS.SolutionDate = GETDATE() 
+		FROM ComplaintStates CS
+		INNER JOIN SellerComplaints SC ON CS.Id = SC.ComplaintId
+
+		INSERT INTO OrderStates (OrderId, State, Date) 
+		SELECT SC.OrderId,
+		8, --rozwiazanie reklamacji
+		GETDATE()
+		FROM SellerComplaints SC
+
+		-- 2 - zwrot pieniedzy
+		UPDATE C SET C.Balance = C.Balance + ATR.Amount
+		FROM Customers C
+		INNER JOIN AmountToReturn ATR ON ATR.CustomerId = C.Id
+
+		-- 3 - generowanie wiadomosci
+		INSERT INTO Mails (Caption, Content, Date, SenderId, ReceiverId, MailRelation)
+		SELECT N'Zwrot pieniędzy', 'Witam reklamacja zamówienia ' + CS.OrderNumber + ' została rozpatrzona',
+		GETDATE(),
+		@SellerId,
+		CS.CustomerId,
+		3 -- Relacja Seller -> Customer
+		FROM SellerComplaints CS
+	END
+COMMIT TRAN
+END
+GO
+
+
 COMMIT TRAN

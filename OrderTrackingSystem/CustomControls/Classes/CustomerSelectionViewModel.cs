@@ -18,17 +18,21 @@ namespace OrderTrackingSystem.Presentation.CustomControls.Classes
 
     public class CustomerSelectionViewModel : INotifyPropertyChanged
     {
+        private readonly ICustomerService CustomerService;
+
+        public bool HasData => _allCustomers != null && _allCustomers.Any();
+
+        public List<CustomerDTO> SelectedCustomers => _allCustomers.Where(p => p.IsChecked).Select(p => p.Customer).ToList();
+
         private static List<CustomerDictionary> _allCustomers = new List<CustomerDictionary>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public List<CustomerDictionary> AllCustomers
         {
             get => _allCustomers;
             set => _allCustomers = value;
         }
-
-        private readonly ICustomerService CustomerService;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public CustomerSelectionViewModel()
         {
@@ -44,8 +48,5 @@ namespace OrderTrackingSystem.Presentation.CustomControls.Classes
 
         public void RaisePropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
-        public bool HasData => _allCustomers != null && _allCustomers.Any();
-
-        public List<CustomerDTO> SelectedCustomers => _allCustomers.Where(p => p.IsChecked).Select(p => p.Customer).ToList();
     }
 }

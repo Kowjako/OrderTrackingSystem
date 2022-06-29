@@ -51,5 +51,12 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <param name="imageData">Tablica danych obrazku</param>
         /// <returns></returns>
         Task SaveNewProduct(Products product, byte[] imageData);
+        /// <summary>
+        /// Metoda generuje bony i udostepnia je klientom
+        /// </summary>
+        /// <param name="voucher">Bon</param>
+        /// <param name="customerIds">Identyfikatory klientow</param>
+        /// <returns></returns>
+        Task GenerateVouchersForCustomer(VoucherDTO voucher, params int[] customerIds);
     }
 }

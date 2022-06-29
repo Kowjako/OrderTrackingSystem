@@ -13,6 +13,7 @@ using OrderTrackingSystem.Presentation.ViewModels.Common;
 using OrderTrackingSystem.Presentation.WindowExtension;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using EnumConverter = OrderTrackingSystem.Logic.EnumMappers.EnumConverter;
@@ -118,6 +119,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             }
         }
 
+        private VoucherDTO _generatedVoucher = new VoucherDTO();
+        public VoucherDTO GeneratedVoucher
+        {
+            get => _generatedVoucher;
+            set => _generatedVoucher = value;
+        }
+
         #endregion
 
         #region Public methods
@@ -178,7 +186,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     Id = complaintDTO.Id,
                     SolutionDate = DateTime.Now,
-                    State = (byte)complaintDTO.StateId,
+                    State = (byte)ComplaintState.SellerDecision,
                     OrderId = complaintDTO.OrderId
                 };
 
@@ -248,7 +256,22 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             _generateVouchers ??= new RelayCommand(async obj =>
             {
                 var customersForVoucher = CSViewModel.SelectedCustomers;
-
+                if (ValidatorWrapper.ValidateWithResult(new VoucherValidator(), GeneratedVoucher))
+                {
+                    try
+                    {
+                        await ProductService.GenerateVouchersForCustomer(GeneratedVoucher, customersForVoucher.Select(c => c.Id).ToArray());
+                        ShowSuccess("Bony zostały wygenerowane");
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        ShowError(ex.Message);
+                    }
+                }
+                else
+                {
+                    ShowWarning(ValidatorWrapper.ErrorMessage);
+                }
             });
         #endregion
 

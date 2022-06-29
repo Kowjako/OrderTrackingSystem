@@ -52,7 +52,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
             {
                 if (pd.Attributes[typeof(DisplayAttribute)] is  DisplayAttribute dn && dn != null)
                 {
-                    return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentCulture);
+                    return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentUICulture);
                 }
             }
             else
@@ -65,7 +65,7 @@ namespace OrderTrackingSystem.Presentation.WindowExtension
                     {
                         if (attributes[i] is DisplayAttribute dn && dn != null)
                         {
-                            return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentCulture);
+                            return Logic.Properties.Resources.ResourceManager.GetString(dn.Name, System.Globalization.CultureInfo.CurrentUICulture);
                         }
                     }
                 }

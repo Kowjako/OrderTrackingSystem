@@ -88,6 +88,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj klientów.
+        /// </summary>
+        public static string AddClients {
+            get {
+                return ResourceManager.GetString("AddClients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj wzorzec.
         /// </summary>
         public static string AddComplaint {
@@ -156,6 +165,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string All {
             get {
                 return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwota: .
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
             }
         }
         
@@ -619,6 +637,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data ważności: .
+        /// </summary>
+        public static string ExpireDateStr {
+            get {
+                return ResourceManager.GetString("ExpireDateStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odfiltruj.
         /// </summary>
         public static string Filter {
@@ -678,6 +705,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string GenerateAutomaticMail {
             get {
                 return ResourceManager.GetString("GenerateAutomaticMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generuj bony.
+        /// </summary>
+        public static string GenerateVouchers {
+            get {
+                return ResourceManager.GetString("GenerateVouchers", resourceCulture);
             }
         }
         
@@ -1344,6 +1380,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Voucher {
             get {
                 return ResourceManager.GetString("Voucher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generowanie bonów.
+        /// </summary>
+        public static string VoucherGeneration {
+            get {
+                return ResourceManager.GetString("VoucherGeneration", resourceCulture);
             }
         }
         

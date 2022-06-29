@@ -203,6 +203,7 @@ namespace OrderTrackingSystem.Logic.Services
             var dalEntities = await base.GetAllEntities<Customers>();
             return dalEntities.Select(p => new CustomerDTO()
             {
+                Id = p.Id,
                 Name = p.Name + " " + p.Surname,
                 Email = p.Email,
             }).ToList();

@@ -221,6 +221,7 @@
     <Compile Include="Validators\ProductValidator.cs" />
     <Compile Include="Validators\SellerValidator.cs" />
     <Compile Include="Validators\ValidatorWrapper.cs" />
+    <Compile Include="Validators\VoucherValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

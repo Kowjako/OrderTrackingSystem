@@ -16,6 +16,7 @@
         <converter:BoolToVisibilityConverter x:Key="btvConverter"/>
         <converter:DecimalToStringConverter x:Key="dtsConverter"/>
         <converter:ByteToStringConverter x:Key="btsConverter"/>
+        <converter:DateToStringConverter x:Key="dateTsConverter"/>
     </UserControl.Resources>
     <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>
@@ -95,7 +96,7 @@
                     Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    MinHeight="40"
+                    MinHeight="35"
                     Padding="7,8,0,0"
                     FontSize="15"
                     Text="{Binding Caption, UpdateSourceTrigger=PropertyChanged}"
@@ -105,7 +106,7 @@
                         <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    MinHeight="40"
+                    MinHeight="35"
                     Margin="0,0,0,10"
                     TextWrapping="Wrap"
                     Padding="7,8,0,0"
@@ -117,7 +118,7 @@
                         <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    MinHeight="40"
+                    MinHeight="35"
                     TextWrapping="Wrap"
                     Padding="7,8,0,0"
                     FontSize="15"
@@ -228,51 +229,44 @@
                 
                 <GroupBox Margin="5"
                 DockPanel.Dock="Top"
-                Header="Generowanie bonów"
+                Header="{x:Static res:Resources.VoucherGeneration}"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                     <StackPanel>
-                        <Grid Grid.IsSharedSizeScope="True">
+                        <Grid Grid.IsSharedSizeScope="True"
+                              DataContext="{Binding GeneratedVoucher}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <CheckBox Padding="1"
-                                  x:Name="cbGenerateSpecificCount"
-                                  Grid.Column="0"
-                                  IsChecked="True"
-                                  Grid.Row="0"
-                                  Content="Generuj ilość: "/>
-                            <TextBox HorizontalAlignment="Stretch"
-                                 Grid.Column="1"
-                                 IsEnabled="{Binding ElementName=cbGenerateSpecificCount, Path=IsChecked}"
-                                 Margin="0 0 0 5"
-                                 materialDesign:HintAssist.Hint="1"/>
-                            <TextBlock Text="Data ważności: "
+                            <TextBlock Text="{x:Static res:Resources.ExpireDateStr}"
                                    Grid.Row="1"
                                    Margin="0 5 0 5"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"/>
                             <DatePicker Margin="0 0 0 0"
                                     Grid.Row="1"
+                                    VerticalAlignment="Stretch"
                                     Focusable="False"
+                                    SelectedDate="{Binding ExpireDate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource dateTsConverter}}"
                                     Grid.Column="1"
-                                    Padding="1"/>
-                            <TextBlock Text="Kwota: "
+                                    Padding="0"/>
+                            <TextBlock Text="{x:Static res:Resources.Amount}"
                                    Grid.Row="2"
                                    Margin="0 5 0 5"
                                    VerticalAlignment="Center"
                                    Grid.Column="0"/>
                             <TextBox Margin="0 0 0 2"
                                  Grid.Row="2"
-                                 Grid.Column="1"
-                                 Padding="1"/>
+                                 Text="{Binding Value, UpdateSourceTrigger=LostFocus, Converter={StaticResource dtsConverter}}"
+                                 VerticalAlignment="Stretch"
+                                 Grid.Column="1"/>
                         </Grid>
                         <Button Margin="0 5 0 0"
                                 Command="{Binding SelectCustomers}"
@@ -290,7 +284,7 @@
                                                              Height="20"
                                                              Width="20"
                                                              Grid.Column="0" />
-                                    <TextBlock Text="Dodaj klientów" Grid.Column="1"/>
+                                    <TextBlock Text="{x:Static res:Resources.AddClients}" Grid.Column="1"/>
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -332,8 +326,8 @@
                     Content="{x:Static res:Resources.AddProductAction}" />
                     <Button
                     Style="{StaticResource standardBtn}"
-                    Command="{Binding AddProduct}"
-                    Content="Generuj bony"/>
+                    Command="{Binding GenerateVouchers}"
+                    Content="{x:Static res:Resources.GenerateVouchers}"/>
                 </DockPanel>
             </DockPanel>
         </p:ExtensibleViewPanel_v2>

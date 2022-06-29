@@ -126,6 +126,9 @@
   <data name="AccountDetails" xml:space="preserve">
     <value>Szczegóły konta</value>
   </data>
+  <data name="AddClients" xml:space="preserve">
+    <value>Dodaj klientów</value>
+  </data>
   <data name="AddComplaint" xml:space="preserve">
     <value>Dodaj wzorzec</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="All" xml:space="preserve">
     <value>Wszystkie</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Kwota: </value>
   </data>
   <data name="AmountToMinus" xml:space="preserve">
     <value>Kwota odliczalna</value>
@@ -303,6 +309,9 @@
   <data name="ExpireDate" xml:space="preserve">
     <value>Data ważności: {0:dd/MM/yyyy}</value>
   </data>
+  <data name="ExpireDateStr" xml:space="preserve">
+    <value>Data ważności: </value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>Odfiltruj</value>
   </data>
@@ -323,6 +332,9 @@
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Wygeneruj automatyczną wiadomość</value>
+  </data>
+  <data name="GenerateVouchers" xml:space="preserve">
+    <value>Generuj bony</value>
   </data>
   <data name="HideProgress" xml:space="preserve">
     <value>Ukryj progres</value>
@@ -545,6 +557,9 @@
   </data>
   <data name="Voucher" xml:space="preserve">
     <value>Bony</value>
+  </data>
+  <data name="VoucherGeneration" xml:space="preserve">
+    <value>Generowanie bonów</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>Waga</value>

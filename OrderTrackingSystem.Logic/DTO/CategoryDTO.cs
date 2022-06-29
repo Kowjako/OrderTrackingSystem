@@ -21,7 +21,5 @@ namespace OrderTrackingSystem.Logic.DTO
         public List<CategoryDTO> Children { get; set; }
 
         #endregion
-
-
     }
 }

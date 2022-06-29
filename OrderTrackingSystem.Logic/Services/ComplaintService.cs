@@ -282,7 +282,7 @@ namespace OrderTrackingSystem.Logic.Services
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
                             complaint.OrderId equals order.Id
-                            where order.SellerId == sellerId
+                            where order.SellerId == sellerId && !new[] { 0, 3 }.Contains(complaint.State)
                             select new ComplaintsDTO()
                             {
                                 Id = complaint.Id,

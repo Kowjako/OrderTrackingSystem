@@ -1,8 +1,4 @@
-﻿using OrderTrackingSystem.Logic.DTO;
-using OrderTrackingSystem.Logic.Services;
-using OrderTrackingSystem.Logic.Services.Interfaces;
-using OrderTrackingSystem.Presentation.CustomControls.Classes;
-using System.Collections.ObjectModel;
+﻿using OrderTrackingSystem.Presentation.CustomControls.Classes;
 using System.Windows.Controls;
 
 namespace OrderTrackingSystem.Presentation.CustomControls

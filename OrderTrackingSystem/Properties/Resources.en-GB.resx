@@ -126,6 +126,9 @@
   <data name="AccountDetails" xml:space="preserve">
     <value>Account Data</value>
   </data>
+  <data name="AddClients" xml:space="preserve">
+    <value>Add clients</value>
+  </data>
   <data name="AddComplaint" xml:space="preserve">
     <value>Add template</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount: </value>
   </data>
   <data name="AmountToMinus" xml:space="preserve">
     <value>Amount to include</value>
@@ -303,6 +309,9 @@
   <data name="ExpireDate" xml:space="preserve">
     <value>Expire date: {0:dd/MM/yyyy}</value>
   </data>
+  <data name="ExpireDateStr" xml:space="preserve">
+    <value>Expire date: </value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
@@ -323,6 +332,9 @@
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Send automatic email</value>
+  </data>
+  <data name="GenerateVouchers" xml:space="preserve">
+    <value>Generate voucher's</value>
   </data>
   <data name="HideProgress" xml:space="preserve">
     <value>Hide progress</value>
@@ -545,6 +557,9 @@
   </data>
   <data name="Voucher" xml:space="preserve">
     <value>Voucher</value>
+  </data>
+  <data name="VoucherGeneration" xml:space="preserve">
+    <value>Voucher's generation</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>Weight</value>

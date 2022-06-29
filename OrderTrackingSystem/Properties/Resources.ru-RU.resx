@@ -126,6 +126,9 @@
   <data name="AccountDetails" xml:space="preserve">
     <value>Данные аккаунта</value>
   </data>
+  <data name="AddClients" xml:space="preserve">
+    <value>Добавить клиентов</value>
+  </data>
   <data name="AddComplaint" xml:space="preserve">
     <value>Добавить шаблон</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="All" xml:space="preserve">
     <value>Все</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма: </value>
   </data>
   <data name="AmountToMinus" xml:space="preserve">
     <value>Сумма к списанию</value>
@@ -303,6 +309,9 @@
   <data name="ExpireDate" xml:space="preserve">
     <value>Годен до: {0:dd/MM/yyyy}</value>
   </data>
+  <data name="ExpireDateStr" xml:space="preserve">
+    <value>Актуален до: </value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>Фильтрация</value>
   </data>
@@ -323,6 +332,9 @@
   </data>
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Отправить автоматическое сообщение</value>
+  </data>
+  <data name="GenerateVouchers" xml:space="preserve">
+    <value>Генерируй купоны</value>
   </data>
   <data name="HideProgress" xml:space="preserve">
     <value>Спрятать прогресс</value>
@@ -545,6 +557,9 @@
   </data>
   <data name="Voucher" xml:space="preserve">
     <value>Купон</value>
+  </data>
+  <data name="VoucherGeneration" xml:space="preserve">
+    <value>Генерация купонов</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>Масса</value>

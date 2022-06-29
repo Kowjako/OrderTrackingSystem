@@ -12,7 +12,8 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class ProductService : CRUDManager, IProductService
     {
-        private CustomerService CustomerService => new CustomerService();
+        private ICustomerService CustomerService => new CustomerService();
+        private IConfigurationService ConfigurationService => new ConfigurationService();
 
         public async Task<List<ProductDTO>> GetAllProducts()
         {
@@ -87,7 +88,9 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var query = from voucher in dbContext.Vouchers
-                            where voucher.CustomerId == customer.Id && voucher.Value != 0 /* Zwracamy tylko bony mające kwotę */
+                            where voucher.CustomerId == customer.Id && 
+                                  voucher.Value != 0 &&
+                                  voucher.ExpireDate >= DateTime.Now /* Zwracamy tylko bony mające kwotę */
                             select new VoucherDTO
                             {
                                 Id = voucher.Id,
@@ -146,6 +149,32 @@ namespace OrderTrackingSystem.Logic.Services
             product.PriceBrutto = Math.Round(product.PriceNetto + product.PriceNetto * product.VAT / 100.0m, 2, MidpointRounding.ToEven);
             product.ImageData = imageData;
             await AddEntity(product);
+        }
+         
+        public async Task GenerateVouchersForCustomer(VoucherDTO voucher, params int[] customerIds)
+        {
+            if(!customerIds.Any())
+            {
+                throw new InvalidOperationException("Lista klientów nie może być pusta");
+            }
+
+            using (var dbContext = new OrderTrackingSystemEntities())
+            {
+                customerIds.ToList().ForEach(c =>
+                {
+                    var voucherDAL = new Vouchers()
+                    {
+                        Number = ConfigurationService.GenerateElementNumber(),
+                        Value = voucher.Value,
+                        RemainValue = voucher.Value,
+                        ExpireDate = voucher.ExpireDate,
+                        CustomerId = c
+                    };
+                    dbContext.Vouchers.Add(voucherDAL);
+                });
+
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }

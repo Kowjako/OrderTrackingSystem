@@ -39,9 +39,22 @@
                         </Style.Setters>
                     </Style>
                 </DockPanel.Resources>
+                <GroupBox Margin="5"
+                DockPanel.Dock="Top"
+                Header="Konfiguracja procesów"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                    <StackPanel>
+
+                    </StackPanel>
+                </GroupBox>
                 <Button Style="{StaticResource standardBtn}"
                         Command="{Binding RunProcesses}"
                         Content="{x:Static res:Resources.RunProcesses}"/>
+                <Button Style="{StaticResource standardBtn}"
+                        Command="{Binding RunProcesses}"
+                        Content="Zaznacz wszystkie"/>
             </DockPanel>
         </panel:ExtensibleViewPanel_v2>
         <DockPanel Grid.Row="0"
