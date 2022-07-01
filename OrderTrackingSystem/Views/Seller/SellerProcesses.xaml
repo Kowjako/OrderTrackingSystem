@@ -41,7 +41,7 @@
                 </DockPanel.Resources>
                 <GroupBox Margin="5"
                 DockPanel.Dock="Top"
-                Header="Konfiguracja procesów"
+                Header="Tworzenie procesów"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">

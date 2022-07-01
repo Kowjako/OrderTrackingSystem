@@ -430,9 +430,15 @@ GO
 
 --Dodanie domyslnych procedur
 INSERT INTO Processes (Name, LastProcessDate, Description, StoredProcedureName) VALUES
-(N'Sprawdzanie terminowości dostarczania zamówień', GETDATE(),
+(N'Sprawdzanie terminowości dostarczania zamówień', NULL,
  N'Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi',
  N'Processes.CheckOrdersTerminary')
+ GO
+
+ INSERT INTO Processes (Name, LastProcessDate, Description, StoredProcedureName) VALUES
+(N'Rozwiązanie wszystkich reklamacji klientów', NULL,
+ N'Reklamacje od klientów są zamykane, zwracane pieniądze na konta klientów i zmiana statusu przesyłki na rozwiązanie reklamacji',
+ N'Processes.AcceptAllComplaints')
  GO
 --Koniec dodania procedur
 
