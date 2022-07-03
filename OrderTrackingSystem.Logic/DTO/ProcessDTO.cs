@@ -13,6 +13,6 @@ namespace OrderTrackingSystem.Logic.DTO
         public string Description { get; set; }
         public bool IsSelectedToRun { get; set; }
 
-        public string StoredProcedureFunction { get; internal set; }  
+        public string StoredProcedureFunction { get; set; }  
     }
 }

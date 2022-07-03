@@ -39,11 +39,17 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// </summary>
         /// <returns>Zwraca krotkę: string - nazwa statusu, OrderState - status przedstawiony poprzez enum</returns>
         IEnumerable<Tuple<string, OrderState>> GetAllStates();
-
         /// <summary>
         /// Zwraca predefiniowane procesy dla sprzedawcy
         /// </summary>
         /// <returns>Lista predefiniowanych procesow</returns>
         Task<List<ProcessDTO>> GetAutoProcesses();
+        /// <summary>
+        /// Metoda dodaje do bazy nowy proces udostępniony sprzedawcom
+        /// </summary>
+        /// <param name="NewSellerProcess">Encja procesy z informacjami podstawowymi</param>
+        /// <param name="_sqlProcessScript">Skrypt do tworzenia procedury</param>
+        /// <returns></returns>
+        Task AddNewSellerProcess(ProcessDTO NewSellerProcess, string _sqlProcessScript);
     }
 }

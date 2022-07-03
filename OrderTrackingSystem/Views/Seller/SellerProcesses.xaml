@@ -46,15 +46,70 @@
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
                     <StackPanel>
-
+                        <StackPanel DataContext="{Binding NewSellerProcess}">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBox}"
+                                   BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                                    <Style.Setters>
+                                        <Setter Property="Margin" Value="0 0 0 10"/>
+                                        <Setter Property="MinHeight" Value="35"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="VerticalAlignment" Value="Top"/>
+                                    </Style.Setters>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBox
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                            Padding="7 8 0 0"
+                            materialDesign:HintAssist.Background="LightPink"
+                            materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
+                            />
+                            <TextBox
+                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                            Padding="7 8 0 0"
+                            materialDesign:HintAssist.Background="LightPink"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Opis"
+                            />
+                            <TextBox
+                            Text="{Binding StoredProcedureFunction, UpdateSourceTrigger=PropertyChanged}"
+                            Padding="7 8 0 0"
+                            materialDesign:HintAssist.Background="LightPink"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Nazwa procedury"
+                            />
+                        </StackPanel>
+                        <Button Margin="0 5 0 0"
+                                Command="{Binding LoadSQL}"
+                                Background="Chocolate"
+                                BorderBrush="Chocolate">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:PackIcon Kind="PlusCircleOutline" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="0 0 15 0"
+                                                             Height="20"
+                                                             Width="20"
+                                                             Grid.Column="0" />
+                                    <TextBlock Text="Załaduj skrypt SQL" Grid.Column="1"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
                 </GroupBox>
                 <Button Style="{StaticResource standardBtn}"
                         Command="{Binding RunProcesses}"
                         Content="{x:Static res:Resources.RunProcesses}"/>
                 <Button Style="{StaticResource standardBtn}"
-                        Command="{Binding RunProcesses}"
+                        Command="{Binding SelectAll}"
                         Content="Zaznacz wszystkie"/>
+                <Button Style="{StaticResource standardBtn}"
+                        Command="{Binding ApproveProcess}"
+                        Content="Dodaj procedurę do bazy"/>
             </DockPanel>
         </panel:ExtensibleViewPanel_v2>
         <DockPanel Grid.Row="0"
