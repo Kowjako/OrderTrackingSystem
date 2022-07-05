@@ -88,7 +88,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     ShowWarning("Należy załadować plik z procedurą procesu");
                 }
-            });
+            }, (e) => !string.IsNullOrEmpty(_sqlProcessScript));
 
         private RelayCommand _loadSQL;
         public RelayCommand LoadSQL =>

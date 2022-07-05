@@ -56,6 +56,8 @@ namespace OrderTrackingSystem.Logic.Services
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
                             complaint.OrderId equals order.Id
+                            join complaintDefinition in dbContext.ComplaintDefinitions on
+                            complaint.ComplaintDefinitionId equals complaintDefinition.Id
                             where order.CustomerId == customerId
                             select new ComplaintsDTO()
                             {
@@ -66,7 +68,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 StateId = complaint.State,
                                 SolutionDate = complaint.SolutionDate,
                                 EndDate = complaint.EndDate,
-                                OrderId = order.Id
+                                OrderId = order.Id,
+                                RemainDays = complaintDefinition.RemainDays
                             };
                 var stagedList = await query.ToListAsync();
                 stagedList.ForEach(p =>
@@ -282,6 +285,8 @@ namespace OrderTrackingSystem.Logic.Services
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
                             complaint.OrderId equals order.Id
+                            join complaintDefinition in dbContext.ComplaintDefinitions on
+                            complaint.ComplaintDefinitionId equals complaintDefinition.Id
                             where order.SellerId == sellerId && !new[] { 0, 3 }.Contains(complaint.State)
                             select new ComplaintsDTO()
                             {
@@ -291,7 +296,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Date = complaint.Date.Value,
                                 StateId = complaint.State,
                                 EndDate = complaint.EndDate,
-                                OrderId = order.Id
+                                OrderId = order.Id,
+                                RemainDays = complaintDefinition.RemainDays
                             };
 
                 var preparedList = await query.AsNoTracking().ToListAsync();
@@ -338,7 +344,8 @@ namespace OrderTrackingSystem.Logic.Services
         public async Task CloseComplaint(ComplaintStates entity)
         {
             entity.EndDate = DateTime.Now;
-            await base.UpdateEntity(entity, entity => entity.EndDate);
+            entity.State = (int)ComplaintState.ComplaintSolved;
+            await base.UpdateEntity(entity, entity => entity.State, entity => entity.EndDate);
         }
     }
 }

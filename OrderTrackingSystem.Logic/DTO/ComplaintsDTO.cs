@@ -21,6 +21,9 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Date", ResourceType = typeof(Properties.Resources))]
         public DateTime Date { get; set; }
 
+        [Display(Name = "RemainDays", ResourceType = typeof(Properties.Resources))]
+        public int RemainDays { get; set; }
+
         #region Non-browsable
 
         [Browsable(false)]

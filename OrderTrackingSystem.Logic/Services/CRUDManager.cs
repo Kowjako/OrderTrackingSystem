@@ -34,12 +34,15 @@ namespace OrderTrackingSystem.Logic.Services
         /// <typeparam name="V">Typ modyfikowanej właściwości</typeparam>
         /// <param name="entity">Encja</param>
         /// <param name="propertyToUpdate">Lambda która wybiera zmodyfikowany parametr</param>
-        protected async virtual Task UpdateEntity<T, V>(T entity, Expression<Func<T, V>> propertyToUpdate) where T : class
+        protected async virtual Task UpdateEntity<T>(T entity, params Expression<Func<T, object>> [] propertyToUpdate) where T : class
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 dbContext.Set<T>().Attach(entity);
-                dbContext.Entry(entity).Property(propertyToUpdate).IsModified = true;
+                for (int i = 0; i < propertyToUpdate.Length; i++)
+                {
+                    dbContext.Entry(entity).Property(propertyToUpdate[i]).IsModified = true;
+                }
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -86,6 +89,12 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
+
+        /// <summary>
+        /// Zwraca wszystkie encje konkretnego typu
+        /// </summary>
+        /// <typeparam name="T">Typ encji</typeparam>
+        /// <returns></returns>
         protected async virtual Task<List<T>> GetAllEntities<T>() where T : class
         {
             using (var dbContext = new OrderTrackingSystemEntities())

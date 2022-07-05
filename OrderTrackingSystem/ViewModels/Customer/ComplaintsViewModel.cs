@@ -126,7 +126,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     ShowWarning("Reklamacja musi najpierw być zatwierdzona poprzez sprzedawcę");
                 }
-            });
+            }, (e) => SelectedComplaint != null && !SelectedComplaint.EndDate.HasValue);
         #endregion
     }
 }

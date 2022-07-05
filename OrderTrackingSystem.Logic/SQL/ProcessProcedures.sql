@@ -104,8 +104,11 @@ BEGIN TRAN
 	(
 		SELECT CS.Id, O.Id, CC.Id, O.Number FROM ComplaintStates CS
 		INNER JOIN Orders O ON CS.OrderId = O.Id
+		INNER JOIN ComplaintDefinitions CD ON CS.ComplaintDefinitionId = CD.Id
 		CROSS APPLY (SELECT Id FROM Customers C WHERE C.Id = O.CustomerId) CC
-		WHERE O.SellerId = @SellerId AND CS.State NOT IN (0,3) --anulowana lub ukonczona
+		WHERE O.SellerId = @SellerId AND 
+			  CS.State NOT IN (0,3) AND --anulowana lub ukonczona
+			  DATEDIFF(DAY, CS.Date, GETDATE()) > CD.RemainDays --przekroczylo dni na rozpatrzenie
 	),
 	AmounToReturn (CustomerId, Amount) AS
 	(
