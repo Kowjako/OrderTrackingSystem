@@ -319,12 +319,18 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var customer = await dbContext.Customers.FirstAsync(p => p.Id == sellerId);
-                var order = await dbContext.Orders.FirstAsync(p => p.Id == orderId);
+                var order = await dbContext.Orders.Include(p => p.ComplaintStates).FirstAsync(p => p.Id == orderId);
+
+                var complaintState = order.ComplaintStates.FirstOrDefault();
+                var definition = complaintState.ComplaintDefinitions; //EF6 lazy-loading
 
                 var mailDAL = new Mails
                 {
                     Caption = Properties.Resources.ComplaintSetHeader,
-                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint, order.Number, customer.Name),
+                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint, 
+                                            order.Number, 
+                                            definition?.ComplaintName ?? string.Empty, 
+                                            customer.Name),
                     Date = DateTime.Now,
                     SenderId = sellerId,
                     ReceiverId = receiverId,
