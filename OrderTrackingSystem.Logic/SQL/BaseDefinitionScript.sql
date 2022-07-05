@@ -407,6 +407,9 @@ ALTER TABLE Products
 ADD ImageData VARBINARY(MAX)
 GO
 
+CREATE SCHEMA Processes
+GO
+
 CREATE TABLE Processes (
 	Id INT IDENTITY(1,1),
 	Name NVARCHAR(500) NOT NULL,
@@ -417,15 +420,13 @@ CREATE TABLE Processes (
 );
 GO
 
-CREATE SCHEMA Processes
-GO
 
 ALTER TABLE MailOrderRelations
 DROP CONSTRAINT FK__MailOrderRelations_OrderId
 GO
 
 ALTER TABLE MailOrderRelations
-ADD CONSTRAINT FK__MailOrderRelations_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE SET NULL
+ADD CONSTRAINT FK__MailOrderRelations_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE NO ACTION
 GO
 
 --Dodanie domyslnych procedur
