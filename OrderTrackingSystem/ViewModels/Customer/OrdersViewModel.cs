@@ -100,8 +100,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     CurrentProductAmount = 0;
                     RecalculateCartPrice();
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                    OnPropertyChanged(nameof(ProductsInCart));
+                    OnManyPropertyChanged(new[] { nameof(CurrentProductAmount), nameof(ProductsInCart), nameof(ProductsList) });
                 }
                 catch (Exception ex)
                 {
@@ -234,7 +233,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
-                OnPropertyChanged(nameof(ProductsInCart));
+                ProductsList = AllProductsList;
+
+                OnManyPropertyChanged(new[] { nameof(ProductsInCart), nameof(ProductsList) });
                 ShowSuccess("Koszyk pomyślnie wyczyszczony");
             });
         #endregion

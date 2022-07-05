@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.ViewModels.Common;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -108,7 +109,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand AddToCart =>
             _addToCart ??= new RelayCommand(obj =>
             {
-                if (CurrentProductAmount == default) return; 
+                if (CurrentProductAmount == default) return;
                 if (ProductsInCart.Any(x => x.Id.Equals(SelectedProduct.Id)))
                 {
                     var existingProduct = ProductsInCart.First(x => x.Id.Equals(SelectedProduct.Id));
@@ -127,12 +128,13 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         Amount = CurrentProductAmount,
                         Discount = SelectedProduct.Discount
                     });
+                    SelectedSellerId = SelectedProduct.SellerId;
+                    ProductsList = AllProductsList.Where(p => p.SellerId == SelectedSellerId).ToList();
                 }
 
                 CurrentProductAmount = 0;
                 RecalculateCartPrice();
-                OnPropertyChanged(nameof(CurrentProductAmount));
-                OnPropertyChanged(nameof(ProductsInCart));
+                OnManyPropertyChanged(new[] { nameof(CurrentProductAmount), nameof(ProductsInCart), nameof(ProductsList) });
             });
 
         private RelayCommand _filterCommand;
@@ -165,7 +167,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
-                OnPropertyChanged(nameof(ProductsInCart));
+                ProductsList = AllProductsList;
+
+                OnManyPropertyChanged(new[] { nameof(ProductsInCart), nameof(ProductsList) });
                 ShowSuccess("Koszyk pomyślnie wyczyszczony");
             });
 
@@ -195,9 +199,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     ShowSuccess("Wysyłka została utworzona");
                 }
-                catch
+                catch (InvalidOperationException ex)
                 {
-                    ShowError("Nie udało się zapisać wysyłki");
+                    ShowError(ex.Message);
                 }
             });
 

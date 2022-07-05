@@ -14,6 +14,7 @@ namespace OrderTrackingSystem.Logic.Services
     {
         private ProductService ProductService => new ProductService();
         private IConfigurationService ConfigurationService = new ConfigurationService();
+        private ICustomerService CustomerService => new CustomerService();
 
         public async Task<List<SellDTO>> GetSellsForCustomer(int customerId)
         {
@@ -51,6 +52,12 @@ namespace OrderTrackingSystem.Logic.Services
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
+                    var customer = await CustomerService.GetCurrentCustomer();
+                    if(customer.Balance <= products.Sum(p => p.Price * p.Amount))
+                    {
+                        throw new InvalidOperationException("Kwota wysyłki jest większa niż kwota konta");
+                    }
+
                     var sellDAL = new Sells
                     {
                         Number = ConfigurationService.GenerateElementNumber(),
@@ -66,6 +73,9 @@ namespace OrderTrackingSystem.Logic.Services
                     await ProductService.SaveSellProductsForCart(products, sellDAL.Id);
                     /* Ustawiamy numer po dodaniu do bazy */
                     order.Number = sellDAL.Number;
+
+                    customer.Balance -= products.Sum(p => p.Price * p.Amount);
+                    await CustomerService.UpdateCustomer(customer);
                 }
                 transactionScope.Complete();
             }

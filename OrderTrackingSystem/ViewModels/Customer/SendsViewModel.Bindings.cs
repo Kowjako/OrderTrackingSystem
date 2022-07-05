@@ -37,6 +37,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public CategoryDTO SelectedSubCategory { get; set; }
 
+        public int SelectedSellerId { get; private set; }
+
         public Customers CurrentSeller { get; private set; }
         public CustomerDTO CurrentReceiver { get; private set; }
         public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
