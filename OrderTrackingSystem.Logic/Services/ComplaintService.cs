@@ -314,10 +314,11 @@ namespace OrderTrackingSystem.Logic.Services
             var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
             using(var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                await base.UpdateEntity(entity, entity => entity.SolutionDate); /* Zapisywanie zmodyfikowanej encji */
+                await base.UpdateEntity(entity, entity => entity.SolutionDate, entity => entity.State); /* Zapisywanie zmodyfikowanej encji */
 
-                var customerId = 0;
-                string sellerName = string.Empty;
+                var customerId = default(int);
+                string sellerName = default(string);
+
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
                     customerId = dbContext.Customers.FirstOrDefault(p => p.Orders.Any(x => x.Id == entity.OrderId)).Id;

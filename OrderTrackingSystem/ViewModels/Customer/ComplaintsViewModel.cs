@@ -43,6 +43,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             ComplaintsList = await ComplaintService.GetComplaintsForCustomer(CurrentCustomer.Id); //TODO: zrobic dla zalogowanego nabywcy
             ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
             AllComplaintFolderList = await ComplaintService.GetComplaintFoldersWithoutComposing();
+            AllComplaintDefinitions = ComplaintDefinitionList;
             OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });
         }
 

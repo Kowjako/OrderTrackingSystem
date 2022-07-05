@@ -12,10 +12,23 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public List<ComplaintFolderDTO> ComplaintFolderList { get; set; } = new List<ComplaintFolderDTO>();
         public List<ComplaintsDTO> ComplaintsList { get; set; } = new List<ComplaintsDTO>();
         public List<ComplaintDefinitionDTO> ComplaintDefinitionList { get; set; } = new List<ComplaintDefinitionDTO>();
+        public List<ComplaintDefinitionDTO> AllComplaintDefinitions { get; private set; }
 
         public ComplaintDefinitionDTO CurrentComplaint { get; set; } = new ComplaintDefinitionDTO();
         public List<ComplaintFolderDTO> AllComplaintFolderList { get; set; }
-        public ComplaintFolderDTO SelectedFolder { get; set; }
+
+        private ComplaintFolderDTO _selectedFolder;
+        public ComplaintFolderDTO SelectedFolder
+        {
+            get => _selectedFolder;
+            set
+            {
+                _selectedFolder = value;
+                ComplaintDefinitionList = AllComplaintDefinitions.Where(p => p.ComplaintFolderId == value.Id).ToList();
+                OnPropertyChanged(nameof(ComplaintDefinitionList));
+            }
+        }
+
         public ComplaintFolderDTO SelectedFolderToAdd { get; set; }
 
         public string FolderToAddName { get; set; }
@@ -35,6 +48,8 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 OnManyPropertyChanged(new[] { nameof(SelectedComplaintState), nameof(SelectedComplaintStateDates) });
             }
         }
+
+
         #endregion
     }
 }
