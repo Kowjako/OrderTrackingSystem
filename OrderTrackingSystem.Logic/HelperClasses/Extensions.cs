@@ -30,6 +30,7 @@ namespace OrderTrackingSystem.Logic.HelperClasses
 
         public static (string login, string password) ToCredentials(this string[] arr)
         {
+            if (arr.Length != 2) throw new InvalidOperationException("Wyamagana ilość parametrów 2 - login + hasło");
             return (arr[0], arr[1]);
         }
     }
