@@ -106,7 +106,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     ShowError("Nie udało się dodać do koszyka");
                 }
-            });
+            }, (e) => SelectedProduct != null && CurrentProductAmount > 0);
 
 
         private RelayCommand _findSeller;
@@ -138,16 +138,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand MinusAmount =>
             minusAmount ??= new RelayCommand(obj =>
             {
-                if(CurrentProductAmount == 0)
-                {
-                    return;
-                }
-                else
-                {
-                    CurrentProductAmount--;
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                }
-            });
+                CurrentProductAmount--;
+                OnPropertyChanged(nameof(CurrentProductAmount));
+            }, (e) => CurrentProductAmount > 0);
 
         private RelayCommand plusAmount;
         public RelayCommand PlusAmount =>

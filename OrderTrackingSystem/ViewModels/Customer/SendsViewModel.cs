@@ -71,16 +71,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand MinusAmount =>
             minusAmount ??= new RelayCommand(obj =>
             {
-                if (CurrentProductAmount == 0)
-                {
-                    return;
-                }
-                else
-                {
-                    CurrentProductAmount--;
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                }
-            });
+                CurrentProductAmount--;
+                OnPropertyChanged(nameof(CurrentProductAmount));
+            }, (e) => CurrentProductAmount > 0);
 
         private RelayCommand plusAmount;
         public RelayCommand PlusAmount =>
@@ -135,7 +128,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 CurrentProductAmount = 0;
                 RecalculateCartPrice();
                 OnManyPropertyChanged(new[] { nameof(CurrentProductAmount), nameof(ProductsInCart), nameof(ProductsList) });
-            });
+            }, (e) => SelectedProduct != null && CurrentProductAmount > 0);
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
