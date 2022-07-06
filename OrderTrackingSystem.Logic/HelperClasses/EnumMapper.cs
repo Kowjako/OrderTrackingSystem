@@ -20,7 +20,7 @@ namespace OrderTrackingSystem.Logic.EnumMappers
 
     public enum DeliveryType
     {
-        [Display(Name = "Kurier DPD")]
+        [Display(Name = "Kurier")]
         Courier = 0,
         [Display(Name = "Poczta")]
         Post = 1,
