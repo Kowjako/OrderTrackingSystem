@@ -138,6 +138,9 @@
   <data name="AddFolder" xml:space="preserve">
     <value>Dodaj folder</value>
   </data>
+  <data name="AddProcedureToDB" xml:space="preserve">
+    <value>Dodaj procedurę do bazy</value>
+  </data>
   <data name="AddProduct" xml:space="preserve">
     <value>Dodaj produkt</value>
   </data>
@@ -285,6 +288,9 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Metody dostawy</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
   <data name="Desktop" xml:space="preserve">
     <value>Pulpit</value>
   </data>
@@ -356,6 +362,9 @@
   </data>
   <data name="LoadImage" xml:space="preserve">
     <value>Załaduj obrazek</value>
+  </data>
+  <data name="LoadSQLScript" xml:space="preserve">
+    <value>Załaduj skrypt SQL</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -432,6 +441,12 @@
   <data name="PriceTo" xml:space="preserve">
     <value>Cend do:</value>
   </data>
+  <data name="ProcedureName" xml:space="preserve">
+    <value>Nazwa procedury</value>
+  </data>
+  <data name="ProcessCreation" xml:space="preserve">
+    <value>Tworzenie procesów</value>
+  </data>
   <data name="ProductAmount" xml:space="preserve">
     <value>Ilość produktu</value>
   </data>
@@ -464,6 +479,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Zaznacz wszystkie</value>
   </data>
   <data name="SelectBon" xml:space="preserve">
     <value>Wybierz bon</value>

@@ -124,6 +124,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj procedurę do bazy.
+        /// </summary>
+        public static string AddProcedureToDB {
+            get {
+                return ResourceManager.GetString("AddProcedureToDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj produkt.
         /// </summary>
         public static string AddProduct {
@@ -565,6 +574,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opis.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pulpit.
         /// </summary>
         public static string Desktop {
@@ -777,6 +795,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string LoadImage {
             get {
                 return ResourceManager.GetString("LoadImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Załaduj skrypt SQL.
+        /// </summary>
+        public static string LoadSQLScript {
+            get {
+                return ResourceManager.GetString("LoadSQLScript", resourceCulture);
             }
         }
         
@@ -1006,6 +1033,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nazwa procedury.
+        /// </summary>
+        public static string ProcedureName {
+            get {
+                return ResourceManager.GetString("ProcedureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tworzenie procesów.
+        /// </summary>
+        public static string ProcessCreation {
+            get {
+                return ResourceManager.GetString("ProcessCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ilość produktu.
         /// </summary>
         public static string ProductAmount {
@@ -1101,6 +1146,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaznacz wszystkie.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
             }
         }
         

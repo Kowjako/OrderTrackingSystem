@@ -41,7 +41,7 @@
                 </DockPanel.Resources>
                 <GroupBox Margin="5"
                 DockPanel.Dock="Top"
-                Header="Tworzenie procesów"
+                Header="{x:Static res:Resources.ProcessCreation}"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
@@ -69,14 +69,14 @@
                             Padding="7 8 0 0"
                             materialDesign:HintAssist.Background="LightPink"
                             TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Opis"
+                            materialDesign:HintAssist.Hint="{x:Static res:Resources.Description}"
                             />
                             <TextBox
                             Text="{Binding StoredProcedureFunction, UpdateSourceTrigger=PropertyChanged}"
                             Padding="7 8 0 0"
                             materialDesign:HintAssist.Background="LightPink"
                             TextWrapping="Wrap"
-                            materialDesign:HintAssist.Hint="Nazwa procedury"
+                            materialDesign:HintAssist.Hint="{x:Static res:Resources.ProcedureName}"
                             />
                         </StackPanel>
                         <Button Margin="0 5 0 0"
@@ -95,7 +95,7 @@
                                                              Height="20"
                                                              Width="20"
                                                              Grid.Column="0" />
-                                    <TextBlock Text="Załaduj skrypt SQL" Grid.Column="1"/>
+                                    <TextBlock Text="{x:Static res:Resources.LoadSQLScript}" Grid.Column="1"/>
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -106,10 +106,10 @@
                         Content="{x:Static res:Resources.RunProcesses}"/>
                 <Button Style="{StaticResource standardBtn}"
                         Command="{Binding SelectAll}"
-                        Content="Zaznacz wszystkie"/>
+                        Content="{x:Static res:Resources.SelectAll}"/>
                 <Button Style="{StaticResource standardBtn}"
                         Command="{Binding ApproveProcess}"
-                        Content="Dodaj procedurę do bazy"/>
+                        Content="{x:Static res:Resources.AddProcedureToDB}"/>
             </DockPanel>
         </panel:ExtensibleViewPanel_v2>
         <DockPanel Grid.Row="0"

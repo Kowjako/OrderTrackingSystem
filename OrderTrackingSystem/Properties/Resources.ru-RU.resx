@@ -138,6 +138,9 @@
   <data name="AddFolder" xml:space="preserve">
     <value>Добавить папку</value>
   </data>
+  <data name="AddProcedureToDB" xml:space="preserve">
+    <value>Добавить процедуру к базе</value>
+  </data>
   <data name="AddProduct" xml:space="preserve">
     <value>Добавить продукт</value>
   </data>
@@ -285,6 +288,9 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Методы доставки</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
   <data name="Desktop" xml:space="preserve">
     <value>Рабочий стол</value>
   </data>
@@ -356,6 +362,9 @@
   </data>
   <data name="LoadImage" xml:space="preserve">
     <value>Загрузить изображение</value>
+  </data>
+  <data name="LoadSQLScript" xml:space="preserve">
+    <value>Загрузить скрипт SQL</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Логин</value>
@@ -432,6 +441,12 @@
   <data name="PriceTo" xml:space="preserve">
     <value>Цена до:</value>
   </data>
+  <data name="ProcedureName" xml:space="preserve">
+    <value>Название процедуры</value>
+  </data>
+  <data name="ProcessCreation" xml:space="preserve">
+    <value>Создание процессов</value>
+  </data>
   <data name="ProductAmount" xml:space="preserve">
     <value>Кол-во продукта</value>
   </data>
@@ -464,6 +479,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Выделить все</value>
   </data>
   <data name="SelectBon" xml:space="preserve">
     <value>Выбрать купон</value>
