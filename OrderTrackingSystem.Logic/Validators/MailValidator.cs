@@ -14,7 +14,7 @@ namespace OrderTrackingSystem.Logic.Validators
         {
             RuleFor(p => p.Caption).Length(1, 255).WithMessage("Tytuł musi być od 0 do 255 znaków");
             RuleFor(p => p.Content).NotNull().NotEmpty().WithMessage("Treść nie może być pusta");
-            RuleFor(p => p.ReceiverId).NotNull().NotEqual(-1).WithMessage("Należy wskazać odbiorcę");
+            RuleFor(p => p.ReceiverId).NotNull().NotEqual(-1).GreaterThan(0).WithMessage("Należy wskazać odbiorcę");
         }
     }
 }
