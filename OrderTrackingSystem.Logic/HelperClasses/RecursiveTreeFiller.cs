@@ -43,11 +43,14 @@ namespace OrderTrackingSystem.Logic.HelperClasses
         public static List<T> GetAllChild (T source)
         {
             var list = new List<T>();
-            foreach (var child in source.Children)
+            if (source.Children != null)
             {
-                list.Add(child);
-                /* rekurencyjnie dodajemy */
-                list.AddRange(GetAllChild(child));
+                foreach (var child in source.Children)
+                {
+                    list.Add(child);
+                    /* rekurencyjnie dodajemy */
+                    list.AddRange(GetAllChild(child));
+                }
             }
             return list;
 

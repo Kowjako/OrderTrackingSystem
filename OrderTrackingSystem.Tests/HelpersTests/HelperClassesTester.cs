@@ -1,7 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.HelperClasses;
 using Xunit;
 using System;
-using System.Diagnostics;
 using Xunit.Abstractions;
 using OrderTrackingSystem.Logic.EnumMappers;
 using OrderTrackingSystem.Logic.Services;
@@ -141,11 +140,34 @@ namespace OrderTrackingSystem.Tests.HelpersTests
 
         [Theory(DisplayName = "RecursiveTreeFiller_GetAllStates")]
         [MemberData(nameof(GetICompositePattern))]
-        public void RecursiveTreeFiller_GetAllStates()
+        public void RecursiveTreeFiller_GetAllStates(CategoryDTO category)
         {
+            //arrange
 
+            //act 
+            var allChilds = RecursiveTreeFiller<CategoryDTO>.GetAllChild(category);
+
+            //assert
+            Assert.True(allChilds.Count() == 5);
         }
 
+
+        [Fact(DisplayName = "RecursiveTreeFiller_FillTreeRecursive")]
+        public void RecursiveTreeFiller_FillTreeRecursive()
+        {
+            //arrange
+            var list = HelperClassesTester.GetCompositeList().ToList();
+
+            //act
+            RecursiveTreeFiller<CategoryDTO>.FillTreeRecursive(list);
+            var categories = list.OfType<CategoryDTO>().Where(p => p.ParentId == null);
+
+            //assert
+            Assert.True(categories.Count() == 3); //powstaja 3 grupy
+            Assert.All(categories, item => Assert.Equal(3, item.Children.Count)); //te 3 grupy maja 3 potomkow
+            Assert.True(categories.ToList()[0].Children[0].Children.Count == 3); //grupa 1.1 ma 3 potomkow
+            Assert.True(categories.ToList()[2].Children[1].Children.Count == 3); //grupa 3.2 ma 3 potomkow
+        }
         #endregion
 
         #region MemberData
@@ -179,6 +201,39 @@ namespace OrderTrackingSystem.Tests.HelpersTests
                     new CategoryDTO() {Name = "1.2"}
                 }
             } };
+        }
+
+        public static IEnumerable<CategoryDTO> GetCompositeList()
+        {
+            //Trzy glowne grupy
+            yield return new CategoryDTO() { Id = 1, Name = "1", ParentId = null, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 2, Name = "2", ParentId = null, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 3, Name = "3", ParentId = null, Children = new List<CategoryDTO>() };
+
+            //Potomki grupy 1
+            yield return new CategoryDTO() { Id = 4, Name = "1.1", ParentId = 1, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 5, Name = "1.2", ParentId = 1, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 6, Name = "1.3", ParentId = 1, Children = new List<CategoryDTO>() };
+
+            //Potomki grupy 2
+            yield return new CategoryDTO() { Id = 7, Name = "2.1", ParentId = 2, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 8, Name = "2.2", ParentId = 2, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 9, Name = "2.3", ParentId = 2, Children = new List<CategoryDTO>() };
+
+            //Potomki grupy 3
+            yield return new CategoryDTO() { Id = 10, Name = "3.1", ParentId = 3, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 11, Name = "3.2", ParentId = 3, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 12, Name = "3.3", ParentId = 3, Children = new List<CategoryDTO>() };
+
+            //Potomki grupy 1.1
+            yield return new CategoryDTO() { Id = 13, Name = "1.1.1", ParentId = 4, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 14, Name = "1.1.2", ParentId = 4, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 15, Name = "1.1.3", ParentId = 4, Children = new List<CategoryDTO>() };
+
+            //Potomki grupy 3.2
+            yield return new CategoryDTO() { Id = 16, Name = "3.2.1", ParentId = 11, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 17, Name = "3.2.2", ParentId = 11, Children = new List<CategoryDTO>() };
+            yield return new CategoryDTO() { Id = 18, Name = "3.2.3", ParentId = 11, Children = new List<CategoryDTO>() };
         }
 
         #endregion

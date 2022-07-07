@@ -7,18 +7,12 @@ using Xunit;
 
 namespace OrderTrackingSystem.Tests.ValidatorsTests
 {
-    class ValidatorTests : IDisposable, IClassFixture<ValidatorFixture>
+    class ValidatorTests : IDisposable
     {
-        private readonly ValidatorFixture ValidatorFixture;
+        public ValidatorTests() { }
 
-        public ValidatorTests(ValidatorFixture fixture)
-        {
-            ValidatorFixture = fixture;
-        }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+
+        public void Dispose() { }
     }
 }
