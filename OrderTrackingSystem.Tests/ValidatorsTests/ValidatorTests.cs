@@ -49,6 +49,58 @@ namespace OrderTrackingSystem.Tests.ValidatorsTests
             Assert.True(ValidatorWrapper.IsValid == shouldBeValid);
         }
 
+        [Theory]
+        [MemberData(nameof(ValidatorDataProvider.GetSampleOrdersWithResult), MemberType = typeof(ValidatorDataProvider))]
+        public void OrderValidator_ValidateEntity(OrderDTO order, bool shouldBeValid)
+        {
+            //arrange
+
+            //act
+            ValidatorWrapper.Validate(new OrderValidator(), order);
+
+            //assert
+            Assert.True(ValidatorWrapper.IsValid == shouldBeValid);
+        }
+
+        [Theory]
+        [MemberData(nameof(ValidatorDataProvider.GetSampleProductsWithResult), MemberType = typeof(ValidatorDataProvider))]
+        public void ProductValidator_ValidateEntity(Products product, bool shouldBeValid)
+        {
+            //arrange
+
+            //act
+            ValidatorWrapper.Validate(new ProductValidator(), product);
+
+            //assert
+            Assert.True(ValidatorWrapper.IsValid == shouldBeValid);
+        }
+
+        [Theory]
+        [MemberData(nameof(ValidatorDataProvider.GetSampleSellerWithResult), MemberType = typeof(ValidatorDataProvider))]
+        public void SellerValidator_ValidateEntity(Sellers seller, bool shouldBeValid)
+        {
+            //arrange
+
+            //act
+            ValidatorWrapper.Validate(new SellerValidator(), seller);
+
+            //assert
+            Assert.True(ValidatorWrapper.IsValid == shouldBeValid);
+        }
+
+        [Theory]
+        [MemberData(nameof(ValidatorDataProvider.GetSampleVoucherWithResult), MemberType = typeof(ValidatorDataProvider))]
+        public void VoucherValidator_ValidateEntity(VoucherDTO voucher, bool shouldBeValid)
+        {
+            //arrange
+
+            //act
+            ValidatorWrapper.Validate(new VoucherValidator(), voucher);
+
+            //assert
+            Assert.True(ValidatorWrapper.IsValid == shouldBeValid);
+        }
+
         public void Dispose() { }
     }
 }

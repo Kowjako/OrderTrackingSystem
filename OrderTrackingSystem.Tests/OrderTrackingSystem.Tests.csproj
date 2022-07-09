@@ -58,11 +58,12 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseFixture\TestDatabaseCreator.cs" />
     <Compile Include="HelpersTests\HelperClassesTester.cs" />
     <Compile Include="HelpersTests\HelperDataProvider.cs" />
+    <Compile Include="LocalizationServiceTests\LocalizationsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServicesTests\ComplaintServiceTest.cs" />
-    <Compile Include="ServicesTests\ServiceDBCollectionFixture.cs" />
+    <Compile Include="DatabaseFixture\ServiceDBCollectionFixture.cs" />
     <Compile Include="ValidatorsTests\ValidatorDataProvider.cs" />
     <Compile Include="ValidatorsTests\ValidatorTests.cs" />
   </ItemGroup>
@@ -72,7 +73,9 @@
       <Name>OrderTrackingSystem.Logic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SQLTestDB\SetupTestLocalDB.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
