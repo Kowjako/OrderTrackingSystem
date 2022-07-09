@@ -16,5 +16,18 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
                 ZipCode = "50-339"
             };
         }
+
+        public static Customers CreateCustomer()
+        {
+            return new Customers()
+            {
+                Name = "Wlodzimierz",
+                Surname = "Kowjako",
+                Age = 18,
+                Number = "111222333",
+                Email = "kowyako@sample.com",
+                Balance = 450.0m
+            };
+        }
     }
 }

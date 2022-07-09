@@ -8,7 +8,7 @@ using Xunit;
 
 namespace OrderTrackingSystem.Tests.DatabaseFixture
 {
-    [CollectionDefinition("DBCollection")]
+    [CollectionDefinition("DBCollection", DisableParallelization = true)]
     public class ServiceDBCollectionFixture : ICollectionFixture<DBFixture> { }
 
     public class DBFixture : IDisposable

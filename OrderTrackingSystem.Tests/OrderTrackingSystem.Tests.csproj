@@ -65,6 +65,7 @@
     <Compile Include="HelpersTests\HelperClassesTester.cs" />
     <Compile Include="HelpersTests\HelperDataProvider.cs" />
     <Compile Include="ObjectFactory\ObjectFactory.cs" />
+    <Compile Include="ServicesTests\CustomersTests.cs" />
     <Compile Include="ServicesTests\LocalizationsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseFixture\ServiceDBCollectionFixture.cs" />
