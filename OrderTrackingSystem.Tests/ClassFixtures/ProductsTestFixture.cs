@@ -1,10 +1,7 @@
 ﻿using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
+using OrderTrackingSystem.Tests.ObjectFactory;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Tests.ClassFixtures
 {
@@ -13,12 +10,14 @@ namespace OrderTrackingSystem.Tests.ClassFixtures
         public IProductService ProductService;
         public ICustomerService CustomerService;
         public ILocalizationService LocalizationService;
+        public EntitiesGenerator EntitiesGenerator;
 
         public ProductsTestFixture()
         {
             CustomerService = new CustomerService(new ConfigurationService());
             LocalizationService = new LocalizationService();
-            ProductService = new ProductService();
+            ProductService = new ProductService(new ConfigurationService());
+            EntitiesGenerator = new EntitiesGenerator();
         }
 
         public void Dispose() { }

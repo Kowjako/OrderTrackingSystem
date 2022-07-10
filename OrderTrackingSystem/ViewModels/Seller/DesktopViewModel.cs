@@ -41,7 +41,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             ComplaintService = new ComplaintService();
             OrderService = new OrderService();
             CustomerService = new CustomerService(new ConfigurationService());
-            ProductService = new ProductService();
+            ProductService = new ProductService(new ConfigurationService());
             TrackerService = new TrackerService();
         }
 

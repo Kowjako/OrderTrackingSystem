@@ -12,8 +12,14 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class ProductService : CRUDManager, IProductService
     {
-        private ICustomerService CustomerService => new CustomerService(ConfigurationService);
-        private IConfigurationService ConfigurationService => new ConfigurationService();
+        private ICustomerService CustomerService;
+        private IConfigurationService ConfigurationService;
+
+        public ProductService(IConfigurationService confService)
+        {
+            ConfigurationService = confService;
+            CustomerService = new CustomerService(confService);
+        }
 
         public async Task<List<ProductDTO>> GetAllProducts()
         {

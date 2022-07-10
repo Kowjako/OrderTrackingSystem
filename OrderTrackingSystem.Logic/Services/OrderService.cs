@@ -13,7 +13,7 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class OrderService : IOrderService
     {
-        private ProductService ProductService => new ProductService();
+        private ProductService ProductService => new ProductService(ConfigurationService);
         private CustomerService CustomerService => new CustomerService(ConfigurationService);
         private IConfigurationService ConfigurationService => new ConfigurationService();
 

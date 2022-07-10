@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+using OrderTrackingSystem.Logic.DTO;
 using System;
 
 namespace OrderTrackingSystem.Tests.ObjectFactory
@@ -54,6 +55,27 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
                 Category = 1,
                 Weight = 45m,
                 Discount = 0,
+            };
+        }
+
+        public static VoucherDTO CreateVoucher()
+        {
+            return new VoucherDTO()
+            {
+                Number = "XX12345678",
+                Value = 150.0m,
+                RemainValue = 150.0m,
+                ExpireDate = DateTime.Now.AddDays(5)
+            };
+        }
+
+        public static CartProductDTO CreateCartProduct()
+        {
+            return new CartProductDTO()
+            {
+                Name = "Niemsil",
+                Price = 150.0m,
+                Amount = 2m
             };
         }
     }

@@ -45,7 +45,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public SendsViewModel()
         {
             CustomerService = new CustomerService(new ConfigurationService());
-            ProductService = new ProductService();
+            ProductService = new ProductService(new ConfigurationService());
             SellService = new SellService();
             MailService = new MailService();
         }
