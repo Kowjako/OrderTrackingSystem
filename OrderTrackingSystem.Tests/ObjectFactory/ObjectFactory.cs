@@ -1,4 +1,5 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
+using System;
 
 namespace OrderTrackingSystem.Tests.ObjectFactory
 {
@@ -27,6 +28,18 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
                 Number = "111222333",
                 Email = "kowyako@sample.com",
                 Balance = 450.0m
+            };
+        }
+
+        public static Sellers CreateSeller()
+        {
+            return new Sellers()
+            {
+                Name = "DOZ.pl",
+                OpenDate = DateTime.Now,
+                TIN = "1234567890",
+                Number = "123456612",
+                Email = "dozpl@google.com"
             };
         }
     }
