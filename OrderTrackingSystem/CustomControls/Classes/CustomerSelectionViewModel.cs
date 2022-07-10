@@ -36,7 +36,7 @@ namespace OrderTrackingSystem.Presentation.CustomControls.Classes
 
         public CustomerSelectionViewModel()
         {
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
         }
 
         public async void LoadData()

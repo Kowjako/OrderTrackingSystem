@@ -11,10 +11,16 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class CustomerService : CRUDManager, ICustomerService
     {
+        private IConfigurationService _configurationService;
+
+        public CustomerService(IConfigurationService service)
+        {
+            _configurationService = service;
+        }
+
         public async Task<Customers> GetCurrentCustomer()
         {
-            var configrationService = new ConfigurationService();
-            var sessionId = await configrationService.GetCurrentSessionId();
+            var sessionId = await _configurationService.GetCurrentSessionId();
             using(var dbContext = new OrderTrackingSystemEntities())
             {
                 return await dbContext.Customers.FindAsync(sessionId);
@@ -23,8 +29,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task<Sellers> GetCurrentSeller()
         {
-            var configrationService = new ConfigurationService();
-            var sessionId = await configrationService.GetCurrentSessionId();
+            var sessionId = await _configurationService.GetCurrentSessionId();
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 return await dbContext.Sellers.FindAsync(sessionId);

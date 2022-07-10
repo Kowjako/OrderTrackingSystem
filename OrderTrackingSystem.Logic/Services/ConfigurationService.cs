@@ -47,7 +47,7 @@ namespace OrderTrackingSystem.Logic.Services
             'A', 'B', 'C', 'D','E','F','G','H','I','G','K','L'
         };
 
-        public async Task<int?> GetCurrentSessionId()
+        public async Task<int> GetCurrentSessionId()
         {
             var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
             using (var sqlConnection = new SqlConnection(connectionString))
@@ -59,7 +59,7 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         while(await sqlReader.ReadAsync())
                         {
-                            return sqlReader.GetValue(0) as int?;
+                            return (int)sqlReader.GetValue(0);
                         }
                         return -1;
                     }

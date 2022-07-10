@@ -46,7 +46,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public OrdersViewModel()
         {
             ConfigService = new ConfigurationService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             ProductService = new ProductService();
             OrderService = new OrderService();
         }

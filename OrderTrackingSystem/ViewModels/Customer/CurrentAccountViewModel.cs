@@ -34,7 +34,7 @@ namespace OrderTrackingSystem.ViewModels
 
         public CurrentAccountViewModel()
         {
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             LocalizationService = new LocalizationService();
             OrderSerivce = new OrderService();
             SellService = new SellService();

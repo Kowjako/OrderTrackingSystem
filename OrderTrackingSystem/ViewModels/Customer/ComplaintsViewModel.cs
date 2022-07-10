@@ -29,7 +29,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public ComplaintsViewModel()
         {
             ComplaintService = new ComplaintService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
         }
 
         #endregion

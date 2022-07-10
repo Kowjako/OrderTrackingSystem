@@ -35,7 +35,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public TrackingViewModel()
         {
             TrackerService = new TrackerService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             ComplaintService = new ComplaintService();
             MailService = new MailService();
         }

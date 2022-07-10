@@ -37,7 +37,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public StartupViewModel()
         {
             ConfigurationService = new ConfigurationService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             LocalizationService = new LocalizationService();
         }
 

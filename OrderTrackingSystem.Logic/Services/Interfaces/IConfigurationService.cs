@@ -12,7 +12,7 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <summary>
         /// Zwraca Id aktualnie zalogowanego użytkownika który utworzył sesję
         /// </summary>
-        Task<int?> GetCurrentSessionId();
+        Task<int> GetCurrentSessionId();
         /// <summary>
         /// Metoda tworząca sesję dla wprowadzonych danych logowania
         /// </summary>

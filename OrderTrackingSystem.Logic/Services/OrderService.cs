@@ -14,7 +14,7 @@ namespace OrderTrackingSystem.Logic.Services
     public class OrderService : IOrderService
     {
         private ProductService ProductService => new ProductService();
-        private CustomerService CustomerService => new CustomerService();
+        private CustomerService CustomerService => new CustomerService(ConfigurationService);
         private IConfigurationService ConfigurationService => new ConfigurationService();
 
         public async Task<List<OrderDTO>> GetOrdersForCustomer(int customerId)

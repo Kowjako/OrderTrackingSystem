@@ -33,7 +33,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public MailboxViewModel()
         {
             MailService = new MailService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             OrderService = new OrderService();
         }
 
