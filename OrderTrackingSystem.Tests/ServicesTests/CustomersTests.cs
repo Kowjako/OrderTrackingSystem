@@ -3,7 +3,9 @@ using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
+using OrderTrackingSystem.Tests.ClassFixtures;
 using OrderTrackingSystem.Tests.DatabaseFixture;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Extensions.Ordering;
@@ -12,17 +14,15 @@ using OF = OrderTrackingSystem.Tests.ObjectFactory;
 namespace OrderTrackingSystem.Tests.ServicesTests
 {
     [Collection("DBCollection")]
-    public class CustomersTests
+    public class CustomersTests : IClassFixture<CustomerTestFixture>
     {
         DBFixture db;
-        ICustomerService service;
-        ILocalizationService locService;
+        CustomerTestFixture context;
 
-        public CustomersTests(DBFixture db)
+        public CustomersTests(DBFixture db, CustomerTestFixture fixture)
         {
             this.db = db;
-            service = new CustomerService(new ConfigurationService());
-            locService = new LocalizationService();
+            context = fixture;
         }
 
         [Fact, Order(1)]
@@ -31,10 +31,10 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             //arrange
             var customer = OF.ObjectFactory.CreateCustomer();
             var localization = OF.ObjectFactory.CreateLocalization();
-            await locService.AddNewLocalization(localization);
+            await context.LocalizationService.AddNewLocalization(localization);
 
             //act
-            await service.AddNewCustomer(customer, localization.Id, ("login", "pass"));
+            await context.CustomerService.AddNewCustomer(customer, localization.Id, ("login", "pass"));
 
             //assert
             Assert.True(customer.Id > 0);
@@ -47,8 +47,8 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var customer = await AddNewCustomerToDb();
 
             //act
-            var correctResult = await service.GetCustomerByName(customer.Name + " " + customer.Surname);
-            var uncorrectResult = await service.GetCustomerByName(string.Empty);
+            var correctResult = await context.CustomerService.GetCustomerByName(customer.Name + " " + customer.Surname);
+            var uncorrectResult = await context.CustomerService.GetCustomerByName(string.Empty);
 
             //assert
             Assert.NotNull(correctResult);
@@ -62,10 +62,10 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var customer = await AddNewCustomerToDb();
 
             var mock = Mock.Of<IConfigurationService>(ld => ld.GetCurrentSessionId() == Task.FromResult(customer.Id));
-            service = new CustomerService(mock);
+            context.CustomerService = new CustomerService(mock);
 
             //act
-            var result = await service.GetCurrentCustomer();
+            var result = await context.CustomerService.GetCurrentCustomer();
 
             //assert
             Assert.Equal(customer.Id, result.Id);
@@ -78,10 +78,10 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var seller = await AddNewSellerToDb();
 
             var mock = Mock.Of<IConfigurationService>(ld => ld.GetCurrentSessionId() == Task.FromResult(seller.Id));
-            service = new CustomerService(mock);
+            context.CustomerService = new CustomerService(mock);
 
             //act
-            var result = await service.GetCurrentSeller();
+            var result = await context.CustomerService.GetCurrentSeller();
 
             //assert
             Assert.Equal(seller.Id, result.Id);
@@ -94,7 +94,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var customer = await AddNewCustomerToDb();
 
             //act
-            var result = await service.GetCustomerByMail(customer.Email);
+            var result = await context.CustomerService.GetCustomerByMail(customer.Email);
 
             //assert
             Assert.True(result.Id == customer.Id);
@@ -109,7 +109,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var changedName = customer.Name;
 
             //act
-            await service.UpdateCustomer(customer);
+            await context.CustomerService.UpdateCustomer(customer);
 
             //assert
             Assert.Equal(customer.Name, changedName);
@@ -124,7 +124,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var changedName = seller.Name;
 
             //act
-            await service.UpdateSeller(seller);
+            await context.CustomerService.UpdateSeller(seller);
 
             //assert
             Assert.Equal(seller.Name, changedName);
@@ -137,8 +137,8 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var customer = await AddNewCustomerToDb();
 
             //act
-            var correctData = await service.GetCustomer(customer.Id);
-            var incorrectData = await service.GetCustomer(10000);
+            var correctData = await context.CustomerService.GetCustomer(customer.Id);
+            var incorrectData = await context.CustomerService.GetCustomer(10000);
 
             //assert
             Assert.NotNull(correctData);
@@ -155,10 +155,24 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var ids = new[] { customer1.Id, customer2.Id, customer3.Id };
 
             //act
-            var customers = await service.GetAllCustomers();
+            var customers = await context.CustomerService.GetAllCustomers();
 
             //assert
             Assert.All(customers, item => Assert.True(item.Id.In(ids)));
+        }
+
+        [Fact, Order(10)]
+        public async void CusTests_ProvidedName_ShouldReturnSeller()
+        {
+            //arrange
+            var seller = await AddNewSellerToDb();
+
+            //act
+            var gettedSeller = await context.CustomerService.GetSellerByName("DOZ.pl");
+            var gettedSeller2 = await context.CustomerService.GetSellerByName("doz.pl");
+
+            //assert
+            Assert.Equal(gettedSeller.Id, gettedSeller2.Id);
         }
 
         #region Private methods
@@ -166,21 +180,21 @@ namespace OrderTrackingSystem.Tests.ServicesTests
         private async Task<int> CreateLocalization()
         {
             var localization = OF.ObjectFactory.CreateLocalization();
-            await locService.AddNewLocalization(localization);
+            await context.LocalizationService.AddNewLocalization(localization);
             return localization.Id;
         }
 
         private async Task<Customers> AddNewCustomerToDb()
         {
             var customer = OF.ObjectFactory.CreateCustomer();
-            await service.AddNewCustomer(customer, await CreateLocalization(), ("login", "pass"));
+            await context.CustomerService.AddNewCustomer(customer, await CreateLocalization(), ("login", "pass"));
             return customer;
         }
 
         private async Task<Sellers> AddNewSellerToDb()
         {
             var seller = OF.ObjectFactory.CreateSeller();
-            await service.AddNewSeller(seller, await CreateLocalization(), ("login", "pass"));
+            await context.CustomerService.AddNewSeller(seller, await CreateLocalization(), ("login", "pass"));
             return seller;
         }
 

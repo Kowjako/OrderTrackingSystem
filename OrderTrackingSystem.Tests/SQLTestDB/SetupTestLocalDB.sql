@@ -444,6 +444,8 @@ INSERT INTO Processes (Name, LastProcessDate, Description, StoredProcedureName) 
  GO
 --Koniec dodania procedur
 
+INSERT INTO ProductCategories (Title, ParentCategoryId) VALUES ('Main', NULL)
+
 -------------------------------------------------------PROCEDURY-------------------------------------------------------
 /** 1 - Procedura globalna do uruchomienia pozostalych procedur **/
 IF OBJECT_ID ('[Processes].[ProcessRunner_v2]' ,'P') IS NOT NULL
