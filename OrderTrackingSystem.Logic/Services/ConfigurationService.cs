@@ -190,8 +190,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task AddNewSellerProcess(ProcessDTO NewSellerProcess, string _sqlProcessScript)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
                 using (var sqlConnection = new SqlConnection(connectionString))

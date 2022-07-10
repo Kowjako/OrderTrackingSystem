@@ -25,11 +25,11 @@ namespace OrderTrackingSystem.Tests.DatabaseFixture
 
         public void Dispose()
         {
-            if(ShouldDropTestDB)
+            if (ShouldDropTestDB)
             {
                 TestDatabaseCreator.DropTestLocalDB();
+                ConnectionDB.Close();
             }
-            ConnectionDB.Close();
         }
     }
 }

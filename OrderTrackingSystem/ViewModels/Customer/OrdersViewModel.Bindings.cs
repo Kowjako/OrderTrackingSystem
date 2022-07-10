@@ -72,6 +72,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 OnPropertyChanged(nameof(FullPrice));
             }
         }
+
+        private int _selectedPayType = -1;
+        public int SelectedPayType
+        {
+            get => _selectedPayType + 1;
+            set
+            {
+                _selectedPayType = value;
+            }
+        }
+
         /* Tworzenie zamówienia */
         public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
 

@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -47,8 +48,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SaveSell(SellDTO order, List<CartProductDTO> products)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {

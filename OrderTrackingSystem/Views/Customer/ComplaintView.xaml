@@ -11,6 +11,7 @@
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
              x:Name="complaintsView"
              Loaded="complaintsView_Loaded"
+             Background="White"
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
         <converters:ByteToStringConverter x:Key="byteToStrConverter"/>
@@ -214,7 +215,8 @@
             </GroupBox>
             <DockPanel Grid.Column="1"
                     Grid.RowSpan="3"
-                       LastChildFill="False"
+                       Background="White"
+                    LastChildFill="False"
                     Grid.Row="0">
                 <TextBlock Text="{x:Static res:Resources.MyComplaints}"
                        Foreground="Black"

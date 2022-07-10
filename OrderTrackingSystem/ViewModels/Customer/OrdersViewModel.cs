@@ -162,6 +162,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     CurrentOrder.PickupId = SelectedPickup.Id;
                     CurrentOrder.SellerId = SelectedSellerId;
                     CurrentOrder.CustomerId = CurrentCustomer.Id;
+                    CurrentOrder.PayType = SelectedPayType.ToString();
 
                     if(ValidatorWrapper.ValidateWithResult(new OrderValidator(), CurrentOrder))
                     {
@@ -214,7 +215,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
-                catch(Exception)
+                catch(Exception ex)
                 {
                     ShowError("Nie udało się zapisać zamówienia");
                 }

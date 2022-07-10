@@ -51,5 +51,19 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             await CustomerService.AddNewSeller(seller, await CreateLocalization(), ("login", "pass"));
             return seller;
         }
+
+        public async Task<Pickups> AddNewPickupToDb()
+        {
+            var pickup = OF.ObjectFactory.CreatePickup();
+            var localizationId = await CreateLocalization();
+            pickup.LocalizationId = localizationId;
+            using(var dbContext = new OrderTrackingSystemEntities())
+            {
+                dbContext.Pickups.Add(pickup);
+                await dbContext.SaveChangesAsync();
+            }
+
+            return pickup;
+        }
     }
 }

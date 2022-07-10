@@ -251,8 +251,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SendMail(MailDTO mail, string[] relatedOrders = null)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {

@@ -9,6 +9,7 @@
              xmlns:p="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              Loaded="ordersView_Loaded"
+             Background="White"
              x:Name="ordersView"
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -428,9 +429,8 @@
                 Margin="10,10,10,5"
                 FontFamily="Arial"/>
             <ListBox
-                DataContext="{Binding CurrentOrder}"
                 DockPanel.Dock="Bottom"
-                SelectedIndex="{Binding Oplata, UpdateSourceTrigger=PropertyChanged}"
+                SelectedIndex="{Binding SelectedPayType, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"
                 x:Name="PayTypeGroup">
                 <ListBoxItem

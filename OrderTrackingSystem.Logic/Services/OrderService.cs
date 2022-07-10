@@ -8,6 +8,8 @@ using System.Data.Entity;
 using System;
 using System.Transactions;
 using OrderTrackingSystem.Logic.Services.Interfaces;
+using System.Diagnostics;
+using OrderTrackingSystem.Logic.HelperClasses;
 
 namespace OrderTrackingSystem.Logic.Services
 {
@@ -53,11 +55,11 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SaveOrder(OrderDTO order, List<CartProductDTO> products, decimal amountToMinusBalance, VoucherDTO voucher = null)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using(var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
+                    dbContext.Database.Log = (e) => Debug.WriteLine(e);
                     var orderDAL = new Orders
                     {
                         Number = ConfigurationService.GenerateElementNumber(),
@@ -71,7 +73,7 @@ namespace OrderTrackingSystem.Logic.Services
                     };
                     dbContext.Orders.Add(orderDAL);
                     /* Zapisujemy zamówienie */
-                    await dbContext.SaveChangesAsync();
+                    await dbContext.SaveChangesAsync(); //deadlock -> nie powoduje commitowania transakcji i ordercart nie moze odczytac orderId
                     /* Zapisujemy subelementy */
                     await ProductService.SaveOrderProductsForCart(products, orderDAL.Id);
                     /* Nadawanie statusu */
@@ -93,6 +95,8 @@ namespace OrderTrackingSystem.Logic.Services
                     customer.Balance -= amountToMinusBalance;
                     dbContext.Entry(customer).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
+
+                    order.Id = orderDAL.Id;
                 }
                 transactionScope.Complete();
             }

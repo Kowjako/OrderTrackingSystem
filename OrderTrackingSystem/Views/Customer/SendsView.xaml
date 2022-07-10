@@ -11,6 +11,7 @@
              xmlns:p="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              x:Name="sendsView"
+             Background="White"
              Loaded="sendsView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1500">
     <UserControl.Resources>

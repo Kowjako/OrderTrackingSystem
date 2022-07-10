@@ -66,7 +66,8 @@ namespace OrderTrackingSystem.Logic.Services
                             Email = customer.Email,
                             CityWithCode = loc.City + ", " +
                                         loc.ZipCode,
-                            Number = customer.Number
+                            Number = customer.Number,
+                            Balance = customer.Balance
                         };
                 return await query.FirstOrDefaultAsync();
             }

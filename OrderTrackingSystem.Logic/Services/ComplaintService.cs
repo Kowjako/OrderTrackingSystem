@@ -103,8 +103,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, ComplaintFolderDTO folder)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
@@ -181,8 +180,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         private async Task DeleteChilds(ComplaintFolderDTO parent, OrderTrackingSystemEntities context)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 foreach (var child in parent.Children)
                 {
@@ -220,8 +218,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task DeleteAndMoveToAncestor(ComplaintFolderDTO complaintFolder)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
@@ -311,8 +308,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task UpdateComplaintState(ComplaintStates entity, int sellerId)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using(var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using(var scope = D3TransactionScope.GetTransactionScope())
             {
                 await base.UpdateEntity(entity, entity => entity.SolutionDate, entity => entity.State); /* Zapisywanie zmodyfikowanej encji */
 

@@ -69,13 +69,33 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             };
         }
 
-        public static CartProductDTO CreateCartProduct()
+        public static CartProductDTO CreateCartProduct(int productId)
         {
             return new CartProductDTO()
             {
+                Id = productId,
                 Name = "Niemsil",
                 Price = 150.0m,
                 Amount = 2m
+            };
+        }
+
+        public static OrderDTO CreateOrder()
+        {
+            return new OrderDTO()
+            {
+                Number = "TT12345678",
+                PayType = "1",
+                DeliveryType = "1"
+            };
+        }
+        
+        public static Pickups CreatePickup()
+        {
+            return new Pickups()
+            {
+                Capacity = 10,
+                WorkHours = "N/A"
             };
         }
     }

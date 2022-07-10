@@ -10,6 +10,7 @@
              xmlns:controls="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              x:Name="mailView"
+             Background="White"
              Loaded="mailView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
