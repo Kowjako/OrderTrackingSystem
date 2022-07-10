@@ -24,18 +24,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
         public async void OrderTest_ProvidedData_ShouldSaveOrder()
         {
             //arrange
-            var order = OF.ObjectFactory.CreateOrder();
-            var pickup = await context.EntitiesGenerator.AddNewPickupToDb();
-            var seller = await context.EntitiesGenerator.AddNewSellerToDb();
-            var customer = await context.EntitiesGenerator.AddNewCustomerToDb();
-            var product = OF.ObjectFactory.CreateProduct();
-
-            order.SellerId = seller.Id;
-            order.CustomerId = customer.Id;
-            order.PickupId = pickup.Id;
-
-            product.SellerId = seller.Id;
-            await context.ProductService.SaveNewProduct(product);
+            (var order, var product, var customer) = await context.EntitiesGenerator.AddNewOrderToDb();
 
             var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
@@ -48,6 +37,26 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             //assert
             Assert.True(order.Id > 0);
             Assert.Equal(350.0m, newCustomer.Balance);
+        }
+
+        [Fact]
+        public async void OrderTest_ProvidedData_GetOrdersFromCompanyAndForCustomers()
+        {
+            //arrange
+            (var order, var product, var customer) = await context.EntitiesGenerator.AddNewOrderToDb();
+
+            var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+            await context.OrderService.SaveOrder(order, elemList, 100.0m);
+
+            //act
+            var list = await context.OrderService.GetOrdersFromCompany(product.SellerId);
+            var list2 = await context.OrderService.GetOrdersForCustomer(customer.Id);
+
+            //assert
+            Assert.Contains(order.Id, list.Select(p => p.Id));
+            Assert.Contains(order.Id, list.Select(p => p.Id));
         }
     }
 }

@@ -3,6 +3,7 @@ using OF = OrderTrackingSystem.Tests.ObjectFactory;
 using System.Threading.Tasks;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
+using OrderTrackingSystem.Logic.DTO;
 
 namespace OrderTrackingSystem.Tests.ObjectFactory
 {
@@ -64,6 +65,24 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             }
 
             return pickup;
+        }
+
+        public async Task<(OrderDTO,Products, Customers)> AddNewOrderToDb()
+        {
+            var order = OF.ObjectFactory.CreateOrder();
+            var pickup = await AddNewPickupToDb();
+            var seller = await AddNewSellerToDb();
+            var customer = await AddNewCustomerToDb();
+            var product = OF.ObjectFactory.CreateProduct();
+
+            order.SellerId = seller.Id;
+            order.CustomerId = customer.Id;
+            order.PickupId = pickup.Id;
+
+            product.SellerId = seller.Id;
+            await ProductService.SaveNewProduct(product);
+
+            return (order, product, customer);
         }
     }
 }
