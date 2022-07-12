@@ -84,5 +84,21 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
 
             return (order, product, customer);
         }
+
+        public async Task<(SellDTO, Products, Customers)> AddNewSellToDb()
+        {
+            var order = OF.ObjectFactory.CreateSell();
+            var seller = await AddNewSellerToDb();
+            var customer = await AddNewCustomerToDb();
+            var product = OF.ObjectFactory.CreateProduct();
+
+            order.SellerId = seller.Id;
+            order.CustomerId = customer.Id;
+
+            product.SellerId = seller.Id;
+            await ProductService.SaveNewProduct(product);
+
+            return (order, product, customer);
+        }
     }
 }

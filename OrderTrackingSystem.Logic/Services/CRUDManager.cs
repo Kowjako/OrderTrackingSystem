@@ -22,7 +22,7 @@ namespace OrderTrackingSystem.Logic.Services
         {
             using(var dbContext = new OrderTrackingSystemEntities())
             {
-                dbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+                dbContext.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified; //use included attaching + mark dirty
                 await dbContext.SaveChangesAsync();
             }
         }

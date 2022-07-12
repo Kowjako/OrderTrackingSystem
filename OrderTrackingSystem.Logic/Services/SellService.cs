@@ -15,7 +15,12 @@ namespace OrderTrackingSystem.Logic.Services
     {
         private ProductService ProductService => new ProductService(ConfigurationService);
         private IConfigurationService ConfigurationService = new ConfigurationService();
-        private ICustomerService CustomerService => new CustomerService(ConfigurationService);
+        private ICustomerService CustomerService;
+
+        public SellService(ICustomerService customerService)
+        {
+            CustomerService = customerService;
+        }
 
         public async Task<List<SellDTO>> GetSellsForCustomer(int customerId)
         {
@@ -35,6 +40,7 @@ namespace OrderTrackingSystem.Logic.Services
                                                 select receiver.Name + " " + receiver.Surname).ToList()
                             select new SellDTO
                             {
+                                Id = sells.Id,
                                 Number = sells.Number,
                                 Date = sells.SellingDate,
                                 PickupDays = sells.PickupDays.Value,
@@ -76,6 +82,7 @@ namespace OrderTrackingSystem.Logic.Services
 
                     customer.Balance -= products.Sum(p => p.Price * p.Amount);
                     await CustomerService.UpdateCustomer(customer);
+                    order.Id = sellDAL.Id;
                 }
                 transactionScope.Complete();
             }

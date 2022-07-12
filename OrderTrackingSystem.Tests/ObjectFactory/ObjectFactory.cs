@@ -89,7 +89,17 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
                 DeliveryType = "1"
             };
         }
-        
+
+        public static SellDTO CreateSell()
+        {
+            return new SellDTO()
+            {
+                Number = "TT12345678",
+                PickupDays = 1,
+                Date = DateTime.Now
+            };
+        }
+
         public static Pickups CreatePickup()
         {
             return new Pickups()

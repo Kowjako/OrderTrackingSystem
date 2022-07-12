@@ -9,7 +9,6 @@ using OrderTrackingSystem.Logic.Services.Interfaces;
 using Moq;
 using System.Threading.Tasks;
 using OrderTrackingSystem.Logic.Services;
-using OrderTrackingSystem.Logic.DataAccessLayer;
 
 namespace OrderTrackingSystem.Tests.ServicesTests
 {
@@ -67,6 +66,20 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             //assert
             Assert.Contains(order.Id, list.Select(p => p.Id));
             Assert.Contains(order.Id, list.Select(p => p.Id));
+        }
+
+        [Fact]
+        public async void OrderTest_GivenCodes_ShouldReturnOrders()
+        {
+            //arrange
+            (var order, var product, var customer) = await context.EntitiesGenerator.AddNewOrderToDb();
+            (var order1, var product1, var customer1) = await context.EntitiesGenerator.AddNewOrderToDb();
+
+            //act
+            var orders = await context.OrderService.GetOrdersListByCodes(new string[] { order.Number, order1.Number });
+
+            //assert
+            Assert.All(orders, or => Assert.Contains(or.Id, new[] { order.Id, order1.Id }));
         }
     }
 }

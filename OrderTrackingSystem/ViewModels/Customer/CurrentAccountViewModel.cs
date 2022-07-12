@@ -37,7 +37,7 @@ namespace OrderTrackingSystem.ViewModels
             CustomerService = new CustomerService(new ConfigurationService());
             LocalizationService = new LocalizationService();
             OrderSerivce = new OrderService(CustomerService);
-            SellService = new SellService();
+            SellService = new SellService(CustomerService);
         }
 
         #endregion
