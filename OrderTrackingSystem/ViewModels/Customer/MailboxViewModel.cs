@@ -34,7 +34,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         {
             MailService = new MailService();
             CustomerService = new CustomerService(new ConfigurationService());
-            OrderService = new OrderService();
+            OrderService = new OrderService(CustomerService);
         }
 
         #endregion

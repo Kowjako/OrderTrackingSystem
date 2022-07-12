@@ -5,6 +5,11 @@ using Xunit;
 using OrderTrackingSystem.Logic.DTO;
 using System.Collections.Generic;
 using System.Linq;
+using OrderTrackingSystem.Logic.Services.Interfaces;
+using Moq;
+using System.Threading.Tasks;
+using OrderTrackingSystem.Logic.Services;
+using OrderTrackingSystem.Logic.DataAccessLayer;
 
 namespace OrderTrackingSystem.Tests.ServicesTests
 {
@@ -30,8 +35,13 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
 
+            //mocking
+            var customerServiceMock = Mock.Of<ICustomerService>(ld => ld.GetCurrentCustomer() == Task.FromResult(customer));
+            context.OrderService = new OrderService(customerServiceMock);
+
             //act
             await context.OrderService.SaveOrder(order, elemList, 100.0m);
+
             var newCustomer = await context.CustomerService.GetCustomer(customer.Id);
 
             //assert

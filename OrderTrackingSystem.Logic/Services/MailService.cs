@@ -20,7 +20,7 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class MailService : CRUDManager, IMailService
     {
-        private OrderService OrderService => new OrderService();
+        private OrderService OrderService => new OrderService(new CustomerService(new ConfigurationService()));
 
         public async Task<List<MailDTO>> GetSendMailsForCustomer(int senderId)
         {

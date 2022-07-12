@@ -35,9 +35,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public SellerAccountViewModel()
         {
             LocalizationService = new LocalizationService();
-            OrderService = new OrderService();
-            ComplaintService = new ComplaintService();
             CustomerService = new CustomerService(new ConfigurationService());
+            OrderService = new OrderService(CustomerService);
+            ComplaintService = new ComplaintService();
         }
 
         #endregion
