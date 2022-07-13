@@ -33,6 +33,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
 
             var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            cartElem2.Amount = 100;
             var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
 
             //mocking
@@ -62,7 +63,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
 
             //assert
             Assert.True(sell.Id > 0);
-            Assert.Equal(150.0m, newCustomer.Balance);
+            Assert.Equal(450.0m - 45.85m * 2, newCustomer.Balance);
         }
 
         [Fact]

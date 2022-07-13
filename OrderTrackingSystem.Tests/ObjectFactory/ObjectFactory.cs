@@ -75,7 +75,7 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             {
                 Id = productId,
                 Name = "Niemsil",
-                Price = 150.0m,
+                Price = 45.85m,
                 Amount = 2m
             };
         }

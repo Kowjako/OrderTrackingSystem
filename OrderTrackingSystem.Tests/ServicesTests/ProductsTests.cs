@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using OrderTrackingSystem.Tests.ClassFixtures;
 using Moq;
 using System.Linq;
+using OrderTrackingSystem.Logic.DTO;
+using System.Collections.Generic;
 
 namespace OrderTrackingSystem.Tests.ServicesTests
 {
@@ -83,13 +85,39 @@ namespace OrderTrackingSystem.Tests.ServicesTests
         [Fact]
         public async void ProdTests_AddedOrderCart_ShouldSaveOrderCart()
         {
-            //TODO: Gdy bedzie przetestowany OrderService
+            //arrange
+            (var order, var product, var customer) = await context.EntitiesGenerator.AddNewOrderToDb();
+
+            var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+            await context.OrderService.SaveOrder(order, elemList, 100.0m);
+
+            //act
+            await context.ProductService.SaveOrderProductsForCart(elemList, order.Id);
+            var list = await context.OrderService.GetOrdersForCustomer(customer.Id);
+
+            //assert
+            Assert.Equal(elemList.Sum(p => p.Price * p.Amount), list.FirstOrDefault().Value);
         }
 
         [Fact]
         public async void ProdTests_AddedOrderCart_ShouldSaveSellCart()
         {
-            //TODO: Gdy bedzie przetestowany SellService
+            //arrange
+            (var sell, var product, var customer) = await context.EntitiesGenerator.AddNewSellToDb();
+
+            var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+            await context.SellService.SaveSell(sell, elemList);
+
+            //act
+            await context.ProductService.SaveSellProductsForCart(elemList, sell.Id);
+            var list = await context.SellService.GetSellsForCustomer(customer.Id);
+
+            //assert
+            Assert.Equal(elemList.Sum(p => p.Price * p.Amount), list.FirstOrDefault().Value);
         }
     }
 }

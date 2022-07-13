@@ -11,6 +11,8 @@ namespace OrderTrackingSystem.Tests.ClassFixtures
         public ICustomerService CustomerService;
         public ILocalizationService LocalizationService;
         public EntitiesGenerator EntitiesGenerator;
+        public IOrderService OrderService;
+        public ISellService SellService;
 
         public ProductsTestFixture()
         {
@@ -18,6 +20,8 @@ namespace OrderTrackingSystem.Tests.ClassFixtures
             LocalizationService = new LocalizationService();
             ProductService = new ProductService(new ConfigurationService());
             EntitiesGenerator = new EntitiesGenerator();
+            OrderService = new OrderService(CustomerService);
+            SellService = new SellService(CustomerService);
         }
 
         public void Dispose() { }
