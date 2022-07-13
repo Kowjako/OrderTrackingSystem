@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.EnumMappers;
 
 namespace OrderTrackingSystem.Tests.ObjectFactory
 {
@@ -12,12 +13,14 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
         public IProductService ProductService;
         public ICustomerService CustomerService;
         public ILocalizationService LocalizationService;
+        public IMailService MailService;
 
         public EntitiesGenerator()
         {
             CustomerService = new CustomerService(new ConfigurationService());
             LocalizationService = new LocalizationService();
             ProductService = new ProductService(new ConfigurationService());
+            MailService = new MailService();
         }
 
         public async Task<Products> CreateProductWithSeller()
@@ -67,7 +70,7 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             return pickup;
         }
 
-        public async Task<(OrderDTO,Products, Customers)> AddNewOrderToDb()
+        public async Task<(OrderDTO, Products, Customers)> AddNewOrderToDb()
         {
             var order = OF.ObjectFactory.CreateOrder();
             var pickup = await AddNewPickupToDb();
@@ -99,6 +102,34 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             await ProductService.SaveNewProduct(product);
 
             return (order, product, customer);
+        }
+
+        public async Task<(Mails, int receiverId, int senderId)> AddNewMailToDbCusToSeller()
+        {
+            var mail = OF.ObjectFactory.CreateMail();
+            var customer = await AddNewCustomerToDb();
+            var seller = await AddNewSellerToDb();
+
+            mail.SenderId = customer.Id;
+            mail.ReceiverId = seller.Id;
+            mail.MailRelation = (int)MailDirectionType.CustomerToSeller;
+
+            await MailService.AddNewMail(mail);
+            return (mail, mail.SenderId, mail.ReceiverId);
+        }
+
+        public async Task<(Mails, int receiverId, int senderId)> AddNewMailToDbSellerToCus()
+        {
+            var mail = OF.ObjectFactory.CreateMail();
+            var customer = await AddNewCustomerToDb();
+            var seller = await AddNewSellerToDb();
+
+            mail.SenderId = seller.Id;
+            mail.ReceiverId = customer.Id;
+            mail.MailRelation = (int)MailDirectionType.SellerToCustomer;
+
+            await MailService.AddNewMail(mail);
+            return (mail, mail.SenderId, mail.ReceiverId);
         }
     }
 }

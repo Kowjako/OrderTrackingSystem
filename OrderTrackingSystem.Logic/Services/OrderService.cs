@@ -102,6 +102,7 @@ namespace OrderTrackingSystem.Logic.Services
                     await dbContext.SaveChangesAsync();
 
                     order.Id = orderDAL.Id;
+                    order.Number = orderDAL.Number;
                 }
                 transactionScope.Complete();
             }

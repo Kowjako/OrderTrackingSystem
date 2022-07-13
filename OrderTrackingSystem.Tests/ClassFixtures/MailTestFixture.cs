@@ -10,12 +10,14 @@ namespace OrderTrackingSystem.Tests.ClassFixtures
         public EntitiesGenerator EntitiesGenerator;
         public IMailService MailService;
         public ICustomerService CustomerService;
+        public IOrderService OrderService;
 
         public MailTestFixture()
         {
             EntitiesGenerator = new EntitiesGenerator();
             CustomerService = new CustomerService(new ConfigurationService());
             MailService = new MailService();
+            OrderService = new OrderService(CustomerService);
         }
 
         public void Dispose() { }

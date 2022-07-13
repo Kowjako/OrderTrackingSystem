@@ -108,5 +108,25 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
                 WorkHours = "N/A"
             };
         }
+
+        public static Mails CreateMail()
+        {
+            return new Mails()
+            {
+                Caption = "Caption",
+                Content = "Content",
+                Date = DateTime.Now
+            };
+        }
+
+        public static MailDTO CreateMailDTO()
+        {
+            return new MailDTO()
+            {
+                Caption = "Caption",
+                Content = "Content",
+                SendDate = DateTime.Now
+            };
+        }
     }
 }
