@@ -9,6 +9,7 @@ using Moq;
 using System.Linq;
 using OrderTrackingSystem.Logic.DTO;
 using System.Collections.Generic;
+using System;
 
 namespace OrderTrackingSystem.Tests.ServicesTests
 {
@@ -94,11 +95,11 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             await context.OrderService.SaveOrder(order, elemList, 100.0m);
 
             //act
-            await context.ProductService.SaveOrderProductsForCart(elemList, order.Id);
             var list = await context.OrderService.GetOrdersForCustomer(customer.Id);
+            var expectedSum = Math.Round(product.PriceNetto + product.PriceNetto * product.VAT / 100.0m, 2, MidpointRounding.ToEven) * 4;
 
             //assert
-            Assert.Equal(elemList.Sum(p => p.Price * p.Amount), list.FirstOrDefault().Value);
+            Assert.Equal(expectedSum, list.FirstOrDefault().Value);
         }
 
         [Fact]
@@ -113,11 +114,11 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             await context.SellService.SaveSell(sell, elemList);
 
             //act
-            await context.ProductService.SaveSellProductsForCart(elemList, sell.Id);
             var list = await context.SellService.GetSellsForCustomer(customer.Id);
+            var expectedSum = Math.Round(product.PriceNetto + product.PriceNetto * product.VAT / 100.0m, 2, MidpointRounding.ToEven) * 4;
 
             //assert
-            Assert.Equal(elemList.Sum(p => p.Price * p.Amount), list.FirstOrDefault().Value);
+            Assert.Equal(expectedSum, list.FirstOrDefault().Value);
         }
     }
 }
