@@ -1,6 +1,7 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.DTO.Pagination;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -98,15 +99,23 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task AddNewStateForOrder(int orderId, OrderState newState)
         {
-            var stateId = (int)newState;
-            var orderStateDAL = new OrderStates()
-            {
-                OrderId = orderId,
-                State = stateId,
-                Date = DateTime.Now
-            };
+            var states = await GetParcelState(orderId);
 
-            await base.AddEntity(orderStateDAL);
+            var FSMContext = new FSMContext((OrderState)states.Last().StateId);
+            if(FSMContext.State.GetNextStates().Select(p => p.Item1).Contains(newState))
+            {
+                var orderStateDAL = new OrderStates()
+                {
+                    OrderId = orderId,
+                    State = (int)newState,
+                    Date = DateTime.Now
+                };
+                await base.AddEntity(orderStateDAL);
+            }
+            else
+            {
+                throw new InvalidOperationException("Przejscie do tego stanu przesyłki nie jest mozliwe!");
+            }   
         }
 
         public async Task<List<TrackableItemDTO>> FetchNextPage(int customerId, int pageNumber)

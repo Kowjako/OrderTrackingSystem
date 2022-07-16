@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.ViewModels.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -138,9 +139,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     ShowSuccess("Reklamacja założona poprawnie");
                 }
-                catch
+                catch (InvalidOperationException ex)
                 {
-                    ShowError("Błąd podczas założenia reklamacji");
+                    ShowError(ex.Message);
                 }
             }, e => SelectedItem?.IsOrder ?? false);
 

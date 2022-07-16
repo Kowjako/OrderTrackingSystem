@@ -1,5 +1,4 @@
 ﻿using OrderTrackingSystem.Tests.ClassFixtures;
-using OrderTrackingSystem.Tests.DatabaseFixture;
 using OF = OrderTrackingSystem.Tests.ObjectFactory;
 using Xunit;
 using OrderTrackingSystem.Logic.DTO;
