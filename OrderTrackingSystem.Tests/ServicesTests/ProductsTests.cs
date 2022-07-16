@@ -16,12 +16,10 @@ namespace OrderTrackingSystem.Tests.ServicesTests
     [Collection("DBCollection")]
     public class ProductsTests : IClassFixture<ProductsTestFixture>
     {
-        DBFixture db;
         ProductsTestFixture context;
 
-        public ProductsTests(DBFixture db, ProductsTestFixture fixture)
+        public ProductsTests(ProductsTestFixture fixture)
         {
-            this.db = db;
             context = fixture;
         }
 

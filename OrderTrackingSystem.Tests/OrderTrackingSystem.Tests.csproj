@@ -67,6 +67,7 @@
     <Compile Include="ClassFixtures\OrderTestFixture.cs" />
     <Compile Include="ClassFixtures\ProductsTestFixture.cs" />
     <Compile Include="ClassFixtures\SellTestFixture.cs" />
+    <Compile Include="ClassFixtures\TrackerTestFixture.cs" />
     <Compile Include="DatabaseFixture\TestDatabaseCreator.cs" />
     <Compile Include="HelpersTests\HelperClassesTester.cs" />
     <Compile Include="HelpersTests\HelperDataProvider.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ServicesTests\OrdersTests.cs" />
     <Compile Include="ServicesTests\ProductsTests.cs" />
     <Compile Include="ServicesTests\SellTests.cs" />
+    <Compile Include="ServicesTests\TrackerTests.cs" />
     <Compile Include="ValidatorsTests\ValidatorDataProvider.cs" />
     <Compile Include="ValidatorsTests\ValidatorTests.cs" />
   </ItemGroup>

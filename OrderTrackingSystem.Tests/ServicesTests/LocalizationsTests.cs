@@ -11,12 +11,10 @@ namespace OrderTrackingSystem.Tests.LocalizationServiceTests
     [Collection("DBCollection")]
     public class LocalizationsTests
     {
-        DBFixture db;
         ILocalizationService service;
 
-        public LocalizationsTests(DBFixture db)
+        public LocalizationsTests()
         {
-            this.db = db;
             service = new LocalizationService();
         }
 

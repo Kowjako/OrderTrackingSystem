@@ -12,12 +12,10 @@ namespace OrderTrackingSystem.Tests.ServicesTests
     [Collection("DBCollection")]
     public class MailServiceTests : IClassFixture<MailTestFixture>
     {
-        DBFixture db;
         MailTestFixture context;
 
-        public MailServiceTests(DBFixture db, MailTestFixture fixture)
+        public MailServiceTests(MailTestFixture fixture)
         {
-            this.db = db;
             context = fixture;
         }
 
