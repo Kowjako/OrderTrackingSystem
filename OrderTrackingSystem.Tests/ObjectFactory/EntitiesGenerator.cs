@@ -18,6 +18,7 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
         public IMailService MailService;
         public IComplaintService ComplaintService;
         public IOrderService OrderService;
+        public ISellService SellService;
 
         public EntitiesGenerator()
         {
@@ -27,6 +28,7 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             MailService = new MailService();
             OrderService = new OrderService(CustomerService);
             ComplaintService = new ComplaintService();
+            SellService = new SellService(CustomerService);
         }
 
         public async Task<Products> CreateProductWithSeller()
@@ -107,6 +109,51 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
 
             product.SellerId = seller.Id;
             await ProductService.SaveNewProduct(product);
+
+            return (order, product, customer);
+        }
+
+        public async Task<(SellDTO, Products, Customers)> AddNewSellToDbAndSave(int sellerId = 0)
+        {
+            var order = OF.ObjectFactory.CreateSell();
+            var receiver = await AddNewCustomerToDb();
+            var seller = await AddNewSellerToDb();
+            var customer = await AddNewCustomerToDb();
+            var product = OF.ObjectFactory.CreateProduct();
+
+            order.SellerId = sellerId == 0 ? customer.Id : sellerId;
+            order.CustomerId = receiver.Id;
+
+            product.SellerId = seller.Id;
+            await ProductService.SaveNewProduct(product);
+
+            var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+            await SellService.SaveSell(order, elemList);
+
+            return (order, product, customer);
+        }
+
+        public async Task<(OrderDTO, Products, Customers)> AddNewOrderToDbAndSave(int customerId = 0)
+        {
+            var order = OF.ObjectFactory.CreateOrder();
+            var pickup = await AddNewPickupToDb();
+            var seller = await AddNewSellerToDb();
+            var customer = await AddNewCustomerToDb();
+            var product = OF.ObjectFactory.CreateProduct();
+
+            order.SellerId = seller.Id;
+            order.CustomerId = customerId == 0 ? customer.Id : customerId;
+            order.PickupId = pickup.Id;
+
+            product.SellerId = seller.Id;
+            await ProductService.SaveNewProduct(product);
+
+            var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
+            var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+            await OrderService.SaveOrder(order, elemList, 1.0m);
 
             return (order, product, customer);
         }

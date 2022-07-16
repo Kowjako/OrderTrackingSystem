@@ -98,18 +98,15 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task AddNewStateForOrder(int orderId, OrderState newState)
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
+            var stateId = (int)newState;
+            var orderStateDAL = new OrderStates()
             {
-                var stateId = (int)newState;
-                var orderStateDAL = new OrderStates()
-                {
-                    OrderId = orderId,
-                    State = stateId,
-                    Date = DateTime.Now
-                };
+                OrderId = orderId,
+                State = stateId,
+                Date = DateTime.Now
+            };
 
-                await base.AddEntity(orderStateDAL);
-            }
+            await base.AddEntity(orderStateDAL);
         }
 
         public async Task<List<TrackableItemDTO>> FetchNextPage(int customerId, int pageNumber)
