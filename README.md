@@ -10,6 +10,16 @@ System śledzenia zamówień - moja praca dyplomowa, rozbudowany system do zarz�
 🛡️ Fluent Validation  
 🛡️ xUnit + Moq  
 
+# Jak zainstalować:
+1️⃣ Pobrać repo albo zrobić git clone   
+2️⃣ Zbuildować projekt  
+3️⃣ Odpalić Sql Server Managment Studio i wbić po kolei skrypty z folderu SQL:  
+    👉 BaseDefinition  
+    👉 ProcessDefinition  
+    👉 TriggerDefinition  
+4️⃣ Podmienić w całej solucji w każdym pliku App.config nazwę serwera z WLODEKPC\SQLEXPRESS na swoją.  
+5️⃣ Wejść do Services/ConfigurationService zamienić również WLODEKPC\SQLEXPRESS na nazwę swojego SQL servera.  
+
 # Możliwości:  
 Strona klienta:
 - Tworzenie zamówień, tworzenie wysyłek innym klientom, zarządzanie wiadomościami, tworzenie wzorców reklamacyjnych, tracking całego przebiegu zamówienia, korzystanie z bonów sklepu, itd.  
