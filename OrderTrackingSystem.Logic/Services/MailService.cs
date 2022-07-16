@@ -20,7 +20,7 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class MailService : CRUDManager, IMailService
     {
-        private OrderService OrderService => new OrderService();
+        private OrderService OrderService => new OrderService(new CustomerService(new ConfigurationService()));
 
         public async Task<List<MailDTO>> GetSendMailsForCustomer(int senderId)
         {
@@ -251,8 +251,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SendMail(MailDTO mail, string[] relatedOrders = null)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
@@ -290,8 +289,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task GenerateAutomaticMessageAfterSend(int receiverId, int sellerId, string relatedSend = null)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
@@ -319,12 +317,18 @@ namespace OrderTrackingSystem.Logic.Services
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 var customer = await dbContext.Customers.FirstAsync(p => p.Id == sellerId);
-                var order = await dbContext.Orders.FirstAsync(p => p.Id == orderId);
+                var order = await dbContext.Orders.Include(p => p.ComplaintStates).FirstAsync(p => p.Id == orderId);
+
+                var complaintState = order.ComplaintStates.FirstOrDefault();
+                var definition = complaintState.ComplaintDefinitions; //EF6 lazy-loading
 
                 var mailDAL = new Mails
                 {
                     Caption = Properties.Resources.ComplaintSetHeader,
-                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint, order.Number, customer.Name),
+                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint, 
+                                            order.Number, 
+                                            definition?.ComplaintName ?? string.Empty, 
+                                            customer.Name),
                     Date = DateTime.Now,
                     SenderId = sellerId,
                     ReceiverId = receiverId,

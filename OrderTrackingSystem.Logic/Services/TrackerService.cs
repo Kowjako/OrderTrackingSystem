@@ -1,5 +1,7 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.DTO.Pagination;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,61 +16,61 @@ namespace OrderTrackingSystem.Logic.Services
     {
         private ConfigurationService ConfigurationService => new ConfigurationService();
 
-        public async Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId)
+        public async Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId, int pageNumber = 0)
         {
             using (var dbContext = new OrderTrackingSystemEntities())
             {
-                /* Ładujemy customer'a wraz z zamówieniami */
-                var customer = await dbContext.Customers.Where(c => c.Id == customerId).Include(p => p.Orders)
-                                                                                       .AsNoTracking()
-                                                                                       .FirstAsync();
+                /* Ładujemy customer'a*/
+                var customer = await dbContext.Customers.Where(c => c.Id == customerId).FirstAsync();
+
                 /* Selekcja DTO dla zamówień */
-                var orderQuery = from order in customer.Orders
+                var orderQuery = from order in dbContext.Orders
                                  let sellerQuery = from sellers in dbContext.Sellers
                                                    where sellers.Id == order.SellerId
                                                    select sellers
-                                 let valueQuery = (from cart in dbContext.OrderCarts
+                                 let valueQuery =  from cart in dbContext.OrderCarts
                                                    from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                                    where cart.OrderId == order.Id
-                                                   select cart.Amount * prodcut.PriceBrutto).Sum()
+                                                   select cart.Amount * prodcut.PriceBrutto
+                                 where order.CustomerId == customer.Id
                                  select new TrackableItemDTO()
                                  {
                                      Id = order.Id,
                                      Number = order.Number,
                                      Date = order.OrderDate.Value,
+                                     Seller = sellerQuery.FirstOrDefault().Name,
                                      Customer = customer.Name + " " + customer.Surname,
-                                     Seller = sellerQuery.First().Name,
-                                     Value = valueQuery,
+                                     Value = valueQuery.Sum(),
                                      IsOrder = true,
                                      CustomerId = customer.Id,
-                                     SellerId = sellerQuery.First().Id
+                                     SellerId = sellerQuery.FirstOrDefault().Id
                                  };
 
-                /* Selekcja DTO dla wysyłek*/
-                IEnumerable<Sells> Sells = await dbContext.Sells.Where(p => p.SellerId == customer.Id).ToListAsync();
-                var sendsQuery = from sells in Sells
+                /* Selekcja DTO dla wysyłek */
+                var sendsQuery = from sells in dbContext.Sells
                                  let receiverQuery = from receiver in dbContext.Customers
                                                      where receiver.Id == sells.CustomerId
                                                      select receiver
-                                 let valueQuery = (from cart in dbContext.SellCarts
+                                 let valueQuery = from cart in dbContext.SellCarts
                                                    from prodcut in dbContext.Products.Where(p => p.Id == cart.ProductId).DefaultIfEmpty()
                                                    where cart.SellId == sells.Id
-                                                   select cart.Amount * prodcut.PriceBrutto).Sum()
+                                                   select cart.Amount * prodcut.PriceBrutto
+                                 where sells.SellerId == customer.Id
                                  select new TrackableItemDTO()
                                  {
                                      Id = sells.Id,
                                      Number = sells.Number,
                                      Date = sells.SellingDate,
-                                     Seller = receiverQuery.First().Name + " " + receiverQuery.First().Surname,
+                                     Seller = receiverQuery.FirstOrDefault().Name + " " + receiverQuery.FirstOrDefault().Surname,
                                      Customer = customer.Name + " " + customer.Surname,
-                                     Value = valueQuery,
+                                     Value = valueQuery.Sum(),
                                      IsOrder = false,
-                                     CustomerId = receiverQuery.First().Id,
+                                     CustomerId = receiverQuery.FirstOrDefault().Id,
                                      SellerId = customer.Id
                                  };
 
-                /* Union dwóch kolekcji */
-                return orderQuery.Union(sendsQuery).ToList();
+                /* Union dwóch kolekcji + paginowanie - nasze zapytanie musi byc IQueryable! */
+                return Paginator.GetPaginatedList(orderQuery.Union(sendsQuery), pageNumber).ToList();
             }
         }
 
@@ -97,19 +99,28 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task AddNewStateForOrder(int orderId, OrderState newState)
         {
-            using (var dbContext = new OrderTrackingSystemEntities())
+            var states = await GetParcelState(orderId);
+
+            var FSMContext = new FSMContext((OrderState)states.Last().StateId);
+            if(FSMContext.State.GetNextStates().Select(p => p.Item1).Contains(newState))
             {
-                var stateId = (int)newState;
                 var orderStateDAL = new OrderStates()
                 {
                     OrderId = orderId,
-                    State = stateId,
+                    State = (int)newState,
                     Date = DateTime.Now
                 };
-
                 await base.AddEntity(orderStateDAL);
             }
+            else
+            {
+                throw new InvalidOperationException("Przejscie do tego stanu przesyłki nie jest mozliwe!");
+            }   
         }
 
+        public async Task<List<TrackableItemDTO>> FetchNextPage(int customerId, int pageNumber)
+        {
+            return await GetItemsForCustomer(customerId, pageNumber);
+        }
     }
 }

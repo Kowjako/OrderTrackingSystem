@@ -23,10 +23,10 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     [AttributeUsage(AttributeTargets.Property)]
     public class MoneyField : UKFormatAttribute
     {
-        public int decimalPlaces { get; private set; }
+        public int DecimalPlaces { get; private set; }
         public MoneyField(int decimalPlaces)
         {
-            this.decimalPlaces = decimalPlaces;
+            this.DecimalPlaces = decimalPlaces;
         }
 
         public override string GetStringFormat()
@@ -47,15 +47,15 @@ namespace OrderTrackingSystem.Logic.HelperClasses.DTOAttributes
     [AttributeUsage(AttributeTargets.Property)]
     public class AmountField : UKFormatAttribute
     {
-        public int decimalPlaces { get; private set; }
+        public int DecimalPlaces { get; private set; }
         public AmountField(int decimalPlaces)
         {
-            this.decimalPlaces = decimalPlaces;
+            this.DecimalPlaces = decimalPlaces;
         }
 
         public override string GetStringFormat()
         {
-            return $"F{decimalPlaces}";
+            return $"F{DecimalPlaces}";
         }
     }
 

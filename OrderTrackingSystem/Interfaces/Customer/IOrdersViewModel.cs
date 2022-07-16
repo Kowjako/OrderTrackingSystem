@@ -3,7 +3,6 @@ using OrderTrackingSystem.Logic.DTO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.Interfaces
 {
@@ -19,14 +18,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
         List<ProductDTO> ProductsList { get; set; }
         List<VoucherDTO> VouchersList { get; set; }
         BindingList<CartProductDTO> ProductsInCart { get; set; }
-
-        Visibility VouchersVisibility { get; }
-        decimal TotalPriceNetto { get; set; }
-        decimal VAT { get; }
-        decimal TotalPriceBrutto { get; }
-        decimal DeliveryCost { get; }
-        decimal FullPrice { get; }
-        int SelectedDeliveryType { get; set; }
 
         Task SetInitializeProperties();
 

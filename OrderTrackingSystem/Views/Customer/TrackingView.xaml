@@ -8,6 +8,7 @@
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties" xmlns:customcontrols="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              x:Name="trackView"
+             Background="White"
              Loaded="trackView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1500">
     <Grid>
@@ -22,37 +23,35 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="{x:Static res:Resources.Tracking}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
-        <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+
+        <customcontrols:ExtensibleViewPanel_v2 Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="4"
+                                               CaptionV2="{x:Static res:Resources.Tracking}">
+            <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
-            <Border Grid.Column="2"
+                <Border Grid.Column="2"
                 DockPanel.Dock="Top"
                 Grid.Row="0"
                 Margin="5"
                 BorderBrush="Black"
                 BorderThickness="1">
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
                             Width="35" />
-                        <ColumnDefinition
+                            <ColumnDefinition
                             Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Button
+                        </Grid.ColumnDefinitions>
+                        <Button
                         Style="{DynamicResource MaterialDesignToolButton}"
                         Command="{Binding FindParcel}"
                         CommandParameter="{Binding ElementName=parcelBox, Path=Text}">
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                             Kind="Search"
                             Opacity="1" />
-                    </Button>
-                    <TextBox
+                        </Button>
+                        <TextBox
                         x:Name="parcelBox"
                         FontSize="15"
                         VerticalAlignment="Center"
@@ -61,123 +60,123 @@
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.FindOrderOrSell}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
-                </Grid>
-            </Border>
-            <GroupBox
+                    </Grid>
+                </Border>
+                <GroupBox
                 Header="{x:Static res:Resources.ShowElements}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <!-- Attached event ToggleButton.Checked-->
-                <StackPanel ToggleButton.Checked="filterChecked">
-                    <RadioButton
+                    <!-- Attached event ToggleButton.Checked-->
+                    <StackPanel ToggleButton.Checked="filterChecked">
+                        <RadioButton
                         x:Name="All"
                         GroupName="Elements"
                         IsChecked="False"
                         Content="{x:Static res:Resources.All}" 
                         Margin="0,0,0,5"/>
-                    <RadioButton
+                        <RadioButton
                         x:Name="OnlyOrders"
                         GroupName="Elements"
                         IsChecked="False"
                         Content="{x:Static res:Resources.OnlyOrder}" 
                         Margin="0,5,0,5"/>
-                    <RadioButton
+                        <RadioButton
                         x:Name="OnlySends"
                         GroupName="Elements"
                         IsChecked="False"
                         Content="{x:Static res:Resources.OnlySent}" 
                         Margin="0,5,0,5"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
                 Header="{x:Static res:Resources.Seller}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding Seller}">
-                    <!-- Use this style inside this control -->
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Margin" Value="0,0,0,3"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock FontWeight="DemiBold"
+                    <StackPanel DataContext="{Binding Seller}">
+                        <!-- Use this style inside this control -->
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontFamily" Value="Arial"/>
+                                <Setter Property="Margin" Value="0,0,0,3"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock FontWeight="DemiBold"
                                Text="{Binding Name}"/>
-                    <TextBlock Foreground="DarkGreen"
+                        <TextBlock Foreground="DarkGreen"
                                Text="{Binding Address}"/>
-                    <TextBlock Text="{Binding CityWithCode}"/>
-                    <TextBlock Text="{Binding Email}"/>
-                    <TextBlock Foreground="Maroon"
+                        <TextBlock Text="{Binding CityWithCode}"/>
+                        <TextBlock Text="{Binding Email}"/>
+                        <TextBlock Foreground="Maroon"
                                Text="{Binding Number}"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
                 Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding Customer}">
-                    <!-- Use this style inside this control -->
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Margin" Value="0,0,0,3"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock FontWeight="DemiBold"
+                    <StackPanel DataContext="{Binding Customer}">
+                        <!-- Use this style inside this control -->
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontFamily" Value="Arial"/>
+                                <Setter Property="Margin" Value="0,0,0,3"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock FontWeight="DemiBold"
                                Text="{Binding Name}"/>
-                    <TextBlock Foreground="DarkGreen"
+                        <TextBlock Foreground="DarkGreen"
                                Text="{Binding Address}"/>
-                    <TextBlock Text="{Binding CityWithCode}"/>
-                    <TextBlock Text="{Binding Email}"/>
-                    <TextBlock Foreground="Maroon"
+                        <TextBlock Text="{Binding CityWithCode}"/>
+                        <TextBlock Text="{Binding Email}"/>
+                        <TextBlock Foreground="Maroon"
                                Text="{Binding Number}"/>
-                </StackPanel>
-            </GroupBox>
+                    </StackPanel>
+                </GroupBox>
 
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <DatePicker
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker
                     Grid.Column="0"
                     SelectedDate="{Binding StartDate}"
                     Focusable="False"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}">
-                </DatePicker>
-                <Rectangle Grid.Column="1"
+                    </DatePicker>
+                    <Rectangle Grid.Column="1"
                            Margin="4,0,4,0"
                            Height="2" 
                            Stroke="Black"/>
-                <DatePicker
+                    <DatePicker
                     Grid.Column="2"
                     SelectedDate="{Binding EndDate}"
                     Focusable="False"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
-            </Grid>
-            <GroupBox
+                </Grid>
+                <GroupBox
                 Header="{x:Static res:Resources.Complaint}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel >
-                    <ComboBox
+                    <StackPanel >
+                        <ComboBox
                         DisplayMemberPath="Name"
                         SelectedItem="{Binding SelectedComplaint, UpdateSourceTrigger=PropertyChanged}"
                         ItemsSource="{Binding ComplaintDefinitionsList}"
@@ -187,14 +186,14 @@
                         Padding="5,10,10,10"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.ChooseComplaintTemplate}"
                         IsEditable="False">
-                    </ComboBox>
-                    <CheckBox
+                        </ComboBox>
+                        <CheckBox
                         Margin="0,5,0,0"
                         IsChecked="{Binding SentMessageWithComplaint, UpdateSourceTrigger=PropertyChanged}"
                         Content="{x:Static res:Resources.GenerateAutomaticMail}" />
-                </StackPanel>
-            </GroupBox>
-            <Button Command="{Binding ConfirmDelivery}"
+                    </StackPanel>
+                </GroupBox>
+                <Button Command="{Binding ConfirmDelivery}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -204,7 +203,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ConfirmReceive}" />
-            <Button Command="{Binding MakeComplaint}"
+                <Button Command="{Binding MakeComplaint}"
                     x:Name="btnUndoOrder"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -215,7 +214,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.MakeComplaint}" />
-            <Button
+                <Button
                     x:Name="btnDateFilter"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -227,7 +226,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Filter}" />
-            <Button
+                <Button
                     x:Name="btnShowProgress"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -239,32 +238,33 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ShowProgress}">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard BeginTime="0:0:.5" TargetName="tracker" TargetProperty="Width">
-                                    <DoubleAnimation From="0" To="340" Duration="0:0:1">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CircleEase EasingMode="EaseInOut"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                </Storyboard>
-                            </BeginStoryboard>
-                            <BeginStoryboard>
-                                <Storyboard BeginTime="0:0:.5" TargetName="elementGrid" TargetProperty="Margin">
-                                    <ThicknessAnimation From="0 0 0 0" To="0 0 340 0" Duration="0:0:1">
-                                        <ThicknessAnimation.EasingFunction>
-                                            <CircleEase EasingMode="EaseInOut"/>
-                                        </ThicknessAnimation.EasingFunction>
-                                    </ThicknessAnimation>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-        </DockPanel>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:.5" TargetName="tracker" TargetProperty="Width">
+                                        <DoubleAnimation From="0" To="340" Duration="0:0:1">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:.5" TargetName="elementGrid" TargetProperty="Margin">
+                                        <ThicknessAnimation From="0 0 0 0" To="0 0 340 0" Duration="0:0:1">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseInOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </DockPanel>
+        </customcontrols:ExtensibleViewPanel_v2>
         <DockPanel Grid.Column="1"
                     Grid.RowSpan="4"
                     Grid.Row="0"

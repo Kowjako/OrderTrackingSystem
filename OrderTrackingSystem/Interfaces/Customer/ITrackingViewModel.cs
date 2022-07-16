@@ -18,7 +18,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
 
         DateTime StartDate { get; set; }
         DateTime EndDate { get; set; }
-        int ItemsSelection { get; set; }
 
         Task SetInitializeProperties();
 

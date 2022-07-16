@@ -4,10 +4,6 @@ using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -41,7 +37,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public StartupViewModel()
         {
             ConfigurationService = new ConfigurationService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             LocalizationService = new LocalizationService();
         }
 
@@ -51,7 +47,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _login;
         public RelayCommand LoginCmd =>
-            _login ?? (_login = new RelayCommand(async obj =>
+            _login ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -74,43 +70,35 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
 
                 }
-            }));
+            });
 
         private RelayCommand _createNewAccount;
         public RelayCommand CreateNewAccount =>
-            _createNewAccount ?? (_createNewAccount = new RelayCommand(async obj =>
+            _createNewAccount ??= new RelayCommand(async obj =>
             {
-                try
+                bool isValidEntity = CreationForClient switch
                 {
-                    bool isValidEntity = CreationForClient switch
-                    {
-                        true => ValidatorWrapper.ValidateWithResult(new CustomerValidator(), NewCustomer),
-                        false => ValidatorWrapper.ValidateWithResult(new SellerValidator(), NewSeller)
-                    };
+                    true => ValidatorWrapper.ValidateWithResult(new CustomerValidator(), NewCustomer),
+                    false => ValidatorWrapper.ValidateWithResult(new SellerValidator(), NewSeller)
+                };
 
-                    var msg = ValidatorWrapper.ErrorMessage;
-                    isValidEntity &= ValidatorWrapper.ValidateWithResult(new LocalizationValidatorDAL(), Localization);
+                var msg = ValidatorWrapper.ErrorMessage;
+                isValidEntity &= ValidatorWrapper.ValidateWithResult(new LocalizationValidatorDAL(), Localization);
 
-                    if(isValidEntity)
+                if (isValidEntity)
+                {
+                    await LocalizationService.AddNewLocalization(Localization);
+                    if (CreationForClient)
                     {
-                        await LocalizationService.AddNewLocalization(Localization);
-                        if(CreationForClient)
-                        {
-                            /* po zapisaniu w localization jest przypisany id */
-                            await CustomerService.AddNewCustomer(NewCustomer, Localization.Id, Credentials.ToCredentials());
-                        }
-                        else
-                        {
-                            await CustomerService.AddNewSeller(NewSeller, Localization.Id, Credentials.ToCredentials());
-                        }
+                        /* po zapisaniu w localization jest przypisany id */
+                        await CustomerService.AddNewCustomer(NewCustomer, Localization.Id, Credentials.ToCredentials());
                     }
-                    
+                    else
+                    {
+                        await CustomerService.AddNewSeller(NewSeller, Localization.Id, Credentials.ToCredentials());
+                    }
                 }
-                catch
-                {
-
-                }
-            }));
+            });
 
         #endregion
     }

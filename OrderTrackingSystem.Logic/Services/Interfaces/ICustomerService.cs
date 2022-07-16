@@ -68,5 +68,10 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <param name="localizationId">Id przypisywanej lokalizacji</param>
         /// <param name="credentials">Krotka (login, password) dane autoryzacyjne</param>
         Task AddNewSeller(Sellers seller, int localizationId, (string login, string password) credentials);
+        /// <summary>
+        /// Zwraca wszystkich dostepnych klientow
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CustomerDTO>> GetAllCustomers();
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace OrderTrackingSystem.Presentation.ValueConverter
@@ -12,18 +11,22 @@ namespace OrderTrackingSystem.Presentation.ValueConverter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             /* Pattern matching */
-            if (value is decimal decimalValue && decimalValue == 0m)
-                return string.Empty;
-            else
-                return value.ToString();
+            if (value is decimal decimalValue) return decimalValue switch
+            {
+                0m => string.Empty,
+                _ => decimalValue.ToString("N2")
+            };
+            else return value.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is string str && !string.IsNullOrEmpty(str))
+            if (value is string str && !string.IsNullOrEmpty(str))
             {
-                var dec = decimal.Parse(str, NumberStyles.Number ^ NumberStyles.AllowThousands);
-                return dec;
+                if(decimal.TryParse(str, out decimal output))
+                {
+                    return Math.Round(output,2);
+                }
             }
             return 0m;
         }

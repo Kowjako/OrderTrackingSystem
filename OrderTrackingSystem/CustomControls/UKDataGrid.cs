@@ -15,8 +15,6 @@ namespace OrderTrackingSystem.Presentation.CustomControls
     {
         #region Private members
 
-        private ScrollViewer scroll;
-
         /// <summary>
         /// Aktualny numer załadowanej strony
         /// </summary>

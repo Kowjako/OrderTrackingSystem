@@ -5,15 +5,22 @@ using System.Linq;
 using System.Data.Entity;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace OrderTrackingSystem.Logic.Services
 {
     public class CustomerService : CRUDManager, ICustomerService
     {
+        private IConfigurationService _configurationService;
+
+        public CustomerService(IConfigurationService service)
+        {
+            _configurationService = service;
+        }
+
         public async Task<Customers> GetCurrentCustomer()
         {
-            var configrationService = new ConfigurationService();
-            var sessionId = await configrationService.GetCurrentSessionId();
+            var sessionId = await _configurationService.GetCurrentSessionId();
             using(var dbContext = new OrderTrackingSystemEntities())
             {
                 return await dbContext.Customers.FindAsync(sessionId);
@@ -22,8 +29,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task<Sellers> GetCurrentSeller()
         {
-            var configrationService = new ConfigurationService();
-            var sessionId = await configrationService.GetCurrentSessionId();
+            var sessionId = await _configurationService.GetCurrentSessionId();
             using (var dbContext = new OrderTrackingSystemEntities())
             {
                 return await dbContext.Sellers.FindAsync(sessionId);
@@ -60,7 +66,8 @@ namespace OrderTrackingSystem.Logic.Services
                             Email = customer.Email,
                             CityWithCode = loc.City + ", " +
                                         loc.ZipCode,
-                            Number = customer.Number
+                            Number = customer.Number,
+                            Balance = customer.Balance
                         };
                 return await query.FirstOrDefaultAsync();
             }
@@ -195,6 +202,17 @@ namespace OrderTrackingSystem.Logic.Services
                 Name = customer.Name,
                 Email = customer.Email,
             };
+        }
+
+        public async Task<List<CustomerDTO>> GetAllCustomers()
+        {
+            var dalEntities = await base.GetAllEntities<Customers>();
+            return dalEntities.Select(p => new CustomerDTO()
+            {
+                Id = p.Id,
+                Name = p.Name + " " + p.Surname,
+                Email = p.Email,
+            }).ToList();
         }
     }
 }

@@ -88,6 +88,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj klientów.
+        /// </summary>
+        public static string AddClients {
+            get {
+                return ResourceManager.GetString("AddClients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dodaj wzorzec.
         /// </summary>
         public static string AddComplaint {
@@ -111,6 +120,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string AddFolder {
             get {
                 return ResourceManager.GetString("AddFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj procedurę do bazy.
+        /// </summary>
+        public static string AddProcedureToDB {
+            get {
+                return ResourceManager.GetString("AddProcedureToDB", resourceCulture);
             }
         }
         
@@ -160,6 +178,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kwota: .
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kwota odliczalna.
         /// </summary>
         public static string AmountToMinus {
@@ -174,6 +201,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string ApproveComplaint {
             get {
                 return ResourceManager.GetString("ApproveComplaint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatyczne procesy.
+        /// </summary>
+        public static string AutoProcesses {
+            get {
+                return ResourceManager.GetString("AutoProcesses", resourceCulture);
             }
         }
         
@@ -210,6 +246,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Brutto {
             get {
                 return ResourceManager.GetString("Brutto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Możliwość zaznaczenia kilku na raz i uruchomienie.
+        /// </summary>
+        public static string CanSelectManyAndRun {
+            get {
+                return ResourceManager.GetString("CanSelectManyAndRun", resourceCulture);
             }
         }
         
@@ -529,6 +574,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opis.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pulpit.
         /// </summary>
         public static string Desktop {
@@ -601,6 +655,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data ważności: .
+        /// </summary>
+        public static string ExpireDateStr {
+            get {
+                return ResourceManager.GetString("ExpireDateStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odfiltruj.
         /// </summary>
         public static string Filter {
@@ -664,6 +727,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generuj bony.
+        /// </summary>
+        public static string GenerateVouchers {
+            get {
+                return ResourceManager.GetString("GenerateVouchers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ukryj progres.
         /// </summary>
         public static string HideProgress {
@@ -678,6 +750,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Large {
             get {
                 return ResourceManager.GetString("Large", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ostatni raz uruchomiono: .
+        /// </summary>
+        public static string LastRunDate {
+            get {
+                return ResourceManager.GetString("LastRunDate", resourceCulture);
             }
         }
         
@@ -714,6 +795,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string LoadImage {
             get {
                 return ResourceManager.GetString("LoadImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Załaduj skrypt SQL.
+        /// </summary>
+        public static string LoadSQLScript {
+            get {
+                return ResourceManager.GetString("LoadSQLScript", resourceCulture);
             }
         }
         
@@ -943,6 +1033,24 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nazwa procedury.
+        /// </summary>
+        public static string ProcedureName {
+            get {
+                return ResourceManager.GetString("ProcedureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tworzenie procesów.
+        /// </summary>
+        public static string ProcessCreation {
+            get {
+                return ResourceManager.GetString("ProcessCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ilość produktu.
         /// </summary>
         public static string ProductAmount {
@@ -1024,11 +1132,29 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uruchom wybrane procesy.
+        /// </summary>
+        public static string RunProcesses {
+            get {
+                return ResourceManager.GetString("RunProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zapisz.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaznacz wszystkie.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
             }
         }
         
@@ -1074,6 +1200,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Seller {
             get {
                 return ResourceManager.GetString("Seller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Procesy sprzedawcy.
+        /// </summary>
+        public static string SellerProcesses {
+            get {
+                return ResourceManager.GetString("SellerProcesses", resourceCulture);
             }
         }
         
@@ -1267,6 +1402,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieokreślona data.
+        /// </summary>
+        public static string UndefinedDate {
+            get {
+                return ResourceManager.GetString("UndefinedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zakończ reklamację.
         /// </summary>
         public static string UndoComplaint {
@@ -1290,6 +1434,15 @@ namespace OrderTrackingSystem.Presentation.Properties {
         public static string Voucher {
             get {
                 return ResourceManager.GetString("Voucher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generowanie bonów.
+        /// </summary>
+        public static string VoucherGeneration {
+            get {
+                return ResourceManager.GetString("VoucherGeneration", resourceCulture);
             }
         }
         

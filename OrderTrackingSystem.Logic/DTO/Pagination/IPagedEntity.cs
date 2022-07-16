@@ -8,6 +8,7 @@ namespace OrderTrackingSystem.Logic.DTO.Pagination
 {
     public interface IPagedEntity
     {
+        int Id { get; set; }
         int RowNumber { get; set; }
     }
 }

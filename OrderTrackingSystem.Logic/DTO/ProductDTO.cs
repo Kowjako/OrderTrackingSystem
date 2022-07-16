@@ -9,7 +9,6 @@ using System.Windows.Media.Imaging;
 
 namespace OrderTrackingSystem.Logic.DTO
 {
-    #pragma warning disable CS1591
     public sealed class ProductDTO : IPagedEntity
     {
         [ImageField(PropertyName = nameof(Image))]

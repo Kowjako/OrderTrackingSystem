@@ -10,6 +10,7 @@
              xmlns:controls="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              mc:Ignorable="d" 
              x:Name="mailView"
+             Background="White"
              Loaded="mailView_Loaded"
              d:DesignHeight="950" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -40,37 +41,35 @@
                       VerticalAlignment="Bottom"
                       Background="Black"
                       Height="4"/>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="{x:Static res:Resources.Emailbox}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
-        <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+        
+        <controls:ExtensibleViewPanel_v2 Grid.Row="0"
+                                         Grid.Column="0"
+                                         Grid.RowSpan="4"
+                                         CaptionV2="{x:Static res:Resources.Emailbox}">
+            <DockPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                    Background="LightPink" LastChildFill="False">
-            <Border Grid.Column="2"
+                <Border Grid.Column="2"
                 DockPanel.Dock="Top"
                 Grid.Row="0"
                 Margin="5"
                 BorderBrush="Black"
                 BorderThickness="1">
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
                             Width="35" />
-                        <ColumnDefinition
+                            <ColumnDefinition
                             Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Button
+                        </Grid.ColumnDefinitions>
+                        <Button
                         Command="{Binding FindReceiver}"
                         CommandParameter="{Binding ElementName=sellerBox, Path=Text}"
                         Style="{DynamicResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                             Kind="Search"
                             Opacity="1" />
-                    </Button>
-                    <TextBox
+                        </Button>
+                        <TextBox
                         x:Name="sellerBox"
                         FontSize="15"
                         VerticalAlignment="Center"
@@ -79,17 +78,17 @@
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.FindReceiver}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"/>
-                </Grid>
-            </Border>
-            <GroupBox
+                    </Grid>
+                </Border>
+                <GroupBox
                 Header="{x:Static res:Resources.MailCreation}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding OriginalMail}">
-                    <TextBox
+                    <StackPanel DataContext="{Binding OriginalMail}">
+                        <TextBox
                     Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
@@ -100,7 +99,7 @@
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Title}"
                     />
-                    <TextBox
+                        <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
                     MinHeight="40"
@@ -111,94 +110,94 @@
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Content}"
                     />
-                </StackPanel>
-            </GroupBox>
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <DatePicker
+                    </StackPanel>
+                </GroupBox>
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker
                     Grid.Column="0"
                     SelectedDate="{Binding DateFrom}"
                     Focusable="False"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}">
-                </DatePicker>
-                <Rectangle Grid.Column="1"
+                    </DatePicker>
+                    <Rectangle Grid.Column="1"
                            Margin="4,0,4,0"
                            Height="2" 
                            Stroke="Black"/>
-                <DatePicker
+                    <DatePicker
                     Grid.Column="2"
                     SelectedDate="{Binding DateTo}"
                     Focusable="False"
                     Margin="5"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
-            </Grid>
-            <GroupBox
+                </Grid>
+                <GroupBox
                 Header="{x:Static res:Resources.Receiver}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel DataContext="{Binding MailReceiver}">
-                    <!-- Use this style inside this control -->
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Margin" Value="0,0,0,3"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock FontWeight="DemiBold"
+                    <StackPanel DataContext="{Binding MailReceiver}">
+                        <!-- Use this style inside this control -->
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="FontFamily" Value="Arial"/>
+                                <Setter Property="Margin" Value="0,0,0,3"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock FontWeight="DemiBold"
                                Text="{Binding Name}"/>
-                    <TextBlock Foreground="DarkGreen"
+                        <TextBlock Foreground="DarkGreen"
                                Text="{Binding Address}"/>
-                    <TextBlock Text="{Binding CityWithCode}"/>
-                    <TextBlock Text="{Binding Email}"/>
-                    <TextBlock Foreground="Maroon"
+                        <TextBlock Text="{Binding CityWithCode}"/>
+                        <TextBlock Text="{Binding Email}"/>
+                        <TextBlock Foreground="Maroon"
                                Text="{Binding Number}"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
                 Header="{x:Static res:Resources.Filter}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <!-- Attached event ToggleButton.Checked-->
-                <StackPanel ToggleButton.Checked="StackPanel_Checked">
-                    <RadioButton GroupName="mailFilter"
+                    <!-- Attached event ToggleButton.Checked-->
+                    <StackPanel ToggleButton.Checked="StackPanel_Checked">
+                        <RadioButton GroupName="mailFilter"
                                  x:Name="sentMsg"
                                  Content="{x:Static res:Resources.SentMails}"/>
-                    <RadioButton GroupName="mailFilter"
+                        <RadioButton GroupName="mailFilter"
                                  x:Name="receivedMsg"
                                  Content="{x:Static res:Resources.ReceivedMails}"
                                  Margin="0,5,0,0"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
                 Header="{x:Static res:Resources.LinkOrder}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <controls:MindMapControl Grid.Row="0"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <controls:MindMapControl Grid.Row="0"
                                              x:Name="orderLinker"
                                              ClickAddOrder="orderLinker_ClickAddOrder"
                                              RelatedOrders="{Binding RelatedToCurrentMailOrders, Mode=TwoWay}"
                                              Margin="0,0,0,10"/>
-                    <ComboBox
+                        <ComboBox
                         ItemsSource="{Binding CustomerOrders}"
                         DisplayMemberPath="Number"
                         SelectedItem="{Binding SelectedOrder}"
@@ -208,10 +207,10 @@
                         Padding="5,10,10,10"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectOrder}"
                         IsEditable="False">
-                    </ComboBox>
-                </Grid>
-            </GroupBox>
-            <Button
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+                <Button
                     Command="{Binding SendMessage}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -222,7 +221,7 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.SendMail}" />
-            <Button
+                <Button
                     Command="{Binding FilterCommand}"
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -233,7 +232,9 @@
                     Margin="5"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Filter}" />
-        </DockPanel>
+            </DockPanel>
+        </controls:ExtensibleViewPanel_v2>
+        
         <DockPanel Grid.Column="1"
                     Grid.RowSpan="3"
                     Grid.Row="0">

@@ -9,13 +9,6 @@ namespace OrderTrackingSystem.Presentation.Interfaces
 {
     public interface ISendsViewModel
     {
-        decimal TotalPriceNetto { get; set; }
-        float BoxPrice { get; set; }
-        decimal VAT { get; }
-        decimal TotalPriceBrutto { get; }
-        decimal FullPrice { get; }
-        int PickupDays { get; set; }
-
         CategoryDTO SelectedSubCategory { get; set; }
         Customers CurrentSeller { get; }
         CustomerDTO CurrentReceiver { get; }

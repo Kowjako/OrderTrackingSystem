@@ -13,7 +13,7 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// Metoda zwraca elementy zamówione i wysłane dla danego nabywcy
         /// </summary>
         /// <param name="customerId">Id nabywcy</param>
-        Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId);
+        Task<List<TrackableItemDTO>> GetItemsForCustomer(int customerId, int pageNumber = 0);
         /// <summary>
         /// Metoda zwraca wszystkie statusy w których znajdowała się dana przesyłka
         /// </summary>
@@ -27,5 +27,13 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// <param name="newState">Nowy status</param>
         /// <returns></returns>
         Task AddNewStateForOrder(int orderId, OrderState newState);
+        /// <summary>
+        /// Metoda do pobierania kolejnych stron elementów zamówionych i 
+        /// wysłanych - korzysta z paginowania
+        /// </summary>
+        /// <param name="customerId">Id nabywcy</param>
+        /// <param name="pageNumber">Numer strony</param>
+        /// <returns></returns>
+        Task<List<TrackableItemDTO>> FetchNextPage(int customerId, int pageNumber);
     }
 }

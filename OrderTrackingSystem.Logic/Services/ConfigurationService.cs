@@ -6,9 +6,11 @@ using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -45,7 +47,7 @@ namespace OrderTrackingSystem.Logic.Services
             'A', 'B', 'C', 'D','E','F','G','H','I','G','K','L'
         };
 
-        public async Task<int?> GetCurrentSessionId()
+        public async Task<int> GetCurrentSessionId()
         {
             var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
             using (var sqlConnection = new SqlConnection(connectionString))
@@ -57,7 +59,7 @@ namespace OrderTrackingSystem.Logic.Services
                     {
                         while(await sqlReader.ReadAsync())
                         {
-                            return sqlReader.GetValue(0) as int?;
+                            return (int)sqlReader.GetValue(0);
                         }
                         return -1;
                     }
@@ -169,6 +171,65 @@ namespace OrderTrackingSystem.Logic.Services
             foreach(var state in Enum.GetValues(typeof(OrderState)))
             {
                 yield return new Tuple<string, OrderState>(EnumConverter.GetNameByIdLocalized<OrderState>((int)state), (OrderState)state);
+            }
+        }
+
+        public async Task<List<ProcessDTO>> GetAutoProcesses()
+        {
+            using var context = new OrderTrackingSystemEntities();
+            var query = from process in context.Processes
+                        select new ProcessDTO
+                        {
+                            Name = process.Name,
+                            LastProcessDate = process.LastProcessDate,
+                            Description = process.Description,
+                            StoredProcedureFunction = process.StoredProcedureName
+                        };
+            return await query.ToListAsync();
+        }
+
+        public async Task AddNewSellerProcess(ProcessDTO NewSellerProcess, string _sqlProcessScript)
+        {
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
+            {
+                var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
+                using (var sqlConnection = new SqlConnection(connectionString))
+                {
+                    await sqlConnection.OpenAsync();
+
+                    // Dodanie konfiguracji procesu
+                    using (var sqlCommand = new SqlCommand("INSERT INTO Processes (Name, LastProcessDate, Description, StoredProcedureName) VALUES (@Name, @Date, @Descr, @ProcName)"))
+                    {
+                        sqlCommand.Connection = sqlConnection;
+                        var nameParameter = new SqlParameter("@Name", NewSellerProcess.Name);
+
+                        var dateParameter = new SqlParameter("@Date", SqlDbType.SmallDateTime);
+                        dateParameter.Value = DBNull.Value;
+
+                        var descrParameter = new SqlParameter(@"Descr", NewSellerProcess.Description);
+                        var procNameParameter = new SqlParameter("@ProcName", NewSellerProcess.StoredProcedureFunction);
+
+                        sqlCommand.Parameters.AddRange(new[] { nameParameter, dateParameter, descrParameter, procNameParameter });
+
+                        await sqlCommand.ExecuteNonQueryAsync();
+                    }
+
+                    string[] commands = Regex.Split(_sqlProcessScript, @"\bGO\b");
+
+                    //Dodanie procedury do bazy
+                    await commands.ToList().ForEachAsync(async s =>
+                    {
+                        if (!string.IsNullOrEmpty(s))
+                        {
+                            using (var sqlCommand = new SqlCommand(s, sqlConnection))
+                            {
+                                await sqlCommand.ExecuteNonQueryAsync();
+                            }
+                        }
+                    });
+                }
+
+                transactionScope.Complete();
             }
         }
     }

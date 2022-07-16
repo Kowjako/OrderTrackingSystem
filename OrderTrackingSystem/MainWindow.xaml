@@ -157,12 +157,12 @@
                     <TextBlock>
                     </TextBlock>
                 </TabItem>
-                <TabItem x:Name="DevelopTab" 
-                PreviewMouseLeftButtonDown="DevelopTab_PreviewMouseLeftButtonDown"
-                Header="{materialDesign:PackIcon Kind=Apps, Size=24}"
+                <TabItem x:Name="SellerProcess" 
+                PreviewMouseLeftButtonDown="SellerProcess_PreviewMouseLeftButtonDown"
+                Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}"
                 materialDesign:ColorZoneAssist.Mode="PrimaryLight"
-                ToolTip="Pulpit">
+                ToolTip="Procesy">
                     <TextBlock>
                     </TextBlock>
                 </TabItem>

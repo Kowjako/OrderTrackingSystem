@@ -12,24 +12,23 @@ namespace OrderTrackingSystem.Logic.HelperClasses
         public static string EncryptWithRSA(string data)
         {
             var binaryData = Encoding.UTF8.GetBytes(data);
-            using(var rsa = new RSACryptoServiceProvider(1024))
-            {
-                rsa.FromXmlString(publicKey.ToString()); /* inicjalizacja kluczem */
-                var encryptedData = rsa.Encrypt(binaryData, false); /* szyfrowanie */
-                return Convert.ToBase64String(encryptedData); /* zwracamy base64 string */
-            }
+
+            using var rsa = new RSACryptoServiceProvider(1024);
+
+            rsa.FromXmlString(publicKey.ToString()); /* inicjalizacja kluczem */
+            var encryptedData = rsa.Encrypt(binaryData, false); /* szyfrowanie */
+            return Convert.ToBase64String(encryptedData); /* zwracamy base64 string */
 
         }
 
         public static string DecryptFromRSA(string data)
         {
-            using (var rsa = new RSACryptoServiceProvider(1024))
-            {
-                var byteData = Convert.FromBase64String(data); /* wracamy z postaci base64 do tablicy bajtow */
-                rsa.FromXmlString(privateKey.ToString()); /* inicjalizacja kluczem */
-                var decryptedData = rsa.Decrypt(byteData, false);
-                return Encoding.UTF8.GetString(decryptedData);
-            }
+            using var rsa = new RSACryptoServiceProvider(1024);
+
+            var byteData = Convert.FromBase64String(data); /* wracamy z postaci base64 do tablicy bajtow */
+            rsa.FromXmlString(privateKey.ToString()); /* inicjalizacja kluczem */
+            var decryptedData = rsa.Decrypt(byteData, false);
+            return Encoding.UTF8.GetString(decryptedData);
         }
     }
 }

@@ -6,27 +6,22 @@ using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Logic.Validators;
-using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.CustomControls;
+using OrderTrackingSystem.Presentation.CustomControls.Classes;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
+using OrderTrackingSystem.Presentation.WindowExtension;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using EnumConverter = OrderTrackingSystem.Logic.EnumMappers.EnumConverter;
 
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
-    public class DesktopViewModel : IDesktopViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class DesktopViewModel : BaseViewModel, IDesktopViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly IMailService MailService;
@@ -44,9 +39,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         {
             MailService = new MailService();
             ComplaintService = new ComplaintService();
-            OrderService = new OrderService();
-            CustomerService = new CustomerService();
-            ProductService = new ProductService();
+            CustomerService = new CustomerService(new ConfigurationService());
+            OrderService = new OrderService(CustomerService);
+            ProductService = new ProductService(new ConfigurationService());
             TrackerService = new TrackerService();
         }
 
@@ -69,6 +64,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             }
             OnPropertyChanged(nameof(ParcelAvailableStates));
         }
+
+        private CustomerSelectionViewModel _csViewModel;
+        private CustomerSelectionViewModel CSViewModel
+        {
+            get => _csViewModel ??= new CustomerSelectionViewModel();
+        }
+
+        private byte[] _imageData;
 
         #endregion
 
@@ -116,11 +119,18 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
             }
         }
 
+        private VoucherDTO _generatedVoucher = new VoucherDTO();
+        public VoucherDTO GeneratedVoucher
+        {
+            get => _generatedVoucher;
+            set => _generatedVoucher = value;
+        }
+
         #endregion
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentSeller = await CustomerService.GetCurrentSeller();
             CustomersOrder = await OrderService.GetOrdersFromCompany(CurrentSeller.Id);
@@ -139,35 +149,35 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         private RelayCommand _addProduct;
 
         public RelayCommand AddProduct =>
-            _addProduct ?? (_addProduct = new RelayCommand(async obj =>
+            _addProduct ??= new RelayCommand(async obj =>
             {
                 try
                 {
-                    CurrentProduct.Category = SelectedCategory.Id;
+                    CurrentProduct.Category = SelectedCategory?.Id ?? -1;
                     CurrentProduct.SellerId = CurrentSeller.Id;
                     if(ValidatorWrapper.ValidateWithResult(new ProductValidator(), CurrentProduct))
                     {
-                        await ProductService.SaveNewProduct(CurrentProduct);
-                        OnSuccess?.Invoke("Produkt pomyślnie dodany");
+                        await ProductService.SaveNewProduct(CurrentProduct, _imageData);
+                        ShowSuccess("Produkt pomyślnie dodany");
                     }
                     else
                     {
-                        OnWarning?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Błąd podczas dodawania produktu");
+                    ShowError("Błąd podczas dodawania produktu");
                 }
-            }));
+            });
 
         private RelayCommand _approveComplaint;
         public RelayCommand ApproveComplaint =>
-            _approveComplaint ?? (_approveComplaint = new RelayCommand(async obj =>
+            _approveComplaint ??= new RelayCommand(async obj =>
             {
                 if(obj is null)
                 {
-                    OnWarning?.Invoke("Należy zaznaczyć reklamację");
+                    ShowWarning("Należy zaznaczyć reklamację");
                     return;
                 }
 
@@ -176,17 +186,17 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                 {
                     Id = complaintDTO.Id,
                     SolutionDate = DateTime.Now,
-                    State = (byte)complaintDTO.StateId,
+                    State = (byte)ComplaintState.SellerDecision,
                     OrderId = complaintDTO.OrderId
                 };
 
                 await ComplaintService.UpdateComplaintState(complaint, CurrentSeller.Id);
-                OnSuccess?.Invoke("Reklamacja została zatwierdzona");
-            }));
+                ShowSuccess("Reklamacja została zatwierdzona");
+            });
 
         private RelayCommand _sendMessage;
         public RelayCommand SendMessage =>
-            _sendMessage ?? (_sendMessage = new RelayCommand(async obj =>
+            _sendMessage ??= new RelayCommand(async obj =>
             {
                 if (ValidatorWrapper.ValidateWithResult(new MailValidator(), CurrentMail))
                 {
@@ -202,47 +212,67 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                     };
 
                     await MailService.AddNewMail(mail);
-                    OnSuccess?.Invoke("Wiadomość została wysłana");
+                    ShowSuccess("Wiadomość została wysłana");
                 }
                 else
                 {
-                    OnWarning.Invoke(ValidatorWrapper.ErrorMessage);
+                    ShowWarning(ValidatorWrapper.ErrorMessage);
                 }
-            }));
+            });
 
         private RelayCommand _changeParcelState;
         public RelayCommand ChangeParcelState =>
-            _changeParcelState ?? (_changeParcelState = new RelayCommand(async obj =>
+            _changeParcelState ??= new RelayCommand(async obj =>
             {
                 if(SelectedOrder != null)
                 {
                     await TrackerService.AddNewStateForOrder(SelectedOrder.Id, SelectedState.Item2);
-                    OnSuccess?.Invoke("Status przesyłki został zmieniony");
+                    ShowSuccess("Status przesyłki został zmieniony");
                 }
                 else
                 {
-                    OnWarning?.Invoke("Należy wybrać zamówienie");
+                    ShowWarning("Należy wybrać zamówienie");
                 }
-            }));
+            });
 
-        #endregion
+        private RelayCommand _addPicture;
+        public RelayCommand AddPicture =>
+            _addPicture ??= new RelayCommand(obj => _imageData = ImageDataHelper.LoadImage());
 
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
+        private RelayCommand _selectCustomers;
+        public RelayCommand SelectCustomers =>
+            _selectCustomers ??= new RelayCommand(obj =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+                if (!CSViewModel.HasData)
+                {
+                    CSViewModel.LoadData();
+                }
+                new CustomerSelection(CSViewModel).ShowControl();
+            });
 
+
+        private RelayCommand _generateVouchers;
+        public RelayCommand GenerateVouchers =>
+            _generateVouchers ??= new RelayCommand(async obj =>
+            {
+                var customersForVoucher = CSViewModel.SelectedCustomers;
+                if (ValidatorWrapper.ValidateWithResult(new VoucherValidator(), GeneratedVoucher))
+                {
+                    try
+                    {
+                        await ProductService.GenerateVouchersForCustomer(GeneratedVoucher, customersForVoucher.Select(c => c.Id).ToArray());
+                        ShowSuccess("Bony zostały wygenerowane");
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        ShowError(ex.Message);
+                    }
+                }
+                else
+                {
+                    ShowWarning(ValidatorWrapper.ErrorMessage);
+                }
+            });
         #endregion
 
     }

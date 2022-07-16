@@ -3,13 +3,14 @@ using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.ViewModels;
 using OrderTrackingSystem.Presentation.ViewModels.Seller;
 using OrderTrackingSystem.Presentation.WindowExtension;
-using OrderTrackingSystem.ViewModels;
+using OrderTrackingSystem.Presentation;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using OrderTrackingSystem.ViewModels;
 
 namespace OrderTrackingSystem
 {
@@ -31,6 +32,7 @@ namespace OrderTrackingSystem
                 {
                     SellerMenu.Visibility = Visibility.Collapsed;
                     SellerData.Visibility = Visibility.Collapsed;
+                    SellerProcess.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
@@ -57,6 +59,7 @@ namespace OrderTrackingSystem
             this.DragMove();
         }
 
+        #pragma warning disable IDE1006 
         private void exit_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
@@ -74,11 +77,13 @@ namespace OrderTrackingSystem
 
         private void menuExpander_Click(object sender, RoutedEventArgs e)
         {
-            var trackerAnimation = new DoubleAnimation();
-            trackerAnimation.From = isMenuExpanded ? 0 : 70;
-            trackerAnimation.To = isMenuExpanded ? 70 : 0;
-            trackerAnimation.Duration = TimeSpan.FromSeconds(2);
-            trackerAnimation.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            var trackerAnimation = new DoubleAnimation()
+            {
+                From = isMenuExpanded ? 0 : 70,
+                To = isMenuExpanded ? 70 : 0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut }
+            };
             tabControl.BeginAnimation(DockPanel.WidthProperty, trackerAnimation);
             isMenuExpanded = !isMenuExpanded;
         }
@@ -143,10 +148,11 @@ namespace OrderTrackingSystem
             DataContext = viewModel;
         }
 
-        private void DevelopTab_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SellerProcess_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var vm = new DevelopedViewModel();
-            DataContext = vm;
+            var viewModel = new SellerProcessesViewModel();
+            AttachEventsToViewModel(viewModel);
+            DataContext = viewModel;
         }
 
         #endregion
@@ -186,13 +192,12 @@ namespace OrderTrackingSystem
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var cultureName = (e.OriginalSource as Button).Tag as string;
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(cultureName);
             DataContext = new StartupViewModel();
         }
 
+
         #endregion
 
-        
     }
 }

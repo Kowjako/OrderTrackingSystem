@@ -25,7 +25,7 @@ namespace OrderTrackingSystem.Logic.Validators
         {
             RuleFor(x => x.Amount).GreaterThan(0).WithMessage("Ilość produktu musi być większa od zera");
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Cena musi być większa od zera");
-            RuleFor(x => x.Discount).GreaterThanOrEqualTo(0).WithMessage("Rabat nie może być ujemny");
+            RuleFor(x => x.Discount).GreaterThanOrEqualTo(0).LessThanOrEqualTo(100).WithMessage("Rabat musi sie znajdowac w przedziale [0-100]");
         }
     }
 }

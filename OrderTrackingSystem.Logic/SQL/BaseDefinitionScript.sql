@@ -1,4 +1,4 @@
-USE [master]
+﻿USE [master]
 GO
 
 IF EXISTS(SELECT * FROM master.sys.databases WHERE name='OrderTrackingSystem')
@@ -406,5 +406,42 @@ GO
 ALTER TABLE Products
 ADD ImageData VARBINARY(MAX)
 GO
+
+CREATE SCHEMA Processes
+GO
+
+CREATE TABLE Processes (
+	Id INT IDENTITY(1,1),
+	Name NVARCHAR(500) NOT NULL,
+	LastProcessDate SMALLDATETIME,
+	Description NVARCHAR(MAX),
+	StoredProcedureName NVARCHAR(255) NOT NULL
+	CONSTRAINT PK__Processes_Id PRIMARY KEY CLUSTERED (Id)
+);
+GO
+
+
+ALTER TABLE MailOrderRelations
+DROP CONSTRAINT FK__MailOrderRelations_OrderId
+GO
+
+ALTER TABLE MailOrderRelations
+ADD CONSTRAINT FK__MailOrderRelations_OrderId FOREIGN KEY (OrderId) REFERENCES Orders (Id) ON DELETE NO ACTION
+GO
+
+--Dodanie domyslnych procedur
+INSERT INTO Processes (Name, LastProcessDate, Description, StoredProcedureName) VALUES
+(N'Sprawdzanie terminowości dostarczania zamówień', NULL,
+ N'Gdy zostało mniej niż 2 dni do dostarczenia zamówienia jest wysyłana wiadomość do klienta, gdy zamówienie zostalo przeterminowane - zamówienie jest usuwane a kwota zwracana kleintowi',
+ N'Processes.CheckOrdersTerminary')
+ GO
+
+ INSERT INTO Processes (Name, LastProcessDate, Description, StoredProcedureName) VALUES
+(N'Rozwiązanie wszystkich reklamacji klientów', NULL,
+ N'Reklamacje od klientów są zamykane, zwracane pieniądze na konta klientów i zmiana statusu przesyłki na rozwiązanie reklamacji',
+ N'Processes.AcceptAllComplaints')
+ GO
+--Koniec dodania procedur
+
 
 COMMIT TRAN

@@ -15,6 +15,8 @@
         
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ExtensibleViewPanel_v2Style.xaml"/>
+                <ResourceDictionary Source="Styles/DefinedStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
@@ -47,8 +49,8 @@
             <DataTemplate DataType="{x:Type viewmodelsS:SellerAccountViewModel}">
                 <viewsS:SellerAccountView DataContext="{Binding}"/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodelsP:DevelopedViewModel}">
-                <viewsS:TestForPanel DataContext="{Binding}"/>
+            <DataTemplate DataType="{x:Type viewmodelsS:SellerProcessesViewModel}">
+                <viewsS:SellerProcesses DataContext="{Binding}"/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

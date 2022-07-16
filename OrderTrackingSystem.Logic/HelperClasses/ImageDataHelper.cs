@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -19,6 +21,24 @@ namespace OrderTrackingSystem.Logic.HelperClasses
             }
             image.Freeze();
             return image;
+        }
+
+        public static byte[] LoadImage()
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Files|*.jpg;*.jpeg;*.png;";
+            if(ofd.ShowDialog() ?? false)
+            {
+                using(var fs = new FileStream(ofd.FileName, FileMode.Open))
+                {
+                    using(var ms = new MemoryStream())
+                    {
+                        fs.CopyTo(ms);
+                        return ms.ToArray();
+                    }
+                }
+            }
+            return default;
         }
     }
 }

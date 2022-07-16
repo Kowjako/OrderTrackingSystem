@@ -126,6 +126,9 @@
   <data name="AccountDetails" xml:space="preserve">
     <value>Данные аккаунта</value>
   </data>
+  <data name="AddClients" xml:space="preserve">
+    <value>Добавить клиентов</value>
+  </data>
   <data name="AddComplaint" xml:space="preserve">
     <value>Добавить шаблон</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="AddFolder" xml:space="preserve">
     <value>Добавить папку</value>
+  </data>
+  <data name="AddProcedureToDB" xml:space="preserve">
+    <value>Добавить процедуру к базе</value>
   </data>
   <data name="AddProduct" xml:space="preserve">
     <value>Добавить продукт</value>
@@ -150,11 +156,17 @@
   <data name="All" xml:space="preserve">
     <value>Все</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма: </value>
+  </data>
   <data name="AmountToMinus" xml:space="preserve">
     <value>Сумма к списанию</value>
   </data>
   <data name="ApproveComplaint" xml:space="preserve">
     <value>Принять далобу</value>
+  </data>
+  <data name="AutoProcesses" xml:space="preserve">
+    <value>Автоматические процессы</value>
   </data>
   <data name="AvailablePickups" xml:space="preserve">
     <value>Доступные пункты доставки</value>
@@ -167,6 +179,9 @@
   </data>
   <data name="Brutto" xml:space="preserve">
     <value>Сумма брутто</value>
+  </data>
+  <data name="CanSelectManyAndRun" xml:space="preserve">
+    <value>Можно выбрать несколько и запустить</value>
   </data>
   <data name="Cart" xml:space="preserve">
     <value>Корзина</value>
@@ -273,6 +288,9 @@
   <data name="DeliveryType" xml:space="preserve">
     <value>Методы доставки</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
   <data name="Desktop" xml:space="preserve">
     <value>Рабочий стол</value>
   </data>
@@ -297,6 +315,9 @@
   <data name="ExpireDate" xml:space="preserve">
     <value>Годен до: {0:dd/MM/yyyy}</value>
   </data>
+  <data name="ExpireDateStr" xml:space="preserve">
+    <value>Актуален до: </value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>Фильтрация</value>
   </data>
@@ -318,11 +339,17 @@
   <data name="GenerateAutomaticMail" xml:space="preserve">
     <value>Отправить автоматическое сообщение</value>
   </data>
+  <data name="GenerateVouchers" xml:space="preserve">
+    <value>Генерируй купоны</value>
+  </data>
   <data name="HideProgress" xml:space="preserve">
     <value>Спрятать прогресс</value>
   </data>
   <data name="Large" xml:space="preserve">
     <value>Большая</value>
+  </data>
+  <data name="LastRunDate" xml:space="preserve">
+    <value>Посделний раз запущено: </value>
   </data>
   <data name="LinkedOrders" xml:space="preserve">
     <value>Связанные элементы</value>
@@ -335,6 +362,9 @@
   </data>
   <data name="LoadImage" xml:space="preserve">
     <value>Загрузить изображение</value>
+  </data>
+  <data name="LoadSQLScript" xml:space="preserve">
+    <value>Загрузить скрипт SQL</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Логин</value>
@@ -411,6 +441,12 @@
   <data name="PriceTo" xml:space="preserve">
     <value>Цена до:</value>
   </data>
+  <data name="ProcedureName" xml:space="preserve">
+    <value>Название процедуры</value>
+  </data>
+  <data name="ProcessCreation" xml:space="preserve">
+    <value>Создание процессов</value>
+  </data>
   <data name="ProductAmount" xml:space="preserve">
     <value>Кол-во продукта</value>
   </data>
@@ -438,8 +474,14 @@
   <data name="Reply" xml:space="preserve">
     <value>Ответить</value>
   </data>
+  <data name="RunProcesses" xml:space="preserve">
+    <value>Запустить выбранные процессы</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Выделить все</value>
   </data>
   <data name="SelectBon" xml:space="preserve">
     <value>Выбрать купон</value>
@@ -455,6 +497,9 @@
   </data>
   <data name="Seller" xml:space="preserve">
     <value>Продавец</value>
+  </data>
+  <data name="SellerProcesses" xml:space="preserve">
+    <value>Процессы продавца</value>
   </data>
   <data name="SendAutomaticEmail" xml:space="preserve">
     <value>Отправь автоматическое сообщение</value>
@@ -519,6 +564,9 @@
   <data name="Tracking" xml:space="preserve">
     <value>Трекинг посылок</value>
   </data>
+  <data name="UndefinedDate" xml:space="preserve">
+    <value>Неопределённая дата</value>
+  </data>
   <data name="UndoComplaint" xml:space="preserve">
     <value>Завершить жалобу</value>
   </data>
@@ -527,6 +575,9 @@
   </data>
   <data name="Voucher" xml:space="preserve">
     <value>Купон</value>
+  </data>
+  <data name="VoucherGeneration" xml:space="preserve">
+    <value>Генерация купонов</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>Масса</value>

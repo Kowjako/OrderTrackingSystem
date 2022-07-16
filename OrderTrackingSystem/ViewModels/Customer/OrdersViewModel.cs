@@ -3,27 +3,16 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class OrdersViewModel : IOrdersViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public partial class OrdersViewModel : BaseViewModel, IOrdersViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly ConfigurationService ConfigService;
@@ -52,100 +41,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #endregion
 
-        #region Bindable objects
-
-        private PickupDTO _selectedPickup;
-        public PickupDTO SelectedPickup
-        {
-            get => _selectedPickup;
-            set
-            {
-                _selectedPickup = value;
-                OnPropertyChanged(nameof(SelectedPickup));
-            }
-        }
-
-        public ProductDTO SelectedProduct { get; set; }
-        private VoucherDTO _selectedVoucher;
-        public VoucherDTO SelectedVoucher
-        {
-            get => _selectedVoucher;
-            set
-            {
-                _selectedVoucher = value;
-                OnPropertyChanged(nameof(SelectedVoucher));
-                OnPropertyChanged(nameof(VouchersVisibility));
-            }
-        }
-
-        public decimal VoucherValueToMinus { get; set; }
-        private bool _isVoucherFullChecked;
-        public bool IsVoucherFullChecked
-        {
-            get => _isVoucherFullChecked;
-            set
-            {
-                _isVoucherFullChecked = value;
-                if(value == true)
-                {
-                    VoucherValueToMinus = 0m;
-                    OnPropertyChanged(nameof(VoucherValueToMinus));
-                }
-            }
-        }
-        public Visibility VouchersVisibility => SelectedVoucher != null ? Visibility.Visible : Visibility.Collapsed;
-
-        public int CurrentProductAmount { get; set; } = 0;
-
-        public CustomerDTO CurrentCustomer { get; private set; }
-        public int SelectedSellerId { get; private set; }
-        public List<PickupDTO> PickupsList { get; set; } = new List<PickupDTO>();
-        public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
-        public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
-        public List<VoucherDTO> VouchersList { get; set; } = new List<VoucherDTO>();
-        /* Używamy BindingList do śledzenia zmian obiektów z listy*/
-        public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
-
-        private int _selectedDeliveryType = -1;
-        public int SelectedDeliveryType
-        {
-            get => _selectedDeliveryType;
-            set
-            {
-                _selectedDeliveryType = value;
-                OnPropertyChanged(nameof(DeliveryCost));
-                OnPropertyChanged(nameof(FullPrice));
-            }
-        }
-        /* Tworzenie zamówienia */
-        public OrderDTO CurrentOrder { get; set; } = new OrderDTO();
-
-        public decimal TotalPriceNetto { get; set; } = 0;
-        public decimal VAT { get; } = 23;
-        public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
-
-        /* Analogiczne z get - switch - return */
-        public decimal DeliveryCost => SelectedDeliveryType switch
-        {
-            0 => 9.99m,
-            1 => 11.99m,
-            2 => 0.0m,
-            3 => 4.99m,
-            _ => 9m
-        };
-
-        public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto + DeliveryCost;
-
-        #endregion
-
         #region Ctor
 
         public OrdersViewModel()
         {
             ConfigService = new ConfigurationService();
-            CustomerService = new CustomerService();
-            ProductService = new ProductService();
-            OrderService = new OrderService();
+            CustomerService = new CustomerService(new ConfigurationService());
+            ProductService = new ProductService(ConfigService);
+            OrderService = new OrderService(CustomerService);
         }
 
 
@@ -153,7 +56,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         { 
             CurrentCustomer = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
             PickupsList = await ConfigService.GetPickupPoints();
@@ -170,15 +73,15 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _addToCart;
         public RelayCommand AddToCart =>
-            _addToCart ?? (_addToCart = new RelayCommand(obj =>
+            _addToCart ??= new RelayCommand(obj =>
             {
                 try
                 {
-                    if (ProductsInCart.Any(x => x.Name.Equals(SelectedProduct.Name)))
+                    if (ProductsInCart.Any(x => x.Id == SelectedProduct.Id))
                     {
-                        var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
+                        var existingProduct = ProductsInCart.First(x => x.Id == SelectedProduct.Id);
                         var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
+                        existingProduct.Amount += CurrentProductAmount;
                         ProductsInCart[elementIndex] = existingProduct;
                     }
                     else
@@ -197,75 +100,59 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     }
                     CurrentProductAmount = 0;
                     RecalculateCartPrice();
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                    OnPropertyChanged(nameof(ProductsInCart));
+                    OnManyPropertyChanged(new[] { nameof(CurrentProductAmount), nameof(ProductsInCart), nameof(ProductsList) });
                 }
                 catch (Exception ex)
                 {
-                    OnFailure?.Invoke("Nie udało się dodać do koszyka");
+                    ShowError("Nie udało się dodać do koszyka");
                 }
-            }));
+            }, (e) => SelectedProduct != null && CurrentProductAmount > 0);
 
 
         private RelayCommand _findSeller;
         public RelayCommand FindSeller =>
-            _findSeller ?? (_findSeller = new RelayCommand(obj =>
+            _findSeller ??= new RelayCommand(obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
+                    if (!ProductsList.Any(p => p.Seller.Equals(obj as string)))
                     {
-                        if (!ProductsList.Any(p => p.Seller.Equals(obj as string)))
-                        {
-                            OnWarning("Nie ma sprzedawcy o takiej nazwie");
-                            return;
-                        }
-                        ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Seller.Equals(obj as string)));
-                        OnPropertyChanged(nameof(ProductsList));
+                        ShowWarning("Nie ma sprzedawcy o takiej nazwie");
+                        return;
                     }
-                    else
-                    {
-                        if (AllProductsList.Any())
-                        {
-                            ProductsList = AllProductsList;
-                            OnPropertyChanged(nameof(ProductsList));
-                            return;
-                        }
-                        OnWarning("Nazwa nie może być pusta");
-                    }
-                }
-                catch (Exception)
-                {
-
-                }
-            }));
-
-        private RelayCommand minusAmount;
-        public RelayCommand MinusAmount =>
-            minusAmount ?? (minusAmount = new RelayCommand(obj =>
-            {
-                if(CurrentProductAmount == 0)
-                {
-                    return;
+                    ProductsList = new List<ProductDTO>(AllProductsList.Where(p => p.Seller.Equals(obj as string)));
                 }
                 else
                 {
-                    CurrentProductAmount--;
-                    OnPropertyChanged(nameof(CurrentProductAmount));
+                    if (AllProductsList.Any())
+                    {
+                        ProductsList = AllProductsList;
+                        return;
+                    }
+                    ShowWarning("Nazwa nie może być pusta");
                 }
-            }));
+                OnPropertyChanged(nameof(ProductsList));
+            });
+
+        private RelayCommand minusAmount;
+        public RelayCommand MinusAmount =>
+            minusAmount ??= new RelayCommand(obj =>
+            {
+                CurrentProductAmount--;
+                OnPropertyChanged(nameof(CurrentProductAmount));
+            }, (e) => CurrentProductAmount > 0);
 
         private RelayCommand plusAmount;
         public RelayCommand PlusAmount =>
-            plusAmount ?? (plusAmount = new RelayCommand(obj =>
+            plusAmount ??= new RelayCommand(obj =>
             {
                 CurrentProductAmount++;
                 OnPropertyChanged(nameof(CurrentProductAmount));
-            }));
+            });
 
         private RelayCommand _acceptOrder;
         public RelayCommand AcceptOrder =>
-            _acceptOrder ?? (_acceptOrder = new RelayCommand(async obj =>
+            _acceptOrder ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -275,6 +162,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     CurrentOrder.PickupId = SelectedPickup.Id;
                     CurrentOrder.SellerId = SelectedSellerId;
                     CurrentOrder.CustomerId = CurrentCustomer.Id;
+                    CurrentOrder.PayType = SelectedPayType.ToString();
 
                     if(ValidatorWrapper.ValidateWithResult(new OrderValidator(), CurrentOrder))
                     {
@@ -301,14 +189,14 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             {
                                 if (VoucherValueToMinus > SelectedVoucher.Value)
                                 {
-                                    OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota bonu");
+                                    ShowWarning("Kwota odliczalna nie może być większa niż kwota bonu");
                                     return;
                                 }
                                 else
                                 {
                                     if (VoucherValueToMinus > FullPrice)
                                     {
-                                        OnWarning?.Invoke("Kwota odliczalna nie może być większa niż kwota zamówienia");
+                                        ShowWarning("Kwota odliczalna nie może być większa niż kwota zamówienia");
                                         return;
                                     }
                                     else
@@ -320,46 +208,30 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                             }
                         }
                         await OrderService.SaveOrder(CurrentOrder, ProductsInCart.ToList(), valueToMinusFromBalance, SelectedVoucher ?? null);
-                        OnSuccess?.Invoke("Zamówienie zostało utworzone");
+                        ShowSuccess("Zamówienie zostało utworzone");
                     }
                     else
                     {
-                        OnWarning?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
-                catch(Exception)
+                catch(Exception ex)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać zamówienia");
+                    ShowError("Nie udało się zapisać zamówienia");
                 }
-            }));
+            });
 
         private RelayCommand _clearCart;
         public RelayCommand ClearCart =>
-            _clearCart ?? (_clearCart = new RelayCommand(obj =>
+            _clearCart ??= new RelayCommand(obj =>
             {
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
-                OnPropertyChanged(nameof(ProductsInCart));
-                OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
-            }));
-        #endregion
+                ProductsList = AllProductsList;
 
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
-
+                OnManyPropertyChanged(new[] { nameof(ProductsInCart), nameof(ProductsList) });
+                ShowSuccess("Koszyk pomyślnie wyczyszczony");
+            });
         #endregion
 
     }

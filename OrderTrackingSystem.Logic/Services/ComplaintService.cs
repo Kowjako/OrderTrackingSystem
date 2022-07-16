@@ -56,6 +56,8 @@ namespace OrderTrackingSystem.Logic.Services
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
                             complaint.OrderId equals order.Id
+                            join complaintDefinition in dbContext.ComplaintDefinitions on
+                            complaint.ComplaintDefinitionId equals complaintDefinition.Id
                             where order.CustomerId == customerId
                             select new ComplaintsDTO()
                             {
@@ -66,7 +68,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 StateId = complaint.State,
                                 SolutionDate = complaint.SolutionDate,
                                 EndDate = complaint.EndDate,
-                                OrderId = order.Id
+                                OrderId = order.Id,
+                                RemainDays = complaintDefinition.RemainDays
                             };
                 var stagedList = await query.ToListAsync();
                 stagedList.ForEach(p =>
@@ -98,10 +101,9 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, ComplaintFolderDTO folder)
+        public async Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, int folderId)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
@@ -117,11 +119,13 @@ namespace OrderTrackingSystem.Logic.Services
                     var complaintFolderRelation = new ComplaintRelations
                     {
                         ComplaintId = complaintDAL.Id,
-                        ComplaintFolderId = folder.Id
+                        ComplaintFolderId = folderId
                     };
 
                     dbContext.ComplaintRelations.Add(complaintFolderRelation);
                     await dbContext.SaveChangesAsync();
+
+                    complaint.Id = complaintDAL.Id;
                 }
                 transactionScope.Complete();
             }
@@ -178,8 +182,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         private async Task DeleteChilds(ComplaintFolderDTO parent, OrderTrackingSystemEntities context)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 foreach (var child in parent.Children)
                 {
@@ -217,8 +220,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task DeleteAndMoveToAncestor(ComplaintFolderDTO complaintFolder)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
@@ -251,6 +253,9 @@ namespace OrderTrackingSystem.Logic.Services
                         dbContext.Entry(p).State = EntityState.Modified;
                     });
 
+                    var complaintFolders = new ComplaintFolders { Id = complaintFolder.Id };
+                    dbContext.Entry(complaintFolders).State = EntityState.Deleted; //robi automatycznie attach i oznacza jako usunieta
+
                     await dbContext.SaveChangesAsync();
                 }
                 transactionScope.Complete();
@@ -282,7 +287,9 @@ namespace OrderTrackingSystem.Logic.Services
                 var query = from complaint in dbContext.ComplaintStates
                             join order in dbContext.Orders on
                             complaint.OrderId equals order.Id
-                            where order.SellerId == sellerId
+                            join complaintDefinition in dbContext.ComplaintDefinitions on
+                            complaint.ComplaintDefinitionId equals complaintDefinition.Id
+                            where order.SellerId == sellerId && !new[] { 0, 3 }.Contains(complaint.State)
                             select new ComplaintsDTO()
                             {
                                 Id = complaint.Id,
@@ -291,7 +298,8 @@ namespace OrderTrackingSystem.Logic.Services
                                 Date = complaint.Date.Value,
                                 StateId = complaint.State,
                                 EndDate = complaint.EndDate,
-                                OrderId = order.Id
+                                OrderId = order.Id,
+                                RemainDays = complaintDefinition.RemainDays
                             };
 
                 var preparedList = await query.AsNoTracking().ToListAsync();
@@ -305,13 +313,13 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task UpdateComplaintState(ComplaintStates entity, int sellerId)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using(var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using(var scope = D3TransactionScope.GetTransactionScope())
             {
-                await base.UpdateEntity(entity, entity => entity.SolutionDate); /* Zapisywanie zmodyfikowanej encji */
+                await base.UpdateEntity(entity, entity => entity.SolutionDate, entity => entity.State); /* Zapisywanie zmodyfikowanej encji */
 
-                var customerId = 0;
-                string sellerName = string.Empty;
+                var customerId = default(int);
+                string sellerName = default(string);
+
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
                     customerId = dbContext.Customers.FirstOrDefault(p => p.Orders.Any(x => x.Id == entity.OrderId)).Id;
@@ -338,7 +346,8 @@ namespace OrderTrackingSystem.Logic.Services
         public async Task CloseComplaint(ComplaintStates entity)
         {
             entity.EndDate = DateTime.Now;
-            await base.UpdateEntity(entity, entity => entity.EndDate);
+            entity.State = (int)ComplaintState.ComplaintSolved;
+            await base.UpdateEntity(entity, entity => entity.State, entity => entity.EndDate);
         }
     }
 }

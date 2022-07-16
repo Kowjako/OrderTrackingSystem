@@ -3,27 +3,18 @@ using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Transactions;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class TrackingViewModel : ITrackingViewModel, INotifyPropertyChanged, INotifyableViewModel
+    public partial class TrackingViewModel : BaseViewModel, ITrackingViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly TrackerService TrackerService;
@@ -40,46 +31,12 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #endregion
 
-        #region Bindable objects
-
-        public Action ShowProgressBar;
-
-        public List<TrackableItemDTO> Items { get; set; } = new List<TrackableItemDTO>();
-        public ObservableCollection<ParcelStateDTO> ParcelStates { get; set; } = new ObservableCollection<ParcelStateDTO>();
-
-        private TrackableItemDTO _selectedItem;
-
-        public TrackableItemDTO SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                _selectedItem = value;
-                OnSelectedItemChanged();
-            }
-        }
-
-        public CustomerDTO Customer { get; set; }
-        public CustomerDTO Seller { get; set; }
-
-        /* Filtering bindings */
-        public DateTime StartDate { get; set; } = DateTime.Now;
-        public DateTime EndDate { get; set; } = DateTime.Now;
-        public int ItemsSelection { get; set; }
-
-        public List<ComplaintDefinitionDTO> ComplaintDefinitionsList { get; set; }
-        public ComplaintDefinitionDTO SelectedComplaint { get; set; }
-
-        public bool SentMessageWithComplaint { get; set; } = false;
-
-        #endregion
-
         #region Ctor
 
         public TrackingViewModel()
         {
             TrackerService = new TrackerService();
-            CustomerService = new CustomerService();
+            CustomerService = new CustomerService(new ConfigurationService());
             ComplaintService = new ComplaintService();
             MailService = new MailService();
         }
@@ -87,7 +44,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentCustomer = await CustomerService.GetCurrentCustomer();
             Items = await TrackerService.GetItemsForCustomer(CurrentCustomer.Id);
@@ -105,146 +62,104 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
-            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
+            _filterCommand ??= new RelayCommand(obj =>
             {
-                try
+                Items = CurrentItems;
+                switch (ItemsSelection)
                 {
-                    Items = CurrentItems;
-                    switch(ItemsSelection)
-                    {
-                        case 1:
-                            Items = Items.Where(p => p.IsOrder).ToList();
-                            break;
-                        case 2:
-                            Items = Items.Where(p => !p.IsOrder).ToList();
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if(StartDate != EndDate)
-                    {
-                        Items = Items.Where(p => p.Date < EndDate && 
-                                                 p.Date > StartDate).ToList();
-                    }
-                    OnPropertyChanged(nameof(Items));
+                    case 1:
+                        Items = Items.Where(p => p.IsOrder).ToList();
+                        break;
+                    case 2:
+                        Items = Items.Where(p => !p.IsOrder).ToList();
+                        break;
+                    default:
+                        break;
                 }
-                catch (Exception)
+
+                if (StartDate != EndDate)
                 {
-
+                    Items = Items.Where(p => p.Date < EndDate &&
+                                             p.Date > StartDate).ToList();
                 }
-            }));
+                OnPropertyChanged(nameof(Items));
+            });
 
         private RelayCommand _findParcel;
         public RelayCommand FindParcel =>
-            _findParcel ?? (_findParcel = new RelayCommand(obj =>
+            _findParcel ??= new RelayCommand(obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
+                    if (!Items.Any(p => p.Number.Equals(obj as string)))
                     {
-                        if(!Items.Any(p => p.Number.Equals(obj as string)))
-                        {
-                            OnWarning("Nie ma elementu o takim numerze");
-                            return;
-                        }
-                        Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Number.Equals(obj as string)) };
-                        OnPropertyChanged(nameof(Items));
+                        ShowWarning("Nie ma elementu o takim numerze");
+                        return;
                     }
-                    else
-                    {
-                        OnWarning("Numer nie może być pusty");
-                    }
-                }
-                catch (Exception)
-                {
-
-                }
-            }));
-
-        private RelayCommand _showProgress;
-        public RelayCommand ShowProgress =>
-            _showProgress ?? (_showProgress = new RelayCommand(async obj =>
-            {
-                try
-                {
-                    if (SelectedItem.IsOrder)
-                    {
-                        var parcelId = SelectedItem.Id;
-                        /* Load current selected parcel states */
-                        ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
-                        OnPropertyChanged(nameof(ParcelStates));
-                    }
-                    else
-                    {
-                        OnWarning("Progres można zobaczyć tylko dla zamówień");
-                    }
-                }
-                catch (Exception)
-                {
-
-                }
-            }));
-
-        private RelayCommand _makeComplaint;
-        public RelayCommand MakeComplaint =>
-            _makeComplaint ?? (_makeComplaint = new RelayCommand(async obj =>
-            {
-                try
-                {
-                    if (SelectedItem.IsOrder)
-                    {
-                        var orderId = SelectedItem.Id;
-                        var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-                        using(var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
-                        {
-                            /* Dodanie kolejnego statusu na zalozenie reklamacji */
-                            await TrackerService.AddNewStateForOrder(orderId, OrderState.ComplaintSet);
-                            /* Dodac reklamacje */
-                            await ComplaintService.RegisterNewComplaint(SelectedComplaint.Id, orderId);
-                            if(SentMessageWithComplaint)
-                            {
-                                /* wysylamy automatyczne powiadomienie */
-                                var receiverId = SelectedItem.SellerId;
-                                await MailService.SendComplaintMessage(receiverId, SelectedItem.CustomerId, SelectedItem.Id);
-                            }
-                            transactionScope.Complete();
-                        }
-                        OnSuccess("Reklamacja założona poprawnie");
-                    }
-                    else
-                    {
-                        OnWarning("Rezygnację można złożyć tylko na zamówienia.");
-                    }
-                }
-                catch
-                {
-                    OnFailure("Błąd podczas założenia reklamacji");
-                }
-            }));
-
-        private RelayCommand _confirmDelivery;
-        public RelayCommand ConfirmDelivery =>
-            _confirmDelivery ?? (_confirmDelivery = new RelayCommand(async obj =>
-            {
-                if (SelectedItem.IsOrder)
-                {
-                    var parcelStates = await TrackerService.GetParcelState(SelectedItem.Id);
-                    if(!parcelStates.Any(p => p.StateId == (int)OrderState.Getted))
-                    {
-                        await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
-                        OnSuccess("Odbiór został potwierdzony.");
-                    }
-                    else
-                    {
-                        OnWarning("Przesyłka już jest odebrana.");
-                    } 
+                    Items = new List<TrackableItemDTO>() { Items.FirstOrDefault(p => p.Number.Equals(obj as string)) };
+                    OnPropertyChanged(nameof(Items));
                 }
                 else
                 {
-                    OnWarning("Potwierdzenie odbioru dostępne dla zamówionych elementów.");
+                    ShowWarning("Numer nie może być pusty");
                 }
-            }));
+            });
+
+        private RelayCommand _showProgress;
+        public RelayCommand ShowProgress =>
+            _showProgress ??= new RelayCommand(async obj =>
+            {
+                var parcelId = SelectedItem.Id;
+                /* Load current selected parcel states */
+                ParcelStates = new ObservableCollection<ParcelStateDTO>(await TrackerService.GetParcelState(parcelId));
+                OnPropertyChanged(nameof(ParcelStates));
+            }, e => SelectedItem?.IsOrder ?? false);
+
+        private RelayCommand _makeComplaint;
+        public RelayCommand MakeComplaint =>
+            _makeComplaint ??= new RelayCommand(async obj =>
+            {
+                try
+                {
+                    var orderId = SelectedItem.Id;
+                    var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
+                    using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+                    {
+                        /* Dodanie kolejnego statusu na zalozenie reklamacji */
+                        await TrackerService.AddNewStateForOrder(orderId, OrderState.ComplaintSet);
+                        /* Dodac reklamacje */
+                        await ComplaintService.RegisterNewComplaint(SelectedComplaint.Id, orderId);
+                        if (SentMessageWithComplaint)
+                        {
+                            /* wysylamy automatyczne powiadomienie */
+                            var receiverId = SelectedItem.SellerId;
+                            await MailService.SendComplaintMessage(receiverId, SelectedItem.CustomerId, SelectedItem.Id);
+                        }
+                        transactionScope.Complete();
+                    }
+                    ShowSuccess("Reklamacja założona poprawnie");
+                }
+                catch (InvalidOperationException ex)
+                {
+                    ShowError(ex.Message);
+                }
+            }, e => SelectedItem?.IsOrder ?? false);
+
+        private RelayCommand _confirmDelivery;
+        public RelayCommand ConfirmDelivery =>
+            _confirmDelivery ??= new RelayCommand(async obj =>
+            {
+                var parcelStates = await TrackerService.GetParcelState(SelectedItem.Id);
+                if (!parcelStates.Any(p => p.StateId == (int)OrderState.Getted))
+                {
+                    await TrackerService.AddNewStateForOrder(SelectedItem.Id, OrderState.Getted);
+                    ShowSuccess("Odbiór został potwierdzony.");
+                }
+                else
+                {
+                    ShowWarning("Przesyłka już jest odebrana.");
+                }
+            }, e => SelectedItem?.IsOrder ?? false);
 
         #endregion
 
@@ -267,25 +182,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 /* Update UI bindings */
                 OnPropertyChanged(nameof(Customer));
                 OnPropertyChanged(nameof(Seller));
-            }
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
             }
         }
 

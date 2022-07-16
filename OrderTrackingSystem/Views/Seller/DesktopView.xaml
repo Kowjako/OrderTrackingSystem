@@ -6,15 +6,17 @@
              xmlns:converter="clr-namespace:OrderTrackingSystem.Presentation.ValueConverter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:res="clr-namespace:OrderTrackingSystem.Presentation.Properties"
+             xmlns:p="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              x:Name="desktopView"           
              mc:Ignorable="d" 
              Loaded="desktopView_Loaded"
-             d:DesignHeight="950" d:DesignWidth="1000">
+             d:DesignHeight="1050" d:DesignWidth="1200">
     <UserControl.Resources>
         <converter:NullToVisibilityConverter x:Key="ntvConverter"/>
         <converter:BoolToVisibilityConverter x:Key="btvConverter"/>
         <converter:DecimalToStringConverter x:Key="dtsConverter"/>
         <converter:ByteToStringConverter x:Key="btsConverter"/>
+        <converter:DateToStringConverter x:Key="dateTsConverter"/>
     </UserControl.Resources>
     <Grid x:Name="contentGrid">
         <Grid.ColumnDefinitions>
@@ -29,13 +31,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="{x:Static res:Resources.Desktop}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
+
         <GridSplitter Grid.Column="1"
                       Grid.Row="0"
                       Grid.RowSpan="4"
@@ -54,22 +50,27 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Bottom"
                       Background="Black"/>
-        <DockPanel Grid.Column="0" Grid.RowSpan="4" Grid.Row="1" Background="LightPink">
-            <GroupBox Header="{x:Static res:Resources.ChangeParcelState}"
+
+        <p:ExtensibleViewPanel_v2 Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.RowSpan="5"
+                                  CaptionV2="{x:Static res:Resources.Desktop}">
+            <DockPanel Grid.Column="0" Grid.RowSpan="4" Grid.Row="1" Background="LightPink">
+                <GroupBox Header="{x:Static res:Resources.ChangeParcelState}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <TextBlock FontWeight="DemiBold"
+                    <StackPanel>
+                        <TextBlock FontWeight="DemiBold"
                                FontSize="12.5"
                                Visibility="{Binding SelectedOrder, Converter={StaticResource ntvConverter}}"
                                Margin="0 0 0 10">
                         <Run Text="{x:Static res:Resources.ParcelNumber}"/>
-                        <Run Text="{Binding SelectedOrder.Numer}" Foreground="RoyalBlue"/>
-                    </TextBlock>
-                    <ComboBox DockPanel.Dock="Top"
+                        <Run Text="{Binding SelectedOrder.Number}" Foreground="RoyalBlue"/>
+                        </TextBlock>
+                        <ComboBox DockPanel.Dock="Top"
                         x:Name="voucherBox"
                         ItemsSource="{Binding ParcelAvailableStates}"
                         DisplayMemberPath="Item1"
@@ -80,32 +81,32 @@
                         Padding="5,10,10,10"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.SelectState}"
                         IsEditable="False">
-                    </ComboBox>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{x:Static res:Resources.SendMessage}"
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="{x:Static res:Resources.SendMessage}"
                 Margin="5"
                 DataContext="{Binding CurrentMail}"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <StackPanel>
-                    <TextBox
+                    <StackPanel>
+                        <TextBox
                     Margin="0,0,0,10"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    MinHeight="40"
+                    MinHeight="35"
                     Padding="7,8,0,0"
                     FontSize="15"
                     Text="{Binding Caption, UpdateSourceTrigger=PropertyChanged}"
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Title}"
                     />
-                    <TextBox
+                        <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    MinHeight="40"
+                    MinHeight="35"
                     Margin="0,0,0,10"
                     TextWrapping="Wrap"
                     Padding="7,8,0,0"
@@ -114,10 +115,10 @@
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Content}"
                     />
-                    <TextBox
+                        <TextBox
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     VerticalAlignment="Top"
-                    MinHeight="40"
+                    MinHeight="35"
                     TextWrapping="Wrap"
                     Padding="7,8,0,0"
                     FontSize="15"
@@ -125,26 +126,26 @@
                     materialDesign:HintAssist.Background="LightPink"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Receiver}"
                     />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{x:Static res:Resources.AddProduct}"
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="{x:Static res:Resources.AddProduct}"
                 Margin="5"
-                DataContext="{Binding CurrentProduct}"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <TextBox DockPanel.Dock="Top"
+                    <StackPanel>
+                        <Grid DataContext="{Binding CurrentProduct}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
@@ -152,7 +153,7 @@
                     Text="{Binding Name, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                                <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.PriceNetto}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
@@ -161,7 +162,7 @@
                                    Mode=TwoWay, 
                                    Converter={StaticResource dtsConverter},
                                    UpdateSourceTrigger=LostFocus}" />
-                        <TextBox DockPanel.Dock="Top"
+                                <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.VAT}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 5 5"
@@ -170,9 +171,9 @@
                                    Converter={StaticResource btsConverter},
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <TextBox DockPanel.Dock="Top"
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Weight}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -181,7 +182,7 @@
                                    Mode=TwoWay, 
                                    Converter={StaticResource dtsConverter},
                                    UpdateSourceTrigger=LostFocus}" />
-                        <TextBox DockPanel.Dock="Top"
+                                <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Discount}"
                     materialDesign:HintAssist.FloatingScale="1"
                     Margin="0 0 0 5"
@@ -190,19 +191,87 @@
                                    Mode=TwoWay,
                                    Converter={StaticResource btsConverter},
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <!-- Set DataContext to RelativeSource, cause we have DataContext
+                                <!-- Set DataContext to RelativeSource, cause we have DataContext
                         for our GroupBox but we need DataContext as ViewModel-->
-                        <ComboBox materialDesign:HintAssist.Hint="{x:Static res:Resources.Category}"
+                                <ComboBox materialDesign:HintAssist.Hint="{x:Static res:Resources.Category}"
                                   DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   ItemsSource="{Binding ProductCategories}"
                                   SelectedValue="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"
                                   DisplayMemberPath="Name"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="0"
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Grid.Column="0"
                                 Grid.ColumnSpan="2">
-                        <Button Margin="0 5 0 0"
+                            <Button Margin="0 5 0 0"
+                                Command="{Binding AddPicture}"
                                 Background="LimeGreen"
                                 BorderBrush="LimeGreen">
+                                <Button.Content>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="PlusCircleOutline" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="0 0 15 0"
+                                                             Height="20"
+                                                             Width="20"
+                                                             Grid.Column="0" />
+                                        <TextBlock Text="{x:Static res:Resources.LoadImage}" Grid.Column="1"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                
+                
+                <GroupBox Margin="5"
+                DockPanel.Dock="Top"
+                Header="{x:Static res:Resources.VoucherGeneration}"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                materialDesign:ColorZoneAssist.Background="Black"
+                materialDesign:ColorZoneAssist.Foreground="White">
+                    <StackPanel>
+                        <Grid Grid.IsSharedSizeScope="True"
+                              DataContext="{Binding GeneratedVoucher}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{x:Static res:Resources.ExpireDateStr}"
+                                   Grid.Row="1"
+                                   Margin="0 5 0 5"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"/>
+                            <DatePicker Margin="0 0 0 0"
+                                    Grid.Row="1"
+                                    VerticalAlignment="Stretch"
+                                    Focusable="False"
+                                    SelectedDate="{Binding ExpireDate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource dateTsConverter}}"
+                                    Grid.Column="1"
+                                    Padding="0"/>
+                            <TextBlock Text="{x:Static res:Resources.Amount}"
+                                   Grid.Row="2"
+                                   Margin="0 5 0 5"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="0"/>
+                            <TextBox Margin="0 0 0 2"
+                                 Grid.Row="2"
+                                 Text="{Binding Value, UpdateSourceTrigger=LostFocus, Converter={StaticResource dtsConverter}}"
+                                 VerticalAlignment="Stretch"
+                                 Grid.Column="1"/>
+                        </Grid>
+                        <Button Margin="0 5 0 0"
+                                Command="{Binding SelectCustomers}"
+                                Background="CadetBlue"
+                                BorderBrush="CadetBlue">
                             <Button.Content>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -215,61 +284,54 @@
                                                              Height="20"
                                                              Width="20"
                                                              Grid.Column="0" />
-                                    <TextBlock Text="{x:Static res:Resources.LoadImage}" Grid.Column="1"/>
+                                    <TextBlock Text="{x:Static res:Resources.AddClients}" Grid.Column="1"/>
                                 </Grid>
                             </Button.Content>
                         </Button>
                     </StackPanel>
-                </Grid>
-            </GroupBox>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                </GroupBox>
+                
+                
+                <DockPanel DockPanel.Dock="Bottom">
+                    <DockPanel.Resources>
+                        <Style x:Key="standardBtn" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}"
+                               TargetType="{x:Type Button}">
+                            <Style.Setters>
+                                <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                                <Setter Property="Background" Value="Maroon"/>
+                                <Setter Property="BorderBrush" Value="Maroon"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="materialDesign:RippleAssist.Feedback" Value="#DD000000"/>
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                <Setter Property="Margin" Value="5"/>
+                            </Style.Setters>
+                        </Style>
+                    </DockPanel.Resources>
+                    <Button
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding ChangeParcelState}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ChangeState}" />
-                <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    <Button
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding SendMessage}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.SendMessageAction}" />
-                <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    <Button
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding ApproveComplaint}"
                     CommandParameter="{Binding ElementName=complaintGrid, Path=SelectedItem}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.ApproveComplaint}" />
-                <Button
-                    DockPanel.Dock="Bottom"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Background="Maroon"
-                    BorderBrush="Maroon"
-                    Foreground="White"
-                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    <Button
+                    Style="{StaticResource standardBtn}"
                     Command="{Binding AddProduct}"
-                    Margin="5"
-                    VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.AddProductAction}" />
+                    <Button
+                    Style="{StaticResource standardBtn}"
+                    Command="{Binding GenerateVouchers}"
+                    Content="{x:Static res:Resources.GenerateVouchers}"/>
+                </DockPanel>
             </DockPanel>
-        </DockPanel>
+        </p:ExtensibleViewPanel_v2>
+
         <DockPanel  Grid.Column="1"
                     Grid.RowSpan="3"
                     LastChildFill="True"

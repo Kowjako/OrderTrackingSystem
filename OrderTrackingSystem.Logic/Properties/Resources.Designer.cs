@@ -358,7 +358,7 @@ namespace OrderTrackingSystem.Logic.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Witam, złożyłem reklamację na swoje zamówienie pod numerem {0}. Pozdrawiam {1}..
+        ///   Looks up a localized string similar to Witam, złożyłem reklamację na swoje zamówienie pod numerem {0}. Treść: {1}. Pozdrawiam {2}..
         /// </summary>
         public static string MailAutomaticSetComplaint {
             get {

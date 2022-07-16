@@ -3,26 +3,15 @@ using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Validators;
-using OrderTrackingSystem.Presentation.Interfaces;
 using OrderTrackingSystem.Presentation.Interfaces.Seller;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace OrderTrackingSystem.Presentation.ViewModels.Seller
 {
-    public class SellerAccountViewModel : ISellerAccountViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public class SellerAccountViewModel : BaseViewModel, ISellerAccountViewModel
     {
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
         #region Services
 
         private readonly LocalizationService LocalizationService;
@@ -46,16 +35,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         public SellerAccountViewModel()
         {
             LocalizationService = new LocalizationService();
-            OrderService = new OrderService();
+            CustomerService = new CustomerService(new ConfigurationService());
+            OrderService = new OrderService(CustomerService);
             ComplaintService = new ComplaintService();
-            CustomerService = new CustomerService();
         }
 
         #endregion
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             CurrentSeller = await CustomerService.GetCurrentSeller();
             Localizations = new List<LocalizationDTO> { await LocalizationService.GetLocalizationById(CurrentSeller.LocalizationId) };
@@ -71,7 +60,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
         private RelayCommand _saveCommand;
 
         public RelayCommand SaveCommand =>
-            _saveCommand ?? (_saveCommand = new RelayCommand(async obj =>
+            _saveCommand ??= new RelayCommand(async obj =>
             {
                 try
                 {
@@ -96,39 +85,20 @@ namespace OrderTrackingSystem.Presentation.ViewModels.Seller
                             ZipCode = currentLocalization.ZipCode
                         };
                         await LocalizationService.UpdateLocalization(localization);
-                        OnSuccess?.Invoke("Zmiany zostały zapisane");
+                        ShowSuccess("Zmiany zostały zapisane");
                     }
                     else
                     {
-                        OnFailure?.Invoke(ValidatorWrapper.ErrorMessage);
+                        ShowWarning(ValidatorWrapper.ErrorMessage);
                     }
                 }
                 catch (Exception)
                 {
-                    OnFailure?.Invoke("Błąd podczas aktualizacji danych");
+                    ShowError("Błąd podczas aktualizacji danych");
                 }
-            }));
+            });
 
 
         #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
-
-        #endregion
-
     }
 }

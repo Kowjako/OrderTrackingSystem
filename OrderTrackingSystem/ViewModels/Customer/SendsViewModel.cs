@@ -1,20 +1,16 @@
 ﻿using OrderTrackingSystem.Interfaces;
-using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Presentation.Interfaces;
+using OrderTrackingSystem.Presentation.ViewModels.Common;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace OrderTrackingSystem.Presentation.ViewModels
 {
-    public class SendsViewModel : ISendsViewModel, INotifyableViewModel, INotifyPropertyChanged
+    public partial class SendsViewModel : BaseViewModel, ISendsViewModel
     {
         #region Private methods
 
@@ -35,49 +31,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #endregion
 
-        #region Bindable properties
-
-        public decimal TotalPriceNetto { get; set; } = 0;
-
-        private float _boxPrice;
-        public float BoxPrice
-        {
-            get => _boxPrice;
-            set
-            {
-                _boxPrice = value;
-                OnPropertyChanged(nameof(BoxPrice));
-                OnPropertyChanged(nameof(FullPrice));
-            }
-        }
-
-        public decimal VAT { get; } = 23;
-        public decimal TotalPriceBrutto => TotalPriceNetto * VAT / 100;
-        public decimal FullPrice => TotalPriceBrutto + TotalPriceNetto + (decimal)BoxPrice;
-
-        /* Filtering */
-        public decimal MinPrice { get; set; }
-        public decimal MaxPrice { get; set; }
-
-        public bool IsPickupDaysDefined { get; set; }
-        public bool SendAutomaticMail { get; set; }
-        public int PickupDays { get; set; }
-
-        public CategoryDTO SelectedSubCategory { get; set; }
-
-        public Customers CurrentSeller { get; private set; }
-        public CustomerDTO CurrentReceiver { get; private set; }
-        public List<ProductDTO> AllProductsList { get; set; } = new List<ProductDTO>();
-        public List<ProductDTO> ProductsList { get; set; } = new List<ProductDTO>();
-        public List<CategoryDTO> CategoriesList { get; set; } = new List<CategoryDTO>();
-        public ProductDTO SelectedProduct { get; set; }
-        /* Używamy BindingList do śledzenia zmian obiektów z listy */
-        public BindingList<CartProductDTO> ProductsInCart { get; set; } = new BindingList<CartProductDTO>();
-
-        public int CurrentProductAmount { get; set; } = 0;
-
-        #endregion
-
         #region Services
 
         private readonly CustomerService CustomerService;
@@ -91,9 +44,9 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public SendsViewModel()
         {
-            CustomerService = new CustomerService();
-            ProductService = new ProductService();
-            SellService = new SellService();
+            CustomerService = new CustomerService(new ConfigurationService());
+            ProductService = new ProductService(new ConfigurationService());
+            SellService = new SellService(CustomerService);
             MailService = new MailService();
         }
 
@@ -101,7 +54,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         #region Public methods
 
-        public async Task SetInitializeProperties()
+        public override async Task SetInitializeProperties()
         {
             AllProductsList = await ProductService.GetAllProducts();
             CurrentSeller = await CustomerService.GetCurrentCustomer();
@@ -116,183 +69,134 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         private RelayCommand minusAmount;
         public RelayCommand MinusAmount =>
-            minusAmount ?? (minusAmount = new RelayCommand(obj =>
+            minusAmount ??= new RelayCommand(obj =>
             {
-                if (CurrentProductAmount == 0)
-                {
-                    return;
-                }
-                else
-                {
-                    CurrentProductAmount--;
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                }
-            }));
+                CurrentProductAmount--;
+                OnPropertyChanged(nameof(CurrentProductAmount));
+            }, (e) => CurrentProductAmount > 0);
 
         private RelayCommand plusAmount;
         public RelayCommand PlusAmount =>
-            plusAmount ?? (plusAmount = new RelayCommand(obj =>
+            plusAmount ??= new RelayCommand(obj =>
             {
                 CurrentProductAmount++;
                 OnPropertyChanged(nameof(CurrentProductAmount));
-            }));
+            });
 
         private RelayCommand _findReceiver;
         public RelayCommand FindReceiver =>
-            _findReceiver ?? (_findReceiver = new RelayCommand(async obj =>
+            _findReceiver ??= new RelayCommand(async obj =>
             {
-                try
+                if (!string.IsNullOrEmpty(obj as string))
                 {
-                    if (!string.IsNullOrEmpty(obj as string))
-                    {
-                        CurrentReceiver = await CustomerService.GetCustomerByName(obj as string);
-                        OnPropertyChanged(nameof(CurrentReceiver));
-                    }
-                    else
-                    {
-                        OnWarning?.Invoke("Pole odbiorca nie może być puste");
-                    }
+                    CurrentReceiver = await CustomerService.GetCustomerByName(obj as string);
+                    OnPropertyChanged(nameof(CurrentReceiver));
                 }
-                catch (Exception ex)
+                else
                 {
-
+                    ShowWarning("Pole odbiorca nie może być puste");
                 }
-            }));
+            });
 
         private RelayCommand _addToCart;
         public RelayCommand AddToCart =>
-            _addToCart ?? (_addToCart = new RelayCommand(obj =>
+            _addToCart ??= new RelayCommand(obj =>
             {
-                try
+                if (CurrentProductAmount == default) return;
+                if (ProductsInCart.Any(x => x.Id.Equals(SelectedProduct.Id)))
                 {
-                    if (ProductsInCart.Any(x => x.Name.Equals(SelectedProduct.Name)))
+                    var existingProduct = ProductsInCart.First(x => x.Id.Equals(SelectedProduct.Id));
+                    var elementIndex = ProductsInCart.IndexOf(existingProduct);
+                    existingProduct.Amount += CurrentProductAmount;
+                    ProductsInCart[elementIndex] = existingProduct;
+                }
+                else
+                {
+                    var priceWithDiscount = SelectedProduct.PriceNetto - (SelectedProduct.PriceNetto * SelectedProduct.Discount / 100);
+                    ProductsInCart.Add(new CartProductDTO()
                     {
-                        var existingProduct = ProductsInCart.First(x => x.Name.Equals(SelectedProduct.Name));
-                        var elementIndex = ProductsInCart.IndexOf(existingProduct);
-                        existingProduct.Amount = existingProduct.Amount + CurrentProductAmount;
-                        ProductsInCart[elementIndex] = existingProduct;
-                    }
-                    else
-                    {
-                        var priceWithDiscount = SelectedProduct.PriceNetto - (SelectedProduct.PriceNetto * SelectedProduct.Discount / 100);
-                        ProductsInCart.Add(new CartProductDTO()
-                        {
-                            Id = SelectedProduct.Id,
-                            Name = SelectedProduct.Name,
-                            Price = priceWithDiscount,
-                            Amount = CurrentProductAmount,
-                            Discount = SelectedProduct.Discount
-                        });
-                    }
+                        Id = SelectedProduct.Id,
+                        Name = SelectedProduct.Name,
+                        Price = priceWithDiscount,
+                        Amount = CurrentProductAmount,
+                        Discount = SelectedProduct.Discount
+                    });
+                    SelectedSellerId = SelectedProduct.SellerId;
+                    ProductsList = AllProductsList.Where(p => p.SellerId == SelectedSellerId).ToList();
+                }
 
-                    CurrentProductAmount = 0;
-                    RecalculateCartPrice();
-                    OnPropertyChanged(nameof(CurrentProductAmount));
-                    OnPropertyChanged(nameof(ProductsInCart));
-                }
-                catch (Exception ex)
-                {
-                    OnFailure?.Invoke("Nie udało się dodać do koszyka");
-                }
-            }));
+                CurrentProductAmount = 0;
+                RecalculateCartPrice();
+                OnManyPropertyChanged(new[] { nameof(CurrentProductAmount), nameof(ProductsInCart), nameof(ProductsList) });
+            }, (e) => SelectedProduct != null && CurrentProductAmount > 0);
 
         private RelayCommand _filterCommand;
         public RelayCommand FilterCommand =>
-            _filterCommand ?? (_filterCommand = new RelayCommand(obj =>
+            _filterCommand ??= new RelayCommand(obj =>
             {
-                try
+                ProductsList = AllProductsList;
+                if (MaxPrice == 0m)
                 {
-                    ProductsList = AllProductsList;
-
-                    if (MaxPrice == 0m)
-                    {
-                        ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice).ToList();
-                    }
-                    else
-                    {
-                        ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice && p.PriceNetto <= MaxPrice).ToList();
-                    }
-
-                    if(SelectedSubCategory != null)
-                    {
-                        /* Ustawiamy ID grupy glownej i jej grup podrzednych */
-                        var list = SelectedSubCategory.Children.Select(p => p.Id).ToList();
-                        list.Add(SelectedSubCategory.Id);
-                        ProductsList = ProductsList.Where(p => p.CategoryId.In(list.ToArray())).ToList();
-                    }
-                    OnPropertyChanged(nameof(ProductsList));
+                    ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice).ToList();
                 }
-                catch (Exception)
+                else
                 {
-
+                    ProductsList = ProductsList.Where(p => p.PriceNetto >= MinPrice && p.PriceNetto <= MaxPrice).ToList();
                 }
-            }));
+
+                if (SelectedSubCategory != null)
+                {
+                    /* Ustawiamy ID grupy glownej i jej grup podrzednych */
+                    var list = SelectedSubCategory.Children.Select(p => p.Id).ToList();
+                    list.Add(SelectedSubCategory.Id);
+                    ProductsList = ProductsList.Where(p => p.CategoryId.In(list.ToArray())).ToList();
+                }
+                OnPropertyChanged(nameof(ProductsList));
+            });
 
         private RelayCommand _clearCart;
         public RelayCommand ClearCart =>
-            _clearCart ?? (_clearCart = new RelayCommand(obj =>
+            _clearCart ??= new RelayCommand(obj =>
             {
                 ProductsInCart.Clear();
                 RecalculateCartPrice();
-                OnPropertyChanged(nameof(ProductsInCart));
-                OnSuccess?.Invoke("Koszyk pomyślnie wyczyszczony");
-            }));
+                ProductsList = AllProductsList;
+
+                OnManyPropertyChanged(new[] { nameof(ProductsInCart), nameof(ProductsList) });
+                ShowSuccess("Koszyk pomyślnie wyczyszczony");
+            });
 
         private RelayCommand _acceptSend;
         public RelayCommand AcceptSell =>
-            _acceptSend ?? (_acceptSend = new RelayCommand(async obj =>
+            _acceptSend ??= new RelayCommand(async obj =>
             {
                 try
                 {
                     if (ProductsInCart.Count == 0)
                     {
-                        OnWarning?.Invoke("Należy dodać produkt do koszyka");
+                        ShowWarning("Należy dodać produkt do koszyka");
                         return;
                     }
 
-                    var currentSell = new SellDTO();
-                    currentSell.SellerId = CurrentSeller.Id;
-                    currentSell.CustomerId = CurrentReceiver.Id;
-                    currentSell.PickupDays = IsPickupDaysDefined ? PickupDays : 0;
+                    var currentSell = new SellDTO()
+                    {
+                        SellerId = CurrentSeller.Id,
+                        CustomerId = CurrentReceiver.Id,
+                        PickupDays = IsPickupDaysDefined ? PickupDays : 0
+                    };
 
                     await SellService.SaveSell(currentSell, ProductsInCart.ToList());
                     if(SendAutomaticMail)
                     {
                         await MailService.GenerateAutomaticMessageAfterSend(CurrentReceiver.Id, CurrentSeller.Id, currentSell.Number);
                     }
-                    OnSuccess?.Invoke("Wysyłka została utworzona");
+                    ShowSuccess("Wysyłka została utworzona");
                 }
-                catch
+                catch (InvalidOperationException ex)
                 {
-                    OnFailure?.Invoke("Nie udało się zapisać wysyłki");
+                    ShowError(ex.Message);
                 }
-            }));
-
-        #endregion
-
-        #region INotifyableViewModel implementation
-
-        public event Action<string> OnSuccess;
-        public event Action<string> OnFailure;
-        public event Action<string> OnWarning;
-
-        #endregion
-
-        #region INotifyPropertyChanged implementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public void OnManyPropertyChanged(IEnumerable<string> props)
-        {
-            foreach (var prop in props)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+            });
 
         #endregion
 

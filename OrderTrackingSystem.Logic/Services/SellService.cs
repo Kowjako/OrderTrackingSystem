@@ -1,5 +1,6 @@
 ﻿using OrderTrackingSystem.Logic.DataAccessLayer;
 using OrderTrackingSystem.Logic.DTO;
+using OrderTrackingSystem.Logic.HelperClasses;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,14 @@ namespace OrderTrackingSystem.Logic.Services
 {
     public class SellService : ISellService
     {
-        private ProductService ProductService => new ProductService();
+        private ProductService ProductService => new ProductService(ConfigurationService);
         private IConfigurationService ConfigurationService = new ConfigurationService();
+        private ICustomerService CustomerService;
+
+        public SellService(ICustomerService customerService)
+        {
+            CustomerService = customerService;
+        }
 
         public async Task<List<SellDTO>> GetSellsForCustomer(int customerId)
         {
@@ -33,6 +40,7 @@ namespace OrderTrackingSystem.Logic.Services
                                                 select receiver.Name + " " + receiver.Surname).ToList()
                             select new SellDTO
                             {
+                                Id = sells.Id,
                                 Number = sells.Number,
                                 Date = sells.SellingDate,
                                 PickupDays = sells.PickupDays.Value,
@@ -46,11 +54,16 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task SaveSell(SellDTO order, List<CartProductDTO> products)
         {
-            var transactionOptions = new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted };
-            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
                 using (var dbContext = new OrderTrackingSystemEntities())
                 {
+                    var customer = await CustomerService.GetCurrentCustomer();
+                    if(customer.Balance <= products.Sum(p => p.Price * p.Amount))
+                    {
+                        throw new InvalidOperationException("Kwota wysyłki jest większa niż kwota konta");
+                    }
+
                     var sellDAL = new Sells
                     {
                         Number = ConfigurationService.GenerateElementNumber(),
@@ -66,6 +79,10 @@ namespace OrderTrackingSystem.Logic.Services
                     await ProductService.SaveSellProductsForCart(products, sellDAL.Id);
                     /* Ustawiamy numer po dodaniu do bazy */
                     order.Number = sellDAL.Number;
+
+                    customer.Balance -= products.Sum(p => p.Price * p.Amount);
+                    await CustomerService.UpdateCustomer(customer);
+                    order.Id = sellDAL.Id;
                 }
                 transactionScope.Complete();
             }

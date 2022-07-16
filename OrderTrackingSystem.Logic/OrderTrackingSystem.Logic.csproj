@@ -128,6 +128,9 @@
     <Compile Include="DataAccessLayer\Pickups.cs">
       <DependentUpon>OrderTrackingSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccessLayer\Processes.cs">
+      <DependentUpon>OrderTrackingSystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccessLayer\ProductCategories.cs">
       <DependentUpon>OrderTrackingSystemModel.tt</DependentUpon>
     </Compile>
@@ -160,19 +163,22 @@
     <Compile Include="DTO\MailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\Pagination\IPagedEntity.cs" />
+    <Compile Include="DTO\Pagination\Paginator.cs" />
     <Compile Include="DTO\ParcelStateDTO.cs" />
     <Compile Include="DTO\PickupDTO.cs" />
+    <Compile Include="DTO\ProcessDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\SellDTO.cs" />
     <Compile Include="DTO\TrackableItemDTO.cs" />
     <Compile Include="DTO\VoucherDTO.cs" />
     <Compile Include="HelperClasses\Cryptography.cs" />
-    <Compile Include="HelperClasses\DisplayNameBinder.cs" />
+    <Compile Include="HelperClasses\D3TransactionScope.cs" />
     <Compile Include="HelperClasses\DTOAttributes\DTOAttributes.cs" />
     <Compile Include="HelperClasses\EnumMapper.cs" />
     <Compile Include="HelperClasses\Extensions.cs" />
     <Compile Include="HelperClasses\ImageDataHelper.cs" />
     <Compile Include="HelperClasses\ParcelStateFSM.cs" />
+    <Compile Include="HelperClasses\ProcessRunner.cs" />
     <Compile Include="HelperClasses\RecursiveTreeFiller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -216,6 +222,7 @@
     <Compile Include="Validators\ProductValidator.cs" />
     <Compile Include="Validators\SellerValidator.cs" />
     <Compile Include="Validators\ValidatorWrapper.cs" />
+    <Compile Include="Validators\VoucherValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -243,6 +250,7 @@
       <LastGenOutput>OrderTrackingSystemModel.cs</LastGenOutput>
     </Content>
     <Content Include="SQL\BaseDefinitionScript.sql" />
+    <Content Include="SQL\ProcessProcedures.sql" />
     <Content Include="SQL\TriggerDefinitionScript.sql" />
   </ItemGroup>
   <ItemGroup>

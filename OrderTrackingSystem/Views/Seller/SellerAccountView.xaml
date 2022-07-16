@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:OrderTrackingSystem.Presentation.Views.Seller"
              mc:Ignorable="d" 
+             xmlns:p="clr-namespace:OrderTrackingSystem.Presentation.CustomControls"
              Loaded="sellerAccountView_Loaded"
              x:Name="sellerAccountView"
              d:DesignHeight="738" d:DesignWidth="1000">
@@ -21,13 +22,7 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="DeepPink">
-            <TextBlock Text="{x:Static res:Resources.CompanyDetails}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="17"
-                       Foreground="Black"/>
-        </Border>
+
         <GridSplitter Grid.Row="1"
                       Grid.Column="1"
                       HorizontalAlignment="Stretch"
@@ -42,17 +37,21 @@
                       Background="Black"
                       Height="4"
                       />
-        <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
-            <StackPanel DataContext="{Binding CurrentSeller}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
-                <GroupBox Header="{x:Static res:Resources.Data}"
+        <p:ExtensibleViewPanel_v2 Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.RowSpan="4"
+                                  CaptionV2="{x:Static res:Resources.CompanyDetails}">
+            <DockPanel Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" Background="LightPink">
+                <StackPanel DataContext="{Binding CurrentSeller}" DockPanel.Dock="Top" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1">
+                    <GroupBox Header="{x:Static res:Resources.Data}"
                 Padding="10"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                    <StackPanel>
-                        <TextBox DockPanel.Dock="Top"
+                        <StackPanel>
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.CompanyName}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -61,7 +60,7 @@
                     Text="{Binding Name, 
                                    Mode=TwoWay, 
                                    UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.OpenDate}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -70,7 +69,7 @@
                     Text="{Binding OpenDate, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.TIN}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -79,7 +78,7 @@
                     Text="{Binding TIN, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Number}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -88,7 +87,7 @@
                     Text="{Binding Number, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox DockPanel.Dock="Top"
+                            <TextBox DockPanel.Dock="Top"
                     materialDesign:HintAssist.Hint="{x:Static res:Resources.Email}"
                     materialDesign:HintAssist.IsFloating="True"
                     materialDesign:HintAssist.FloatingScale="1"
@@ -97,41 +96,41 @@
                     Text="{Binding Email, 
                                      Mode=TwoWay, 
                                      UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-            <GroupBox Header="{x:Static res:Resources.LoginData}"
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                <GroupBox Header="{x:Static res:Resources.LoginData}"
                 Margin="5"
                 DockPanel.Dock="Top"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 materialDesign:ColorZoneAssist.Background="Black"
                 materialDesign:ColorZoneAssist.Foreground="White">
-                <Grid>
+                    <Grid>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBox
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox
                         Grid.Column="1"
                         Grid.Row="0"
                         FontSize="15"
                         Margin="0,0,0,0"
                         x:Name="NameTextBox"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.Login}">
-                    </TextBox>
-                    <PasswordBox
+                        </TextBox>
+                        <PasswordBox
                         Grid.Column="1"
                         Grid.Row="1"
                         FontSize="15"
                         Margin="0,5,0,0"
                         x:Name="PasswordTextBox"
                         materialDesign:HintAssist.Hint="{x:Static res:Resources.Password}">
-                    </PasswordBox>
-                </Grid>
-            </GroupBox>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button
+                        </PasswordBox>
+                    </Grid>
+                </GroupBox>
+                <DockPanel DockPanel.Dock="Bottom">
+                    <Button
                     DockPanel.Dock="Bottom"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Background="Maroon"
@@ -142,9 +141,9 @@
                     Margin="7"
                     VerticalAlignment="Bottom"
                     Content="{x:Static res:Resources.Save}" />
+                </DockPanel>
             </DockPanel>
-
-        </DockPanel>
+        </p:ExtensibleViewPanel_v2>
 
         <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <TextBlock Text="{x:Static res:Resources.CompanyAddress}"

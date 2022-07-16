@@ -21,6 +21,9 @@ namespace OrderTrackingSystem.Logic.DTO
         [Display(Name = "Date", ResourceType = typeof(Properties.Resources))]
         public DateTime Date { get; set; }
 
+        [Display(Name = "RemainDays", ResourceType = typeof(Properties.Resources))]
+        public int RemainDays { get; set; }
+
         #region Non-browsable
 
         [Browsable(false)]
@@ -52,7 +55,7 @@ namespace OrderTrackingSystem.Logic.DTO
 
     }
 
-#pragma warning disable CS1591
+    #pragma warning disable CS1591
     public class ComplaintFolderDTO : IComposite<ComplaintFolderDTO>
     {
         
