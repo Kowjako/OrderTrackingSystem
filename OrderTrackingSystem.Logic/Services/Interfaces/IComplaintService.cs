@@ -34,7 +34,7 @@ namespace OrderTrackingSystem.Logic.Services.Interfaces
         /// </summary>
         /// <param name="complaint">Wzorzec utworzony</param>
         /// <param name="folder">Folder do którego ma być przypisany wzrozec</param>
-        Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, ComplaintFolderDTO folder);
+        Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, int folderId);
         /// <summary>
         /// Metoda dodająca nowy folder do folderów reklamacyjnych
         /// </summary>

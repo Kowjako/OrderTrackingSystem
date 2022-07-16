@@ -101,7 +101,7 @@ namespace OrderTrackingSystem.Logic.Services
             }
         }
 
-        public async Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, ComplaintFolderDTO folder)
+        public async Task SaveComplaintTemplate(ComplaintDefinitionDTO complaint, int folderId)
         {
             using (var transactionScope = D3TransactionScope.GetTransactionScope())
             {
@@ -119,11 +119,13 @@ namespace OrderTrackingSystem.Logic.Services
                     var complaintFolderRelation = new ComplaintRelations
                     {
                         ComplaintId = complaintDAL.Id,
-                        ComplaintFolderId = folder.Id
+                        ComplaintFolderId = folderId
                     };
 
                     dbContext.ComplaintRelations.Add(complaintFolderRelation);
                     await dbContext.SaveChangesAsync();
+
+                    complaint.Id = complaintDAL.Id;
                 }
                 transactionScope.Complete();
             }
@@ -250,6 +252,9 @@ namespace OrderTrackingSystem.Logic.Services
                         p.ComplaintFolderId = complaintFolder.ParentId.Value;
                         dbContext.Entry(p).State = EntityState.Modified;
                     });
+
+                    var complaintFolders = new ComplaintFolders { Id = complaintFolder.Id };
+                    dbContext.Entry(complaintFolders).State = EntityState.Deleted; //robi automatycznie attach i oznacza jako usunieta
 
                     await dbContext.SaveChangesAsync();
                 }

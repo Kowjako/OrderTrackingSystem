@@ -128,5 +128,24 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
                 SendDate = DateTime.Now
             };
         }
+
+        public static ComplaintDefinitionDTO CreateComplaintDefinition()
+        {
+            return new ComplaintDefinitionDTO()
+            {
+                Name = "1",
+                RemainDays = 5,
+                Definition = "2"
+            };
+        }
+
+        public static ComplaintStates CreateComplaintStateByDTO(ComplaintsDTO comp)
+        {
+            return new ComplaintStates()
+            {
+                Id = comp.Id,
+                OrderId = comp.OrderId
+            };
+        }
     }
 }

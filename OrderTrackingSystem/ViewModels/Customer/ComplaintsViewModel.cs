@@ -59,7 +59,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                 {
                     if(SelectedFolder != null)
                     {
-                        await ComplaintService.SaveComplaintTemplate(CurrentComplaint, SelectedFolder);
+                        await ComplaintService.SaveComplaintTemplate(CurrentComplaint, SelectedFolder.Id);
                         ShowSuccess("Wzorzec został zapisany");
                     }
                     else

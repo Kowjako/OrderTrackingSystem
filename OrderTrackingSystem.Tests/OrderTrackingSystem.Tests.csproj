@@ -61,6 +61,7 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassFixtures\ComplaintTestFixture.cs" />
     <Compile Include="ClassFixtures\CustomerTestFixture.cs" />
     <Compile Include="ClassFixtures\MailTestFixture.cs" />
     <Compile Include="ClassFixtures\OrderTestFixture.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="HelpersTests\HelperDataProvider.cs" />
     <Compile Include="ObjectFactory\EntitiesGenerator.cs" />
     <Compile Include="ObjectFactory\ObjectFactory.cs" />
+    <Compile Include="ServicesTests\ComplaintsTests.cs" />
     <Compile Include="ServicesTests\CustomersTests.cs" />
     <Compile Include="ServicesTests\LocalizationsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

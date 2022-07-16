@@ -13,12 +13,19 @@ namespace OrderTrackingSystem.Tests.ClassFixtures
     {
         public IComplaintService ComplaintService;
         public EntitiesGenerator EntitiesGenerator;
+        public IOrderService OrderService;
+        public ICustomerService CustomerService;
+        public IMailService MailService;
 
         public ComplaintTestFixture()
         {
             ComplaintService = new ComplaintService();
             EntitiesGenerator = new EntitiesGenerator();
+            CustomerService = new CustomerService(new ConfigurationService());
+            OrderService = new OrderService(CustomerService);
+            MailService = new MailService();
         }
+
         public void Dispose() { }
     }
 }
