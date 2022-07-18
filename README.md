@@ -17,8 +17,7 @@ System śledzenia zamówień - moja praca dyplomowa, rozbudowany system do zarz�
     👉 BaseDefinition  
     👉 ProcessDefinition  
     👉 TriggerDefinition  
-4️⃣ Podmienić w całej solucji w każdym pliku App.config nazwę serwera z WLODEKPC\SQLEXPRESS na swoją.  
-5️⃣ Wejść do Services/ConfigurationService zamienić również WLODEKPC\SQLEXPRESS na nazwę swojego SQL servera.  
+4️⃣ Zmienić nazwę SQL Servera na swoją w pliku ConfigurationService.cs pole SQLServerName
 
 # Możliwości:  
 Strona klienta:
@@ -29,6 +28,10 @@ Strona sprzedawcy:
 
 Ogólne możliwości:
 - Aplikacja jest w pełni zlokalizowana w 3 językach (rosyjski, agnielski, polski).  
+
+# Maszyna stanów przejścia przesyłki  
+![ss drawio](https://user-images.githubusercontent.com/19534189/179541006-e94cbd87-fdac-47c8-82b7-4aa415c87526.png)
+
 
 # Wygląd aplikacji
 ![Screenshot_1](https://user-images.githubusercontent.com/19534189/179368891-74c041ee-b52c-4dc8-8314-a05a7d980a23.jpg)
