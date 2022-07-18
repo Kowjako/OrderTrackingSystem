@@ -90,6 +90,9 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+
+            var mock = Mock.Of<ICustomerService>(ld => ld.GetCurrentCustomer() == Task.FromResult(customer));
+            context.OrderService = new OrderService(mock);
             await context.OrderService.SaveOrder(order, elemList, 100.0m);
 
             //act
@@ -109,6 +112,9 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+
+            var mock = Mock.Of<ICustomerService>(ld => ld.GetCurrentCustomer() == Task.FromResult(customer));
+            context.SellService = new SellService(mock);
             await context.SellService.SaveSell(sell, elemList);
 
             //act

@@ -7,6 +7,7 @@ using OrderTrackingSystem.Logic.DTO;
 using OrderTrackingSystem.Logic.EnumMappers;
 using System.Linq;
 using System.Collections.Generic;
+using Moq;
 
 namespace OrderTrackingSystem.Tests.ObjectFactory
 {
@@ -130,6 +131,10 @@ namespace OrderTrackingSystem.Tests.ObjectFactory
             var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+
+            var mock = Mock.Of<ICustomerService>(ld => ld.GetCurrentCustomer() == Task.FromResult(customer));
+            SellService = new SellService(mock);
+
             await SellService.SaveSell(order, elemList);
 
             return (order, product, customer);

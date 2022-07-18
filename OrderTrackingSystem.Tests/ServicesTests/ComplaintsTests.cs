@@ -8,6 +8,10 @@ using OrderTrackingSystem.Logic.DTO;
 using System.Collections.Generic;
 using System;
 using OrderTrackingSystem.Logic.EnumMappers;
+using Moq;
+using OrderTrackingSystem.Logic.Services.Interfaces;
+using System.Threading.Tasks;
+using OrderTrackingSystem.Logic.Services;
 
 namespace OrderTrackingSystem.Tests.ServicesTests
 {
@@ -101,6 +105,10 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var cartElem2 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var cartElem3 = OF.ObjectFactory.CreateCartProduct(product.Id);
             var elemList = new List<CartProductDTO>() { cartElem2, cartElem3 };
+
+            //mock
+            var mock = Mock.Of<IConfigurationService>(ld => ld.GetCurrentSessionId() == Task.FromResult(customer.Id));
+            context.OrderService = new OrderService(new CustomerService(mock));
             await context.OrderService.SaveOrder(order, elemList, 100.0m);
 
             var complaintDefinitionId = await context.EntitiesGenerator.AddNewComplaintDefinitionToDb();

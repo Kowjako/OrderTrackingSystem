@@ -4,6 +4,7 @@ using OrderTrackingSystem.Logic.Services;
 using OrderTrackingSystem.Logic.Services.Interfaces;
 using OrderTrackingSystem.Tests.ClassFixtures;
 using OrderTrackingSystem.Tests.DatabaseFixture;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Extensions.Ordering;
@@ -154,7 +155,7 @@ namespace OrderTrackingSystem.Tests.ServicesTests
             var customers = await context.CustomerService.GetAllCustomers();
 
             //assert
-            Assert.All(customers, item => Assert.True(item.Id.In(ids)));
+            Assert.All(ids, id => Assert.True(id.In(customers.Select(p => p.Id).ToArray())));
         }
 
         [Fact, Order(10)]
