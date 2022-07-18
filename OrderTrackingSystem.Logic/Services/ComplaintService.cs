@@ -16,6 +16,7 @@ namespace OrderTrackingSystem.Logic.Services
     public class ComplaintService : CRUDManager, IComplaintService
     {
         private IMailService MailService => new MailService();
+        private ITrackerService TrackerService => new TrackerService();
 
         public async Task<List<ComplaintFolderDTO>> GetComplaintFolders()
         {
@@ -339,6 +340,8 @@ namespace OrderTrackingSystem.Logic.Services
                 };
 
                 await MailService.AddNewMail(message);
+                await TrackerService.AddNewStateForOrder(entity.OrderId, OrderState.ComplaintResolved);
+
                 scope.Complete();
             }
         }

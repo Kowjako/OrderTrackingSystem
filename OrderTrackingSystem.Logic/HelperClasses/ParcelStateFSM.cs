@@ -178,7 +178,8 @@ namespace OrderTrackingSystem.Logic.HelperClasses
 
         public override IReadOnlyCollection<Tuple<OS, int>> GetNextStates()
         {
-            return new ReadOnlyCollection<Tuple<OS, int>>(new List<Tuple<OS, int>> { new Tuple<OS, int>(OS.ReturnToSeller, 1) });
+            return new ReadOnlyCollection<Tuple<OS, int>>(new List<Tuple<OS, int>> { new Tuple<OS, int>(OS.ReturnToSeller, 1),
+                                                                                     new Tuple<OS, int>(OS.Getted, 0) });
         }
     }
 
