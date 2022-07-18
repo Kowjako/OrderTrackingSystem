@@ -9,6 +9,7 @@
 
 namespace OrderTrackingSystem.Logic.DataAccessLayer
 {
+    using OrderTrackingSystem.Logic.Services;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -16,7 +17,7 @@ namespace OrderTrackingSystem.Logic.DataAccessLayer
     public partial class OrderTrackingSystemEntities : DbContext
     {
         public OrderTrackingSystemEntities()
-            : base("name=OrderTrackingSystemEntities")
+            : base(string.Format(ConfigurationService.D3EntityFrameworkPrefix, ConfigurationService.D3ConnectionString))
         {
         }
     

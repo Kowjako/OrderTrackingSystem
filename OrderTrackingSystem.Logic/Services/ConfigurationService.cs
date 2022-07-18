@@ -42,6 +42,11 @@ namespace OrderTrackingSystem.Logic.Services
 
     public class ConfigurationService : IConfigurationService
     {
+        private static readonly string SQLServerName = @"WLODEKPC\SQLEXPRESS";
+        public static readonly string D3ConnectionStringMarsOff = $@"data source={SQLServerName};initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=False";
+        public static readonly string D3ConnectionString = $@"data source={SQLServerName};initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
+        public static readonly string D3EntityFrameworkPrefix = @"metadata=res://*/DataAccessLayer.OrderTrackingSystemModel.csdl|res://*/DataAccessLayer.OrderTrackingSystemModel.ssdl|res://*/DataAccessLayer.OrderTrackingSystemModel.msl;provider=System.Data.SqlClient;provider connection string='{0}'";
+
         private static readonly char[] CharArray = 
         {
             'A', 'B', 'C', 'D','E','F','G','H','I','G','K','L'
@@ -49,8 +54,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task<int> GetCurrentSessionId()
         {
-            var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(D3ConnectionString))
             {
                 using (var sqlCommand = new SqlCommand("SELECT AccountId, IsClient FROM Session", sqlConnection))
                 {
@@ -69,9 +73,8 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task<(bool isSuccess, bool accType)> MakeSessionForCredentials(string login, string password)
         {
-            var connectionString = @"data source=WLODEKPC\SQLEXPRESS;initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
             (string login, string password, bool accType, int accountId) fetchedData = (string.Empty, string.Empty, false, 0);
-            using (var sqlConnection = new SqlConnection(connectionString))
+            using (var sqlConnection = new SqlConnection(D3ConnectionString))
             {
                 using (var sqlCommand = new SqlCommand("SELECT Login, Password, AccountType, AccountId FROM Users WHERE login = @login", sqlConnection))
                 {

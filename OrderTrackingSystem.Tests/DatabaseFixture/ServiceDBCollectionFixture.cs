@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderTrackingSystem.Logic.Services;
+using System;
 using System.Data.SqlClient;
 using Xunit;
 
@@ -14,7 +15,7 @@ namespace OrderTrackingSystem.Tests.DatabaseFixture
 
         public DBFixture()
         {
-            ConnectionDB = new SqlConnection(@"data source=WLODEKPC\SQLEXPRESS;integrated security=True;MultipleActiveResultSets=False;App=OrderTrackingSystemAPI");
+            ConnectionDB = new SqlConnection(ConfigurationService.D3ConnectionStringMarsOff);
             ConnectionDB.Open();
             TestDatabaseCreator.CreateTestLocalDB(ConnectionDB);
         }
