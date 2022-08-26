@@ -13,14 +13,18 @@ jobs: # joby
     runs-on: windows-latest # na jakiej maszynie uruchamiamy
     steps: 
       - uses: actions/checkout@v3
-      - name: Install .NET Framework 4.8 SDK
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 4.8
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.6
       - name: Restore NuGet's
-        run: dotnet restore
+        run: nuget restore OrderTrackingSystem.sln
       - name: Build OrderTrackingSystem App
-        run: dotnet build --no-restore
+        run: msbuild OrderTrackingSystem.sln
       - name: Run xUnit tests
-        run: dotnet test
+        uses: microsoft/vstest-action@v1.0.0
+        with:
+          testAssembly: OrderTrackingSystem.Tests.dll
+          searchFolder: .\OrderTrackingSystem.Tests\bin\Debug\
+          runInParallel: false
       
