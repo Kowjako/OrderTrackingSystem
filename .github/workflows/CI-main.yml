@@ -21,10 +21,4 @@ jobs: # joby
         run: nuget restore OrderTrackingSystem.sln
       - name: Build OrderTrackingSystem App
         run: msbuild OrderTrackingSystem.sln
-      - name: Run xUnit tests
-        uses: microsoft/vstest-action@v1.0.0
-        with:
-          testAssembly: OrderTrackingSystem.Tests.dll
-          searchFolder: .\OrderTrackingSystem.Tests\bin\Debug\
-          runInParallel: false
       
