@@ -1,4 +1,5 @@
-# ⚓ UKTracker — rozbudowany system do zarządzania przesylkami
+# ⚓ UKTracker — rozbudowany system do zarządzania przesylkami  
+[![CI](https://github.com/Kowjako/OrderTrackingSystem/actions/workflows/CI-main.yml/badge.svg?branch=master)](https://github.com/Kowjako/OrderTrackingSystem/actions/workflows/CI-main.yml)  
 System śledzenia zamówień - moja praca dyplomowa, rozbudowany system do zarządzania zamówieniami, pozwala śledzić jak wysyłane tak i odbierane paczki pozwala budować wzorce reklamacyjne i dużo innych rzeczy.
 
 # Wykorzystane narzędzia
