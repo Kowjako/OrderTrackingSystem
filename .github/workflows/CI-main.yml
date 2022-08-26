@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ] #wykonywany po kazdym push do mastera
+  pull_request:
+    branches: [ "master" ] #wykonywany na kazdym PR do mastera
+
+  workflow_dispatch:
+
+jobs: # joby
+  build: # job - build
+    runs-on: windows-latest # na jakiej maszynie uruchamiamy
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Install .NET Framework 4.8 SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 4.8
+      - name: Restore NuGet's
+        run: dotnet restore
+      - name: Build OrderTrackingSystem App
+        run: dotnet build --no-restore
+      - name: Run xUnit tests
+        run: dotnet test
+      
