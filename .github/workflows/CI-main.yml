@@ -21,4 +21,12 @@ jobs: # joby
         run: nuget restore OrderTrackingSystem.sln
       - name: Build OrderTrackingSystem App
         run: msbuild OrderTrackingSystem.sln
+        
+      # Run tests
+      - name: vstest-action
+        uses: microsoft/vstest-action@v1.0.0
+        with:
+          runInParallel: true
+          searchFolder: ${{ github.workspace }}
+          testAssembly: OrderTrackingSystem.Tests.dll
       
