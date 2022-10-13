@@ -123,6 +123,8 @@ namespace OrderTrackingSystem.Tests.ServicesTests
 
             //assert
             Assert.Equal(expectedSum, list.FirstOrDefault().Value);
+            var items = new[] { 1, 2, 3, 4, 5 };
+            Assert.All(items, item => Assert.True(item % 2 == 0));
         }
     }
 }

@@ -101,6 +101,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                         MailDirection = MailDirectionType.CustomerToCustomer;
                     }
                     OnPropertyChanged(nameof(MailReceiver));
+                    OriginalMail.ReceiverId = MailReceiver.Id;
                 }
                 else
                 {
@@ -147,7 +148,6 @@ namespace OrderTrackingSystem.Presentation.ViewModels
                     if(ValidatorWrapper.IsValid)
                     {
                         OriginalMail.SellerId = CurrentSender.Id;
-                        OriginalMail.ReceiverId = MailReceiver.Id;
                         OriginalMail.MailRelation = (byte)MailDirection;
                         await MailService.SendMail(OriginalMail, RelatedToCurrentMailOrders.ToArray());
                         ShowSuccess("Wiadomość pomyślnie wysłana");
