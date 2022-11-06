@@ -43,8 +43,8 @@ namespace OrderTrackingSystem.Logic.Services
     public class ConfigurationService : IConfigurationService
     {
         private static readonly string SQLServerName = @"WLODEKPC\SQLEXPRESS";
-        public static readonly string D3ConnectionStringMarsOff = $@"data source={SQLServerName};initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=False";
-        public static readonly string D3ConnectionString = $@"data source={SQLServerName};initial catalog=OrderTrackingSystem;integrated security=True;MultipleActiveResultSets=True";
+        public static readonly string D3ConnectionStringMarsOff = $@"data source={SQLServerName};initial catalog=DyplomDB;integrated security=True;MultipleActiveResultSets=False";
+        public static readonly string D3ConnectionString = $@"data source={SQLServerName};initial catalog=DyplomDB;integrated security=True;MultipleActiveResultSets=True";
         public static readonly string D3EntityFrameworkPrefix = @"metadata=res://*/DataAccessLayer.OrderTrackingSystemModel.csdl|res://*/DataAccessLayer.OrderTrackingSystemModel.ssdl|res://*/DataAccessLayer.OrderTrackingSystemModel.msl;provider=System.Data.SqlClient;provider connection string='{0}'";
 
         private static readonly char[] CharArray = 

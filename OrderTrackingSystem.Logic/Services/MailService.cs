@@ -30,7 +30,9 @@ namespace OrderTrackingSystem.Logic.Services
                 var customer = await dbContext.Customers.Where(c => c.Id == senderId).FirstAsync();
 
                 var query = from mail in dbContext.Mails
-                            where mail.SenderId == senderId
+                            where mail.SenderId == senderId &&
+                                  (mail.MailRelation == (int)MailDirectionType.CustomerToSeller ||
+                                   mail.MailRelation == (int)MailDirectionType.CustomerToCustomer)
                             select new MailDTO
                             {
                                 Id = mail.Id,
@@ -90,7 +92,9 @@ namespace OrderTrackingSystem.Logic.Services
                 var customer = await dbContext.Customers.Where(c => c.Id == receiverId).FirstAsync();
 
                 var query = from mail in dbContext.Mails
-                            where mail.ReceiverId == receiverId
+                            where mail.ReceiverId == receiverId &&
+                                  (mail.MailRelation == (int)MailDirectionType.CustomerToCustomer ||
+                                   mail.MailRelation == (int)MailDirectionType.SellerToCustomer)
                             select new MailDTO
                             {
                                 Id = mail.Id,
@@ -325,9 +329,9 @@ namespace OrderTrackingSystem.Logic.Services
                 var mailDAL = new Mails
                 {
                     Caption = Properties.Resources.ComplaintSetHeader,
-                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint, 
-                                            order.Number, 
-                                            definition?.ComplaintName ?? string.Empty, 
+                    Content = string.Format(Properties.Resources.MailAutomaticSetComplaint,
+                                            order.Number,
+                                            definition?.ComplaintName ?? string.Empty,
                                             customer.Name),
                     Date = DateTime.Now,
                     SenderId = sellerId,
@@ -342,7 +346,7 @@ namespace OrderTrackingSystem.Logic.Services
 
         public async Task AddNewMail(Mails mail)
         {
-           await base.AddEntity(mail);
+            await base.AddEntity(mail);
         }
     }
 }
