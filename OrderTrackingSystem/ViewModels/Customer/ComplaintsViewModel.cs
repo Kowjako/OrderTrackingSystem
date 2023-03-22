@@ -38,11 +38,16 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public override async Task SetInitializeProperties()
         {
-            CurrentCustomer = await CustomerService.GetCurrentCustomer();
-            ComplaintFolderList = await ComplaintService.GetComplaintFolders();
-            ComplaintsList = await ComplaintService.GetComplaintsForCustomer(CurrentCustomer.Id); //TODO: zrobic dla zalogowanego nabywcy
-            ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
-            AllComplaintFolderList = await ComplaintService.GetComplaintFoldersWithoutComposing();
+            Func<Task> fillCustomer = async () =>
+            {
+                CurrentCustomer = await CustomerService.GetCurrentCustomer();
+                ComplaintsList = await ComplaintService.GetComplaintsForCustomer(CurrentCustomer.Id);
+            };
+            Func<Task> fillFolder = async () => ComplaintFolderList = await ComplaintService.GetComplaintFolders();
+            Func<Task> fillDefs = async () => ComplaintDefinitionList = await ComplaintService.GetComplaintDefinitions();
+            Func<Task> fillAll = async () => AllComplaintFolderList = await ComplaintService.GetComplaintFoldersWithoutComposing();
+
+            await Task.WhenAll(fillCustomer(), fillFolder(), fillDefs(), fillAll());
             AllComplaintDefinitions = ComplaintDefinitionList;
             OnManyPropertyChanged(new[] { nameof(ComplaintFolderList), nameof(ComplaintsList), nameof(ComplaintDefinitionList), nameof(AllComplaintFolderList) });
         }
@@ -57,7 +62,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    if(SelectedFolder != null)
+                    if (SelectedFolder != null)
                     {
                         await ComplaintService.SaveComplaintTemplate(CurrentComplaint, SelectedFolder.Id);
                         ShowSuccess("Wzorzec został zapisany");
@@ -94,7 +99,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
             {
                 try
                 {
-                    switch(SelectedFolderDeleteType)
+                    switch (SelectedFolderDeleteType)
                     {
                         case 0:
                             await ComplaintService.DeleteWithAncestor(SelectedFolder);
@@ -117,7 +122,7 @@ namespace OrderTrackingSystem.Presentation.ViewModels
         public RelayCommand CloseComplaint =>
             _closeComplaint ??= new RelayCommand(async obj =>
             {
-                if(SelectedComplaint.SolutionDate.HasValue)
+                if (SelectedComplaint.SolutionDate.HasValue)
                 {
                     var complaintDAL = new ComplaintStates() { Id = SelectedComplaint.Id };
                     await ComplaintService.CloseComplaint(complaintDAL);

@@ -43,10 +43,19 @@ namespace OrderTrackingSystem.Presentation.ViewModels
 
         public override async Task SetInitializeProperties()
         {
-            CurrentSender = await CustomerService.GetCustomer((await CustomerService.GetCurrentCustomer()).Id);
-            ReceivedMessages = await MailService.GetReceivedMailsForCustomer(CurrentSender.Id);
-            SentMessages = await MailService.GetSendMailsForCustomer(CurrentSender.Id);
-            CustomerOrders = await OrderService.GetOrdersForCustomer(CurrentSender.Id);
+            Func<Task> fillSender = async () =>
+            {
+                var customer = await CustomerService.GetCurrentCustomer();
+                CurrentSender = await CustomerService.GetCustomer(customer.Id);
+            };
+
+            await await fillSender().ContinueWith(async (x) =>
+            {
+                ReceivedMessages = await MailService.GetReceivedMailsForCustomer(CurrentSender.Id);
+                SentMessages = await MailService.GetSendMailsForCustomer(CurrentSender.Id);
+                CustomerOrders = await OrderService.GetOrdersForCustomer(CurrentSender.Id);
+            });
+
             OnManyPropertyChanged(new[] { nameof(CurrentSender), nameof(ReceivedMessages), nameof(SentMessages), nameof(CustomerOrders) });
         }
 
